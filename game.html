@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Player - FRESHPLAY ARCADE</title>
+
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' placehold.co data:;">
+
+		<link rel="stylesheet" href="/assets/css/style.css">
+	</head>
+		
+	<body class="flex flex-col min-h-screen">
+		<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
+			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
+				<a href="/index.html" class="flex items-center gap-2 group">
+					<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1 group-hover:bg-[#1a1a1a] transition-colors">
+						<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+						<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+					</div>
+				</a>
+
+				<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase">
+					<a href="/explore.html?category=all" class="hover:text-white transition-colors">New</a>
+					<a href="/explore.html?category=puzzle" class="hover:text-white transition-colors">Puzzle</a>
+					<a href="/explore.html?category=action" class="hover:text-white transition-colors">Action</a>
+					<a href="/explore.html?category=sports" class="hover:text-white transition-colors">Sports</a>
+				</nav>
+
+				<div class="hidden md:flex items-center gap-4">
+					<div class="search-container group">
+						<input type="text" id="global-search" placeholder="Search games..." class="search-input text-white pl-4 pr-10 py-1.5 rounded outline-none text-xs font-mono border focus:border-[#00ff00]">
+						<svg class="search-icon w-5 h-5 text-white group-hover:text-[#00ff00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+						</svg>
+						<div id="search-dropdown" class="search-dropdown rounded-b"></div>
+					</div>
+				</div>
+
+				<button id="mobile-menu-btn" class="md:hidden text-white">
+					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</button>
+			</div>
+		</header>
+
+		<div class="container mx-auto px-4 py-6">
+			<div class="flex justify-center w-full">
+				<div class="ad-slot ad-leaderboard max-w-4xl border-[#27272a]">
+					ADVERTISEMENT<br>AD SLOT (LEADERBOARD)
+				</div>
+			</div>
+		</div>
+
+		<main class="flex-grow container mx-auto px-4 pb-12">
+			<div class="flex flex-col lg:flex-row gap-8">
+				<div class="w-full lg:w-3/4">
+					<div id="game-hero-container" class="relative w-full aspect-[16/9] bg-[#0f0f0f] rounded-lg overflow-hidden border border-[#27272a] shadow-2xl group">
+						<img id="game-hero-img" src="" alt="Game Background" class="absolute inset-0 w-full h-full object-cover opacity-30 transition-transform duration-1000 group-hover:scale-105">
+						<div class="absolute inset-0 bg-gradient-to-r from-[#0f0f0f] via-[#0f0f0f]/80 to-transparent"></div>
+
+						<div id="game-start-overlay" class="absolute inset-0 flex flex-col justify-center p-8 md:p-14 w-full md:w-2/3 z-10">
+							<span class="bg-[#00ff00] text-black text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase w-max mb-4 tracking-widest">Featured</span>
+							<h1 id="hero-game-title" class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wide uppercase font-liberation drop-shadow-md">...</h1>
+							<p id="hero-game-desc" class="text-[#a1a1aa] text-sm md:text-base mb-8 line-clamp-3 leading-relaxed">...</p>
+							<button id="play-game-btn" class="flex items-center justify-center gap-2 bg-[#00ff00] text-black font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm w-max transition-transform hover:-translate-y-1">
+								<svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+									<path d="M5 3v18l15-9L5 3z"></path>
+								</svg> Play Now
+							</button>
+						</div>
+
+						<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+					</div>
+
+					<div class="bg-[#1a1a1a] rounded-lg border border-[#27272a] p-6 md:p-8 mt-6">
+						<div class="flex justify-between items-start border-b border-[#27272a] pb-6 mb-6">
+							<div>
+								<h2 id="info-game-title" class="text-2xl font-bold text-white uppercase font-liberation tracking-widest">...</h2>
+								<p id="info-game-author" class="text-[10px] text-[#00ff00] font-mono mt-2 uppercase tracking-widest">...</p>
+							</div>
+							<!-- <button class="hidden md:flex items-center gap-2 bg-[#0f0f0f] border border-[#3f3f46] hover:border-[#00ff00] text-white text-xs px-4 py-2 rounded transition-colors font-mono uppercase tracking-widest">
+								<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+								</svg> Share
+							</button> -->
+						</div>
+
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+							<div>
+								<h3 class="flex items-center gap-2 text-white font-bold text-sm tracking-widest mb-4 uppercase font-liberation">
+									<svg width="18" height="18" fill="none" stroke="#00ff00" stroke-width="2" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+									</svg> Description
+								</h3>
+								<p id="info-game-desc" class="text-[#a1a1aa] text-xs leading-relaxed font-mono">...</p>
+							</div>
+
+							<div>
+								<h3 class="flex items-center gap-2 text-white font-bold text-sm tracking-widest mb-4 uppercase font-liberation">
+									<svg width="18" height="18" fill="none" stroke="#00ff00" stroke-width="2" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+										</path>
+										<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+									</svg> How to Play
+								</h3>
+								<ul class="text-xs text-[#a1a1aa] space-y-3 font-mono">
+									<li class="flex items-center">
+										<div class="flex gap-1">
+											<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-2 py-1 rounded min-w-[28px] text-center">W</span>
+											<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-2 py-1 rounded min-w-[28px] text-center">A</span>
+											<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-2 py-1 rounded min-w-[28px] text-center">S</span>
+											<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-2 py-1 rounded min-w-[28px] text-center">D</span>
+										</div>
+										<span class="uppercase text-[#52525b] ml-4 tracking-widest">Move</span>
+									</li>
+									<li class="flex items-center">
+										<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-4 py-1 rounded text-center tracking-widest">SPACE</span>
+										<span class="uppercase text-[#52525b] ml-4 tracking-widest">Shoot / Action</span>
+									</li>
+									<li class="flex items-center">
+										<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-4 py-1 rounded text-center tracking-widest">P</span>
+										<span class="uppercase text-[#52525b] ml-4 tracking-widest">Pause</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<aside class="w-full lg:w-1/4 space-y-8">
+
+					<div class="ad-slot ad-square md:h-[600px] rounded border-[#27272a] flex-col gap-2">
+						<span>ADVERTISEMENT</span>
+						<span>AD SLOT (SKYSCRAPER)</span>
+					</div>
+
+					<div class="bg-[#1a1a1a] rounded border border-[#27272a] p-5">
+						<h3 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-b border-[#27272a] pb-2 font-liberation">Similar Games</h3>
+						<div class="grid grid-cols-2 gap-3">
+							<a href="/game.html?id=space-pew" class="group">
+								<div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative">
+									<img src="https://placehold.co/200x120/1a1a1a/00ff00?text=SPACE" alt="Space Pew" class="w-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity">
+								</div>
+								<h4 class="text-xs font-bold text-white truncate">Space Pew</h4>
+								<p class="text-[9px] text-[#52525b] font-mono uppercase tracking-widest mt-0.5">Action</p>
+							</a>
+							<a href="/game.html?id=strike-force" class="group">
+								<div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative">
+									<img src="https://placehold.co/200x120/1a1a1a/00ff00?text=STRIKE" alt="Strike Force" class="w-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity">
+								</div>
+								<h4 class="text-xs font-bold text-white truncate">Strike Force</h4>
+								<p class="text-[9px] text-[#52525b] font-mono uppercase tracking-widest mt-0.5">Action</p>
+							</a>
+							<a href="/game.html?id=star-pilot" class="group">
+								<div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative">
+									<img src="https://placehold.co/200x120/1a1a1a/00ff00?text=STAR" alt="Star Pilot" class="w-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity">
+								</div>
+								<h4 class="text-xs font-bold text-white truncate">Star Pilot</h4>
+								<p class="text-[9px] text-[#52525b] font-mono uppercase tracking-widest mt-0.5">Action</p>
+							</a>
+							<a href="/game.html?id=retro-racer" class="group">
+								<div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative">
+									<img src="https://placehold.co/200x120/1a1a1a/00ff00?text=NOVA" alt="Nova Run" class="w-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity">
+								</div>
+								<h4 class="text-xs font-bold text-white truncate">Nova Run</h4>
+								<p class="text-[9px] text-[#52525b] font-mono uppercase tracking-widest mt-0.5">Racing</p>
+							</a>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</main>
+
+		<footer class="bg-[#1a1a1a] border-t border-[#27272a] pt-12 pb-6 mt-auto">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm">
+					<div class="md:col-span-2 flex flex-col items-start gap-4">
+						<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1">
+							<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+							<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+						</div>
+						<p class="text-xs max-w-sm leading-relaxed">Premium, high-energy HTML5 gaming portal. Instant play, zero friction. Get straight into the action with the best web games available.</p>
+					</div>
+					<div>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">Explore</h4>
+						<ul class="space-y-2 text-xs">
+							<li><a href="/explore.html?category=all" class="hover:text-[#00ff00]">New Releases</a></li>
+							<li><a href="/explore.html" class="hover:text-[#00ff00]">All Categories</a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">Company</h4>
+						<ul class="space-y-2 text-xs">
+							<li><a href="/contact.html" class="hover:text-[#00ff00]">Contact</a></li>
+							<li><a href="/privacy.html" class="hover:text-[#00ff00]">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="border-t border-[#27272a] pt-6 flex justify-between text-[10px] text-[#52525b] font-mono">
+					<p>&copy; 2026 FreshPlay Arcade. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="/assets/js/main.js" defer></script>
+		<script src="/assets/js/game-loader.js" defer></script>
+	</body>
+</html>

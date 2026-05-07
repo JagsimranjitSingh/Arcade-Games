@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Explore Games - FRESHPLAY ARCADE</title>
+		<meta name="description" content="Browse our extensive library of HTML5 games across Action, Puzzle, Racing, and Sports categories.">
+
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.tailwindcss.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net; font-src fonts.gstatic.com; img-src 'self' placehold.co data:;">
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<link rel="stylesheet" href="/assets/css/style.css">
+	</head>
+	
+	<body class="flex flex-col min-h-screen">
+		<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
+			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
+				<a href="/index.html" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
+					<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1 group-hover:bg-[#1a1a1a] transition-colors">
+						<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+						<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+					</div>
+				</a>
+
+				<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase">
+					<a href="/explore.html?category=all" class="hover:text-white transition-colors">New</a>
+					<a href="/explore.html?category=puzzle" class="hover:text-white transition-colors">Puzzle</a>
+					<a href="/explore.html?category=action" class="hover:text-white transition-colors">Action</a>
+					<a href="/explore.html?category=sports" class="hover:text-white transition-colors">Sports</a>
+				</nav>
+
+				<div class="hidden md:flex items-center gap-4">
+					<div class="search-container group">
+						<input type="text" id="global-search" placeholder="Search games..." class="search-input text-white pl-4 pr-10 py-1.5 rounded outline-none text-xs font-mono border focus:border-[#00ff00]">
+						<svg class="search-icon w-5 h-5 text-white group-hover:text-[#00ff00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+						</svg>
+						<div id="search-dropdown" class="search-dropdown rounded-b"></div>
+					</div>
+				</div>
+
+				<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Open Mobile Menu">
+					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</button>
+			</div>
+		</header>
+
+		<main class="flex-grow container mx-auto px-4 py-8">
+			<div class="flex justify-center mb-10 w-full">
+				<div class="ad-slot ad-leaderboard max-w-4xl">
+					ADVERTISEMENT<br>AD SLOT (LEADERBOARD)
+				</div>
+			</div>
+
+			<h1 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest mb-8 font-liberation">Explore Games</h1>
+
+			<div
+				class="flex flex-col md:flex-row gap-4 justify-between items-center bg-[#1a1a1a] p-4 rounded border border-[#27272a] mb-12">
+				<div class="flex items-center gap-4 w-full md:w-auto">
+					<div class="flex items-center gap-2 text-[#a1a1aa] font-mono text-xs uppercase tracking-widest">
+						<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+							</path>
+						</svg>
+						Filters:
+					</div>
+					<select id="category-filter" title="Filter games by category" class="bg-[#0f0f0f] border border-[#3f3f46] text-white text-xs rounded px-3 py-2 outline-none focus:border-[#00ff00] font-mono cursor-pointer uppercase">
+						<option value="all">All Categories</option>
+						<option value="action">Action</option>
+						<option value="puzzle">Puzzle</option>
+						<option value="sports">Sports</option>
+						<option value="racing">Racing</option>
+					</select>
+				</div>
+			</div>
+
+			<section class="mb-16 explore-category-section" data-category="action">
+				<div class="flex items-center justify-between mb-6 border-b border-[#27272a] pb-2">
+					<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-white font-liberation">
+						<span class="text-[#00ff00]">⚔️</span> Action Games
+					</h2>
+					<div class="flex gap-2">
+						<div class="swiper-button-prev-action cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+							</svg>
+						</div>
+						<div class="swiper-button-next-action cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="swiper swiper-action">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<a href="/game.html?id=strike-force" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=STRIKE+FORCE" alt="Strike Force" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Strike Force</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=zombie-survive" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=ZOMBIE+SURVIVE" alt="Zombie Survive" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Zombie Survive</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=strike-force" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=STRIKE+FORCE" alt="Strike Force" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Strike Force</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=zombie-survive" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=ZOMBIE+SURVIVE" alt="Zombie Survive" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Zombie Survive</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=strike-force" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=STRIKE+FORCE" alt="Strike Force" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Strike Force</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=zombie-survive" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=ZOMBIE+SURVIVE" alt="Zombie Survive" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Zombie Survive</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div class="flex justify-center w-full my-12">
+				<div class="ad-slot ad-leaderboard max-w-4xl border-[#27272a]">
+					ADVERTISEMENT<br>AD SLOT (LEADERBOARD)
+				</div>
+			</div>
+
+			<section class="mb-16 explore-category-section" data-category="puzzle">
+				<div class="flex items-center justify-between mb-6 border-b border-[#27272a] pb-2">
+					<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-white font-liberation">
+						<span class="text-[#00ff00]">🧩</span> Puzzle Games
+					</h2>
+					<div class="flex gap-2">
+						<div class="swiper-button-prev-puzzle cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+							</svg>
+						</div>
+						<div class="swiper-button-next-puzzle cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="swiper swiper-puzzle">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<a href="/game.html?id=cosmic-cube" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=COSMIC+CUBE" alt="Cosmic Cube" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Cosmic Cube</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">PUZZLE</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=strike-force" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=STRIKE+FORCE" alt="Strike Force" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Strike Force</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=zombie-survive" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=ZOMBIE+SURVIVE" alt="Zombie Survive" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Zombie Survive</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=strike-force" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=STRIKE+FORCE" alt="Strike Force" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Strike Force</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=zombie-survive" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=ZOMBIE+SURVIVE" alt="Zombie Survive" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Zombie Survive</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+						<div class="swiper-slide">
+							<a href="/game.html?id=zombie-survive" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a]">
+								<img src="https://placehold.co/400x250/1a1a1a/00ff00?text=ZOMBIE+SURVIVE" alt="Zombie Survive" class="w-full aspect-video object-cover" loading="lazy">
+								<div class="p-3">
+									<h3 class="font-bold text-sm text-white truncate uppercase">Zombie Survive</h3>
+									<p class="text-[10px] text-[#a1a1aa] font-mono mt-1">ACTION</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div class="flex flex-col items-center gap-6 mt-12 mb-16">
+				<button id="load-more-btn" class="bg-transparent border border-[#00ff00] text-[#00ff00] hover:bg-[#00ff00] hover:text-black px-8 py-3 rounded uppercase font-bold tracking-widest text-xs font-mono transition-all">
+					Load More Games
+				</button>
+				<button id="back-to-top" class="text-[#52525b] hover:text-[#00ff00] text-[10px] font-mono uppercase tracking-[0.3em] flex flex-col items-center gap-2 transition-colors">
+					<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+					</svg>
+					Back To Top
+				</button>
+		</div>
+		</main>
+
+		<footer class="bg-[#1a1a1a] border-t border-[#27272a] pt-12 pb-6 mt-auto">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm">
+					<div class="md:col-span-2 flex flex-col items-start gap-4">
+						<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1">
+							<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+							<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+						</div>
+						<p class="text-xs max-w-sm">Premium HTML5 gaming portal. Instant play, zero friction.</p>
+					</div>
+					<div>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">Explore</h4>
+						<ul class="space-y-2 text-xs">
+							<li><a href="/explore.html?category=all" class="hover:text-[#00ff00]">New Releases</a></li>
+							<li><a href="/explore.html" class="hover:text-[#00ff00]">All Categories</a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">Company</h4>
+						<ul class="space-y-2 text-xs">
+							<li><a href="/contact.html" class="hover:text-[#00ff00]">Contact</a></li>
+							<li><a href="/privacy.html" class="hover:text-[#00ff00]">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="border-t border-[#27272a] pt-6 flex justify-between text-[10px] text-[#52525b] font-mono">
+					<p>&copy; 2026 FreshPlay Arcade. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="/assets/js/main.js" defer></script>
+		<script src="/assets/js/slider.js" defer></script>
+	</body>
+</html>
