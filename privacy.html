@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Privacy Policy - FRESHPLAY ARCADE</title>
+		<meta name="description" content="Privacy Policy for FreshPlay Arcade. Learn how we collect, use, and safeguard your data.">
+
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' placehold.co data:;">
+
+		<link rel="stylesheet" href="/assets/css/style.css">
+	</head>
+	
+	<body class="flex flex-col min-h-screen">
+		<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
+			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
+				<a href="/index.html" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
+					<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1 group-hover:bg-[#1a1a1a] transition-colors">
+						<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+						<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+					</div>
+				</a>
+
+				<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase" aria-label="Main Navigation">
+					<a href="/explore.html?category=all" class="hover:text-white transition-colors">New</a>
+					<a href="/explore.html?category=puzzle" class="hover:text-white transition-colors">Puzzle</a>
+					<a href="/explore.html?category=action" class="hover:text-white transition-colors">Action</a>
+					<a href="/explore.html?category=sports" class="hover:text-white transition-colors">Sports</a>
+				</nav>
+
+				<div class="hidden md:flex items-center gap-4">
+					<div class="search-container group">
+						<input type="text" id="global-search" placeholder="Search games..." class="search-input text-white pl-4 pr-10 py-1.5 rounded outline-none text-xs font-mono border focus:border-[#00ff00]" aria-label="Search Games">
+						<svg class="search-icon w-5 h-5 text-white group-hover:text-[#00ff00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+						</svg>
+						<div id="search-dropdown" class="search-dropdown rounded-b" aria-live="polite"></div>
+					</div>
+				</div>
+
+				<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Open Mobile Menu">
+					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</button>
+			</div>
+
+			<nav id="mobile-menu" class="hidden flex-col bg-[#1a1a1a] border-b border-[#27272a] p-4 gap-4 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase absolute w-full z-40" aria-label="Mobile Navigation">
+				<a href="/explore.html?category=all" class="hover:text-white py-2">New</a>
+				<a href="/explore.html?category=puzzle" class="hover:text-white py-2">Puzzle</a>
+				<a href="/explore.html?category=action" class="hover:text-white py-2">Action</a>
+				<a href="/explore.html?category=sports" class="hover:text-white py-2">Sports</a>
+			</nav>
+		</header>
+
+		<main class="flex-grow container mx-auto px-4 py-12">
+			<div class="max-w-6xl mx-auto mb-10 pb-6 border-b border-[#27272a]">
+				<h1 class="text-3xl md:text-5xl font-bold text-white tracking-widest uppercase mb-4 font-liberation">Privacy Policy</h1>
+				<p class="text-xs text-[#00ff00] font-mono tracking-widest uppercase">Effective Date: May 8, 2026</p>
+			</div>
+
+			<div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 relative">
+				<aside class="w-full md:w-1/4 hidden md:block">
+					<div class="bg-[#1a1a1a] border border-[#27272a] rounded p-6 sticky top-24 max-h-[80vh] overflow-y-auto no-scrollbar">
+						<h3 class="text-sm font-bold text-white uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#00ff00] pl-3">Contents</h3>
+						<ul class="space-y-4 text-xs text-[#a1a1aa] font-mono">
+							<li><a href="#intro" class="hover:text-[#00ff00] transition-colors block">1. Introduction</a></li>
+							<li><a href="#collection" class="hover:text-[#00ff00] transition-colors block">2. Information We Collect</a></li>
+							<li><a href="#usage" class="hover:text-[#00ff00] transition-colors block">3. How We Use Your Info</a></li>
+							<li><a href="#cookies" class="hover:text-[#00ff00] transition-colors block">4. Cookies & Tracking</a></li>
+							<li><a href="#third-party" class="hover:text-[#00ff00] transition-colors block">5. Third-Party Ads</a></li>
+							<li><a href="#sharing" class="hover:text-[#00ff00] transition-colors block">6. Data Sharing</a></li>
+							<li><a href="#security" class="hover:text-[#00ff00] transition-colors block">7. Data Security</a></li>
+							<li><a href="#links" class="hover:text-[#00ff00] transition-colors block">8. Third-Party Links</a></li>
+							<li><a href="#children" class="hover:text-[#00ff00] transition-colors block">9. Children's Privacy</a></li>
+							<li><a href="#rights" class="hover:text-[#00ff00] transition-colors block">10. Your Privacy Rights</a></li>
+							<li><a href="#changes" class="hover:text-[#00ff00] transition-colors block">11. Changes to Policy</a></li>
+							<li><a href="#contact" class="hover:text-[#00ff00] transition-colors block">12. Contact Us</a></li>
+						</ul>
+					</div>
+				</aside>
+
+				<div class="w-full md:w-3/4 space-y-12 text-[#a1a1aa] text-sm leading-relaxed">
+					<section id="intro" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">1. Introduction</h2>
+						<p>Welcome to FreshPlay Arcade ("we," "our," or "us"). We are an online arcade game web portal dedicated to providing users with browser-based gaming entertainment. We respect your privacy and are committed to protecting the personal information you share with us.</p>
+						<p class="mt-4">This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services. By accessing or using FreshPlay Arcade, you acknowledge that you have read, understood, and agree to the terms of this Privacy Policy. If you do not agree with this Policy, please refrain from using our website.</p>
+					</section>
+
+					<section id="collection" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">2. Information We Collect</h2>
+						<p class="mb-4">In order to provide and improve our gaming services, we may collect the following types of information:</p>
+
+						<h3 class="text-white font-bold mt-6 mb-2">A. Automatically Collected Information</h3>
+						<p class="mb-3">When you access FreshPlay Arcade, we automatically collect certain technical information about your device and your visit. This does not directly reveal your specific identity but may include:</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-[#00ff00]">
+							<li><strong class="text-white">Device and Network Data:</strong> Your IP address, browser type and version, operating system, and device type.</li>
+							<li><strong class="text-white">Usage Data:</strong> Pages visited, the time and date of your visit, the time spent on those pages, referring/exit URLs, and clickstream data.</li>
+							<li><strong class="text-white">Gameplay Data:</strong> High scores, achievements, game progress, and interactions within supported browser-based games.</li>
+						</ul>
+
+						<h3 class="text-white font-bold mt-6 mb-2">B. Information You Provide to Us</h3>
+						<p class="mb-3">If we offer user accounts or you choose to contact us directly, we may collect:</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-[#00ff00]">
+							<li><strong class="text-white">Account Information:</strong> If you register for an account, we may collect your chosen username, email address, and password.</li>
+							<li><strong class="text-white">Communications:</strong> Any information you provide when you contact our support team, participate in surveys, or report a problem with our website.</li>
+						</ul>
+					</section>
+
+					<section id="usage" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">3. How We Use Your Information</h2>
+						<p class="mb-4">We use the collected information for various operational and business purposes, including to:</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-[#00ff00]">
+							<li>Provide, operate, and maintain the FreshPlay Arcade web portal and its games.</li>
+							<li>Improve, personalize, and expand our website's layout, content, and gaming offerings.</li>
+							<li>Understand and analyze how you use our website to monitor trends and user behavior.</li>
+							<li>Develop new products, services, features, and functionality.</li>
+							<li>Serve relevant advertisements and manage our advertising network.</li>
+							<li>Communicate with you for customer service, updates, and website-related information.</li>
+							<li>Find and prevent fraud, spam, and security breaches to ensure compliance with our Terms of Service.</li>
+						</ul>
+					</section>
+
+					<section id="cookies" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">4. Cookies and Tracking Technologies</h2>
+						<p class="mb-4">FreshPlay Arcade uses cookies, web beacons, and similar tracking technologies to enhance your user experience.</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-[#00ff00]">
+							<li><strong class="text-white">Cookies:</strong> Small data files stored on your device that help us remember your preferences, track user trends, and facilitate login sessions.</li>
+							<li><strong class="text-white">Managing Cookies:</strong> You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you choose to disable cookies, some portions or features of our games and website may not function properly.</li>
+						</ul>
+					</section>
+
+					<section id="third-party" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">5. Third-Party Services & Advertising</h2>
+						<p class="mb-4">As a free-to-play arcade portal, we rely on third-party services to host games, analyze traffic, and display advertisements.</p>
+						<ul class="list-disc pl-5 space-y-4 marker:text-[#00ff00]">
+							<li><strong class="text-white">Third-Party Game Developers:</strong> Some of the browser-based HTML5 games on FreshPlay Arcade are provided by independent third-party developers. While playing these games, limited technical data may be processed by them to ensure proper game functionality.</li>
+							<li><strong class="text-white">Advertising Partners:</strong> We use third-party advertising companies (such as Google AdSense/Ad Exchange) to serve ads when you visit our website. These partners may use cookies to serve personalized ads based on your prior visits to our website and other websites on the Internet.</li>
+							<li><strong class="text-white">Analytics Providers:</strong> We use analytics tools (such as Google Analytics) to monitor and analyze web traffic and user behavior.</li>
+						</ul>
+						<p class="mt-4 p-4 bg-[#1a1a1a] border-l-2 border-[#00ff00] text-xs font-mono">Note: We do not control the privacy practices of these third parties. You may opt out of certain personalized advertising by visiting the respective ad network's consumer opt-out pages (e.g., Google’s Ad Settings).</p>
+					</section>
+
+					<section id="sharing" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">6. Data Sharing and Disclosure</h2>
+						<p class="mb-4">We do not sell, rent, or trade your personal information to third parties. We may share your information only in the following situations:</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-[#00ff00]">
+							<li><strong class="text-white">With Service Providers:</strong> We may share data with trusted vendors, hosting providers, and technical partners who assist us in operating the website and delivering services to you, strictly under confidentiality agreements.</li>
+							<li><strong class="text-white">For Legal Reasons:</strong> We will disclose your information where required to do so by law, in response to a valid subpoena, court order, or governmental request.</li>
+							<li><strong class="text-white">Business Transfers:</strong> In the event of a merger, acquisition, or asset sale, your information may be transferred. We will provide notice before your personal information is transferred and becomes subject to a different Privacy Policy.</li>
+						</ul>
+					</section>
+
+					<section id="security" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">7. Data Security</h2>
+						<p>We take the security of your information seriously and implement reasonable administrative, technical, and physical safeguards designed to protect your data from unauthorized access, disclosure, alteration, or destruction. However, please be aware that no method of transmission over the internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your data, we cannot guarantee its absolute security.</p>
+					</section>
+
+					<section id="links" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">8. Third-Party Links</h2>
+						<p>FreshPlay Arcade may contain links to external websites, application stores, or third-party services that are not operated by us. If you click on a third-party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
+					</section>
+
+					<section id="children" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">9. Children’s Privacy</h2>
+						<p>FreshPlay Arcade is not intended for children under the age of 13 (or the equivalent minimum age in your jurisdiction). We do not knowingly collect personally identifiable information from children under this age without verifiable parental consent. If you are a parent or guardian and you believe your child has provided us with personal information, please contact us immediately so that we can take necessary actions to remove such data from our servers.</p>
+					</section>
+
+					<section id="rights" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">10. Your Privacy Rights</h2>
+						<p class="mb-4">Depending on your jurisdiction (such as the GDPR for European users or CCPA for California residents), you may have specific rights regarding your personal data, including:</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-[#00ff00]">
+							<li>The right to access the personal information we hold about you.</li>
+							<li>The right to request that we correct any inaccurate or incomplete data.</li>
+							<li>The right to request the deletion of your personal data.</li>
+							<li>The right to object to or restrict certain processing activities.</li>
+						</ul>
+						<p class="mt-4">To exercise any of these rights, please contact us using the information provided below.</p>
+					</section>
+
+					<section id="changes" class="scroll-mt-24">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">11. Changes to This Policy</h2>
+						<p>We reserve the right to update or modify this Privacy Policy at any time. Any changes will be effective immediately upon posting the updated Policy on this page, with a revised "Effective Date" at the top. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.</p>
+					</section>
+
+					<section id="contact" class="scroll-mt-24 mb-10">
+						<h2 class="text-xl text-white font-bold mb-4 font-liberation tracking-widest uppercase">12. Contact Us</h2>
+						<p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at:</p>
+						<div class="mt-4 bg-[#1a1a1a] p-4 rounded border border-[#27272a] inline-block">
+							<p class="text-white font-bold mb-1">FreshPlay Arcade Privacy Team</p>
+							<p class="font-mono text-xs">Email: <a href="mailto:privacy@freshplayarcade.com" class="text-[#00ff00] hover:underline">privacy@freshplayarcade.com</a></p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
+
+		<footer class="bg-[#1a1a1a] border-t border-[#27272a] pt-12 pb-6 mt-auto relative z-10">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm leading-relaxed">
+					<div class="md:col-span-2 flex flex-col items-start gap-4">
+						<a href="/index.html" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
+							<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1 group-hover:bg-[#0f0f0f] transition-colors">
+								<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+								<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+							</div>
+						</a>
+						<p class="text-xs max-w-sm">Premium, high-energy HTML5 gaming portal. Instant play, zero friction. Get straight into the action with the best web games available.</p>
+					</div>
+
+					<div>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#00ff00] pl-2 font-liberation">Explore</h4>
+						<ul class="space-y-2 text-xs">
+							<li><a href="/explore.html?category=all" class="hover:text-[#00ff00] transition-colors">New Releases</a>
+							</li>
+							<li><a href="/explore.html" class="hover:text-[#00ff00] transition-colors">All Categories</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#00ff00] pl-2 font-liberation">Company</h4>
+						<ul class="space-y-2 text-xs">
+							<li><a href="/contact.html" class="hover:text-[#00ff00] transition-colors">Contact</a></li>
+							<li><a href="/privacy.html" class="hover:text-[#00ff00] transition-colors">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="border-t border-[#27272a] pt-6 flex flex-col md:flex-row items-center justify-between text-[10px] text-[#52525b] font-mono tracking-wider">
+					<p>&copy; 2026 FreshPlay Arcade. All rights reserved. Platform optimized for modern browsers.</p>
+					<div class="flex gap-4 mt-4 md:mt-0 items-center">
+						<a href="#" class="hover:text-white" aria-label="FreshPlay Arcade on Twitter">
+							<svg width="14" height="14"	fill="currentColor" viewBox="0 0 24 24">
+								<path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+							</svg>
+						</a>
+						<a href="#" class="hover:text-white" aria-label="FreshPlay Arcade on Facebook">
+							<svg width="14" height="14"	fill="currentColor" viewBox="0 0 24 24">
+								<path	d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
+							</svg>
+						</a>
+						<a href="#" class="hover:text-white" aria-label="FreshPlay Arcade on Instagram">
+							<svg width="14" height="14"	fill="currentColor" viewBox="0 0 24 24">
+								<path	d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204 013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="/assets/js/main.js" defer></script>
+	</body>
+</html>
