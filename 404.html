@@ -37,20 +37,41 @@
 					</div>
 				</div>
 
-				<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Open Mobile Menu">
+				<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Toggle Menu">
 					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
 					</svg>
 				</button>
 			</div>
-
-			<nav id="mobile-menu" class="hidden flex-col bg-[#1a1a1a] border-b border-[#27272a] p-4 gap-4 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase absolute w-full z-40" aria-label="Mobile Navigation">
-				<a href="/explore.html?category=all" class="hover:text-white py-2">New</a>
-				<a href="/explore.html?category=puzzle" class="hover:text-white py-2">Puzzle</a>
-				<a href="/explore.html?category=action" class="hover:text-white py-2">Action</a>
-				<a href="/explore.html?category=sports" class="hover:text-white py-2">Sports</a>
-			</nav>
 		</header>
+		<div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/80 z-[60] hidden opacity-0 transition-opacity duration-300" aria-hidden="true"></div>
+		<nav id="mobile-menu" class="fixed inset-y-0 right-0 w-[300px] max-w-full bg-[#1a1a1a] border-l border-[#27272a] z-[70] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col pt-5" aria-label="Mobile Navigation">
+			<div class="flex justify-end px-4 mb-2">
+				<button id="mobile-menu-close" class="text-[#a1a1aa] hover:text-white" aria-label="Close Menu">
+					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
+
+			<div class="px-6 mb-8">
+				<form action="/explore.html" method="get" class="relative">
+					<input type="text" name="q" placeholder="SEARCH GAMES..." class="w-full bg-transparent border-b border-[#3f3f46] focus:border-[#00ff00] pt-2 pb-2 pl-0 pr-10 text-sm font-mono text-white placeholder:text-[#52525b] outline-none tracking-widest transition-colors" aria-label="Search Games Mobile">
+					<button type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#52525b] hover:text-[#00ff00]" aria-label="Submit Search">
+						<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+						</svg>
+					</button>
+				</form>
+			</div>
+
+			<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase px-2">
+				<a href="/explore.html?category=all" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">New</a>
+				<a href="/explore.html?category=puzzle" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Puzzle</a>
+				<a href="/explore.html?category=action" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Action</a>
+				<a href="/explore.html?category=sports" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Sports</a>
+			</div>
+		</nav>
 
 		<main class="flex-grow flex items-center justify-center relative overflow-hidden py-20">
 			<div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"

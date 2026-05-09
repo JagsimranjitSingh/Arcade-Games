@@ -1,14 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-	// --- Mobile Menu Toggle ---
+	// --- Mobile Menu Toggle (Right-to-Left Slide & Backdrop) ---
 	const menuBtn = document.getElementById('mobile-menu-btn');
 	const mobileMenu = document.getElementById('mobile-menu');
+	const closeBtn = document.getElementById('mobile-menu-close');
+	const backdrop = document.getElementById('mobile-menu-backdrop');
 
-	if (menuBtn && mobileMenu) {
-		menuBtn.addEventListener('click', () => {
-			mobileMenu.classList.toggle('hidden');
-			mobileMenu.classList.toggle('flex');
-		});
+	function openMenu() {
+		if (backdrop) {
+			backdrop.classList.remove('hidden');
+			// Request animation frame ensures display:block applies before opacity transition starts
+			requestAnimationFrame(() => {
+				backdrop.classList.remove('opacity-0');
+				backdrop.classList.add('opacity-100');
+			});
+		}
+		if (mobileMenu) {
+			mobileMenu.classList.remove('translate-x-full');
+			mobileMenu.classList.add('translate-x-0');
+		}
 	}
+
+	function closeMenu() {
+		if (backdrop) {
+			backdrop.classList.remove('opacity-100');
+			backdrop.classList.add('opacity-0');
+			// Wait for the transition to finish before hiding the element
+			setTimeout(() => {
+				backdrop.classList.add('hidden');
+			}, 300);
+		}
+		if (mobileMenu) {
+			mobileMenu.classList.remove('translate-x-0');
+			mobileMenu.classList.add('translate-x-full');
+		}
+	}
+
+	if (menuBtn) menuBtn.addEventListener('click', openMenu);
+	if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+	if (backdrop) backdrop.addEventListener('click', closeMenu);
+
 
 	// --- Global Search Dropdown Logic ---
 	const searchInput = document.getElementById('global-search');

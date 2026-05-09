@@ -57,7 +57,12 @@ body {
 
 .no-scrollbar {
 	-ms-overflow-style: none;
-	scrollbar-width: none;
+}
+
+@supports (scrollbar-width: none) {
+	.no-scrollbar {
+		scrollbar-width: none;
+	}
 }
 
 /* Neon Glow Effects */
@@ -210,4 +215,10 @@ body {
 
 .game-card:hover {
   z-index: 50;
+}
+
+@media screen and (max-width: 400px) {
+	.custom-main-hero {
+		aspect-ratio: 10 / 14 !important;
+	}
 }

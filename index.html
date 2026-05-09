@@ -16,7 +16,7 @@
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' placehold.co data:;">
 		<link rel="stylesheet" href="/assets/css/style.css">
 		<link rel="icon" href="/assets/images/favicon.svg" type="image/x-icon">
-
+		
 		<script type="application/ld+json">
 			{
 				"@context": "https://schema.org",
@@ -31,7 +31,7 @@
 			}
 		</script>
 	</head>
-
+	
 	<body class="flex flex-col min-h-screen">
 		<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
 			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -42,8 +42,7 @@
 					</div>
 				</a>
 
-				<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase"
-					aria-label="Main Navigation">
+				<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase" aria-label="Main Navigation">
 					<a href="/explore.html?category=all" class="hover:text-white transition-colors">New</a>
 					<a href="/explore.html?category=puzzle" class="hover:text-white transition-colors">Puzzle</a>
 					<a href="/explore.html?category=action" class="hover:text-white transition-colors">Action</a>
@@ -60,20 +59,41 @@
 					</div>
 				</div>
 
-				<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Open Mobile Menu">
+				<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Toggle Menu">
 					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
 					</svg>
 				</button>
 			</div>
-
-			<nav id="mobile-menu" class="hidden flex-col bg-[#1a1a1a] border-b border-[#27272a] p-4 gap-4 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase absolute w-full z-40" aria-label="Mobile Navigation">
-				<a href="/explore.html?category=all" class="hover:text-white py-2">New</a>
-				<a href="/explore.html?category=puzzle" class="hover:text-white py-2">Puzzle</a>
-				<a href="/explore.html?category=action" class="hover:text-white py-2">Action</a>
-				<a href="/explore.html?category=sports" class="hover:text-white py-2">Sports</a>
-			</nav>
 		</header>
+		<div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/80 z-[60] hidden opacity-0 transition-opacity duration-300" aria-hidden="true"></div>
+		<nav id="mobile-menu" class="fixed inset-y-0 right-0 w-[300px] max-w-full bg-[#1a1a1a] border-l border-[#27272a] z-[70] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col pt-5" aria-label="Mobile Navigation">
+			<div class="flex justify-end px-4 mb-2">
+				<button id="mobile-menu-close" class="text-[#a1a1aa] hover:text-white" aria-label="Close Menu">
+					<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
+
+			<div class="px-6 mb-8">
+				<form action="/explore.html" method="get" class="relative">
+					<input type="text" name="q" placeholder="SEARCH GAMES..." class="w-full bg-transparent border-b border-[#3f3f46] focus:border-[#00ff00] pt-2 pb-2 pl-0 pr-10 text-sm font-mono text-white placeholder:text-[#52525b] outline-none tracking-widest transition-colors" aria-label="Search Games Mobile">
+					<button type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#52525b] hover:text-[#00ff00]" aria-label="Submit Search">
+						<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+						</svg>
+					</button>
+				</form>
+			</div>
+
+			<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase px-2">
+				<a href="/explore.html?category=all" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">New</a>
+				<a href="/explore.html?category=puzzle" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Puzzle</a>
+				<a href="/explore.html?category=action" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Action</a>
+				<a href="/explore.html?category=sports" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Sports</a>
+			</div>
+		</nav>
 
 		<main class="flex-grow container mx-auto px-4 py-8">
 			<div class="flex justify-center mb-10 w-full">
@@ -84,8 +104,9 @@
 
 			<div class="flex flex-col lg:flex-row gap-8">
 				<div class="w-full lg:w-3/4 flex flex-col gap-10">
+
 					<article class="relative bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#27272a] group">
-						<img src="https://placehold.co/1200x600/1a1a1a/00ff00?text=NEON+DRIFT" alt="Neon Drift Tokyo Nights gameplay thumbnail" class="w-full aspect-[21/9] object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" loading="eager">
+						<img src="https://placehold.co/1200x600/1a1a1a/00ff00?text=NEON+DRIFT" alt="Neon Drift Tokyo Nights gameplay thumbnail" class="w-full aspect-[12/12] md:aspect-[16/9] object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 custom-main-hero" loading="eager">
 						<div class="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent"></div>
 						<div class="absolute bottom-0 left-0 p-6 md:p-10 w-full md:w-3/4">
 							<div class="flex items-center gap-3 mb-3 font-mono text-xs font-bold uppercase">
@@ -306,46 +327,29 @@
 
 		<footer class="bg-[#1a1a1a] border-t border-[#27272a] pt-12 pb-6 mt-auto">
 			<div class="container mx-auto px-4">
-				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm leading-relaxed">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm">
 					<div class="md:col-span-2 flex flex-col items-start gap-4">
-						<a href="/index.html" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
-							<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1 group-hover:bg-[#0f0f0f] transition-colors">
-								<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
-								<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
-							</div>
-						</a>
-						<p class="text-xs max-w-sm">Premium, high-energy HTML5 gaming portal. Instant play, zero friction.
-							Get straight into the action with the best web games available.</p>
+						<div class="border border-[#00ff00] px-2 py-1 flex items-center gap-1">
+							<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+							<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
+						</div>
+						<p class="text-xs max-w-sm">Premium HTML5 gaming portal. Instant play, zero friction.</p>
 					</div>
-
 					<div>
-						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#00ff00] pl-2 font-liberation">Explore</h4>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">Explore</h4>
 						<ul class="space-y-2 text-xs">
-							<li>
-								<a href="/explore.html?category=all" class="hover:text-[#00ff00] transition-colors">New Releases</a>
-							</li>
-							<li>
-								<a href="#" class="hover:text-[#00ff00] transition-colors">Top Rated</a>
-							</li>
-							<li>
-								<a href="/explore.html" class="hover:text-[#00ff00] transition-colors">All Categories</a>
-							</li>
+							<li><a href="/explore.html?category=all" class="hover:text-[#00ff00]">New Releases</a></li>
+							<li><a href="/explore.html" class="hover:text-[#00ff00]">All Categories</a></li>
 						</ul>
 					</div>
-
 					<div>
-						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#00ff00] pl-2 font-liberation">Company</h4>
+						<h4 class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">Company</h4>
 						<ul class="space-y-2 text-xs">
-							<li>
-								<a href="/contact.html" class="hover:text-[#00ff00] transition-colors">Contact</a>
-							</li>
-							<li>
-								<a href="/privacy.html" class="hover:text-[#00ff00] transition-colors">Privacy Policy</a>
-							</li>
+							<li><a href="/contact.html" class="hover:text-[#00ff00]">Contact</a></li>
+							<li><a href="/privacy.html" class="hover:text-[#00ff00]">Privacy Policy</a></li>
 						</ul>
 					</div>
 				</div>
-
 				<div class="border-t border-[#27272a] pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-[#9696ab] font-mono tracking-wider">
 					<p>&copy; 2026 FreshPlay Arcade. All rights reserved. Platform optimized for modern browsers.</p>
 					<div class="flex gap-4 mt-4 md:mt-0 items-center">
@@ -368,7 +372,7 @@
 				</div>
 			</div>
 		</footer>
-
+		
 		<script src="https://cdn.tailwindcss.com"></script>
 		<script src="/assets/js/main.js" defer></script>
 	</body>
