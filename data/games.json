@@ -1,0 +1,114 @@
+[
+	{
+		"id": "neon-blade-dash",
+		"title": "Neon Blade Dash",
+		"category": "Action",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00ff00?text=NEON+BLADE+DASH",
+		"game_url": "/games/neon-blade-dash/index.html",
+		"description": "Swipe to slice incoming glowing geometric shapes while dodging red glitch blocks. Fast-paced reflex action with shifting cyber-palettes.",
+		"rating": "4.9",
+		"play_count": "1.2M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"action",
+			"slice",
+			"ninja",
+			"cyber",
+			"reflex"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"MOUSE",
+					"TOUCH"
+				],
+				"action": "Swipe to Slice"
+			},
+			{
+				"keys": [
+					"AVOID"
+				],
+				"action": "Red Glitch Blocks"
+			}
+		]
+	},
+	{
+		"id": "orbit-striker",
+		"title": "Orbit Striker",
+		"category": "Action",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00e5ff?text=ORBIT+STRIKER",
+		"game_url": "/games/orbit-striker/index.html",
+		"description": "Rotate a dual-colored shield around a central core to deflect matching incoming lasers.",
+		"rating": "4.7",
+		"play_count": "850K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"action",
+			"orbit",
+			"shield",
+			"deflect"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"A",
+					"D",
+					"ARROWS"
+				],
+				"action": "Rotate Shield"
+			}
+		]
+	},
+	{
+		"id": "hyper-hexagon",
+		"title": "Hyper Hexagon",
+		"category": "Action",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ffaa00?text=HYPER+HEXAGON",
+		"game_url": "/games/hyper-hexagon/index.html",
+		"description": "Navigate a constantly shrinking hexagonal maze by rotating your ship through the gaps.",
+		"rating": "4.8",
+		"play_count": "2.1M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"action",
+			"hexagon",
+			"maze",
+			"survival"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"LEFT",
+					"RIGHT"
+				],
+				"action": "Rotate Ship"
+			}
+		]
+	},
+	{
+		"id": "glitch-jumper",
+		"title": "Glitch Jumper",
+		"category": "Action",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff00ff?text=GLITCH+JUMPER",
+		"game_url": "/games/glitch-jumper/index.html",
+		"description": "Leap across platforms that flicker in and out of existence based on the background music rhythm.",
+		"rating": "4.6",
+		"play_count": "500K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"action",
+			"platformer",
+			"rhythm",
+			"jump"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"SPACE",
+					"TAP"
+				],
+				"action": "Jump"
+			}
+		]
+	}
+]
