@@ -1,494 +1,997 @@
-class PlayScene extends Phaser.Scene {
-	constructor() {
-		super('PlayScene');
+// ============================================================
+//  NEON BLADE DASH — Polished Edition
+//  FreshPlay Arcade | game.js
+// ============================================================
+
+// ── Utility helpers ──────────────────────────────────────────
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const hexToRgb = (hex) => ({
+	r: (hex >> 16) & 0xff,
+	g: (hex >> 8) & 0xff,
+	b: hex & 0xff
+});
+const lerpColor = (c1, c2, t) => {
+	const a = hexToRgb(c1), b = hexToRgb(c2);
+	const r = Math.round(lerp(a.r, b.r, t));
+	const g = Math.round(lerp(a.g, b.g, t));
+	const bl = Math.round(lerp(a.b, b.b, t));
+	return (r << 16) | (g << 8) | bl;
+};
+
+// ── Palette definitions (one per 5-level bracket) ────────────
+const PALETTES = [
+	{ bg: 0x000000, road: 0x00ccff, target: [0x00ff00, 0x00ffcc, 0x00e5ff], hostile: 0xff0044, ui: 0xffffff, fx: 0x00ffff, name: 'MATRIX' },
+	{ bg: 0x0a0010, road: 0xff00ff, target: [0x00e5ff, 0xffffff, 0x88ffcc], hostile: 0xffaa00, ui: 0xffffff, fx: 0xff00ff, name: 'VAPORWAVE' },
+	{ bg: 0x001005, road: 0x00ff88, target: [0xffaa00, 0xffff00, 0xffffff], hostile: 0xaa00ff, ui: 0xffffff, fx: 0x00ff88, name: 'TOXIC' },
+	{ bg: 0x000a18, road: 0x3366ff, target: [0x00ffcc, 0x00e5ff, 0x88ccff], hostile: 0xff3366, ui: 0xffffff, fx: 0x3366ff, name: 'OCEAN' },
+	{ bg: 0x100800, road: 0xffd700, target: [0xffd700, 0xffffff, 0xffaa00], hostile: 0xcc00ff, ui: 0xffffff, fx: 0xffd700, name: 'GOLD' },
+	{ bg: 0x0a000a, road: 0xff44cc, target: [0xff44cc, 0xffffff, 0xaa00ff], hostile: 0x00ffcc, ui: 0xffffff, fx: 0xff44cc, name: 'SAKURA' },
+	{ bg: 0x100a00, road: 0xff6600, target: [0xff6600, 0xffdd00, 0xffffff], hostile: 0x00aaff, ui: 0xffffff, fx: 0xff6600, name: 'FIRE' },
+	{ bg: 0x000000, road: 0xffffff, target: [0xffffff, 0xcccccc, 0x00ff00], hostile: 0x333333, ui: 0x00ff00, fx: 0xff0000, name: 'VOID' },
+];
+
+// ── Boot / Preload Scene ──────────────────────────────────────
+class BootScene extends Phaser.Scene {
+	constructor() { super('BootScene'); }
+
+	preload() {
+		// Build minimal textures in preload
+		this.makeTexture('particle', 8, (gfx) => {
+			gfx.fillStyle(0xffffff, 1);
+			gfx.fillCircle(4, 4, 4);
+		});
+		this.makeTexture('glow_particle', 16, (gfx) => {
+			const steps = 8;
+			for (let i = steps; i >= 1; i--) {
+				const alpha = (i / steps) * 0.8;
+				const r = (i / steps) * 8;
+				gfx.fillStyle(0xffffff, alpha);
+				gfx.fillCircle(8, 8, r);
+			}
+		});
+		this.makeTexture('slash_particle', 6, (gfx) => {
+			gfx.fillStyle(0xffffff, 1);
+			gfx.fillRect(0, 0, 6, 2);
+		});
+	}
+
+	makeTexture(key, size, drawFn) {
+		const gfx = this.make.graphics({ x: 0, y: 0, add: false });
+		drawFn(gfx);
+		gfx.generateTexture(key, size, size);
+		gfx.destroy();
 	}
 
 	create() {
-		this.events.on('hidden', () => { this.scene.resume(); }, this);
-		this.game.events.off('hidden');
-		this.game.events.off('blur');
+		this.scene.start('PlayScene');
+	}
+}
 
-		// Pure black void background
-		this.cameras.main.setBackgroundColor(0x000000);
+// ── Main Play Scene ───────────────────────────────────────────
+class PlayScene extends Phaser.Scene {
+	constructor() { super('PlayScene'); }
 
-		this.neonColors = [0x00e5ff, 0xff00ff, 0x00ff00, 0xffff00, 0x00ffff];
-		this.cyanColor = 0x00ccff; // Luminous cyan from sketch
-
+	// ── init ──────────────────────────────────────────────────
+	init() {
 		this.score = 0;
-		this.levelScore = 0;
 		this.lives = 3;
+		this.combo = 0;
+		this.maxCombo = 0;
+		this.comboTimer = 0;
+		this.COMBO_WINDOW = 2.5; // seconds to keep combo alive
 		this.isGameOver = false;
+		this.isPaused = false;
+		this.currentLevel = 1;
+		this.levelScore = 0;
+		this.LEVEL_THRESHOLD = 80;
+		this.spawnRate = 950;       // ms between spawns
+		this.MIN_SPAWN_RATE = 300;
+		this.paletteIndex = 0;
+		this.targetPaletteIndex = 0;
+		this.paletteBlend = 0;      // 0→1 blend when transitioning
+		this.isBlending = false;
+		this.shakeIntensity = 0;
+		this.shakeDecay = 0.85;
+		this.hostileSpikeBonus = 0; // Extra hostile % added every 5 levels
+		this.streaks = [];
+		this.trail = [];
+		this.popups = [];
+		this.ripples = [];
+		this.slashFlashes = [];
+	}
 
-		// --- GLOBAL Audio Synth (Fixed restart bug) ---
-		if (!window.retroAudioCtx) {
-			window.retroAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+	// ── create ────────────────────────────────────────────────
+	create() {
+		const w = this.scale.width;
+		const h = this.scale.height;
+
+		// Disable built-in focus loss pause
+		this.game.events.off('blur');
+		this.game.events.off('hidden');
+
+		// ── Audio context ─────────────────────────────────────
+		if (!window._fpAudioCtx) {
+			window._fpAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+			// Compressor to prevent clipping
+			window._fpMaster = window._fpAudioCtx.createDynamicsCompressor();
+			window._fpMaster.connect(window._fpAudioCtx.destination);
 		}
-		this.audioCtx = window.retroAudioCtx;
+		this.audioCtx = window._fpAudioCtx;
+		this.master = window._fpMaster;
 		this.musicStep = 0;
 
-		if (this.audioCtx.state === 'running') {
-			this.startContinuousBGM();
-		} else {
-			this.input.once('pointerdown', () => {
-				if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
-				this.startContinuousBGM();
-			});
-		}
-
+		// ── Background layers ─────────────────────────────────
 		this.bgGraphics = this.add.graphics().setDepth(0);
+		this.roadGraphics = this.add.graphics().setDepth(1);
+		this.glowGraphics = this.add.graphics().setDepth(2);
 
-		// Background speed streaks configuration
-		this.streaks = [];
-		for (let i = 0; i < 40; i++) {
+		// ── Speed streaks ─────────────────────────────────────
+		for (let i = 0; i < 50; i++) {
 			this.streaks.push({
-				angleOff: Phaser.Math.FloatBetween(0.3, 1.0) * (Math.random() < 0.5 ? 1 : -1),
+				lane: Phaser.Math.FloatBetween(-0.48, 0.48),
 				progress: Phaser.Math.FloatBetween(0, 1),
-				speed: Phaser.Math.FloatBetween(0.005, 0.015),
-				length: Phaser.Math.FloatBetween(0.05, 0.15)
+				speed: Phaser.Math.FloatBetween(0.006, 0.02),
+				length: Phaser.Math.FloatBetween(0.04, 0.12),
+				alpha: Phaser.Math.FloatBetween(0.3, 0.9),
 			});
 		}
 
-		this.popups = [];
-
-		// --- Premium UI Setup ---
-		this.scoreText = this.add.text(20, 20, 'SCORE: 0', {
-			fontFamily: 'Courier', fontSize: '20px', fontStyle: 'bold', color: '#ffffff'
-		}).setDepth(100);
-
-		this.levelText = this.add.text(this.scale.width - 20, 20, 'LEVEL 1', {
-			fontFamily: 'Courier', fontSize: '20px', fontStyle: 'bold', color: '#ffffff'
-		}).setOrigin(1, 0).setDepth(100);
-
-		this.livesText = this.add.text(this.scale.width / 2, 20, this.getLivesString(), {
-			fontFamily: 'Courier', fontSize: '24px', color: '#ff0044'
-		}).setOrigin(0.5, 0).setDepth(100);
-
-		// Fullscreen Toggle
-		this.fsButton = this.add.text(20, this.scale.height - 20, '', {
-			fontFamily: 'Courier', fontSize: '14px', fontStyle: 'bold'
-		}).setOrigin(0, 1).setDepth(100).setInteractive({ useHandCursor: true });
-
-		if (this.scale.isFullscreen) {
-			this.fsButton.setText('[✖ EXIT FULL SCREEN]').setColor('#ff0044');
-		} else {
-			this.fsButton.setText('[⛶ FULLSCREEN]').setColor('#00ff00');
-		}
-
-		const toggleFullscreen = () => {
-			if (this.scale.isFullscreen) this.scale.stopFullscreen();
-			else this.scale.startFullscreen();
-		};
-
-		this.fsButton.on('pointerdown', toggleFullscreen);
-		this.input.keyboard.off('keydown-F');
-		this.input.keyboard.on('keydown-F', toggleFullscreen);
-
-		this.scale.on('enterfullscreen', () => {
-			this.fsButton.setText('[✖ EXIT FULL SCREEN]');
-			this.fsButton.setColor('#ff0044');
-		});
-
-		this.scale.on('leavefullscreen', () => {
-			this.fsButton.setText('[⛶ FULLSCREEN]');
-			this.fsButton.setColor('#00ff00');
-		});
-
-		// Entity Groups
+		// ── Entity groups ─────────────────────────────────────
 		this.targets = this.add.group();
 		this.hostiles = this.add.group();
 
-		this.nextSpawnTime = 0;
-		this.currentSpawnRate = 1000;
+		// ── Blade graphics ────────────────────────────────────
+		this.bladeGlow = this.add.graphics().setDepth(55);
+		this.bladeCore = this.add.graphics().setDepth(56);
 
-		this.bladeCore = this.add.graphics().setDepth(51);
-		this.bladeGlow = this.add.graphics().setDepth(50);
-		this.trail = [];
+		// ── HUD ───────────────────────────────────────────────
+		this.buildHUD();
 
+		// ── Palette flash overlay ─────────────────────────────
+		this.paletteFlash = this.add.rectangle(0, 0, w * 3, h * 3, 0xffffff, 0).setDepth(200);
+
+		// ── Input ─────────────────────────────────────────────
 		this.input.mouse.disableContextMenu();
 		this.input.on('pointermove', this.handleSwipe, this);
+
+		// Pause
+		this.input.keyboard.on('keydown-ESC', () => this.togglePause());
+		this.input.keyboard.on('keydown-P', () => this.togglePause());
+
+		// Start music on first interaction
+		this._startMusicOnInteraction();
+
+		// ── Spawn timer ───────────────────────────────────────
+		this.nextSpawnTime = 0;
+
+		// ── Sync SDK level ────────────────────────────────────
+		if (window.FreshPlay) window.FreshPlay.currentLevel = 1;
+
+		// ── Entrance animation ────────────────────────────────
+		this._playEntranceAnimation();
 	}
 
-	getLivesString() {
-		let str = '';
-		for (let i = 0; i < 3; i++) {
-			str += (i < this.lives) ? '◆ ' : '◇ ';
-		}
-		return str.trim();
+	// ── HUD builder ───────────────────────────────────────────
+	buildHUD() {
+		const w = this.scale.width;
+		const h = this.scale.height;
+		const style = { fontFamily: 'Courier New, Courier, monospace', fontStyle: 'bold' };
+
+		// Score
+		this.scoreLabelText = this.add.text(20, 18, 'SCORE', { ...style, fontSize: '10px', color: '#ffffff', letterSpacing: 4 }).setDepth(100);
+		this.scoreText = this.add.text(20, 30, '0', { ...style, fontSize: '28px', color: '#ffffff' }).setDepth(100);
+
+		// Level badge
+		this.levelBg = this.add.rectangle(w / 2, 28, 110, 36, 0x000000, 0.5).setDepth(99);
+		this.levelText = this.add.text(w / 2, 20, 'LEVEL', { ...style, fontSize: '10px', color: '#ffffff', letterSpacing: 4 }).setOrigin(0.5, 0).setDepth(100);
+		this.levelNum = this.add.text(w / 2, 30, '1', { ...style, fontSize: '28px', color: '#ffffff' }).setOrigin(0.5, 0).setDepth(100);
+
+		// Palette name
+		this.paletteName = this.add.text(w / 2, 58, '— MATRIX —', { ...style, fontSize: '9px', color: '#ffffff', letterSpacing: 3 }).setOrigin(0.5, 0).setDepth(100);
+
+		// Lives
+		this.livesText = this.add.text(w - 20, 18, 'LIVES', { ...style, fontSize: '10px', color: '#ffffff', letterSpacing: 4 }).setOrigin(1, 0).setDepth(100);
+		this.livesDiamonds = this.add.text(w - 20, 30, '◆ ◆ ◆', { ...style, fontSize: '20px', color: '#ffffff' }).setOrigin(1, 0).setDepth(100);
+
+		// Combo
+		this.comboContainer = this.add.container(w / 2, h - 60).setDepth(100).setAlpha(0);
+		const comboBg = this.add.rectangle(0, 0, 200, 44, 0x000000, 0.6);
+		this.comboLabel = this.add.text(0, -12, 'COMBO', { ...style, fontSize: '9px', color: '#ffffff', letterSpacing: 4 }).setOrigin(0.5);
+		this.comboValueText = this.add.text(0, 4, 'x1', { ...style, fontSize: '28px', color: '#ffffff' }).setOrigin(0.5);
+		this.comboContainer.add([comboBg, this.comboLabel, this.comboValueText]);
+
+		// Combo bar (progress timer)
+		this.comboBarBg = this.add.rectangle(w / 2, h - 30, 200, 4, 0x333333).setDepth(100).setAlpha(0);
+		this.comboBar = this.add.rectangle(w / 2 - 100, h - 30, 1, 4, 0xffffff).setOrigin(0, 0.5).setDepth(101).setAlpha(0);
+
+		// Pause button
+		this.pauseBtn = this.add.text(w - 20, h - 20, '[ II PAUSE ]', { ...style, fontSize: '11px', color: '#ffffff' })
+			.setOrigin(1, 1).setDepth(100).setInteractive({ useHandCursor: true })
+			.on('pointerdown', () => this.togglePause())
+			.on('pointerover', () => this.pauseBtn.setColor('#cccccc'))
+			.on('pointerout', () => this.pauseBtn.setColor('#ffffff'));
+
+		// High score
+		this.hiScoreText = this.add.text(20, 68, `HI ${this._getHiScore()}`, { ...style, fontSize: '10px', color: '#ffffff', letterSpacing: 2 }).setDepth(100);
+
+		this.scale.on('resize', this._onResize, this);
 	}
 
-	startContinuousBGM() {
-		if (this.bgmTimer) return;
+	_onResize(gameSize) {
+		const w = gameSize.width, h = gameSize.height;
+		this.levelBg.setPosition(w / 2, 28);
+		this.levelText.setPosition(w / 2, 20);
+		this.levelNum.setPosition(w / 2, 30);
+		this.paletteName.setPosition(w / 2, 58);
+		this.livesText.setPosition(w - 20, 18);
+		this.livesDiamonds.setPosition(w - 20, 30);
+		this.comboContainer.setPosition(w / 2, h - 60);
+		this.comboBarBg.setPosition(w / 2, h - 30);
+		this.comboBar.setPosition(w / 2 - 100, h - 30);
+		this.pauseBtn.setPosition(w - 20, h - 20);
+	}
 
-		const notes = [261.63, 311.13, 392.00, 523.25];
+	// ── Hi-score persistence ──────────────────────────────────
+	_getHiScore() {
+		try { return parseInt(localStorage.getItem('fp_nbd_hi') || '0'); } catch { return 0; }
+	}
+	_saveHiScore(score) {
+		try { if (score > this._getHiScore()) localStorage.setItem('fp_nbd_hi', score); } catch {}
+	}
 
-		this.bgmTimer = this.time.addEvent({
-			delay: 200,
-			callback: () => {
-				if (this.isGameOver) return;
-				const osc = this.audioCtx.createOscillator();
-				const gain = this.audioCtx.createGain();
-				osc.connect(gain);
-				gain.connect(this.audioCtx.destination);
+	// ── Entrance anim ─────────────────────────────────────────
+	_playEntranceAnimation() {
+		const w = this.scale.width, h = this.scale.height;
+		const flash = this.add.rectangle(0, 0, w * 2, h * 2, 0xffffff, 1).setDepth(300);
+		this.tweens.add({
+			targets: flash, alpha: 0, duration: 600, ease: 'Power2',
+			onComplete: () => flash.destroy()
+		});
 
-				osc.type = 'sine';
-				this.musicStep = (this.musicStep + 1) % notes.length;
+		// Drop-in text
+		const title = this.add.text(w / 2, -60, 'NEON BLADE DASH', {
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px', color: '#ffffff',
+			stroke: '#000000', strokeThickness: 4
+		}).setOrigin(0.5).setDepth(301);
 
-				osc.frequency.setValueAtTime(notes[this.musicStep], this.audioCtx.currentTime);
-				gain.gain.setValueAtTime(0.001, this.audioCtx.currentTime);
-				gain.gain.exponentialRampToValueAtTime(0.1, this.audioCtx.currentTime + 0.05);
-				gain.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.18);
-
-				osc.start();
-				osc.stop(this.audioCtx.currentTime + 0.2);
-			},
-			loop: true
+		this.tweens.add({
+			targets: title, y: h / 2 - 20, duration: 500, ease: 'Back.Out',
+			onComplete: () => {
+				this.time.delayedCall(800, () => {
+					this.tweens.add({ targets: title, alpha: 0, y: h / 2 - 60, duration: 400, onComplete: () => title.destroy() });
+				});
+			}
 		});
 	}
 
-	playRetroSound(type) {
-		if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
-		const osc = this.audioCtx.createOscillator();
-		const gain = this.audioCtx.createGain();
+	// ── Music ─────────────────────────────────────────────────
+	_startMusicOnInteraction() {
+		const resume = () => {
+			if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+			if (!this._bgmTimer) this._startBGM();
+		};
+		this.input.once('pointerdown', resume);
+		if (this.audioCtx.state === 'running' && !this._bgmTimer) this._startBGM();
+	}
+
+	_startBGM() {
+		const scales = [
+			[261.63, 311.13, 369.99, 440.00], 
+			[293.66, 349.23, 392.00, 466.16],
+		];
+		let scaleIdx = 0;
+		let stepIdx = 0;
+		let beatCount = 0;
+
+		this._bgmTimer = this.time.addEvent({
+			delay: 180,
+			loop: true,
+			callback: () => {
+				if (this.isGameOver || this.isPaused) return;
+				const notes = scales[scaleIdx];
+				const freq = notes[stepIdx];
+				stepIdx = (stepIdx + 1) % notes.length;
+				beatCount++;
+				if (beatCount % 16 === 0) scaleIdx = (scaleIdx + 1) % scales.length;
+
+				const osc = this.audioCtx.createOscillator();
+				const gain = this.audioCtx.createGain();
+				const filter = this.audioCtx.createBiquadFilter();
+				filter.type = 'lowpass';
+				filter.frequency.value = 800;
+				osc.connect(filter);
+				filter.connect(gain);
+				gain.connect(this.master);
+				osc.type = 'square';
+				osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
+				gain.gain.setValueAtTime(0, this.audioCtx.currentTime);
+				gain.gain.linearRampToValueAtTime(0.04, this.audioCtx.currentTime + 0.02);
+				gain.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.16);
+				osc.start(this.audioCtx.currentTime);
+				osc.stop(this.audioCtx.currentTime + 0.18);
+			}
+		});
+	}
+
+	_playSound(type) {
+		if (this.audioCtx.state !== 'running') return;
+		const ctx = this.audioCtx;
+
+		const osc = ctx.createOscillator();
+		const gain = ctx.createGain();
 		osc.connect(gain);
-		gain.connect(this.audioCtx.destination);
+		gain.connect(this.master);
+
+		const now = ctx.currentTime;
 
 		if (type === 'slice') {
-			osc.type = 'triangle';
-			osc.frequency.setValueAtTime(800, this.audioCtx.currentTime);
-			osc.frequency.exponentialRampToValueAtTime(100, this.audioCtx.currentTime + 0.1);
-			gain.gain.setValueAtTime(0.3, this.audioCtx.currentTime);
-			gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.1);
-			osc.start(); osc.stop(this.audioCtx.currentTime + 0.1);
-		} else if (type === 'error') {
 			osc.type = 'sawtooth';
-			osc.frequency.setValueAtTime(150, this.audioCtx.currentTime);
-			osc.frequency.exponentialRampToValueAtTime(50, this.audioCtx.currentTime + 0.3);
-			gain.gain.setValueAtTime(0.5, this.audioCtx.currentTime);
-			gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.3);
-			osc.start(); osc.stop(this.audioCtx.currentTime + 0.3);
+			osc.frequency.setValueAtTime(1200, now);
+			osc.frequency.exponentialRampToValueAtTime(200, now + 0.08);
+			gain.gain.setValueAtTime(0.25, now);
+			gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+			osc.start(now); osc.stop(now + 0.12);
+		} else if (type === 'combo') {
+			[0, 0.06, 0.12].forEach((delay, i) => {
+				const o2 = ctx.createOscillator();
+				const g2 = ctx.createGain();
+				o2.connect(g2); g2.connect(this.master);
+				o2.type = 'sine';
+				o2.frequency.setValueAtTime(440 * Math.pow(1.25, i), now + delay);
+				g2.gain.setValueAtTime(0.15, now + delay);
+				g2.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.1);
+				o2.start(now + delay); o2.stop(now + delay + 0.15);
+			});
+			return;
+		} else if (type === 'hostile') {
+			osc.type = 'sawtooth';
+			osc.frequency.setValueAtTime(120, now);
+			osc.frequency.exponentialRampToValueAtTime(40, now + 0.35);
+			gain.gain.setValueAtTime(0.4, now);
+			gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+			osc.start(now); osc.stop(now + 0.4);
+		} else if (type === 'levelup') {
+			const freqs = [523, 659, 784, 1047];
+			freqs.forEach((f, i) => {
+				const o2 = ctx.createOscillator();
+				const g2 = ctx.createGain();
+				o2.connect(g2); g2.connect(this.master);
+				o2.type = 'square';
+				o2.frequency.setValueAtTime(f, now + i * 0.1);
+				g2.gain.setValueAtTime(0.12, now + i * 0.1);
+				g2.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.18);
+				o2.start(now + i * 0.1); o2.stop(now + i * 0.1 + 0.2);
+			});
+			return;
+		} else if (type === 'gameover') {
+			osc.type = 'sawtooth';
+			osc.frequency.setValueAtTime(200, now);
+			osc.frequency.exponentialRampToValueAtTime(30, now + 1.2);
+			gain.gain.setValueAtTime(0.3, now);
+			gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+			osc.start(now); osc.stop(now + 1.3);
 		}
 	}
 
-	spawnPopup(text, x, y, color) {
-		const popup = this.add.text(x, y, text, {
-			fontFamily: 'Courier', fontSize: '24px', fontStyle: 'bold', color: color
-		}).setOrigin(0.5).setDepth(150);
-
-		this.popups.push({ textObj: popup, life: 1.0 });
+	// ── Palette ───────────────────────────────────────────────
+	get palette() {
+		if (!this.isBlending) return PALETTES[this.paletteIndex];
+		const a = PALETTES[this.paletteIndex];
+		return a;
 	}
 
+	_triggerPaletteTransition(newIndex) {
+		this.targetPaletteIndex = newIndex;
+		this.isBlending = true;
+		this.paletteBlend = 0;
+
+		const col = PALETTES[newIndex].road;
+		this.paletteFlash.setFillStyle(col, 0.6);
+		this.tweens.add({
+			targets: this.paletteFlash, alpha: 0, duration: 800, ease: 'Power3'
+		});
+
+		const w = this.scale.width, h = this.scale.height;
+		const announcement = this.add.text(w / 2, h / 2, `— ${PALETTES[newIndex].name} —`, {
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '32px',
+			color: '#ffffff', stroke: '#000000', strokeThickness: 6
+		}).setOrigin(0.5).setDepth(250).setAlpha(0);
+
+		this.tweens.add({ targets: announcement, alpha: 1, y: h / 2 - 20, duration: 300, ease: 'Back.Out' });
+		this.time.delayedCall(1000, () => {
+			this.tweens.add({ targets: announcement, alpha: 0, y: h / 2 - 80, duration: 400, onComplete: () => announcement.destroy() });
+		});
+	}
+
+	_finishBlend() {
+		this.paletteIndex = this.targetPaletteIndex;
+		this.isBlending = false;
+		this.paletteBlend = 0;
+		this.paletteName.setText(`— ${PALETTES[this.paletteIndex].name} —`);
+	}
+
+	// ── Spawn ─────────────────────────────────────────────────
 	spawnEntity() {
-		if (this.isGameOver) return;
+		if (this.isGameOver || this.isPaused) return;
 
-		const isHostile = Phaser.Math.Between(0, 100) > 75;
-		const w = this.scale.width;
-		const horizonY = 0;
-		const centerX = w / 2;
-
-		// Strict lane confinement on the cyan road
-		const laneX = Phaser.Math.FloatBetween(-0.35, 0.35);
-		const currentLevel = window.FreshPlay ? window.FreshPlay.currentLevel : 1;
+		const pal = PALETTES[this.paletteIndex];
+		const isHostile = Math.random() < 0.22 + (this.currentLevel * 0.008) + this.hostileSpikeBonus;
+		const lane = Phaser.Math.FloatBetween(-0.42, 0.42);
 		let entity;
 
+		// Mobile phones (width < 500px) get slightly smaller icons; tablets/desktop unchanged
+		const mob = this.scale.width < 500;
+
 		if (isHostile) {
-			entity = this.add.star(centerX, horizonY, 6, 15, 30, 0xff0000).setDepth(10);
-			if (entity.preFX) entity.preFX.addGlow(0xff0000, 8, 1, false);
+			const innerR = mob ? 13 : 17;
+			const outerR = mob ? 27 : 36;
+			entity = this.add.star(this.scale.width / 2, -30, 6, innerR, outerR, 0xff0000).setDepth(10);
+			entity.setData('isHostile', true);
 			this.hostiles.add(entity);
 		} else {
-			let shapeTypes = ['circle'];
-			if (currentLevel >= 3) shapeTypes.push('triangle');
-			if (currentLevel >= 5) shapeTypes.push('diamond');
-			if (currentLevel >= 7) shapeTypes.push('hexagon');
+			const color = Phaser.Utils.Array.GetRandom(pal.target);
+			let available = ['circle'];
+			if (this.currentLevel >= 2) available.push('triangle');
+			if (this.currentLevel >= 4) available.push('diamond');
+			if (this.currentLevel >= 6) available.push('hexagon');
+			if (this.currentLevel >= 8) available.push('ring');
+			const shape = Phaser.Utils.Array.GetRandom(available);
 
-			const selectedShape = Phaser.Utils.Array.GetRandom(shapeTypes);
-			const shapeColor = Phaser.Utils.Array.GetRandom(this.neonColors);
+			const cr = mob ? 22 : 30;       // circle/ring radius
+			const ts = mob ? 45 : 60;       // triangle size base
+			const ds = mob ? 34 : 45;       // diamond side
+			const hs = mob ? 0.75 : 1;      // hexagon scale factor
 
-			if (selectedShape === 'circle') {
-				entity = this.add.circle(centerX, horizonY, 25, shapeColor);
-			} else if (selectedShape === 'triangle') {
-				entity = this.add.triangle(centerX, horizonY, 0, 50, 25, 0, 50, 50, shapeColor);
-			} else if (selectedShape === 'diamond') {
-				entity = this.add.rectangle(centerX, horizonY, 35, 35, shapeColor);
-				entity.rotation = Math.PI / 4;
-			} else if (selectedShape === 'hexagon') {
-				entity = this.add.polygon(centerX, horizonY, [20, 0, 40, 10, 40, 30, 20, 40, 0, 30, 0, 10], shapeColor);
+			switch (shape) {
+				case 'circle':
+					entity = this.add.circle(this.scale.width / 2, -30, cr, color); break;
+				case 'triangle':
+					entity = this.add.triangle(this.scale.width / 2, -30, 0, ts, ts * 0.5, 0, ts, ts, color); break;
+				case 'diamond':
+					entity = this.add.rectangle(this.scale.width / 2, -30, ds, ds, color);
+					entity.rotation = Math.PI / 4; break;
+				case 'hexagon':
+					entity = this.add.polygon(this.scale.width / 2, -30, [28*hs, 0, 56*hs, 15*hs, 56*hs, 46*hs, 28*hs, 61*hs, 0, 46*hs, 0, 15*hs], color); break;
+				case 'ring':
+					entity = this.add.circle(this.scale.width / 2, -30, cr, 0x000000);
+					entity.setStrokeStyle(mob ? 4 : 5, color); break;
 			}
 			entity.setDepth(10);
-			entity.setData('color', shapeColor);
-			if (entity.preFX) entity.preFX.addGlow(shapeColor, 4, 1, false);
+			entity.setData('isHostile', false);
+			entity.setData('color', color);
 			this.targets.add(entity);
+
+			this.tweens.add({ targets: entity, alpha: { from: 0, to: 1 }, duration: 120 });
 		}
 
-		// Custom properties for 3D fanning math
-		entity.setData('lane', laneX);
-		entity.setData('fallSpeed', 120);
+		entity.setData('lane', lane);
+		entity.setData('speed', 80 + this.currentLevel * 5);
+		entity.setData('rotSpeed', Phaser.Math.FloatBetween(0.04, 0.1) * (Math.random() < 0.5 ? 1 : -1));
 		entity.setScale(0.01);
 	}
 
+	// ── Swipe / Trail ─────────────────────────────────────────
 	handleSwipe(pointer) {
-		if (!pointer.isDown || this.isGameOver) {
+		if (!pointer.isDown || this.isGameOver || this.isPaused) {
 			this.trail = [];
 			this.bladeCore.clear();
 			this.bladeGlow.clear();
 			return;
 		}
 
-		const lastPoint = this.trail.length > 0 ? this.trail[this.trail.length - 1] : null;
-		if (!lastPoint || lastPoint.x !== pointer.x || lastPoint.y !== pointer.y) {
-			this.trail.push(new Phaser.Math.Vector2(pointer.x, pointer.y));
-		}
+		const pt = new Phaser.Math.Vector2(pointer.x, pointer.y);
+		const last = this.trail[this.trail.length - 1];
+		if (!last || !last.equals(pt)) this.trail.push(pt);
+		if (this.trail.length > 10) this.trail.shift();
 
-		if (this.trail.length > 6) this.trail.shift();
+		this._drawBlade();
+		this._checkSlices();
+	}
 
-		this.bladeCore.clear();
+	_drawBlade() {
+		const pal = PALETTES[this.paletteIndex];
+		const roadColor = pal.road;
+		const pts = this.trail;
+		if (pts.length < 2) return;
+
 		this.bladeGlow.clear();
+		this.bladeCore.clear();
 
+		// Clean 2px core with distinct glow
 		this.bladeCore.lineStyle(2, 0xffffff, 1);
-		this.bladeGlow.lineStyle(8, 0x00ffff, 0.6);
+		this.bladeGlow.lineStyle(10, roadColor, 0.6);
 
 		this.bladeCore.beginPath();
 		this.bladeGlow.beginPath();
-
-		for (let i = 0; i < this.trail.length; i++) {
+		
+		pts.forEach((p, i) => {
 			if (i === 0) {
-				this.bladeCore.moveTo(this.trail[i].x, this.trail[i].y);
-				this.bladeGlow.moveTo(this.trail[i].x, this.trail[i].y);
+				this.bladeCore.moveTo(p.x, p.y);
+				this.bladeGlow.moveTo(p.x, p.y);
 			} else {
-				this.bladeCore.lineTo(this.trail[i].x, this.trail[i].y);
-				this.bladeGlow.lineTo(this.trail[i].x, this.trail[i].y);
+				this.bladeCore.lineTo(p.x, p.y);
+				this.bladeGlow.lineTo(p.x, p.y);
 			}
-		}
+		});
 
 		this.bladeCore.strokePath();
 		this.bladeGlow.strokePath();
-
-		this.checkSlices();
 	}
 
-	checkSlices() {
+	// ── Collision detection ───────────────────────────────────
+	_checkSlices() {
 		if (this.trail.length < 2) return;
+		const p1 = this.trail[this.trail.length - 2];
+		const p2 = this.trail[this.trail.length - 1];
+		const bladeLine = new Phaser.Geom.Line(p1.x, p1.y, p2.x, p2.y);
 
-		const currentPoint = this.trail[this.trail.length - 1];
-		const prevPoint = this.trail[this.trail.length - 2];
-		const bladeLine = new Phaser.Geom.Line(prevPoint.x, prevPoint.y, currentPoint.x, currentPoint.y);
-
-		this.targets.getChildren().forEach(target => {
-			if (target.active) {
-				const targetCircle = new Phaser.Geom.Circle(target.x, target.y, 40 * target.scaleX);
-				if (Phaser.Geom.Intersects.LineToCircle(bladeLine, targetCircle)) {
-					this.playRetroSound('slice');
-					this.createPremiumParticles(target.x, target.y, target.getData('color'));
-
-					const points = 10 * (window.FreshPlay ? window.FreshPlay.currentLevel : 1);
-					this.updateScore(points);
-					this.spawnPopup(`+${points}`, target.x, target.y, '#00ff00');
-
-					target.destroy();
-				}
+		// Targets
+		[...this.targets.getChildren()].forEach(t => {
+			if (!t.active) return;
+			const r = 55 * t.scaleX;
+			const circle = new Phaser.Geom.Circle(t.x, t.y, r);
+			if (Phaser.Geom.Intersects.LineToCircle(bladeLine, circle)) {
+				this._onTargetSliced(t);
 			}
 		});
 
-		this.hostiles.getChildren().forEach(hostile => {
-			if (hostile.active) {
-				const size = 50 * hostile.scaleX;
-				const hostileRect = new Phaser.Geom.Rectangle(hostile.x - size / 2, hostile.y - size / 2, size, size);
-				if (Phaser.Geom.Intersects.LineToRectangle(bladeLine, hostileRect)) {
-					this.playRetroSound('error');
-					this.createPremiumParticles(hostile.x, hostile.y, 0xff0000);
-
-					this.lives--;
-					this.livesText.setText(this.getLivesString());
-					this.updateScore(-50);
-					this.spawnPopup('-50', hostile.x, hostile.y, '#ff0000');
-
-					this.cameras.main.shake(300, 0.02);
-					const flash = this.add.rectangle(0, 0, this.scale.width * 2, this.scale.height * 2, 0xff0000).setAlpha(0.3).setDepth(90);
-					this.time.delayedCall(150, () => flash.destroy());
-
-					hostile.destroy();
-
-					if (this.lives <= 0) {
-						this.triggerGameOver();
-					}
-				}
+		// Hostiles
+		[...this.hostiles.getChildren()].forEach(h => {
+			if (!h.active) return;
+			const sz = 70 * h.scaleX;
+			const rect = new Phaser.Geom.Rectangle(h.x - sz / 2, h.y - sz / 2, sz, sz);
+			if (Phaser.Geom.Intersects.LineToRectangle(bladeLine, rect)) {
+				this._onHostileSliced(h);
 			}
 		});
 	}
 
-	createPremiumParticles(x, y, color) {
-		const particles = this.add.particles(x, y, 'flares', {
-			speed: { min: -400, max: 400 },
-			angle: { min: 0, max: 360 },
-			scale: { start: 0.8, end: 0 },
-			alpha: { start: 1, end: 0 },
-			lifespan: 500,
-			quantity: 20,
-			tint: color,
-			blendMode: 'ADD'
-		});
+	_onTargetSliced(target) {
+		const color = target.getData('color') || 0x00ff00;
+		const x = target.x, y = target.y;
 
-		if (!this.textures.exists('particle')) {
-			let gfx = this.make.graphics({ x: 0, y: 0, add: false });
-			gfx.fillStyle(0xffffff, 1);
-			gfx.fillCircle(4, 4, 4);
-			gfx.generateTexture('particle', 8, 8);
+		this.combo = Math.min(this.combo + 1, 20);
+		this.comboTimer = this.COMBO_WINDOW;
+		if (this.combo > this.maxCombo) this.maxCombo = this.combo;
+
+		const multiplier = 1 + Math.floor(this.combo / 3);
+		const pts = 5 * multiplier;
+		this._addScore(pts);
+
+		this._playSound('slice');
+		if (this.combo > 1 && this.combo % 3 === 0) this._playSound('combo');
+
+		this._spawnSliceEffect(x, y, color);
+		this._spawnRipple(x, y, color);
+		this._spawnPopup(x, y, `+${pts}`, '#ffffff', multiplier > 1 ? 1.4 : 1);
+
+		if (this.combo >= 3) {
+			this._spawnPopup(x, y - 40, `${this.combo}x COMBO!`, '#ffffff', 1.2);
 		}
-		particles.setTexture('particle');
-		this.time.delayedCall(500, () => particles.destroy());
+
+		target.destroy();
 	}
 
-	updateScore(points) {
-		this.score = Math.max(0, this.score + points);
-		this.levelScore += points;
-		this.scoreText.setText('SCORE: ' + this.score);
+	_onHostileSliced(hostile) {
+		const x = hostile.x, y = hostile.y;
 
-		if (this.levelScore >= 100) {
+		this._playSound('hostile');
+		this.lives--;
+		this.combo = 0;
+		this.comboTimer = 0;
+		this._updateLivesHUD();
+		this._addScore(-30);
+		this._spawnSliceEffect(x, y, 0xff0044);
+		this._spawnPopup(x, y, '-30', '#ffffff');
+		this._shakeCamera(0.025, 400);
+
+		const flash = this.add.rectangle(0, 0, this.scale.width * 3, this.scale.height * 3, 0xff0000, 0.3).setDepth(190);
+		this.tweens.add({ targets: flash, alpha: 0, duration: 200, onComplete: () => flash.destroy() });
+
+		hostile.destroy();
+
+		if (this.lives <= 0) this._triggerGameOver();
+	}
+
+	// ── Scoring ───────────────────────────────────────────────
+	_addScore(pts) {
+		this.score = Math.max(0, this.score + pts);
+		this.scoreText.setText(this.score.toLocaleString());
+		this.levelScore += pts;
+		if (this.levelScore >= this.LEVEL_THRESHOLD) {
 			this.levelScore = 0;
-			if (window.FreshPlay) {
-				window.FreshPlay.levelComplete(() => {
-					this.levelText.setText('LEVEL ' + window.FreshPlay.currentLevel);
-					this.currentSpawnRate = Math.max(350, this.currentSpawnRate - 100);
-				});
-			}
+			this._levelUp();
 		}
 	}
 
-	triggerGameOver() {
+	_levelUp() {
+		this.currentLevel++;
+		this.levelNum.setText(this.currentLevel);
+
+		// ── Difficulty: standard per-level speed increase ─────
+		this.spawnRate = Math.max(this.MIN_SPAWN_RATE, this.spawnRate - 65);
+
+		// ── Difficulty SPIKE every 5 levels ──────────────────
+		const isAdLevel = this.currentLevel % 5 === 0;
+		if (isAdLevel) {
+			// Extra spawn rate crunch at the 5-level boundary
+			this.spawnRate = Math.max(this.MIN_SPAWN_RATE, this.spawnRate - 50);
+			// Permanently raise hostile probability by 4% per 5-level bracket
+			this.hostileSpikeBonus = Math.min(this.hostileSpikeBonus + 0.04, 0.25);
+		}
+
+		// ── Sound + camera ───────────────────────────────────
+		this._playSound('levelup');
+		this._shakeCamera(0.01, 200);
+
+		// ── Palette transition ────────────────────────────────
+		const newPalIdx = Math.floor((this.currentLevel - 1) / 5) % PALETTES.length;
+		if (newPalIdx !== this.paletteIndex) {
+			this._triggerPaletteTransition(newPalIdx);
+		}
+
+		// ── Level-up popup ────────────────────────────────────
+		const w = this.scale.width, h = this.scale.height;
+		const pop = this.add.text(w / 2, h / 2 + 40, `LEVEL ${this.currentLevel}`, {
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '36px',
+			color: '#ffffff', stroke: '#000000', strokeThickness: 5
+		}).setOrigin(0.5).setDepth(200).setAlpha(0);
+		this.tweens.add({ targets: pop, alpha: 1, scaleX: 1.2, scaleY: 1.2, duration: 200, yoyo: true });
+		this.time.delayedCall(600, () => {
+			this.tweens.add({ targets: pop, alpha: 0, y: h / 2 - 20, duration: 300, onComplete: () => pop.destroy() });
+		});
+
+		// ── FreshPlay SDK: notify every level; ad break every 5 ──
+		if (window.FreshPlay) {
+			// levelComplete notifies the SDK on every level.
+			// The portal handles showing the ad at its own cadence.
+			window.FreshPlay.levelComplete();
+		}
+	}
+
+	// ── Visual FX ─────────────────────────────────────────────
+	_spawnSliceEffect(x, y, color) {
+		const count = 14 + this.combo;
+		for (let i = 0; i < count; i++) {
+			const angle = (i / count) * Math.PI * 2;
+			const speed = Phaser.Math.FloatBetween(60, 200 + this.combo * 8);
+			const p = this.add.image(x, y, 'glow_particle').setDepth(60).setTint(color).setAlpha(1).setScale(Phaser.Math.FloatBetween(0.3, 0.9));
+			this.tweens.add({
+				targets: p,
+				x: x + Math.cos(angle) * speed,
+				y: y + Math.sin(angle) * speed,
+				alpha: 0,
+				scale: 0,
+				duration: 350 + Math.random() * 200,
+				ease: 'Power2',
+				onComplete: () => p.destroy()
+			});
+		}
+
+		for (let i = 0; i < 4; i++) {
+			const angle = Phaser.Math.FloatBetween(0, Math.PI * 2);
+			const len = Phaser.Math.FloatBetween(20, 60);
+			const g = this.add.graphics().setDepth(58);
+			g.lineStyle(Phaser.Math.FloatBetween(1, 3), color, 1);
+			g.beginPath();
+			g.moveTo(x, y);
+			g.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+			g.strokePath();
+			this.tweens.add({ targets: g, alpha: 0, duration: 200, onComplete: () => g.destroy() });
+		}
+	}
+
+	_spawnRipple(x, y, color) {
+		this.ripples.push({ x, y, color, radius: 0, maxRadius: 60 + this.combo * 3, alpha: 0.8, life: 1 });
+	}
+
+	_spawnPopup(x, y, text, color = '#ffffff', scale = 1) {
+		const pop = this.add.text(x, y, text, {
+			fontFamily: 'Courier New', fontStyle: 'bold',
+			fontSize: `${Math.round(22 * scale)}px`,
+			color: color,
+			stroke: '#000000', strokeThickness: 3
+		}).setOrigin(0.5).setDepth(150);
+		this.popups.push({ obj: pop, life: 1.0 });
+	}
+
+	_shakeCamera(intensity, duration) {
+		this.shakeIntensity = Math.max(this.shakeIntensity, intensity);
+		this.time.delayedCall(duration, () => {
+			this.shakeIntensity = 0;
+		});
+	}
+
+	// ── Game Over ─────────────────────────────────────────────
+	_triggerGameOver() {
 		if (this.isGameOver) return;
 		this.isGameOver = true;
-		if (this.bgmTimer) this.bgmTimer.remove();
 
-		this.bladeCore.clear();
-		this.bladeGlow.clear();
+		this._saveHiScore(this.score);
 
-		this.add.rectangle(0, 0, this.scale.width * 2, this.scale.height * 2, 0xff0000).setAlpha(0.2).setDepth(90);
+		if (window.FreshPlay) window.FreshPlay.gameOver(this.score);
+		if (this._bgmTimer) { this._bgmTimer.remove(); this._bgmTimer = null; }
+		this._playSound('gameover');
 
-		this.add.text(this.scale.width / 2, this.scale.height / 2, 'GAME OVER', {
-			fontFamily: 'Courier', fontSize: '54px', fontStyle: 'bold', color: '#ff0066'
-		}).setOrigin(0.5).setDepth(100);
+		const w = this.scale.width, h = this.scale.height;
+		const overlay = this.add.rectangle(0, 0, w * 2, h * 2, 0x000000, 0).setDepth(210);
+		this.tweens.add({ targets: overlay, alpha: 0.75, duration: 600 });
 
-		this.add.text(this.scale.width / 2, this.scale.height / 2 + 50, `FINAL SCORE: ${this.score}`, {
-			fontFamily: 'Courier', fontSize: '24px', fontStyle: 'bold', color: '#00ffcc'
-		}).setOrigin(0.5).setDepth(100);
+		const ui = this.add.container(w / 2, h / 2).setDepth(220).setAlpha(0);
+		const panel = this.add.rectangle(0, 0, 320, 260, 0x0a0a0a, 0.95);
+		panel.setStrokeStyle(2, 0xff0044, 1);
 
-		this.time.delayedCall(2500, () => {
-			if (window.FreshPlay) window.FreshPlay.gameOver(this.score);
-			this.scene.restart();
+		const goText = this.add.text(0, -95, 'GAME OVER', {
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '30px', color: '#ff0044'
+		}).setOrigin(0.5);
+
+		const scoreLabel = this.add.text(0, -40, 'FINAL SCORE', {
+			fontFamily: 'Courier New', fontSize: '11px', color: '#ffffff', letterSpacing: 4
+		}).setOrigin(0.5);
+
+		const scoreFinal = this.add.text(0, -18, this.score.toLocaleString(), {
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '38px', color: '#ffffff'
+		}).setOrigin(0.5);
+
+		const hiLabel = this.add.text(0, 28, `HI SCORE: ${this._getHiScore().toLocaleString()}`, {
+			fontFamily: 'Courier New', fontSize: '13px', color: '#ffffff'
+		}).setOrigin(0.5);
+
+		const comboLabel = this.add.text(0, 54, `MAX COMBO: x${this.maxCombo}  |  LEVEL: ${this.currentLevel}`, {
+			fontFamily: 'Courier New', fontSize: '11px', color: '#ffffff'
+		}).setOrigin(0.5);
+
+		const restartBtn = this.add.text(0, 95, '[ PLAY AGAIN ]', {
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px',
+			color: '#000000', backgroundColor: '#ffffff', padding: { x: 18, y: 8 }
+		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+
+		restartBtn.on('pointerover', () => restartBtn.setColor('#ffffff').setBackgroundColor('#000000'));
+		restartBtn.on('pointerout', () => restartBtn.setColor('#000000').setBackgroundColor('#ffffff'));
+		restartBtn.on('pointerdown', () => this.scene.restart());
+
+		ui.add([panel, goText, scoreLabel, scoreFinal, hiLabel, comboLabel, restartBtn]);
+
+		this.time.delayedCall(400, () => {
+			this.tweens.add({ targets: ui, alpha: 1, y: h / 2 - 10, duration: 400, ease: 'Back.Out' });
 		});
 	}
 
-	drawRoad() {
-		this.bgGraphics.clear();
-		const w = this.scale.width;
-		const h = this.scale.height;
-
-		const topW = w * 0.15;
-		const botW = w * 2.0;
-
-		const topL = (w / 2) - (topW / 2);
-		const topR = (w / 2) + (topW / 2);
-		const botL = (w / 2) - (botW / 2);
-		const botR = (w / 2) + (botW / 2);
-
-		// Solid Cyan Platform
-		this.bgGraphics.fillStyle(this.cyanColor, 1);
-		this.bgGraphics.beginPath();
-		this.bgGraphics.moveTo(topL, 0);
-		this.bgGraphics.lineTo(topR, 0);
-		this.bgGraphics.lineTo(botR, h);
-		this.bgGraphics.lineTo(botL, h);
-		this.bgGraphics.closePath();
-		this.bgGraphics.fillPath();
-
-		// Speed Streaks (Batched for peak performance)
-		this.bgGraphics.lineStyle(2, this.cyanColor, 0.8);
-		this.bgGraphics.beginPath();
-		for (let streak of this.streaks) {
-			streak.progress += streak.speed;
-			if (streak.progress > 1) {
-				streak.progress = 0;
-				streak.angleOff = Phaser.Math.FloatBetween(0.3, 1.0) * (Math.random() < 0.5 ? 1 : -1);
-			}
-
-			let p1 = streak.progress;
-			let p2 = Math.min(1, streak.progress + streak.length);
-
-			let y1 = p1 * h;
-			let y2 = p2 * h;
-
-			let curW1 = topW + (botW - topW) * p1;
-			let curW2 = topW + (botW - topW) * p2;
-
-			let x1 = (w / 2) + (streak.angleOff * curW1);
-			let x2 = (w / 2) + (streak.angleOff * curW2);
-
-			this.bgGraphics.moveTo(x1, y1);
-			this.bgGraphics.lineTo(x2, y2);
+	// ── Pause ─────────────────────────────────────────────────
+	togglePause() {
+		if (this.isGameOver) return;
+		this.isPaused = !this.isPaused;
+		if (this.isPaused) {
+			const w = this.scale.width, h = this.scale.height;
+			this._pauseOverlay = this.add.rectangle(w / 2, h / 2, w, h, 0x000000, 0.7).setDepth(300);
+			this._pauseText = this.add.text(w / 2, h / 2, 'PAUSED\n\n[ESC or P to resume]', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px', color: '#ffffff', align: 'center'
+			}).setOrigin(0.5).setDepth(301);
+		} else {
+			if (this._pauseOverlay) { this._pauseOverlay.destroy(); this._pauseOverlay = null; }
+			if (this._pauseText) { this._pauseText.destroy(); this._pauseText = null; }
 		}
-		this.bgGraphics.strokePath();
 	}
 
-	update(time, delta) {
-		if (!this.isGameOver) {
-			// Precise entity spawning loop
-			if (time > this.nextSpawnTime) {
-				this.spawnEntity();
-				this.nextSpawnTime = time + this.currentSpawnRate;
+	// ── HUD updates ───────────────────────────────────────────
+	_updateLivesHUD() {
+		const filled = '◆ '.repeat(Math.max(0, this.lives)).trim();
+		const empty = '◇ '.repeat(Math.max(0, 3 - this.lives)).trim();
+		this.livesDiamonds.setText((filled + ' ' + empty).trim());
+		this.tweens.add({ targets: this.livesDiamonds, scaleX: 1.4, scaleY: 1.4, duration: 80, yoyo: true });
+	}
+
+	_updateComboHUD(dt) {
+		if (this.combo > 0) {
+			this.comboTimer -= dt;
+			if (this.comboTimer <= 0) {
+				this.combo = 0;
+				this.comboTimer = 0;
+				this.tweens.add({ targets: [this.comboContainer, this.comboBarBg, this.comboBar], alpha: 0, duration: 200 });
+			} else {
+				const t = clamp(this.comboTimer / this.COMBO_WINDOW, 0, 1);
+				this.comboBar.width = 200 * t;
+				this.comboValueText.setText(`x${this.combo}`);
+
+				if (this.comboContainer.alpha < 1) {
+					this.tweens.add({ targets: [this.comboContainer, this.comboBarBg, this.comboBar], alpha: 1, duration: 150 });
+				}
 			}
 		}
+	}
 
-		this.drawRoad();
+	// ── Road drawing ──────────────────────────────────────────
+	_drawRoad(time) {
+		const w = this.scale.width, h = this.scale.height;
+		const pal = PALETTES[this.paletteIndex];
+		const roadColor = pal.road;
+		const bgColor = pal.bg;
 
-		const w = this.scale.width;
-		const h = this.scale.height;
-		const topW = w * 0.15;
-		const botW = w * 2.0;
+		this.bgGraphics.clear();
+		this.bgGraphics.fillStyle(bgColor, 1);
+		this.bgGraphics.fillRect(0, 0, w, h);
 
-		const updateDepth = (obj) => {
+		this.bgGraphics.lineStyle(1, roadColor, 0.04);
+		for (let gx = 0; gx <= w; gx += 60) {
+			this.bgGraphics.beginPath();
+			this.bgGraphics.moveTo(gx, 0);
+			this.bgGraphics.lineTo(gx, h);
+			this.bgGraphics.strokePath();
+		}
+
+		const topW = w * 0.13;
+		const botW = w * 2.1;
+		const topL = w / 2 - topW / 2;
+		const topR = w / 2 + topW / 2;
+		const botL = w / 2 - botW / 2;
+		const botR = w / 2 + botW / 2;
+
+		this.roadGraphics.clear();
+
+		[
+			{ alpha: 0.08, widthMult: 1.3 },
+			{ alpha: 0.15, widthMult: 1.15 },
+			{ alpha: 0.35, widthMult: 1.0 },
+		].forEach(({ alpha, widthMult }) => {
+			this.roadGraphics.fillStyle(roadColor, alpha);
+			this.roadGraphics.beginPath();
+			this.roadGraphics.moveTo(w / 2 - (topW * widthMult) / 2, 0);
+			this.roadGraphics.lineTo(w / 2 + (topW * widthMult) / 2, 0);
+			this.roadGraphics.lineTo(botR * widthMult - w * (widthMult - 1) / 2, h);
+			this.roadGraphics.lineTo(botL * widthMult + w * (widthMult - 1) / 2, h);
+			this.roadGraphics.closePath();
+			this.roadGraphics.fillPath();
+		});
+
+		this.roadGraphics.lineStyle(2, roadColor, 0.9);
+		this.roadGraphics.beginPath();
+		this.roadGraphics.moveTo(topL, 0); this.roadGraphics.lineTo(botL, h);
+		this.roadGraphics.strokePath();
+		this.roadGraphics.beginPath();
+		this.roadGraphics.moveTo(topR, 0); this.roadGraphics.lineTo(botR, h);
+		this.roadGraphics.strokePath();
+
+		const dashCount = 16;
+		for (let i = 0; i < dashCount; i++) {
+			const p0 = i / dashCount;
+			const p1 = (i + 0.4) / dashCount;
+			const y0 = p0 * h;
+			const y1 = p1 * h;
+			const cx = w / 2;
+			const dashAlpha = 0.3 + 0.4 * p0;
+			this.roadGraphics.lineStyle(2, 0xffffff, dashAlpha * (0.6 + 0.4 * Math.sin(time * 0.003 + i)));
+			this.roadGraphics.beginPath();
+			this.roadGraphics.moveTo(cx, y0);
+			this.roadGraphics.lineTo(cx, y1);
+			this.roadGraphics.strokePath();
+		}
+
+		this.glowGraphics.clear();
+		this.streaks.forEach(s => {
+			s.progress += s.speed;
+			if (s.progress > 1) { s.progress = 0; s.lane = Phaser.Math.FloatBetween(-0.45, 0.45); }
+
+			const p0 = s.progress;
+			const p1 = Math.min(1, s.progress + s.length);
+			const y0 = p0 * h, y1 = p1 * h;
+			const cw0 = topW + (botW - topW) * p0;
+			const cw1 = topW + (botW - topW) * p1;
+			const x0 = w / 2 + s.lane * cw0;
+			const x1 = w / 2 + s.lane * cw1;
+
+			this.glowGraphics.lineStyle(1.5, roadColor, s.alpha * (0.5 + 0.5 * p0));
+			this.glowGraphics.beginPath();
+			this.glowGraphics.moveTo(x0, y0);
+			this.glowGraphics.lineTo(x1, y1);
+			this.glowGraphics.strokePath();
+		});
+
+		this.ripples = this.ripples.filter(r => {
+			r.radius += 3;
+			r.alpha *= 0.92;
+			r.life = r.alpha;
+			if (r.alpha < 0.05) return false;
+			this.glowGraphics.lineStyle(2, r.color, r.alpha);
+			this.glowGraphics.strokeCircle(r.x, r.y, r.radius);
+			return true;
+		});
+	}
+
+	// ── Entity movement ───────────────────────────────────────
+	_updateEntities(delta) {
+		const w = this.scale.width, h = this.scale.height;
+		const topW = w * 0.13;
+		const botW = w * 2.1;
+
+		const updateOne = (obj) => {
 			if (!obj || !obj.active) return;
 
-			// Decoupled from Physics Engine: Flawless delta-time gravity
-			let currentSpeed = obj.getData('fallSpeed');
-			currentSpeed += 2.0 * (delta / 16); // Smooth acceleration
-			obj.setData('fallSpeed', currentSpeed);
+			let spd = obj.getData('speed');
+			spd += 2.5 * (delta / 16);
+			obj.setData('speed', spd);
+			obj.y += spd * (delta / 1000);
 
-			obj.y += currentSpeed * (delta / 1000);
+			const progress = clamp(obj.y / h, 0, 1);
+			const scale = 0.04 + progress * 1.6;
+			obj.setScale(scale);
 
-			let progress = obj.y / h;
-			if (progress < 0) progress = 0;
+			const cw = topW + (botW - topW) * progress;
+			obj.x = w / 2 + obj.getData('lane') * cw;
 
-			obj.setScale(0.05 + (progress * 1.5));
+			obj.rotation += obj.getData('rotSpeed') * (delta / 16);
 
-			let currentWidth = topW + (botW - topW) * progress;
-			let lane = obj.getData('lane');
-
-			obj.x = (w / 2) + (lane * currentWidth);
-
-			if (obj.texture.key !== '__DEFAULT') {
-				obj.rotation += 0.05 * (delta / 16);
+			if (!obj.getData('isHostile')) {
+				const pulse = 0.85 + 0.15 * Math.sin(Date.now() * 0.005 + obj.x);
+				obj.setAlpha(pulse);
 			}
 
-			// Memory leak fixed: Ensure clean destruction when out of bounds
-			if (obj.y > h + 150) {
+			if (obj.y > h + 100) {
+				if (!obj.getData('isHostile')) {
+					if (this.combo > 0) {
+						this.combo = 0;
+						this.comboTimer = 0;
+					}
+				}
 				obj.destroy();
 			}
 		};
 
-		this.targets.getChildren().forEach(updateDepth);
-		this.hostiles.getChildren().forEach(updateDepth);
+		this.targets.getChildren().forEach(updateOne);
+		this.hostiles.getChildren().forEach(updateOne);
+	}
 
-		// Update Popups
-		for (let i = this.popups.length - 1; i >= 0; i--) {
-			let p = this.popups[i];
-			p.life -= (delta / 1000) * 1.5;
-			p.textObj.y -= (delta / 1000) * 50;
-			p.textObj.setAlpha(Math.max(0, p.life));
+	// ── Popup update ──────────────────────────────────────────
+	_updatePopups(delta) {
+		this.popups = this.popups.filter(p => {
+			p.life -= delta / 700;
+			p.obj.y -= delta / 1000 * 55;
+			p.obj.setAlpha(Math.max(0, p.life));
+			if (p.life <= 0) { p.obj.destroy(); return false; }
+			return true;
+		});
+	}
 
-			if (p.life <= 0) {
-				p.textObj.destroy();
-				this.popups.splice(i, 1);
+	// ── Palette blend ─────────────────────────────────────────
+	_updatePaletteBlend(delta) {
+		if (!this.isBlending) return;
+		this.paletteBlend += delta / 1000;
+		if (this.paletteBlend >= 1) this._finishBlend();
+	}
+
+	// ── Camera shake ──────────────────────────────────────────
+	_updateCameraShake(delta) {
+		if (this.shakeIntensity > 0) {
+			const dx = (Math.random() - 0.5) * this.shakeIntensity * this.scale.width;
+			const dy = (Math.random() - 0.5) * this.shakeIntensity * this.scale.height;
+			this.cameras.main.setScroll(dx, dy);
+			this.shakeIntensity *= this.shakeDecay;
+			if (this.shakeIntensity < 0.001) {
+				this.shakeIntensity = 0;
+				this.cameras.main.setScroll(0, 0);
 			}
 		}
+	}
+
+	// ── Main update ───────────────────────────────────────────
+	update(time, delta) {
+		if (this.isPaused) return;
+
+		const dt = delta / 1000;
+
+		if (!this.isGameOver && time > this.nextSpawnTime) {
+			this.spawnEntity();
+			this.nextSpawnTime = time + this.spawnRate + Phaser.Math.FloatBetween(-120, 120);
+		}
+
+		this._drawRoad(time);
+
+		if (!this.isGameOver) this._updateEntities(delta);
+
+		this._updateComboHUD(dt);
+		this._updatePopups(delta);
+		this._updatePaletteBlend(delta);
+		this._updateCameraShake(delta);
 
 		if (!this.input.activePointer.isDown && this.trail.length > 0) {
 			this.trail = [];
@@ -496,25 +999,34 @@ class PlayScene extends Phaser.Scene {
 			this.bladeGlow.clear();
 		}
 
-		this.levelText.setPosition(this.scale.width - 20, 20);
-		this.livesText.setPosition(this.scale.width / 2, 20);
-		this.fsButton.setPosition(20, this.scale.height - 20);
+		const hi = this._getHiScore();
+		if (this.score >= hi && hi > 0) {
+			this.hiScoreText.setColor(Math.sin(time * 0.008) > 0 ? '#ffff00' : '#ffffff');
+			this.hiScoreText.setText(`★ HI ${hi.toLocaleString()}`);
+		}
 	}
 }
 
+// ── Game config ───────────────────────────────────────────────
 const config = {
 	type: Phaser.AUTO,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
 		width: '100%',
-		height: '100%'
+		height: '100%',
 	},
-	physics: {
-		default: 'arcade',
-		arcade: { gravity: { y: 0 } }
+	backgroundColor: '#000000',
+	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
+	scene: [BootScene, PlayScene],
+	render: {
+		antialias: true,
+		powerPreference: 'high-performance',
 	},
-	scene: [PlayScene],
-	backgroundColor: '#000000'
+	fps: {
+		target: 60,
+		forceSetTimeOut: false,
+	}
 };
 
 const game = new Phaser.Game(config);
