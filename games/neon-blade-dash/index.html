@@ -1,152 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Neon Blade Dash — FreshPlay Arcade</title>
-	<style>
-		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Neon Blade Dash — FreshPlay Arcade</title>
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
 
-		html, body {
-			width: 100%; height: 100%;
-			background: #000000;
-			overflow: hidden;
-			touch-action: none;
-			user-select: none;
-			-webkit-user-select: none;
-			-webkit-tap-highlight-color: transparent;
-		}
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				background: #000000;
+				overflow: hidden;
+				touch-action: none;
+				user-select: none;
+				-webkit-user-select: none;
+				-webkit-tap-highlight-color: transparent;
+			}
 
-		canvas {
-			display: block;
-			touch-action: none;
-			outline: none;
-			/* Pixel-perfect on retina */
-			image-rendering: auto;
-		}
+			canvas {
+				display: block;
+				touch-action: none;
+				outline: none;
+				/* Pixel-perfect on retina */
+				image-rendering: auto;
+			}
 
-		/* Loading screen */
-		#loading-screen {
-			position: fixed;
-			inset: 0;
-			background: #000;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			z-index: 9999;
-			font-family: 'Courier New', Courier, monospace;
-			gap: 24px;
-			transition: opacity 0.5s ease;
-		}
+			/* Loading screen */
+			#loading-screen {
+				position: fixed;
+				inset: 0;
+				background: #000;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				z-index: 9999;
+				font-family: 'Courier New', Courier, monospace;
+				gap: 24px;
+				transition: opacity 0.5s ease;
+			}
 
-		#loading-screen.hidden {
-			opacity: 0;
-			pointer-events: none;
-		}
+			#loading-screen.hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
 
-		.load-logo {
-			font-size: 24px;
-			font-weight: bold;
-			letter-spacing: 0.3em;
-			color: #00ff00;
-			text-transform: uppercase;
-			text-shadow: 0 0 20px rgba(0,255,0,0.8);
-			animation: pulse-glow 1.2s ease-in-out infinite alternate;
-		}
+			.load-logo {
+				font-size: 24px;
+				font-weight: bold;
+				letter-spacing: 0.3em;
+				color: #00ff00;
+				text-transform: uppercase;
+				text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+				animation: pulse-glow 1.2s ease-in-out infinite alternate;
+			}
 
-		.load-sub {
-			font-size: 11px;
-			color: #333;
-			letter-spacing: 0.4em;
-			text-transform: uppercase;
-		}
+			.load-sub {
+				font-size: 11px;
+				color: #333;
+				letter-spacing: 0.4em;
+				text-transform: uppercase;
+			}
 
-		.load-bar-track {
-			width: 200px;
-			height: 2px;
-			background: #111;
-			position: relative;
-			overflow: hidden;
-		}
+			.load-bar-track {
+				width: 200px;
+				height: 2px;
+				background: #111;
+				position: relative;
+				overflow: hidden;
+			}
 
-		.load-bar-fill {
-			height: 100%;
-			background: #00ff00;
-			box-shadow: 0 0 8px #00ff00;
-			animation: load-sweep 1.2s ease-in-out infinite;
-		}
+			.load-bar-fill {
+				height: 100%;
+				background: #00ff00;
+				box-shadow: 0 0 8px #00ff00;
+				animation: load-sweep 1.2s ease-in-out infinite;
+			}
 
-		@keyframes load-sweep {
-			0%   { width: 0%; margin-left: 0; }
-			50%  { width: 60%; }
-			100% { width: 0%; margin-left: 100%; }
-		}
+			@keyframes load-sweep {
+				0% {
+					width: 0%;
+					margin-left: 0;
+				}
 
-		@keyframes pulse-glow {
-			from { text-shadow: 0 0 10px rgba(0,255,0,0.5); }
-			to   { text-shadow: 0 0 30px rgba(0,255,0,1), 0 0 60px rgba(0,255,0,0.4); }
-		}
+				50% {
+					width: 60%;
+				}
 
-		/* Mobile touch hint */
-		#touch-hint {
-			position: fixed;
-			bottom: 60px;
-			left: 50%;
-			transform: translateX(-50%);
-			font-family: 'Courier New', monospace;
-			font-size: 10px;
-			color: #333;
-			letter-spacing: 0.3em;
-			text-transform: uppercase;
-			pointer-events: none;
-			animation: hint-fade 3s ease 2s forwards;
-			z-index: 50;
-		}
+				100% {
+					width: 0%;
+					margin-left: 100%;
+				}
+			}
 
-		@keyframes hint-fade {
-			0%   { opacity: 1; }
-			100% { opacity: 0; }
-		}
-	</style>
-</head>
-<body>
+			@keyframes pulse-glow {
+				from {
+					text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+				}
 
-<!-- Loading screen -->
-<div id="loading-screen">
-	<div class="load-logo">Neon Blade Dash</div>
-	<div class="load-bar-track"><div class="load-bar-fill"></div></div>
-	<div class="load-sub">Initializing arcade core...</div>
-</div>
+				to {
+					text-shadow: 0 0 30px rgba(0, 255, 0, 1), 0 0 60px rgba(0, 255, 0, 0.4);
+				}
+			}
 
-<!-- Touch hint (mobile) -->
-<div id="touch-hint">SWIPE TO SLICE</div>
+			/* Mobile touch hint */
+			#touch-hint {
+				position: fixed;
+				bottom: 60px;
+				left: 50%;
+				transform: translateX(-50%);
+				font-family: 'Courier New', monospace;
+				font-size: 10px;
+				color: #333;
+				letter-spacing: 0.3em;
+				text-transform: uppercase;
+				pointer-events: none;
+				animation: hint-fade 3s ease 2s forwards;
+				z-index: 50;
+			}
 
-<!-- Phaser 3 -->
-<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
-<!-- FreshPlay SDK (optional — fallback if not found) -->
-<script>
-	// Inline fallback SDK replaced by real fp-sdk.js when on the portal
-	window.FreshPlay = {
-		currentLevel: 1,
-		levelComplete: function(cb) { this.currentLevel++; if (cb) cb(); },
-		gameOver: function(score) { console.log('[FreshPlay] Game Over. Score:', score); }
-	};
-</script>
-<script src="../../assets/js/fp-sdk.js" onerror="console.warn('[FreshPlay] SDK not found, using fallback.')"></script>
-<!-- Game -->
-<script src="game.js"></script>
+			@keyframes hint-fade {
+				0% {
+					opacity: 1;
+				}
 
-<script>
-	// Hide loading screen once Phaser boots
-	window.addEventListener('load', () => {
-		setTimeout(() => {
-			const ls = document.getElementById('loading-screen');
-			if (ls) ls.classList.add('hidden');
-			setTimeout(() => { if (ls) ls.remove(); }, 600);
-		}, 800);
-	});
-</script>
+				100% {
+					opacity: 0;
+				}
+			}
+		</style>
+	</head>
 
-</body>
+	<body>
+		<!-- Loading screen -->
+		<div id="loading-screen">
+			<div class="load-logo">Neon Blade Dash</div>
+			<div class="load-bar-track">
+				<div class="load-bar-fill"></div>
+			</div>
+			<div class="load-sub">Initializing arcade core...</div>
+		</div>
+
+		<!-- Touch hint (mobile) -->
+		<div id="touch-hint">SWIPE TO SLICE</div>
+
+		<!-- Phaser 3 -->
+		<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+		<!-- FreshPlay SDK (optional — fallback if not found) -->
+		<script>
+			// Inline fallback SDK replaced by real fp-sdk.js when on the portal
+			window.FreshPlay = {
+				currentLevel: 1,
+				levelComplete: function (cb) { this.currentLevel++; if (cb) cb(); },
+				gameOver: function (score) { console.log('[FreshPlay] Game Over. Score:', score); }
+			};
+		</script>
+		<script src="../../assets/js/fp-sdk.js" onerror="console.warn('[FreshPlay] SDK not found, using fallback.')"></script>
+		<!-- Game -->
+		<script src="game.js"></script>
+
+		<script>
+			// Hide loading screen once Phaser boots
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					const ls = document.getElementById('loading-screen');
+					if (ls) ls.classList.add('hidden');
+					setTimeout(() => { if (ls) ls.remove(); }, 600);
+				}, 800);
+			});
+		</script>
+	</body>
 </html>

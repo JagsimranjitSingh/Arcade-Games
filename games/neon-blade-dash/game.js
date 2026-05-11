@@ -1,9 +1,8 @@
 // ============================================================
-//  NEON BLADE DASH — Polished Edition
-//  FreshPlay Arcade | game.js
+//  NEON BLADE DASH
 // ============================================================
 
-// ── Utility helpers ──────────────────────────────────────────
+// Utility helpers
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const hexToRgb = (hex) => ({
@@ -19,7 +18,7 @@ const lerpColor = (c1, c2, t) => {
 	return (r << 16) | (g << 8) | bl;
 };
 
-// ── Palette definitions (one per 5-level bracket) ────────────
+// Palette definitions (one per 5-level bracket)
 const PALETTES = [
 	{ bg: 0x000000, road: 0x00ccff, target: [0x00ff00, 0x00ffcc, 0x00e5ff], hostile: 0xff0044, ui: 0xffffff, fx: 0x00ffff, name: 'MATRIX' },
 	{ bg: 0x0a0010, road: 0xff00ff, target: [0x00e5ff, 0xffffff, 0x88ffcc], hostile: 0xffaa00, ui: 0xffffff, fx: 0xff00ff, name: 'VAPORWAVE' },
@@ -31,7 +30,7 @@ const PALETTES = [
 	{ bg: 0x000000, road: 0xffffff, target: [0xffffff, 0xcccccc, 0x00ff00], hostile: 0x333333, ui: 0x00ff00, fx: 0xff0000, name: 'VOID' },
 ];
 
-// ── Boot / Preload Scene ──────────────────────────────────────
+// Boot / Preload Scen
 class BootScene extends Phaser.Scene {
 	constructor() { super('BootScene'); }
 
@@ -68,11 +67,11 @@ class BootScene extends Phaser.Scene {
 	}
 }
 
-// ── Main Play Scene ───────────────────────────────────────────
+// Main Play Scen
 class PlayScene extends Phaser.Scene {
 	constructor() { super('PlayScene'); }
 
-	// ── init ──────────────────────────────────────────────────
+	// ini
 	init() {
 		this.score = 0;
 		this.lives = 3;
@@ -84,7 +83,7 @@ class PlayScene extends Phaser.Scene {
 		this.isPaused = false;
 		this.currentLevel = 1;
 		this.levelScore = 0;
-		this.LEVEL_THRESHOLD = 80;
+		this.LEVEL_THRESHOLD = 100;
 		this.spawnRate = 950;       // ms between spawns
 		this.MIN_SPAWN_RATE = 300;
 		this.paletteIndex = 0;
@@ -101,7 +100,7 @@ class PlayScene extends Phaser.Scene {
 		this.slashFlashes = [];
 	}
 
-	// ── create ────────────────────────────────────────────────
+	// create
 	create() {
 		const w = this.scale.width;
 		const h = this.scale.height;
@@ -110,7 +109,7 @@ class PlayScene extends Phaser.Scene {
 		this.game.events.off('blur');
 		this.game.events.off('hidden');
 
-		// ── Audio context ─────────────────────────────────────
+		// Audio context
 		if (!window._fpAudioCtx) {
 			window._fpAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
 			// Compressor to prevent clipping
@@ -121,12 +120,12 @@ class PlayScene extends Phaser.Scene {
 		this.master = window._fpMaster;
 		this.musicStep = 0;
 
-		// ── Background layers ─────────────────────────────────
+		// Background layer
 		this.bgGraphics = this.add.graphics().setDepth(0);
 		this.roadGraphics = this.add.graphics().setDepth(1);
 		this.glowGraphics = this.add.graphics().setDepth(2);
 
-		// ── Speed streaks ─────────────────────────────────────
+		// Speed streaks
 		for (let i = 0; i < 50; i++) {
 			this.streaks.push({
 				lane: Phaser.Math.FloatBetween(-0.48, 0.48),
@@ -137,21 +136,21 @@ class PlayScene extends Phaser.Scene {
 			});
 		}
 
-		// ── Entity groups ─────────────────────────────────────
+		// Entity groups
 		this.targets = this.add.group();
 		this.hostiles = this.add.group();
 
-		// ── Blade graphics ────────────────────────────────────
+		// Blade graphics
 		this.bladeGlow = this.add.graphics().setDepth(55);
 		this.bladeCore = this.add.graphics().setDepth(56);
 
-		// ── HUD ───────────────────────────────────────────────
+		// HU
 		this.buildHUD();
 
-		// ── Palette flash overlay ─────────────────────────────
+		// Palette flash overla
 		this.paletteFlash = this.add.rectangle(0, 0, w * 3, h * 3, 0xffffff, 0).setDepth(200);
 
-		// ── Input ─────────────────────────────────────────────
+		// Input
 		this.input.mouse.disableContextMenu();
 		this.input.on('pointermove', this.handleSwipe, this);
 
@@ -162,17 +161,17 @@ class PlayScene extends Phaser.Scene {
 		// Start music on first interaction
 		this._startMusicOnInteraction();
 
-		// ── Spawn timer ───────────────────────────────────────
+		// Spawn time
 		this.nextSpawnTime = 0;
 
-		// ── Sync SDK level ────────────────────────────────────
+		// Sync SDK level
 		if (window.FreshPlay) window.FreshPlay.currentLevel = 1;
 
-		// ── Entrance animation ────────────────────────────────
+		// Entrance animatio
 		this._playEntranceAnimation();
 	}
 
-	// ── HUD builder ───────────────────────────────────────────
+	// HUD builde
 	buildHUD() {
 		const w = this.scale.width;
 		const h = this.scale.height;
@@ -232,15 +231,15 @@ class PlayScene extends Phaser.Scene {
 		this.pauseBtn.setPosition(w - 20, h - 20);
 	}
 
-	// ── Hi-score persistence ──────────────────────────────────
+	// Hi-score persistenc
 	_getHiScore() {
 		try { return parseInt(localStorage.getItem('fp_nbd_hi') || '0'); } catch { return 0; }
 	}
 	_saveHiScore(score) {
-		try { if (score > this._getHiScore()) localStorage.setItem('fp_nbd_hi', score); } catch {}
+		try { if (score > this._getHiScore()) localStorage.setItem('fp_nbd_hi', score); } catch { }
 	}
 
-	// ── Entrance anim ─────────────────────────────────────────
+	// Entrance animation
 	_playEntranceAnimation() {
 		const w = this.scale.width, h = this.scale.height;
 		const flash = this.add.rectangle(0, 0, w * 2, h * 2, 0xffffff, 1).setDepth(300);
@@ -265,7 +264,7 @@ class PlayScene extends Phaser.Scene {
 		});
 	}
 
-	// ── Music ─────────────────────────────────────────────────
+	// Music
 	_startMusicOnInteraction() {
 		const resume = () => {
 			if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
@@ -277,7 +276,7 @@ class PlayScene extends Phaser.Scene {
 
 	_startBGM() {
 		const scales = [
-			[261.63, 311.13, 369.99, 440.00], 
+			[261.63, 311.13, 369.99, 440.00],
 			[293.66, 349.23, 392.00, 466.16],
 		];
 		let scaleIdx = 0;
@@ -374,7 +373,7 @@ class PlayScene extends Phaser.Scene {
 		}
 	}
 
-	// ── Palette ───────────────────────────────────────────────
+	// Palette managemen
 	get palette() {
 		if (!this.isBlending) return PALETTES[this.paletteIndex];
 		const a = PALETTES[this.paletteIndex];
@@ -411,7 +410,7 @@ class PlayScene extends Phaser.Scene {
 		this.paletteName.setText(`— ${PALETTES[this.paletteIndex].name} —`);
 	}
 
-	// ── Spawn ─────────────────────────────────────────────────
+	// Spawning targets and hostiles
 	spawnEntity() {
 		if (this.isGameOver || this.isPaused) return;
 
@@ -452,7 +451,7 @@ class PlayScene extends Phaser.Scene {
 					entity = this.add.rectangle(this.scale.width / 2, -30, ds, ds, color);
 					entity.rotation = Math.PI / 4; break;
 				case 'hexagon':
-					entity = this.add.polygon(this.scale.width / 2, -30, [28*hs, 0, 56*hs, 15*hs, 56*hs, 46*hs, 28*hs, 61*hs, 0, 46*hs, 0, 15*hs], color); break;
+					entity = this.add.polygon(this.scale.width / 2, -30, [28 * hs, 0, 56 * hs, 15 * hs, 56 * hs, 46 * hs, 28 * hs, 61 * hs, 0, 46 * hs, 0, 15 * hs], color); break;
 				case 'ring':
 					entity = this.add.circle(this.scale.width / 2, -30, cr, 0x000000);
 					entity.setStrokeStyle(mob ? 4 : 5, color); break;
@@ -471,7 +470,7 @@ class PlayScene extends Phaser.Scene {
 		entity.setScale(0.01);
 	}
 
-	// ── Swipe / Trail ─────────────────────────────────────────
+	// Swipe / Trail handling
 	handleSwipe(pointer) {
 		if (!pointer.isDown || this.isGameOver || this.isPaused) {
 			this.trail = [];
@@ -504,7 +503,7 @@ class PlayScene extends Phaser.Scene {
 
 		this.bladeCore.beginPath();
 		this.bladeGlow.beginPath();
-		
+
 		pts.forEach((p, i) => {
 			if (i === 0) {
 				this.bladeCore.moveTo(p.x, p.y);
@@ -519,7 +518,7 @@ class PlayScene extends Phaser.Scene {
 		this.bladeGlow.strokePath();
 	}
 
-	// ── Collision detection ───────────────────────────────────
+	// Collision detection
 	_checkSlices() {
 		if (this.trail.length < 2) return;
 		const p1 = this.trail[this.trail.length - 2];
@@ -594,7 +593,7 @@ class PlayScene extends Phaser.Scene {
 		if (this.lives <= 0) this._triggerGameOver();
 	}
 
-	// ── Scoring ───────────────────────────────────────────────
+	// Scoring and leveling
 	_addScore(pts) {
 		this.score = Math.max(0, this.score + pts);
 		this.scoreText.setText(this.score.toLocaleString());
@@ -609,10 +608,10 @@ class PlayScene extends Phaser.Scene {
 		this.currentLevel++;
 		this.levelNum.setText(this.currentLevel);
 
-		// ── Difficulty: standard per-level speed increase ─────
+		// Difficulty: standard per-level speed increase
 		this.spawnRate = Math.max(this.MIN_SPAWN_RATE, this.spawnRate - 65);
 
-		// ── Difficulty SPIKE every 5 levels ──────────────────
+		// Difficulty SPIKE every 5 level
 		const isAdLevel = this.currentLevel % 5 === 0;
 		if (isAdLevel) {
 			// Extra spawn rate crunch at the 5-level boundary
@@ -621,17 +620,17 @@ class PlayScene extends Phaser.Scene {
 			this.hostileSpikeBonus = Math.min(this.hostileSpikeBonus + 0.04, 0.25);
 		}
 
-		// ── Sound + camera ───────────────────────────────────
+		// Sound + camera feedback
 		this._playSound('levelup');
 		this._shakeCamera(0.01, 200);
 
-		// ── Palette transition ────────────────────────────────
+		// Palette transitio
 		const newPalIdx = Math.floor((this.currentLevel - 1) / 5) % PALETTES.length;
 		if (newPalIdx !== this.paletteIndex) {
 			this._triggerPaletteTransition(newPalIdx);
 		}
 
-		// ── Level-up popup ────────────────────────────────────
+		// Level-up popup
 		const w = this.scale.width, h = this.scale.height;
 		const pop = this.add.text(w / 2, h / 2 + 40, `LEVEL ${this.currentLevel}`, {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '36px',
@@ -642,7 +641,7 @@ class PlayScene extends Phaser.Scene {
 			this.tweens.add({ targets: pop, alpha: 0, y: h / 2 - 20, duration: 300, onComplete: () => pop.destroy() });
 		});
 
-		// ── FreshPlay SDK: notify every level; ad break every 5 ──
+		// FreshPlay SDK: notify every level; ad break every 5
 		if (window.FreshPlay) {
 			// levelComplete notifies the SDK on every level.
 			// The portal handles showing the ad at its own cadence.
@@ -650,7 +649,7 @@ class PlayScene extends Phaser.Scene {
 		}
 	}
 
-	// ── Visual FX ─────────────────────────────────────────────
+	// Visual FX
 	_spawnSliceEffect(x, y, color) {
 		const count = 14 + this.combo;
 		for (let i = 0; i < count; i++) {
@@ -703,7 +702,7 @@ class PlayScene extends Phaser.Scene {
 		});
 	}
 
-	// ── Game Over ─────────────────────────────────────────────
+	// Game Over
 	_triggerGameOver() {
 		if (this.isGameOver) return;
 		this.isGameOver = true;
@@ -758,7 +757,7 @@ class PlayScene extends Phaser.Scene {
 		});
 	}
 
-	// ── Pause ─────────────────────────────────────────────────
+	// Pause
 	togglePause() {
 		if (this.isGameOver) return;
 		this.isPaused = !this.isPaused;
@@ -774,7 +773,7 @@ class PlayScene extends Phaser.Scene {
 		}
 	}
 
-	// ── HUD updates ───────────────────────────────────────────
+	// HUD update
 	_updateLivesHUD() {
 		const filled = '◆ '.repeat(Math.max(0, this.lives)).trim();
 		const empty = '◇ '.repeat(Math.max(0, 3 - this.lives)).trim();
@@ -801,7 +800,7 @@ class PlayScene extends Phaser.Scene {
 		}
 	}
 
-	// ── Road drawing ──────────────────────────────────────────
+	// Road drawin
 	_drawRoad(time) {
 		const w = this.scale.width, h = this.scale.height;
 		const pal = PALETTES[this.paletteIndex];
@@ -898,7 +897,7 @@ class PlayScene extends Phaser.Scene {
 		});
 	}
 
-	// ── Entity movement ───────────────────────────────────────
+	// Entity movement and logic
 	_updateEntities(delta) {
 		const w = this.scale.width, h = this.scale.height;
 		const topW = w * 0.13;
@@ -941,7 +940,7 @@ class PlayScene extends Phaser.Scene {
 		this.hostiles.getChildren().forEach(updateOne);
 	}
 
-	// ── Popup update ──────────────────────────────────────────
+	// Popup updat
 	_updatePopups(delta) {
 		this.popups = this.popups.filter(p => {
 			p.life -= delta / 700;
@@ -952,14 +951,14 @@ class PlayScene extends Phaser.Scene {
 		});
 	}
 
-	// ── Palette blend ─────────────────────────────────────────
+	// Palette blend update
 	_updatePaletteBlend(delta) {
 		if (!this.isBlending) return;
 		this.paletteBlend += delta / 1000;
 		if (this.paletteBlend >= 1) this._finishBlend();
 	}
 
-	// ── Camera shake ──────────────────────────────────────────
+	// Camera shak
 	_updateCameraShake(delta) {
 		if (this.shakeIntensity > 0) {
 			const dx = (Math.random() - 0.5) * this.shakeIntensity * this.scale.width;
@@ -973,7 +972,7 @@ class PlayScene extends Phaser.Scene {
 		}
 	}
 
-	// ── Main update ───────────────────────────────────────────
+	// Main update loop
 	update(time, delta) {
 		if (this.isPaused) return;
 
@@ -1007,7 +1006,7 @@ class PlayScene extends Phaser.Scene {
 	}
 }
 
-// ── Game config ───────────────────────────────────────────────
+// Game configuration and initialization
 const config = {
 	type: Phaser.AUTO,
 	scale: {
