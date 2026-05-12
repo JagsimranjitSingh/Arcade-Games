@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				initHomepage(allGames);
 			} else if (path.endsWith('explore.html')) {
 				initExplorePage(allGames);
-				initCategoryFilter();
 			} else if (path.endsWith('game.html')) {
 				initGamePageSidebar(allGames);
 			}
@@ -168,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			heroSection.querySelector('h1').textContent = featured.title;
 			heroSection.querySelector('p').textContent = featured.description;
 			heroSection.querySelector('a').href = `/game.html?id=${featured.id}`;
-            // Optional: update rating text
             const ratingSpan = heroSection.querySelector('span.text-\\[\\#a1a1aa\\]');
             if(ratingSpan) ratingSpan.innerHTML = `<svg class="w-3 h-3 text-[#00ff00]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> ${featured.rating || '4.9'}`;
 		}
@@ -218,9 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const container = topPlayedSidebar.querySelector('.space-y-4');
 			container.innerHTML = '';
 			
-			// Sort games by our parsed play_count
 			const sortedGames = [...games].sort((a, b) => parsePlayCount(b.play_count) - parsePlayCount(a.play_count)).slice(0, 5);
-			
 			const opacityClasses = ['', 'opacity-80 drop-shadow-[0_0_8px_rgba(0,255,0,0.3)]', 'opacity-60', 'opacity-40', 'opacity-20'];
 			
 			sortedGames.forEach((g, index) => {
@@ -243,9 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (trendingSection) {
 			const trendingGrid = trendingSection.querySelector('.grid');
 			if (trendingGrid) {
-				trendingGrid.innerHTML = ''; // Clear the static HTML
-				
-				// Sort by highest rating and grab the top 2 games
+				trendingGrid.innerHTML = ''; 
 				const trendingGames = [...games].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 2);
 				
 				trendingGames.forEach(g => {
@@ -265,76 +259,154 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	// --- Explore Page Injection ---
+	// --- Explore Page Injection (FIXED FOR DYNAMIC CATEGORIES) ---
 	function initExplorePage(games) {
-		const populateSwiper = (category, wrapperSelector) => {
-			const wrapper = document.querySelector(wrapperSelector);
-			if (!wrapper) return;
-			wrapper.innerHTML = '';
-			const categoryGames = games.filter(g => g.category.toLowerCase() === category.toLowerCase());
-			categoryGames.forEach(g => {
-				wrapper.innerHTML += `
-                    <div class="swiper-slide">
-                        <a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
-                            <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full aspect-video object-cover" loading="lazy">
-                            <div class="p-3">
-                                <h3 class="font-bold text-sm text-white truncate uppercase">${g.title}</h3>
-                                <p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase">${g.category}</p>
-                            </div>
-                        </a>
-                    </div>
-                `;
-			});
-		};
+		const container = document.getElementById('categories-container');
+		if (!container) return;
 
-		// Populate all Swipers on the Explore page based on data-category attributes
-		const sections = document.querySelectorAll('.explore-category-section');
-		sections.forEach(sec => {
-			const cat = sec.getAttribute('data-category');
-			populateSwiper(cat, `.swiper-${cat} .swiper-wrapper`);
+		// Group games by category from the JSON file
+		const categories = {};
+		games.forEach(g => {
+			const cat = g.category.toUpperCase();
+			if (!categories[cat]) categories[cat] = [];
+			categories[cat].push(g);
 		});
 
-		// Notify slider.js that dynamic HTML is ready
-		document.dispatchEvent(new Event('gamesLoadedForSwiper'));
-	}
+		const categoryNames = Object.keys(categories);
+		let visibleCount = 2; // Load 2 categories by default
 
-	// --- Explore Page Category Filter Dropdown ---
-	function initCategoryFilter() {
-		const urlParams = new URLSearchParams(window.location.search);
-		const categoryParam = urlParams.get('category');
-		const categorySelect = document.getElementById('category-filter');
-		const exploreSections = document.querySelectorAll('.explore-category-section');
+		// Main rendering engine
+		function renderCategories(filter = 'all') {
+			container.innerHTML = '';
+			
+			let toShow = [];
+			if (filter === 'all') {
+				toShow = categoryNames.slice(0, visibleCount);
+			} else {
+				toShow = categoryNames.filter(c => c.toLowerCase() === filter.toLowerCase());
+			}
 
-		function filterExplore(category) {
-			if (!exploreSections.length) return;
-			exploreSections.forEach(sec => {
-				const secCategory = sec.getAttribute('data-category').toLowerCase();
-				if (category === 'all' || !category) {
-					sec.style.display = 'block';
-				} else {
-					sec.style.display = secCategory === category.toLowerCase() ? 'block' : 'none';
-				}
+			toShow.forEach((cat, index) => {
+				const catGames = categories[cat];
+				
+				// Pick a relevant emoji
+				let emoji = '🎮';
+				if(cat.includes('ACTION')) emoji = '⚔️';
+				if(cat.includes('PUZZLE')) emoji = '🧩';
+				if(cat.includes('RUNNER')) emoji = '🏃';
+				if(cat.includes('SURVIVAL')) emoji = '🛡️';
+
+				// Construct the HTML section
+				const sectionHtml = `
+					<section class="mb-16 explore-category-section" data-category="${cat.toLowerCase()}">
+						<div class="flex items-center justify-between mb-6 border-b border-[#27272a] pb-2">
+							<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-white font-liberation">
+								<span class="text-[#00ff00]">${emoji}</span> ${cat} Games
+							</h2>
+							<div class="flex gap-2">
+								<div class="swiper-button-prev-${index} cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
+								</div>
+								<div class="swiper-button-next-${index} cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
+								</div>
+							</div>
+						</div>
+						<div class="swiper swiper-${index}">
+							<div class="swiper-wrapper">
+								${catGames.map(g => `
+									<div class="swiper-slide">
+										<a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
+											<img src="${g.thumbnail_url}" alt="${g.title}" class="w-full aspect-video object-cover" loading="lazy">
+											<div class="p-3">
+												<h3 class="font-bold text-sm text-white truncate uppercase">${g.title}</h3>
+												<p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase">${g.category}</p>
+											</div>
+										</a>
+									</div>
+								`).join('')}
+							</div>
+						</div>
+					</section>
+				`;
+				container.insertAdjacentHTML('beforeend', sectionHtml);
 			});
+
+			// Tell slider.js to initialize these new specific swipers
+			document.dispatchEvent(new CustomEvent('initDynamicSwipers', { detail: { count: toShow.length } }));
+
+			// Handle 'Load More' button visibility
+			const loadMoreBtn = document.getElementById('load-more-btn');
+			if (loadMoreBtn) {
+				if (filter !== 'all' || visibleCount >= categoryNames.length) {
+					loadMoreBtn.style.display = 'none';
+				} else {
+					loadMoreBtn.style.display = 'block';
+					loadMoreBtn.textContent = 'LOAD MORE CATEGORIES';
+					loadMoreBtn.disabled = false;
+					loadMoreBtn.style.opacity = '1';
+					loadMoreBtn.style.cursor = 'pointer';
+				}
+			}
 		}
 
-		if (categorySelect && exploreSections.length > 0) {
-			if (categoryParam) {
-				Array.from(categorySelect.options).forEach(opt => {
-					if (opt.value === categoryParam.toLowerCase()) categorySelect.value = opt.value;
-				});
-				filterExplore(categoryParam);
-			}
-			categorySelect.addEventListener('change', (e) => {
-				filterExplore(e.target.value);
+		// Initial Check: Read URL params
+		const urlParams = new URLSearchParams(window.location.search);
+		const initialCategory = urlParams.get('category') || 'all';
+		
+		// Update Dropdown Filter
+		const categorySelect = document.getElementById('category-filter');
+		if (categorySelect) {
+			const existingOptions = Array.from(categorySelect.options).map(o => o.value);
+			categoryNames.forEach(cat => {
+				if (!existingOptions.includes(cat.toLowerCase())) {
+					const opt = document.createElement('option');
+					opt.value = cat.toLowerCase();
+					opt.textContent = cat;
+					categorySelect.appendChild(opt);
+				}
+			});
+
+			Array.from(categorySelect.options).forEach(opt => {
+				if (opt.value === initialCategory.toLowerCase()) categorySelect.value = opt.value;
+			});
+
+			// Filter Event
+			const newSelect = categorySelect.cloneNode(true);
+			categorySelect.parentNode.replaceChild(newSelect, categorySelect);
+			newSelect.addEventListener('change', (e) => {
+				const val = e.target.value;
+				renderCategories(val);
 				const newUrl = new URL(window.location);
-				if (e.target.value === 'all') newUrl.searchParams.delete('category');
-				else newUrl.searchParams.set('category', e.target.value);
+				if (val === 'all') newUrl.searchParams.delete('category');
+				else newUrl.searchParams.set('category', val);
 				window.history.pushState({}, '', newUrl);
 			});
 		}
+
+		// Initial Render
+		renderCategories(initialCategory);
+
+		// Wire up "Load More" button to fetch next batch of categories
+		const loadMoreBtn = document.getElementById('load-more-btn');
+		if (loadMoreBtn) {
+			const newBtn = loadMoreBtn.cloneNode(true);
+			loadMoreBtn.parentNode.replaceChild(newBtn, loadMoreBtn);
+			newBtn.addEventListener('click', function() {
+				this.textContent = 'LOADING...';
+				this.disabled = true;
+				this.style.opacity = '0.5';
+				this.style.cursor = 'not-allowed';
+
+				setTimeout(() => {
+					visibleCount += 2; 
+					renderCategories('all');
+				}, 400);
+			});
+		}
 	}
 
-	// --- Game Page Sidebar Injection (Similar Games) ---
+	// --- Game Page Sidebar Injection ---
 	function initGamePageSidebar(games) {
 		let gameId = '';
 		const pathParts = window.location.pathname.split('/').filter(p => p);
@@ -351,10 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const similarGrid = document.querySelector('aside .grid.grid-cols-2.gap-3');
 		if (similarGrid) {
 			similarGrid.innerHTML = '';
-			
-			// Find games in the same category, excluding the current game
 			const similarGames = games.filter(g => g.category.toLowerCase() === currentGame.category.toLowerCase() && g.id !== currentGame.id).slice(0, 4);
-			
 			similarGames.forEach(g => {
 				similarGrid.innerHTML += `
                     <a href="/game.html?id=${g.id}" class="group">
@@ -369,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	// --- 404 Page Injection (Random Easter Egg & Recommendations) ---
+	// --- 404 Page Injection ---
 	function init404Page(games) {
 		const pathElement = document.getElementById('dynamic-path');
 		if (pathElement) {
@@ -377,14 +446,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			pathElement.textContent = safePath;
 		}
 
-		// Shuffle array using Fisher-Yates
 		let shuffled = [...games];
 		for (let i = shuffled.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
 			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
 		}
 
-		// Inject Easter Egg Game
 		const mainGame = shuffled[0];
 		const gameContainer = document.getElementById('random-game-container');
 		if (gameContainer && mainGame) {
@@ -400,7 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			`;
 		}
 
-		// Inject Recommendations Grid
 		const gridContainer = document.getElementById('recommended-games');
 		if (gridContainer) {
 			let html = '';

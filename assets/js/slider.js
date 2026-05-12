@@ -1,11 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-	// --- Swiper Initialization ---
+// Array to track active swiper instances so we can cleanly destroy them on filter change
+window.activeSwipers = [];
+
+// Listen for the custom event fired by main.js once the dynamic DOM elements are inserted
+document.addEventListener('initDynamicSwipers', (e) => {
+	// Clean up old instances to prevent memory leaks and broken math
+	if (window.activeSwipers.length > 0) {
+		window.activeSwipers.forEach(swiper => swiper.destroy(true, true));
+		window.activeSwipers = [];
+	}
+
+	const count = e.detail.count;
+	
 	const sharedConfig = {
 		slidesPerView: 2,
 		spaceBetween: 20,
-		loop: true,
+		loop: false, // FIX: Resolves the Swiper warning if a category has < 5 games
 		centeredSlides: false,
-		watchSlidesProgress: true, // Helps with rendering during hover
+		watchSlidesProgress: true, 
 		grabCursor: true,
 		autoplay: {
 			delay: 4000,
@@ -20,24 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	};
 
-	// Initialize Sliders
-	const actionSwiper = new Swiper('.swiper-action', {
-		...sharedConfig,
-		navigation: {
-			nextEl: '.swiper-button-next-action',
-			prevEl: '.swiper-button-prev-action',
-		},
-	});
+	// Initialize a unique Swiper instance for every dynamic category loaded
+	for (let i = 0; i < count; i++) {
+		const swiper = new Swiper(`.swiper-${i}`, {
+			...sharedConfig,
+			navigation: {
+				nextEl: `.swiper-button-next-${i}`,
+				prevEl: `.swiper-button-prev-${i}`,
+			},
+		});
+		window.activeSwipers.push(swiper);
+	}
+});
 
-	const puzzleSwiper = new Swiper('.swiper-puzzle', {
-		...sharedConfig,
-		navigation: {
-			nextEl: '.swiper-button-next-puzzle',
-			prevEl: '.swiper-button-prev-puzzle',
-		},
-	});
-
-	// --- UI Functionality: Back to Top ---
+// UI Functionality: Back to Top
+document.addEventListener('DOMContentLoaded', () => {
 	const backToTopBtn = document.getElementById('back-to-top');
 	if (backToTopBtn) {
 		backToTopBtn.addEventListener('click', (e) => {
@@ -46,26 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				top: 0,
 				behavior: 'smooth'
 			});
-		});
-	}
-
-	// --- UI Functionality: Load More ---
-	const loadMoreBtn = document.getElementById('load-more-btn');
-	if (loadMoreBtn) {
-		loadMoreBtn.addEventListener('click', function () {
-			this.textContent = 'LOADING...';
-			this.disabled = true;
-			this.style.opacity = '0.5';
-			this.style.cursor = 'not-allowed';
-
-			// Simulate loading content
-			setTimeout(() => {
-				alert("More games would be fetched from games.json here.");
-				this.textContent = 'LOAD MORE GAMES';
-				this.disabled = false;
-				this.style.opacity = '1';
-				this.style.cursor = 'pointer';
-			}, 1000);
 		});
 	}
 });
