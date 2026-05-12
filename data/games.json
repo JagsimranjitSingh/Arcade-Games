@@ -110,5 +110,113 @@
 				"action": "Jump"
 			}
 		]
+	},
+	{
+		"id": "hexa-merge",
+		"title": "Hexa Merge",
+		"category": "Puzzle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00ffff?text=HEXA+MERGE",
+		"game_url": "/games/hexa-merge/index.html",
+		"description": "Place hexagonal tiles on a board; connecting three of the same number merges them into a higher value.",
+		"rating": "4.5",
+		"play_count": "320K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"puzzle",
+			"merge",
+			"hexagon",
+			"math",
+			"tiles"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"MOUSE",
+					"DRAG"
+				],
+				"action": "Place Tiles"
+			}
+		]
+	},
+	{
+		"id": "light-linker",
+		"title": "Light Linker",
+		"category": "Puzzle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff00cc?text=LIGHT+LINKER",
+		"game_url": "/games/light-linker/index.html",
+		"description": "Draw paths to connect matching neon nodes without crossing other colored light streams.",
+		"rating": "4.8",
+		"play_count": "900K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"puzzle",
+			"connect",
+			"path",
+			"logic",
+			"neon"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"DRAG",
+					"SWIPE"
+				],
+				"action": "Draw Path"
+			}
+		]
+	},
+	{
+		"id": "block-unblock",
+		"title": "Block Unblock",
+		"category": "Puzzle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00ff00?text=BLOCK+UNBLOCK",
+		"game_url": "/games/block-unblock/index.html",
+		"description": "Slide interlocking neon blocks out of the way to free the glowing master block.",
+		"rating": "4.7",
+		"play_count": "600K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"puzzle",
+			"slide",
+			"blocks",
+			"logic",
+			"escape"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"DRAG",
+					"SWIPE"
+				],
+				"action": "Slide Blocks"
+			}
+		]
+	},
+	{
+		"id": "chroma-sort",
+		"title": "Chroma Sort",
+		"category": "Puzzle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ffff00?text=CHROMA+SORT",
+		"game_url": "/games/chroma-sort/index.html",
+		"description": "Pour mixed neon liquids between test tubes until each tube contains only one solid color.",
+		"rating": "4.9",
+		"play_count": "1.5M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"puzzle",
+			"sort",
+			"color",
+			"logic",
+			"liquid"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"CLICK",
+					"TAP"
+				],
+				"action": "Pour Liquid"
+			}
+		]
 	}
 ]
