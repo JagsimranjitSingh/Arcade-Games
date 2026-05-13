@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<title>GLITCH JUMPER</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			:root {
+				--bg: #05050f;
+				--neon-cyan: #00ffe7;
+				--neon-pink: #ff2d78;
+				--neon-yellow: #f5e642;
+				--glass: rgba(255, 255, 255, 0.04);
+				--glass-border: rgba(255, 255, 255, 0.08);
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				background: var(--bg);
+				overflow: hidden;
+				font-family: 'Share Tech Mono', monospace;
+			}
+
+			#game-container {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			canvas {
+				display: block;
+			}
+
+			/* HUD OVERLAY */
+			#hud {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				padding: 18px 24px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				pointer-events: none;
+				z-index: 10;
+			}
+
+			.hud-panel {
+				background: var(--glass);
+				border: 1px solid var(--glass-border);
+				border-radius: 4px;
+				padding: 8px 16px;
+				-webkit-backdrop-filter: blur(8px);
+				backdrop-filter: blur(8px);
+			}
+
+			.hud-label {
+				font-size: 9px;
+				letter-spacing: 3px;
+				color: rgba(255, 255, 255, 0.35);
+				text-transform: uppercase;
+				margin-bottom: 2px;
+			}
+
+			.hud-value {
+				font-family: 'Orbitron', monospace;
+				font-weight: 700;
+				font-size: 22px;
+				color: var(--neon-cyan);
+				text-shadow: 0 0 12px var(--neon-cyan), 0 0 30px rgba(0, 255, 231, 0.3);
+				transition: color 0.2s;
+			}
+
+			#score-display.glitch {
+				animation: glitch-anim 0.2s steps(1) forwards;
+			}
+
+			#combo-panel {
+				text-align: center;
+			}
+
+			#combo-value {
+				color: var(--neon-yellow);
+				text-shadow: 0 0 12px var(--neon-yellow), 0 0 30px rgba(245, 230, 66, 0.3);
+				font-size: 26px;
+			}
+
+			#combo-value.hot {
+				color: var(--neon-pink);
+				text-shadow: 0 0 12px var(--neon-pink), 0 0 40px rgba(255, 45, 120, 0.5);
+				animation: pulse 0.3s ease-out;
+			}
+
+			#level-panel {
+				text-align: right;
+			}
+
+			#level-value {
+				color: var(--neon-pink);
+				text-shadow: 0 0 12px var(--neon-pink);
+			}
+
+			/* glitch text effect */
+			@keyframes glitch-anim {
+				0% {
+					transform: translate(-2px, 1px) skewX(-3deg);
+					filter: hue-rotate(90deg);
+				}
+
+				25% {
+					transform: translate(2px, -1px) skewX(2deg);
+					filter: hue-rotate(-40deg);
+				}
+
+				50% {
+					transform: translate(-1px, 2px) skewX(1deg);
+				}
+
+				75% {
+					transform: translate(1px, -2px) skewX(-1deg);
+				}
+
+				100% {
+					transform: translate(0, 0) skewX(0deg);
+					filter: none;
+				}
+			}
+
+			@keyframes pulse {
+				0% {
+					transform: scale(1.4);
+				}
+
+				100% {
+					transform: scale(1);
+				}
+			}
+
+			/* RHYTHM BAR */
+			#rhythm-bar-wrap {
+				position: absolute;
+				bottom: 24px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: min(360px, 80vw);
+				z-index: 10;
+				pointer-events: none;
+			}
+
+			.rhythm-label {
+				font-size: 9px;
+				letter-spacing: 3px;
+				color: rgba(255, 255, 255, 0.3);
+				text-align: center;
+				margin-bottom: 6px;
+			}
+
+			#rhythm-track {
+				width: 100%;
+				height: 6px;
+				background: rgba(255, 255, 255, 0.08);
+				border-radius: 3px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			#rhythm-fill {
+				height: 100%;
+				width: 0%;
+				border-radius: 3px;
+				background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+				box-shadow: 0 0 10px var(--neon-cyan);
+				transition: background 0.2s;
+			}
+
+			/* SCREENS */
+			.screen {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				z-index: 20;
+				background: rgba(5, 5, 15, 0.92);
+				-webkit-backdrop-filter: blur(6px);
+				backdrop-filter: blur(6px);
+			}
+
+			.screen.hidden {
+				display: none;
+			}
+
+			.screen-title {
+				font-family: 'Orbitron', monospace;
+				font-weight: 900;
+				font-size: clamp(36px, 8vw, 72px);
+				color: #fff;
+				letter-spacing: 6px;
+				text-transform: uppercase;
+				position: relative;
+			}
+
+			.screen-title::before,
+			.screen-title::after {
+				content: attr(data-text);
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+
+			.screen-title::before {
+				color: var(--neon-cyan);
+				animation: glitch-l 3s infinite steps(1);
+				clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+			}
+
+			.screen-title::after {
+				color: var(--neon-pink);
+				animation: glitch-r 3s infinite steps(1);
+				clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+			}
+
+			@keyframes glitch-l {
+				0%,
+				90%,
+				100% {
+					transform: none;
+					opacity: 0;
+				}
+
+				92% {
+					transform: translateX(-4px);
+					opacity: 0.8;
+				}
+
+				94% {
+					transform: translateX(3px);
+					opacity: 0.6;
+				}
+
+				96% {
+					transform: translateX(-2px);
+					opacity: 0.9;
+				}
+			}
+
+			@keyframes glitch-r {
+				0%,
+				88%,
+				100% {
+					transform: none;
+					opacity: 0;
+				}
+
+				90% {
+					transform: translateX(4px);
+					opacity: 0.8;
+				}
+
+				92% {
+					transform: translateX(-2px);
+					opacity: 0.5;
+				}
+
+				95% {
+					transform: translateX(3px);
+					opacity: 0.9;
+				}
+			}
+
+			.screen-sub {
+				font-size: 11px;
+				letter-spacing: 4px;
+				color: rgba(255, 255, 255, 0.4);
+				margin-top: 10px;
+				text-transform: uppercase;
+			}
+
+			.divider {
+				width: 200px;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+				margin: 32px 0;
+			}
+
+			.btn {
+				font-family: 'Orbitron', monospace;
+				font-weight: 700;
+				font-size: 13px;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				padding: 14px 42px;
+				border: 1px solid var(--neon-cyan);
+				background: transparent;
+				color: var(--neon-cyan);
+				cursor: pointer;
+				position: relative;
+				overflow: hidden;
+				transition: all 0.25s;
+				clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+			}
+
+			.btn::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: var(--neon-cyan);
+				transform: translateX(-100%);
+				transition: transform 0.25s;
+				z-index: -1;
+			}
+
+			.btn:hover {
+				color: #000;
+				text-shadow: none;
+			}
+
+			.btn:hover::before {
+				transform: translateX(0);
+			}
+
+			.stat-row {
+				display: flex;
+				gap: 40px;
+				margin-bottom: 16px;
+			}
+
+			.stat-item {
+				text-align: center;
+			}
+
+			.stat-label {
+				font-size: 9px;
+				letter-spacing: 3px;
+				color: rgba(255, 255, 255, 0.3);
+			}
+
+			.stat-val {
+				font-family: 'Orbitron', monospace;
+				font-size: 28px;
+				font-weight: 700;
+				color: var(--neon-cyan);
+				text-shadow: 0 0 12px var(--neon-cyan);
+			}
+
+			/* SCANLINES */
+			#scanlines {
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 30;
+				background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0, 0, 0, 0.08) 3px, rgba(0, 0, 0, 0.08) 4px);
+			}
+
+			/* MOBILE TOUCH AREAS */
+			#touch-left,
+			#touch-right {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 40%;
+				z-index: 5;
+				cursor: pointer;
+			}
+
+			#touch-left {
+				left: 0;
+			}
+
+			#touch-right {
+				right: 0;
+			}
+
+			/* corner accents */
+			.corner {
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				border-color: rgba(0, 255, 231, 0.3);
+				border-style: solid;
+				z-index: 10;
+				pointer-events: none;
+			}
+
+			.corner.tl {
+				top: 12px;
+				left: 12px;
+				border-width: 1px 0 0 1px;
+			}
+
+			.corner.tr {
+				top: 12px;
+				right: 12px;
+				border-width: 1px 1px 0 0;
+			}
+
+			.corner.bl {
+				bottom: 12px;
+				left: 12px;
+				border-width: 0 0 1px 1px;
+			}
+
+			.corner.br {
+				bottom: 12px;
+				right: 12px;
+				border-width: 0 1px 1px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="game-container">
+			<div id="scanlines"></div>
+
+			<div class="corner tl"></div>
+			<div class="corner tr"></div>
+			<div class="corner bl"></div>
+			<div class="corner br"></div>
+
+			<div id="touch-left"></div>
+			<div id="touch-right"></div>
+
+			<div id="hud">
+				<div class="hud-panel">
+					<div class="hud-label">Score</div>
+					<div class="hud-value" id="score-display">000000</div>
+				</div>
+				<div class="hud-panel" id="combo-panel">
+					<div class="hud-label">Combo</div>
+					<div class="hud-value" id="combo-value">×1</div>
+				</div>
+				<div class="hud-panel" id="level-panel">
+					<div class="hud-label">Level</div>
+					<div class="hud-value" id="level-value">01</div>
+				</div>
+			</div>
+
+			<div id="rhythm-bar-wrap">
+				<div class="rhythm-label">Glitch Rhythm</div>
+				<div id="rhythm-track">
+					<div id="rhythm-fill"></div>
+				</div>
+			</div>
+
+			<div class="screen" id="start-screen">
+				<div class="screen-title" data-text="GLITCH">GLITCH</div>
+				<div class="screen-title" data-text="JUMPER" style="margin-top:-10px;">JUMPER</div>
+				<div class="screen-sub">Endless Vertical Platformer</div>
+				<div class="divider"></div>
+				<button class="btn" id="start-btn">INITIALIZE</button>
+				<div style="margin-top:24px; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,0.2);">
+					← → / A D / TOUCH TO STEER
+				</div>
+			</div>
+
+			<div class="screen hidden" id="over-screen">
+				<div class="screen-title" data-text="SIGNAL" style="font-size:clamp(28px,5vw,52px)">SIGNAL</div>
+				<div class="screen-title" data-text="LOST" style="font-size:clamp(28px,5vw,52px);margin-top:-6px;">LOST
+				</div>
+				<div class="divider"></div>
+				<div class="stat-row">
+					<div class="stat-item">
+						<div class="stat-label">Final Score</div>
+						<div class="stat-val" id="final-score">0</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-label">Level</div>
+						<div class="stat-val" id="final-level">1</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-label">Best Combo</div>
+						<div class="stat-val" id="final-combo">×1</div>
+					</div>
+				</div>
+				<button class="btn" id="retry-btn">RECONNECT</button>
+			</div>
+
+			<div class="screen hidden" id="level-screen" style="background:rgba(0,255,231,0.06);pointer-events:none;">
+				<div class="screen-title" data-text="LEVEL" style="font-size:clamp(22px,4vw,42px);">LEVEL</div>
+				<div class="screen-title" id="level-num-display" data-text="02"
+					style="font-size:clamp(48px,10vw,96px);margin-top:-8px;">02</div>
+				<div class="screen-sub">Glitch frequency increased</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+
+		<script src="../../assets/js/fp-sdk.js" onerror="console.info('[FreshPlay] Local environment detected. Using fallback SDK.')"></script>
+
+		<script src="game.js"></script>
+	</body>
+</html>

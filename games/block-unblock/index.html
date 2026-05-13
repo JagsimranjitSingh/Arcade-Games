@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<title>Block Unblock — Luxury Sliding Puzzle</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0
+			}
+
+			:root {
+				--bg: #070714;
+				--accent: #00ffe7;
+				--ui: #3d7fff;
+				--gold: #ffaa00;
+				--white: #e8eaff
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				background: var(--bg);
+				overflow: hidden;
+				font-family: 'Share Tech Mono', 'Courier New', monospace;
+				color: var(--white);
+				-webkit-tap-highlight-color: transparent;
+				touch-action: none
+			}
+
+			/* grain */
+			body::before {
+				content: '';
+				position: fixed;
+				inset: 0;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+				opacity: .026;
+				pointer-events: none;
+				z-index: 999
+			}
+
+			/* vignette */
+			body::after {
+				content: '';
+				position: fixed;
+				inset: 0;
+				background: radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, .72) 100%);
+				pointer-events: none;
+				z-index: 998
+			}
+
+			/* CENTRED GAME WRAPPER */
+			#game-wrapper {
+				position: fixed;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 1;
+			}
+
+			#game-wrapper canvas {
+				display: block;
+				image-rendering: auto;
+				border-radius: 4px;
+				box-shadow: 0 0 0 1px rgba(61, 127, 255, .18), 0 0 28px rgba(0, 255, 231, .06), 0 0 80px rgba(0, 0, 0, .6);
+				margin-left: 0px !important;
+			}
+
+			/* LOADER */
+			#loader {
+				position: fixed;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 28px;
+				z-index: 1000;
+				background: var(--bg);
+				transition: opacity .5s ease, visibility .5s ease
+			}
+
+			#loader.hidden {
+				opacity: 0;
+				visibility: hidden
+			}
+
+			.loader-title {
+				font-size: clamp(18px, 3vw, 26px);
+				letter-spacing: 10px;
+				opacity: .9;
+				text-transform: uppercase
+			}
+
+			.loader-sub {
+				font-size: 10px;
+				letter-spacing: 4px;
+				color: var(--accent);
+				opacity: .6
+			}
+
+			.loader-bar-wrap {
+				width: 200px;
+				height: 2px;
+				background: rgba(255, 255, 255, .06);
+				border-radius: 2px;
+				overflow: hidden
+			}
+
+			.loader-bar {
+				height: 100%;
+				width: 0%;
+				background: linear-gradient(90deg, var(--ui), var(--accent));
+				border-radius: 2px;
+				animation: loadBar 1.2s cubic-bezier(.4, 0, .2, 1) forwards
+			}
+
+			@keyframes loadBar {
+				0% {
+					width: 0%
+				}
+
+				60% {
+					width: 75%
+				}
+
+				100% {
+					width: 100%
+				}
+			}
+
+			.loader-dots {
+				display: flex;
+				gap: 8px
+			}
+
+			.loader-dot {
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background: var(--accent);
+				opacity: .3;
+				animation: dotPulse 1.2s ease-in-out infinite
+			}
+
+			.loader-dot:nth-child(2) {
+				animation-delay: .2s
+			}
+
+			.loader-dot:nth-child(3) {
+				animation-delay: .4s
+			}
+
+			@keyframes dotPulse {
+				0%,
+				100% {
+					opacity: .2;
+					transform: scale(.85)
+				}
+
+				50% {
+					opacity: .9;
+					transform: scale(1.2)
+				}
+			}
+
+			.corner {
+				position: fixed;
+				width: 28px;
+				height: 28px
+			}
+
+			.corner::before,
+			.corner::after {
+				content: '';
+				position: absolute;
+				background: var(--gold);
+				opacity: .55
+			}
+
+			.corner::before {
+				width: 2px;
+				height: 100%;
+				top: 0
+			}
+
+			.corner::after {
+				width: 100%;
+				height: 2px;
+				top: 0
+			}
+
+			.corner.tl {
+				top: 20px;
+				left: 20px
+			}
+
+			.corner.tr {
+				top: 20px;
+				right: 20px;
+				transform: scaleX(-1)
+			}
+
+			.corner.bl {
+				bottom: 20px;
+				left: 20px;
+				transform: scaleY(-1)
+			}
+
+			.corner.br {
+				bottom: 20px;
+				right: 20px;
+				transform: scale(-1)
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="loader">
+			<div class="corner tl"></div>
+			<div class="corner tr"></div>
+			<div class="corner bl"></div>
+			<div class="corner br"></div>
+			<div class="loader-title">Block&nbsp;&nbsp;Unblock</div>
+			<div class="loader-sub">Sliding Puzzle — Luxury Edition</div>
+			<div class="loader-bar-wrap">
+				<div class="loader-bar"></div>
+			</div>
+			<div class="loader-dots">
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+			</div>
+		</div>
+
+		<div id="game-wrapper"></div>
+
+		<script src="../../assets/js/fp-sdk.js" onerror="console.info('[FreshPlay] Local environment detected. Using fallback SDK.')"></script>
+		<script src="game.js"></script>
+
+		<script>
+			(function () {
+				const loader = document.getElementById('loader');
+				const wrapper = document.getElementById('game-wrapper');
+				const obs = new MutationObserver((muts) => {
+					for (const m of muts) {
+						for (const node of m.addedNodes) {
+							if (node.nodeName === 'CANVAS') {
+								setTimeout(() => loader.classList.add('hidden'), 680);
+								obs.disconnect(); return;
+							}
+						}
+					}
+				});
+				obs.observe(wrapper, { childList: true });
+				setTimeout(() => loader.classList.add('hidden'), 3500);
+			})();
+		</script>
+	</body>
+</html>

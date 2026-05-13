@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="theme-color" content="#0a0a12" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>LIGHT LINKER — FreshPlay Arcade</title>
+		
+		<style>
+			/* ── Reset ── */
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			/* ── Root palette (mirrors FreshPlay defaults) ── */
+			:root {
+				--bg: #0a0a12;
+				--bg2: #0f0f1c;
+				--core: #00f5d4;
+				--accent: #f72585;
+				--hostile: #ffd166;
+				--ui: #c8d0e8;
+				--ui-dim: rgba(200, 208, 232, 0.35);
+				--glow-core: 0 0 18px #00f5d480, 0 0 40px #00f5d430;
+				--font-mono: "Courier New", Courier, monospace;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				background: var(--bg);
+				overflow: hidden;
+				-webkit-tap-highlight-color: transparent;
+				touch-action: none;
+			}
+
+			/* ── Scanline texture overlay ── */
+			body::before {
+				content: '';
+				position: fixed;
+				inset: 0;
+				z-index: 9998;
+				pointer-events: none;
+				background: repeating-linear-gradient(to bottom,
+						transparent 0px,
+						transparent 3px,
+						rgba(0, 0, 0, 0.07) 3px,
+						rgba(0, 0, 0, 0.07) 4px);
+			}
+
+			/* ── Ambient corner glows ── */
+			body::after {
+				content: '';
+				position: fixed;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+				background:
+					radial-gradient(ellipse 55% 38% at 15% 8%, rgba(0, 245, 212, 0.07) 0%, transparent 70%),
+					radial-gradient(ellipse 45% 32% at 88% 92%, rgba(247, 37, 133, 0.07) 0%, transparent 70%),
+					radial-gradient(ellipse 40% 28% at 80% 5%, rgba(255, 209, 102, 0.04) 0%, transparent 70%);
+			}
+
+			/* ── Loading screen ── */
+			#loader {
+				position: fixed;
+				inset: 0;
+				z-index: 9000;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				background: var(--bg);
+				transition: opacity 0.6s ease, visibility 0.6s;
+			}
+
+			#loader.hidden {
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			.loader-logo {
+				font-family: var(--font-mono);
+				font-size: clamp(22px, 5vw, 34px);
+				letter-spacing: 0.22em;
+				color: var(--core);
+				text-shadow: var(--glow-core);
+				animation: flicker 3s infinite;
+			}
+
+			.loader-sub {
+				margin-top: 10px;
+				font-family: var(--font-mono);
+				font-size: 11px;
+				letter-spacing: 0.3em;
+				color: var(--ui-dim);
+				text-transform: uppercase;
+			}
+
+			.loader-bar-wrap {
+				margin-top: 36px;
+				width: clamp(180px, 48vw, 260px);
+				height: 2px;
+				background: rgba(200, 208, 232, 0.12);
+				border-radius: 2px;
+				overflow: hidden;
+			}
+
+			.loader-bar {
+				height: 100%;
+				width: 0%;
+				background: linear-gradient(90deg, var(--core), var(--accent));
+				box-shadow: 0 0 12px var(--core);
+				border-radius: 2px;
+				animation: loadBar 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+			}
+
+			.loader-dots {
+				margin-top: 20px;
+				display: flex;
+				gap: 8px;
+			}
+
+			.loader-dots span {
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background: var(--core);
+				opacity: 0.2;
+				animation: dotPulse 1s ease-in-out infinite;
+			}
+
+			.loader-dots span:nth-child(2) {
+				animation-delay: 0.18s;
+				background: var(--accent);
+			}
+
+			.loader-dots span:nth-child(3) {
+				animation-delay: 0.36s;
+				background: var(--hostile);
+			}
+
+			/* ── Game canvas wrapper ── */
+			#game-container {
+				position: fixed;
+				inset: 0;
+				z-index: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#game-container canvas {
+				display: block;
+				image-rendering: -webkit-optimize-contrast;
+				image-rendering: crisp-edges;
+				/* subtle outer frame glow */
+				filter: drop-shadow(0 0 28px rgba(0, 245, 212, 0.18));
+			}
+
+			/* ── Corner chrome decorations ── */
+			.corner {
+				position: fixed;
+				z-index: 9997;
+				pointer-events: none;
+				width: 36px;
+				height: 36px;
+			}
+
+			.corner::before,
+			.corner::after {
+				content: '';
+				position: absolute;
+				background: var(--core);
+				opacity: 0.5;
+				border-radius: 1px;
+			}
+
+			.corner::before {
+				width: 100%;
+				height: 1.5px;
+				top: 0;
+				left: 0;
+			}
+
+			.corner::after {
+				width: 1.5px;
+				height: 100%;
+				top: 0;
+				left: 0;
+			}
+
+			.corner.tl {
+				top: 14px;
+				left: 14px;
+			}
+
+			.corner.tr {
+				top: 14px;
+				right: 14px;
+				transform: scaleX(-1);
+			}
+
+			.corner.bl {
+				bottom: 14px;
+				left: 14px;
+				transform: scaleY(-1);
+			}
+
+			.corner.br {
+				bottom: 14px;
+				right: 14px;
+				transform: scale(-1);
+			}
+
+			/* ── Status bar (top) ── */
+			#statusbar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 9996;
+				height: 14px;
+				background: linear-gradient(to bottom, rgba(10, 10, 18, 0.9) 0%, transparent 100%);
+				pointer-events: none;
+			}
+
+			/* ── Animations ── */
+			@keyframes loadBar {
+				0% {
+					width: 0%;
+				}
+
+				60% {
+					width: 78%;
+				}
+
+				85% {
+					width: 92%;
+				}
+
+				100% {
+					width: 100%;
+				}
+			}
+
+			@keyframes dotPulse {
+				0%,
+				100% {
+					opacity: 0.15;
+					transform: scale(1);
+				}
+
+				50% {
+					opacity: 1;
+					transform: scale(1.4);
+				}
+			}
+
+			@keyframes flicker {
+				0%,
+				95%,
+				100% {
+					opacity: 1;
+				}
+
+				96% {
+					opacity: 0.7;
+				}
+
+				97% {
+					opacity: 1;
+				}
+
+				98% {
+					opacity: 0.5;
+				}
+
+				99% {
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="statusbar"></div>
+
+		<div class="corner tl"></div>
+		<div class="corner tr"></div>
+		<div class="corner bl"></div>
+		<div class="corner br"></div>
+
+		<div id="loader">
+			<div class="loader-logo">LIGHT LINKER</div>
+			<div class="loader-sub">neon puzzle system</div>
+			<div class="loader-bar-wrap">
+				<div class="loader-bar"></div>
+			</div>
+			<div class="loader-dots">
+				<span></span><span></span><span></span>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
+
+		<div id="game-container"></div>
+
+		<script src="../../assets/js/fp-sdk.js" onerror="console.info('[FreshPlay] Local environment detected. Using fallback SDK.')"></script>
+
+		<script src="game.js"></script>
+
+		<script>
+			// Hide loader once Phaser canvas is ready
+			(function () {
+				const loader = document.getElementById('loader');
+				let hidden = false;
+
+				function hideLoader() {
+					if (hidden) return;
+					hidden = true;
+					loader.classList.add('hidden');
+				}
+
+				// Watch for canvas insertion
+				const obs = new MutationObserver(() => {
+					if (document.querySelector('#game-container canvas')) {
+						obs.disconnect();
+						// slight delay so first frame renders before fade
+						setTimeout(hideLoader, 650);
+					}
+				});
+				obs.observe(document.getElementById('game-container'), { childList: true });
+
+				// Hard fallback — always hide after 4 s
+				setTimeout(hideLoader, 4000);
+			})();
+		</script>
+	</body>
+</html>

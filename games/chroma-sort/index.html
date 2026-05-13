@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>Chroma Sort — FreshPlay Arcade</title>
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #07080f;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: monospace;
+			}
+
+			/* Phaser canvas sits inside here for perfect centering */
+			#game-container {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#game-container canvas {
+				display: block;
+				image-rendering: pixelated;
+				image-rendering: crisp-edges;
+				border-radius: 8px;
+				box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+			}
+
+			/* Loading screen */
+			#loader {
+				position: fixed;
+				inset: 0;
+				background: #07080f;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 28px;
+				z-index: 999;
+				transition: opacity 0.5s ease;
+			}
+
+			#loader.fade-out {
+				opacity: 0;
+				pointer-events: none;
+			}
+
+			#loader-title {
+				font-size: 28px;
+				letter-spacing: 10px;
+				color: #00f0ff;
+				text-shadow: 0 0 18px #00f0ff88;
+			}
+
+			#loader-sub {
+				font-size: 11px;
+				letter-spacing: 4px;
+				color: #aabbcc;
+				opacity: 0.6;
+			}
+
+			/* Animated tube spinner */
+			.spinner-tube {
+				width: 36px;
+				height: 90px;
+				border: 2px solid #00f0ff44;
+				border-top: none;
+				border-radius: 0 0 18px 18px;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.spinner-fill {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: linear-gradient(to top, #00f0ff, #aa44ff);
+				animation: fill-rise 1.2s ease-in-out infinite alternate;
+			}
+
+			@keyframes fill-rise {
+				from {
+					height: 10%;
+					opacity: 0.6;
+				}
+
+				to {
+					height: 90%;
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="loader">
+			<div id="loader-title">CHROMA SORT</div>
+			<div class="spinner-tube">
+				<div class="spinner-fill"></div>
+			</div>
+			<div id="loader-sub">LOADING…</div>
+		</div>
+
+		<div id="game-container"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
+
+		<script src="../../assets/js/fp-sdk.js" onerror="console.info('[FreshPlay] Local environment detected. Using fallback SDK.')"></script>
+		<script src="game.js"></script>
+
+		<script>
+			(function () {
+				const loader = document.getElementById('loader');
+
+				// Poll for the Phaser canvas — dismiss loader when it appears
+				const poll = setInterval(() => {
+					const canvas = document.querySelector('#game-container canvas');
+					if (canvas) {
+						clearInterval(poll);
+						loader.classList.add('fade-out');
+						setTimeout(() => loader.remove(), 550);
+					}
+				}, 80);
+
+				// Safety fallback: remove loader after 4 s regardless
+				setTimeout(() => {
+					clearInterval(poll);
+					loader.classList.add('fade-out');
+					setTimeout(() => loader.remove(), 550);
+				}, 4000);
+			})();
+		</script>
+	</body>
+</html>
