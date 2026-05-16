@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Neon Pinball</title>
+		<style>
+			*,
+			*::before,
+			*::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				background: #000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+				overflow: hidden;
+				font-family: 'Courier New', monospace;
+			}
+
+			#game-container {
+				position: relative;
+				border: 1px solid rgba(0, 245, 255, 0.18);
+				box-shadow: 0 0 60px rgba(0, 245, 255, 0.12), 0 0 120px rgba(255, 0, 170, 0.08);
+			}
+
+			/* Dev palette overlay — shows current palette info */
+			#palette-info {
+				position: fixed;
+				bottom: 12px;
+				right: 12px;
+				font-size: 10px;
+				color: rgba(255, 255, 255, 0.25);
+				letter-spacing: 0.08em;
+				pointer-events: none;
+			}
+
+			canvas {
+				display: block;
+				margin-left: 0px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="game-container"></div>
+
+		<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+
+		<script>
+			const PALETTES = [
+				// Levels 1–4: Cyan / Magenta / Navy
+				{ background: '#07071a', playerCore: '#00f5ff', interface: '#d0e8ff', fxAccent: '#ff00aa' },
+				// Levels 5–9: Amber / Violet / Obsidian
+				{ background: '#0f0900', playerCore: '#ffb800', interface: '#ffe5a0', fxAccent: '#9b00ff' },
+				// Levels 10–14: Lime / Red / Dark
+				{ background: '#020f02', playerCore: '#39ff14', interface: '#c8ffb0', fxAccent: '#ff2244' },
+				// Levels 15+: Gold / Teal / Midnight
+				{ background: '#080808', playerCore: '#ffd700', interface: '#fff8dc', fxAccent: '#00ffcc' },
+			];
+
+			let _level = 1;
+
+			window.FreshPlay = {
+				levelComplete(callback) {
+					console.log(`[FreshPlay] Level complete!`);
+					// Brief delay to let any animations settle
+					setTimeout(() => {
+						_level++;
+						if (typeof callback === 'function') callback();
+					}, 600);
+				},
+				gameOver(score) {
+					console.log(`[FreshPlay] Game Over — Final Score: ${score}`);
+					// You could show a custom game-over screen here
+				},
+				getCurrentPalette() {
+					const idx = Math.floor((_level - 1) / 5) % PALETTES.length;
+					return { ...PALETTES[idx] };
+				},
+			};
+		</script>
+
+		<script src="game.js"></script>
+	</body>
+</html>

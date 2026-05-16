@@ -131,8 +131,7 @@
 		"how_to_play": [
 			{
 				"keys": [
-					"MOUSE",
-					"DRAG"
+					"TAP"
 				],
 				"action": "Place Tiles"
 			}
@@ -216,6 +215,355 @@
 					"TAP"
 				],
 				"action": "Pour Liquid"
+			}
+		]
+	},
+	{
+		"id": "neon-rider",
+		"title": "Neon Rider",
+		"category": "Endless Runner",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00ffff?text=NEON+RIDER",
+		"game_url": "/games/neon-rider/index.html",
+		"description": "Ride a glowing light cycle on a procedurally generated track, Jump ramps to cross gaps.",
+		"rating": "4.8",
+		"play_count": "1.1M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"runner",
+			"bike",
+			"neon",
+			"survival"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"SPACE"
+				],
+				"action": "Jump"
+			}
+		]
+	},
+	{
+		"id": "space-scavenger",
+		"title": "Space Scavenger",
+		"category": "Survival",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff00ff?text=SPACE+SCAVENGER",
+		"game_url": "/games/space-scavenger/index.html",
+		"description": "Fly a ship through an asteroid field, collecting scrap to upgrade your shields on the fly.",
+		"rating": "4.6",
+		"play_count": "850K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"survival",
+			"space",
+			"asteroid",
+			"upgrade",
+			"ship"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"ARROWS",
+					"TOUCH"
+				],
+				"action": "Steer Ship"
+			}
+		]
+	},
+	{
+		"id": "rooftop-cyber-punk",
+		"title": "Rooftop Cyber Punk",
+		"category": "Endless Runner",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff0055?text=ROOFTOP+CYBER+PUNK",
+		"game_url": "/games/rooftop-cyber-punk/index.html",
+		"description": "Parkour across futuristic rooftops, sliding under vents and vaulting over neon signs.",
+		"rating": "4.7",
+		"play_count": "2.3M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"runner",
+			"parkour",
+			"cyberpunk",
+			"jump",
+			"slide"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"UP",
+					"SWIPE UP"
+				],
+				"action": "Jump / Vault"
+			},
+			{
+				"keys": [
+					"DOWN",
+					"SWIPE DOWN"
+				],
+				"action": "Slide"
+			}
+		]
+	},
+	{
+		"id": "deep-dive",
+		"title": "Deep Dive",
+		"category": "Survival",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/0055ff?text=DEEP+DIVE",
+		"game_url": "/games/deep-dive/index.html",
+		"description": "Control a submarine descending into the abyss, managing oxygen and dodging sea monsters.",
+		"rating": "4.9",
+		"play_count": "1.8M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"survival",
+			"submarine",
+			"ocean",
+			"avoid",
+			"abyss"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"ARROWS",
+					"DRAG"
+				],
+				"action": "Navigate"
+			},
+			{
+				"keys": [
+					"SPACE",
+					"TAP"
+				],
+				"action": "Boost / Sonar"
+			}
+		]
+	},
+	{
+		"id": "neon-pinball",
+		"title": "Neon Pinball",
+		"category": "Physics & Skill",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff00aa?text=NEON+PINBALL",
+		"game_url": "/games/neon-pinball/index.html",
+		"description": "A sleek, physics-based pinball table with glowing bumpers and multi-ball triggers.",
+		"rating": "4.8",
+		"play_count": "1.4M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"pinball",
+			"physics",
+			"neon",
+			"arcade",
+			"skill"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"LEFT/RIGHT",
+					"TAP SIDES"
+				],
+				"action": "Flippers"
+			},
+			{
+				"keys": [
+					"DOWN",
+					"SWIPE DOWN"
+				],
+				"action": "Launch Ball"
+			}
+		]
+	},
+	{
+		"id": "sling-drift",
+		"title": "Sling Drift",
+		"category": "Physics & Skill",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00aaff?text=SLING+DRIFT",
+		"game_url": "/games/sling-drift/index.html",
+		"description": "Tap and hold to attach a rope to a pillar and sling your car around a tight corner.",
+		"rating": "4.7",
+		"play_count": "2.2M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"drift",
+			"car",
+			"sling",
+			"physics",
+			"timing"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"SPACE",
+					"HOLD TOUCH"
+				],
+				"action": "Attach & Drift"
+			}
+		]
+	},
+	{
+		"id": "stack-builder",
+		"title": "Stack Builder",
+		"category": "Physics & Skill",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/aaff00?text=STACK+BUILDER",
+		"game_url": "/games/stack-builder/index.html",
+		"description": "Drop swaying blocks directly on top of each other to build the highest tower possible.",
+		"rating": "4.6",
+		"play_count": "900K",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"stack",
+			"tower",
+			"build",
+			"timing",
+			"physics"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"SPACE",
+					"TAP"
+				],
+				"action": "Drop Block"
+			}
+		]
+	},
+	{
+		"id": "cannon-basketball",
+		"title": "Cannon Basketball",
+		"category": "Physics & Skill",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff5500?text=CANNON+BASKETBALL",
+		"game_url": "/games/cannon-basketball/index.html",
+		"description": "Fire a basketball from a cannon, bouncing it off walls to bypass obstacles and hit the hoop.",
+		"rating": "4.9",
+		"play_count": "1.7M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"basketball",
+			"cannon",
+			"physics",
+			"bounce",
+			"puzzle"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"DRAG",
+					"MOUSE"
+				],
+				"action": "Aim"
+			},
+			{
+				"keys": [
+					"RELEASE"
+				],
+				"action": "Shoot"
+			}
+		]
+	},
+	{
+		"id": "idle-arcade-tycoon",
+		"title": "Idle Arcade Tycoon",
+		"category": "Strategy & Idle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ff0055?text=IDLE+ARCADE+TYCOON",
+		"game_url": "/games/idle-arcade-tycoon/index.html",
+		"description": "Start with one cabinet and slowly upgrade to a massive, neon-lit gaming empire.",
+		"rating": "4.8",
+		"play_count": "2.5M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"idle",
+			"tycoon",
+			"arcade",
+			"upgrade",
+			"strategy"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"CLICK",
+					"TAP"
+				],
+				"action": "Buy & Upgrade"
+			}
+		]
+	},
+	{
+		"id": "merge-weapons",
+		"title": "Merge Weapons",
+		"category": "Strategy & Idle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00ccff?text=MERGE+WEAPONS",
+		"game_url": "/games/merge-weapons/index.html",
+		"description": "Buy basic swords, merge two identical ones to create a stronger one, and equip heroes to fight auto-battles.",
+		"rating": "4.7",
+		"play_count": "1.9M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"merge",
+			"weapons",
+			"idle",
+			"auto-battler",
+			"strategy"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"DRAG",
+					"TOUCH"
+				],
+				"action": "Merge Items"
+			}
+		]
+	},
+	{
+		"id": "tower-defense-minimal",
+		"title": "Tower Defense Minimal",
+		"category": "Strategy & Idle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/00ffaa?text=TOWER+DEFENSE+MINIMAL",
+		"game_url": "/games/tower-defense-minimal/index.html",
+		"description": "Place geometric towers that shoot lasers to stop waves of incoming virus particles.",
+		"rating": "4.9",
+		"play_count": "1.1M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"tower defense",
+			"strategy",
+			"minimal",
+			"laser",
+			"tactics"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"CLICK",
+					"TAP"
+				],
+				"action": "Place Towers"
+			}
+		]
+	},
+	{
+		"id": "clicker-miner",
+		"title": "Clicker Miner",
+		"category": "Strategy & Idle",
+		"thumbnail_url": "https://placehold.co/800x450/0f0f0f/ffaa00?text=CLICKER+MINER",
+		"game_url": "/games/clicker-miner/index.html",
+		"description": "Tap the screen to mine digital currency, then buy automated bots to mine for you while away.",
+		"rating": "4.6",
+		"play_count": "1.5M",
+		"author": "FreshPlay Studios",
+		"seo_keywords": [
+			"clicker",
+			"idle",
+			"mine",
+			"upgrade",
+			"incremental"
+		],
+		"how_to_play": [
+			{
+				"keys": [
+					"TAP",
+					"CLICK"
+				],
+				"action": "Mine Currency"
 			}
 		]
 	}

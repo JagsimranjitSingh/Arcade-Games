@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<title>Neon Rider</title>
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #050510;
+				font-family: 'Courier New', Courier, monospace;
+			}
+
+			#game-container {
+				width: 100vw;
+				height: 100vh;
+			}
+
+			canvas {
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="game-container"></div>
+
+		<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+		<script src="game.js"></script>
+	</body>
+</html>

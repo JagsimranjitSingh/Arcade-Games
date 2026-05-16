@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="theme-color" content="#06060f" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>Rooftop Cyber Punk — FreshPlay Arcade</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+		
+		<style>
+			/* Reset & Base */
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			:root {
+				--bg: #06060f;
+				--cyan: #00ffe7;
+				--pink: #ff1a5e;
+				--purple: #7c00ff;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				background-color: var(--bg);
+				color: #ffffff;
+				font-family: 'Share Tech Mono', monospace;
+				overflow: hidden;
+				touch-action: none;
+				-webkit-tap-highlight-color: transparent;
+			}
+
+			/* Phaser Canvas Styling */
+			#game-container {
+				position: fixed;
+				inset: 0;
+				z-index: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#game-container canvas {
+				display: block;
+				box-shadow: 0 0 40px rgba(0, 255, 231, 0.05), 0 0 100px rgba(124, 0, 255, 0.05);
+			}
+
+			/* Loader Screen */
+			#loader {
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				background: var(--bg);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				transition: opacity 0.5s ease, visibility 0.5s;
+			}
+
+			#loader.hidden {
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			.loader-title {
+				font-size: clamp(24px, 5vw, 36px);
+				letter-spacing: 12px;
+				color: var(--cyan);
+				text-transform: uppercase;
+				text-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
+				margin-bottom: 8px;
+				margin-right: -12px;
+				animation: pulse-glitch 2s infinite;
+			}
+
+			.loader-sub {
+				font-size: 11px;
+				letter-spacing: 5px;
+				color: var(--pink);
+				text-transform: uppercase;
+				margin-bottom: 40px;
+			}
+
+			.loader-bar-wrap {
+				width: 240px;
+				height: 2px;
+				background: rgba(255, 255, 255, 0.05);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.loader-bar {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				width: 0%;
+				background: linear-gradient(90deg, var(--purple), var(--cyan));
+				box-shadow: 0 0 10px var(--cyan);
+				animation: load-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+			}
+
+			/* Corner Accents */
+			.corner {
+				position: absolute;
+				width: 30px;
+				height: 30px;
+				border-color: rgba(124, 0, 255, 0.5);
+				border-style: solid;
+				pointer-events: none;
+			}
+
+			.corner.tl {
+				top: 20px;
+				left: 20px;
+				border-width: 2px 0 0 2px;
+			}
+
+			.corner.tr {
+				top: 20px;
+				right: 20px;
+				border-width: 2px 2px 0 0;
+			}
+
+			.corner.bl {
+				bottom: 20px;
+				left: 20px;
+				border-width: 0 0 2px 2px;
+			}
+
+			.corner.br {
+				bottom: 20px;
+				right: 20px;
+				border-width: 0 2px 2px 0;
+			}
+
+			@keyframes load-progress {
+				0% {
+					width: 0%;
+				}
+
+				50% {
+					width: 60%;
+				}
+
+				80% {
+					width: 85%;
+				}
+
+				100% {
+					width: 100%;
+				}
+			}
+
+			@keyframes pulse-glitch {
+
+				0%,
+				100% {
+					text-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
+					transform: translate(0);
+				}
+
+				92% {
+					text-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
+					transform: translate(0);
+				}
+
+				94% {
+					text-shadow: 2px 0 0 var(--pink), -2px 0 0 var(--purple);
+					transform: translate(-2px, 1px);
+				}
+
+				96% {
+					text-shadow: 2px 0 0 var(--pink), -2px 0 0 var(--purple);
+					transform: translate(2px, -1px);
+				}
+
+				98% {
+					text-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
+					transform: translate(0);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="loader">
+			<div class="corner tl"></div>
+			<div class="corner tr"></div>
+			<div class="corner bl"></div>
+			<div class="corner br"></div>
+
+			<div class="loader-title">ROOFTOP</div>
+			<div class="loader-sub">CYBER PUNK</div>
+
+			<div class="loader-bar-wrap">
+				<div class="loader-bar"></div>
+			</div>
+		</div>
+
+		<div id="game-container"></div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
+
+		<script src="../../assets/js/fp-sdk.js"
+			onerror="console.info('[FreshPlay] Local environment detected. Using fallback SDK.')"></script>
+
+		<script src="game.js"></script>
+
+		<script>
+			(function () {
+				const loader = document.getElementById('loader');
+				const wrapper = document.getElementById('game-container');
+
+				const obs = new MutationObserver((mutations) => {
+					for (const m of mutations) {
+						for (const node of m.addedNodes) {
+							if (node.nodeName === 'CANVAS') {
+								setTimeout(() => {
+									loader.classList.add('hidden');
+								}, 600);
+								obs.disconnect();
+								return;
+							}
+						}
+					}
+				});
+
+				obs.observe(wrapper, { childList: true });
+
+				// Hard fallback in case of extremely fast loading or errors
+				setTimeout(() => loader.classList.add('hidden'), 3500);
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<title>CLICKER MINER</title>
+
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			:root {
+				--bg: #080808;
+				--surface: #111114;
+				--gold: #c9a55a;
+				--gold-hi: #e8c97a;
+				--gold-dim: rgba(201, 165, 90, 0.12);
+				--cream: #f0ebe0;
+				--muted: #4a4840;
+				--font-disp: 'Cormorant Garamond', 'Georgia', serif;
+				--font-mono: 'DM Mono', 'Courier New', monospace;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: var(--bg);
+				cursor: none;
+			}
+
+			/* Custom cursor: minimal ring */
+			#cursor {
+				position: fixed;
+				width: 18px;
+				height: 18px;
+				border: 1px solid var(--gold);
+				border-radius: 50%;
+				pointer-events: none;
+				z-index: 9999;
+				transform: translate(-50%, -50%);
+				transition: transform 0.08s ease, opacity 0.15s ease;
+				opacity: 0.7;
+			}
+
+			#cursor.clicking {
+				transform: translate(-50%, -50%) scale(0.5);
+				opacity: 1;
+			}
+
+			/* Loader */
+			#loader {
+				position: fixed;
+				inset: 0;
+				z-index: 1000;
+				background: var(--bg);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 48px;
+				transition: opacity 1s ease, visibility 1s ease;
+			}
+
+			#loader.hidden {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+
+			/* Thin top rule */
+			#loader::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, var(--gold), transparent);
+				opacity: 0.5;
+			}
+
+			/* Wordmark */
+			.loader-mark {
+				font-family: var(--font-disp);
+				font-weight: 300;
+				font-size: clamp(28px, 6vw, 56px);
+				letter-spacing: 0.35em;
+				color: var(--cream);
+				text-transform: uppercase;
+				opacity: 0;
+				animation: fadeIn 1s 0.2s ease forwards;
+				position: relative;
+			}
+
+			.loader-mark em {
+				font-style: normal;
+				color: var(--gold);
+			}
+
+			/* Ornament spinner — minimal rotating arc */
+			.loader-ornament {
+				width: 56px;
+				height: 56px;
+				position: relative;
+				opacity: 0;
+				animation: fadeIn 0.8s 0.1s ease forwards;
+			}
+
+			.loader-ornament svg {
+				width: 100%;
+				height: 100%;
+				animation: spinSlow 3.6s linear infinite;
+			}
+
+			/* Sub label */
+			.loader-sub {
+				font-family: var(--font-mono);
+				font-weight: 300;
+				font-size: 10px;
+				letter-spacing: 0.5em;
+				color: var(--muted);
+				text-transform: uppercase;
+				opacity: 0;
+				animation: fadeIn 0.8s 0.5s ease forwards;
+			}
+
+			/* Progress */
+			.progress-wrap {
+				width: clamp(180px, 32vw, 280px);
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				opacity: 0;
+				animation: fadeIn 0.8s 0.6s ease forwards;
+			}
+
+			.progress-labels {
+				display: flex;
+				justify-content: space-between;
+				font-family: var(--font-mono);
+				font-size: 9px;
+				letter-spacing: 0.3em;
+				color: var(--muted);
+				text-transform: uppercase;
+			}
+
+			.progress-track {
+				height: 1px;
+				background: rgba(255, 255, 255, 0.06);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.progress-bar {
+				position: absolute;
+				inset: 0 auto 0 0;
+				background: linear-gradient(90deg, rgba(201, 165, 90, 0.3), var(--gold));
+				width: 0%;
+				transition: width 0.25s ease;
+			}
+
+			/* Corner marks */
+			.corner {
+				position: fixed;
+				width: 20px;
+				height: 20px;
+				z-index: 1001;
+				pointer-events: none;
+				opacity: 0.25;
+			}
+
+			.corner--tl {
+				top: 16px;
+				left: 16px;
+				border-top: 1px solid var(--gold);
+				border-left: 1px solid var(--gold);
+			}
+
+			.corner--tr {
+				top: 16px;
+				right: 16px;
+				border-top: 1px solid var(--gold);
+				border-right: 1px solid var(--gold);
+			}
+
+			.corner--bl {
+				bottom: 16px;
+				left: 16px;
+				border-bottom: 1px solid var(--gold);
+				border-left: 1px solid var(--gold);
+			}
+
+			.corner--br {
+				bottom: 16px;
+				right: 16px;
+				border-bottom: 1px solid var(--gold);
+				border-right: 1px solid var(--gold);
+			}
+
+			/* Vignette — very subtle */
+			#vignette {
+				position: fixed;
+				inset: 0;
+				z-index: 498;
+				pointer-events: none;
+				background: radial-gradient(ellipse at center,
+						transparent 60%,
+						rgba(0, 0, 0, 0.45) 100%);
+			}
+
+			canvas {
+				display: block;
+				position: fixed;
+				inset: 0;
+				z-index: 1;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(8px);
+				}
+
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes spinSlow {
+				from {
+					transform: rotate(0deg);
+				}
+
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="cursor"></div>
+
+		<div class="corner corner--tl"></div>
+		<div class="corner corner--tr"></div>
+		<div class="corner corner--bl"></div>
+		<div class="corner corner--br"></div>
+
+		<div id="vignette"></div>
+
+		<div id="loader">
+			<div class="loader-ornament">
+				<svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="28" cy="28" r="26" stroke="rgba(201,165,90,0.15)" stroke-width="0.5" />
+					<circle cx="28" cy="28" r="26" stroke="url(#arcGrad)" stroke-width="0.8" stroke-dasharray="40 124"
+						stroke-linecap="round" />
+					<circle cx="28" cy="28" r="18" stroke="rgba(201,165,90,0.08)" stroke-width="0.5" />
+					<circle cx="28" cy="28" r="2.5" fill="#c9a55a" opacity="0.8" />
+					<defs>
+						<linearGradient id="arcGrad" x1="28" y1="2" x2="54" y2="28" gradientUnits="userSpaceOnUse">
+							<stop offset="0%" stop-color="#c9a55a" stop-opacity="0" />
+							<stop offset="100%" stop-color="#e8c97a" />
+						</linearGradient>
+					</defs>
+				</svg>
+			</div>
+
+			<div class="loader-mark">Clicker <em>Miner</em></div>
+
+			<div class="loader-sub" id="prog-label">Initialising</div>
+
+			
+			<div class="progress-wrap">
+				<div class="progress-labels">
+					<span></span>
+					<span id="prog-pct">0%</span>
+				</div>
+				<div class="progress-track">
+					<div class="progress-bar" id="prog-bar"></div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
+
+		<script type="module">
+			// Custom cursor
+			const cursor = document.getElementById('cursor');
+			document.addEventListener('mousemove', e => {
+				cursor.style.left = e.clientX + 'px';
+				cursor.style.top = e.clientY + 'px';
+			});
+			document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+			document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+			// Progress simulation
+			const bar = document.getElementById('prog-bar');
+			const pct = document.getElementById('prog-pct');
+			const lbl = document.getElementById('prog-label');
+			const loader = document.getElementById('loader');
+
+			const stages = [
+				[0, 18, 260, 'Initialising'],
+				[18, 38, 200, 'Calibrating core'],
+				[38, 62, 240, 'Spawning bots'],
+				[62, 80, 180, 'Building shaders'],
+				[80, 95, 160, 'Syncing palette'],
+				[95, 100, 90, 'Online'],
+			];
+
+			let stageIdx = 0;
+
+			function animateProgress() {
+				if (stageIdx >= stages.length) return;
+				const [from, to, dur, label] = stages[stageIdx];
+				lbl.textContent = label;
+				stageIdx++;
+				const start = performance.now();
+				const diff = to - from;
+				function step(now) {
+					const t = Math.min((now - start) / dur, 1);
+					const e = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+					const v = from + diff * e;
+					bar.style.width = v + '%';
+					pct.textContent = Math.floor(v) + '%';
+					if (t < 1) requestAnimationFrame(step);
+					else setTimeout(animateProgress, 50);
+				}
+				requestAnimationFrame(step);
+			}
+			animateProgress();
+
+			import('./game.js').then(() => {
+				setTimeout(() => {
+					bar.style.width = '100%';
+					pct.textContent = '100%';
+					lbl.textContent = 'Online';
+					setTimeout(() => loader.classList.add('hidden'), 600);
+				}, 300);
+			}).catch(err => {
+				console.error('game.js failed:', err);
+				lbl.textContent = 'Error — see console';
+			});
+		</script>
+	</body>
+</html>
