@@ -102,16 +102,12 @@
 					
 					<div class="lg:col-span-3 flex flex-col h-full">
 						<h3 class="text-[#a1a1aa] font-mono tracking-widest uppercase mb-4 text-left text-xs border-b border-[#27272a] pb-2">Initialize Backup Protocol</h3>
-						<div id="random-game-container" class="w-full h-full min-h-[250px] md:min-h-[350px] bg-[#0f0f0f] border border-[#27272a] rounded overflow-hidden relative shadow-[0_0_25px_rgba(0,255,0,0.1)] flex items-center justify-center">
-							<div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00ff00] mb-2"></div>
-							<p class="text-[#00ff00] font-mono text-xs uppercase tracking-widest absolute mt-16">Initializing Core...</p>
-						</div>
+						<div id="random-game-container" class="w-full h-full min-h-[250px] md:min-h-[350px] bg-[#0f0f0f] border border-[#27272a] rounded overflow-hidden relative shadow-[0_0_25px_rgba(0,255,0,0.1)] flex items-center justify-center" data-skeleton="featured" data-skeleton-count="1"></div>
 					</div>
 
 					<div class="lg:col-span-2 flex flex-col">
 						<h3 class="text-[#a1a1aa] font-mono tracking-widest uppercase mb-4 text-left text-xs border-b border-[#27272a] pb-2">Other Recommendations</h3>
-						<div id="recommended-games" class="grid grid-cols-2 gap-4 w-full h-full content-start">
-							</div>
+						<div id="recommended-games" class="grid grid-cols-2 gap-4 w-full h-full content-start" data-skeleton="card" data-skeleton-count="4"></div>
 					</div>
 					
 				</div>
@@ -179,7 +175,7 @@
 		</footer>
 
 		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="/assets/js/skeleton.js" defer></script>
 		<script src="/assets/js/main.js" defer></script>
-		<!-- <script src="/assets/js/404.js" defer></script> -->
 	</body>
 </html>

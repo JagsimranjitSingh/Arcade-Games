@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 2. GLOBAL AD ENGINE LOGIC
 	// ==========================================
 	window.triggerInGameAd = function (currentLevel, resumeCallback) {
-		// Production Logic: Exactly every 5 levels
 		if (currentLevel > 0 && currentLevel % 5 === 0) {
 			const overlay = document.createElement('div');
 			overlay.className = 'fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center';
@@ -69,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			}, 1000);
 		} else {
-			// Not a multiple of 5, immediately resume game seamlessly
 			if (typeof resumeCallback === 'function') resumeCallback();
 		}
 	};
@@ -87,12 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			const path = window.location.pathname;
 			
-			// Detect 404 Page (Because the URL could be anything, we check the DOM instead)
 			if (document.getElementById('dynamic-path')) {
 				init404Page(allGames);
-			}
-			// Standard Page Routing
-			else if (path.endsWith('index.html') || path === '/') {
+			} else if (path.endsWith('index.html') || path === '/') {
 				initHomepage(allGames);
 			} else if (path.endsWith('explore.html')) {
 				initExplorePage(allGames);
@@ -103,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		.catch(err => console.error("Error loading games.json:", err));
 
 
-	// --- Helper: Parse strings like "1.2M" or "850K" into numbers ---
 	function parsePlayCount(countStr) {
 		if (!countStr) return 0;
 		let str = countStr.toString().toUpperCase();
@@ -114,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		return val;
 	}
 
-	// --- Search Bar Logic ---
 	function initSearch(games) {
 		const searchInput = document.getElementById('global-search');
 		const searchDropdown = document.getElementById('search-dropdown');
@@ -157,18 +150,34 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	// --- Homepage Injection ---
 	function initHomepage(games) {
-		// 1. Hero Banner
+		// 1. Hero Banner (Fully re-written to inject DOM rather than query it)
 		const heroSection = document.querySelector('article.relative.group');
 		if (heroSection) {
-			const featured = games[0];
-			heroSection.querySelector('img').src = featured.thumbnail_url;
-			heroSection.querySelector('h1').textContent = featured.title;
-			heroSection.querySelector('p').textContent = featured.description;
-			heroSection.querySelector('a').href = `/game.html?id=${featured.id}`;
-            const ratingSpan = heroSection.querySelector('span.text-\\[\\#a1a1aa\\]');
-            if(ratingSpan) ratingSpan.innerHTML = `<svg class="w-3 h-3 text-[#00ff00]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> ${featured.rating || '4.9'}`;
+			const featured = games[14];
+			heroSection.innerHTML = `
+                <img src="${featured.thumbnail_url}" alt="${featured.title}" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/40 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-[#0f0f0f]/90 via-[#0f0f0f]/50 to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full md:w-2/3 z-20 flex flex-col items-start">
+                    <span class="bg-[#00ff00] text-black text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-4">Featured</span>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wide uppercase font-liberation drop-shadow-lg">${featured.title}</h1>
+                    <p class="text-[#a1a1aa] text-sm md:text-base mb-8 line-clamp-2 leading-relaxed max-w-xl">${featured.description}</p>
+                    
+                    <div class="flex items-center gap-6">
+                        <a href="/game.html?id=${featured.id}" class="flex items-center justify-center gap-2 bg-[#00ff00] text-black font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
+                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3v18l15-9L5 3z"></path></svg> Play Now
+                        </a>
+                        <div class="hidden md:flex items-center gap-2 text-white font-mono text-xs tracking-widest bg-black/50 backdrop-blur-md px-3 py-2 border border-[#3f3f46] rounded">
+                            <span class="text-[#a1a1aa] flex items-center gap-1">
+                                <svg class="w-3 h-3 text-[#00ff00]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 
+                                ${featured.rating || '4.9'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+			`;
 		}
 
 		// 2. New Arrivals Grid
@@ -178,8 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			games.slice(0, 8).forEach(g => {
 				newArrivalsGrid.innerHTML += `
                     <a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
-                        <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full aspect-video object-cover" loading="lazy">
-                        <div class="p-3">
+                        <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+                            <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                <span class="text-[#00ff00] font-mono text-xs uppercase tracking-widest border border-[#00ff00] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(0,255,0,0.2)]">Play Now</span>
+                            </div>
+                        </div>
+                        <div class="p-3 flex flex-col flex-grow">
                             <h3 class="font-bold text-sm text-white truncate">${g.title}</h3>
                             <p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase tracking-wider">${g.category}</p>
                         </div>
@@ -259,12 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	// --- Explore Page Injection (FIXED FOR DYNAMIC CATEGORIES) ---
+	// --- Explore Page Injection ---
 	function initExplorePage(games) {
 		const container = document.getElementById('categories-container');
 		if (!container) return;
 
-		// Group games by category from the JSON file
 		const categories = {};
 		games.forEach(g => {
 			const cat = g.category.toUpperCase();
@@ -273,9 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 		const categoryNames = Object.keys(categories);
-		let visibleCount = 2; // Load 2 categories by default
+		let visibleCount = 2; 
 
-		// Main rendering engine
 		function renderCategories(filter = 'all') {
 			container.innerHTML = '';
 			
@@ -289,14 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			toShow.forEach((cat, index) => {
 				const catGames = categories[cat];
 				
-				// Pick a relevant emoji
 				let emoji = '🎮';
 				if(cat.includes('ACTION')) emoji = '⚔️';
 				if(cat.includes('PUZZLE')) emoji = '🧩';
 				if(cat.includes('RUNNER')) emoji = '🏃';
 				if(cat.includes('SURVIVAL')) emoji = '🛡️';
 
-				// Construct the HTML section
 				const sectionHtml = `
 					<section class="mb-16 explore-category-section" data-category="${cat.toLowerCase()}">
 						<div class="flex items-center justify-between mb-6 border-b border-[#27272a] pb-2">
@@ -317,8 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
 								${catGames.map(g => `
 									<div class="swiper-slide">
 										<a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
-											<img src="${g.thumbnail_url}" alt="${g.title}" class="w-full aspect-video object-cover" loading="lazy">
-											<div class="p-3">
+											<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+                                                <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-20">
+                                                    <span class="text-[#00ff00] font-mono text-xs uppercase tracking-widest border border-[#00ff00] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(0,255,0,0.2)]">Play Now</span>
+                                                </div>
+                                            </div>
+											<div class="p-3 flex flex-col flex-grow">
 												<h3 class="font-bold text-sm text-white truncate uppercase">${g.title}</h3>
 												<p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase">${g.category}</p>
 											</div>
@@ -332,10 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				container.insertAdjacentHTML('beforeend', sectionHtml);
 			});
 
-			// Tell slider.js to initialize these new specific swipers
 			document.dispatchEvent(new CustomEvent('initDynamicSwipers', { detail: { count: toShow.length } }));
 
-			// Handle 'Load More' button visibility
 			const loadMoreBtn = document.getElementById('load-more-btn');
 			if (loadMoreBtn) {
 				if (filter !== 'all' || visibleCount >= categoryNames.length) {
@@ -350,11 +363,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-		// Initial Check: Read URL params
 		const urlParams = new URLSearchParams(window.location.search);
 		const initialCategory = urlParams.get('category') || 'all';
 		
-		// Update Dropdown Filter
 		const categorySelect = document.getElementById('category-filter');
 		if (categorySelect) {
 			const existingOptions = Array.from(categorySelect.options).map(o => o.value);
@@ -371,7 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (opt.value === initialCategory.toLowerCase()) categorySelect.value = opt.value;
 			});
 
-			// Filter Event
 			const newSelect = categorySelect.cloneNode(true);
 			categorySelect.parentNode.replaceChild(newSelect, categorySelect);
 			newSelect.addEventListener('change', (e) => {
@@ -384,10 +394,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		}
 
-		// Initial Render
 		renderCategories(initialCategory);
 
-		// Wire up "Load More" button to fetch next batch of categories
 		const loadMoreBtn = document.getElementById('load-more-btn');
 		if (loadMoreBtn) {
 			const newBtn = loadMoreBtn.cloneNode(true);
@@ -427,8 +435,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			similarGames.forEach(g => {
 				similarGrid.innerHTML += `
                     <a href="/game.html?id=${g.id}" class="group">
-                        <div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative">
-                            <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative aspect-video">
+                            <img src="${g.thumbnail_url}" alt="${g.title}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                         </div>
                         <h4 class="text-xs font-bold text-white truncate">${g.title}</h4>
                         <p class="text-[9px] text-[#52525b] font-mono uppercase tracking-widest mt-0.5">${g.category}</p>
@@ -457,8 +465,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (gameContainer && mainGame) {
 			gameContainer.innerHTML = `
 				<div class="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a] group cursor-pointer" onclick="window.location.href='/game.html?id=${mainGame.id}'">
-					<img src="${mainGame.thumbnail_url}" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity blur-sm" loading="lazy">
-					<div class="z-10 flex flex-col items-center">
+                    <img src="${mainGame.thumbnail_url}" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity blur-sm" loading="lazy">
+					<div class="z-10 absolute flex flex-col items-center">
 						<span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-3">Backup Core Loaded</span>
 						<h2 class="text-3xl font-bold text-white uppercase font-liberation tracking-widest text-center">${mainGame.title}</h2>
 						<button class="mt-6 bg-[#00ff00] text-black font-bold px-6 py-2 uppercase tracking-widest text-xs btn-glow rounded-sm shadow-[0_0_15px_rgba(0,255,0,0.4)]">Initialize Play</button>
@@ -474,7 +482,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				const g = shuffled[i];
 				html += `
 					<a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all text-left">
-						<img src="${g.thumbnail_url}" alt="${g.title}" class="w-full aspect-video object-cover" loading="lazy">
+                        <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+						    <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
+                        </div>
 						<div class="p-3">
 							<h3 class="font-bold text-sm text-white truncate">${g.title}</h3>
 							<p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase tracking-wider">${g.category}</p>
