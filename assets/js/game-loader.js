@@ -100,6 +100,18 @@ document.addEventListener('DOMContentLoaded', () => {
 				console.log(`[Portal] Game Over. Score: ${data.finalScore}`);
 				// In the future, this is where you'd save high scores to a database
 			}
+			else if (data.type === 'FP_SHOW_REWARD_AD') {
+				console.log(`[Portal] Triggering reward ad...`);
+				if (window.triggerRewardAd) {
+					window.triggerRewardAd(() => {
+						console.log("[Portal] Reward ad finished.");
+						const frame = document.getElementById('freshplay-game-frame');
+						if (frame && frame.contentWindow) {
+							frame.contentWindow.postMessage({ type: 'FP_REWARD_AD_FINISHED' }, '*');
+						}
+					});
+				}
+			}
 		}
 	});
 });

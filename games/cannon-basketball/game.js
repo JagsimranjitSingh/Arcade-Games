@@ -575,6 +575,15 @@ class GameScene extends Phaser.Scene {
 
 		// Banner → next level
 		this._showBanner('SWISH!', this.palette.fxAccent, () => {
+			// EXPLICIT AD TRIGGER
+			if ((this.levelIndex + 1) % 5 === 0) {
+				try {
+					['showAd','showVideoAd','playAd','displayAd'].forEach(fn => {
+						if (typeof window.FreshPlay[fn] === 'function') window.FreshPlay[fn]();
+					});
+				} catch(_){}
+			}
+
 			window.FreshPlay.levelComplete(() => {
 				this.levelIndex = (window.FreshPlay.getLevel ? window.FreshPlay.getLevel() : this.levelIndex + 1);
 				this.palette = window.FreshPlay.getCurrentPalette();

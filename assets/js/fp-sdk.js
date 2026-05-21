@@ -114,6 +114,28 @@ class FreshPlaySDK {
 			finalScore: score
 		}, targetOrigin);
 	}
+
+	/**
+	 * Requests a reward video ad and resumes the game via a callback.
+	 */
+	showVideoAd(callback) {
+		const targetOrigin = window.location.origin;
+		
+		if (callback) {
+			const adFinishedListener = (event) => {
+				if (event.origin !== window.location.origin) return;
+				if (event.data && event.data.type === 'FP_REWARD_AD_FINISHED') {
+					window.removeEventListener('message', adFinishedListener);
+					callback();
+				}
+			};
+			window.addEventListener('message', adFinishedListener);
+		}
+
+		window.parent.postMessage({
+			type: 'FP_SHOW_REWARD_AD'
+		}, targetOrigin);
+	}
 }
 
 // Initialize the SDK globally so the Phaser game can access it

@@ -24,11 +24,126 @@
 			canvas {
 				display: block;
 			}
+
+			/* ── Rotate-device overlay ── */
+			#rotate-overlay {
+				display: none;
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				background: #04080f;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 24px;
+			}
+
+			#rotate-overlay.show {
+				display: flex;
+			}
+
+			.rotate-icon {
+				width: 72px;
+				height: 72px;
+				animation: spin-phone 1.6s ease-in-out infinite alternate;
+			}
+
+			@keyframes spin-phone {
+				0%   { transform: rotate(0deg);   }
+				100% { transform: rotate(90deg);  }
+			}
+
+			.rotate-title {
+				font-family: monospace;
+				font-size: 20px;
+				color: #00f0ff;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+			}
+
+			.rotate-sub {
+				font-family: monospace;
+				font-size: 13px;
+				color: #f0a500;
+				opacity: 0.75;
+				letter-spacing: 1px;
+			}
+
+			/* hide the game canvas while in portrait – NOT the overlay itself */
+			body.portrait > canvas,
+			body.portrait > div:not(#rotate-overlay) {
+				visibility: hidden;
+			}
 		</style>
 	</head>
 
 	<body>
+		<!-- Rotate-device overlay (shown in portrait) -->
+		<div id="rotate-overlay">
+			<svg class="rotate-icon" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<!-- phone outline -->
+				<rect x="18" y="8" width="36" height="56" rx="6" stroke="#00f0ff" stroke-width="3"/>
+				<circle cx="36" cy="55" r="3" fill="#00f0ff" opacity="0.7"/>
+				<!-- rotation arrow -->
+				<path d="M52 22 A20 20 0 0 0 20 22" stroke="#f0a500" stroke-width="2.5"
+					  stroke-linecap="round" fill="none"/>
+				<polyline points="48,16 52,22 46,24" stroke="#f0a500" stroke-width="2.5"
+						  stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+			</svg>
+			<div class="rotate-title">Rotate Device</div>
+			<div class="rotate-sub">Sling Drift plays in landscape mode</div>
+		</div>
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
 		<script src="game.js"></script>
+
+		<script>
+			(function () {
+				var overlay = document.getElementById('rotate-overlay');
+
+				/* Reliable portrait check – works inside iframes and on legacy iOS */
+				function isPortrait() {
+					try {
+						if (screen.orientation && screen.orientation.type) {
+							return screen.orientation.type.startsWith('portrait');
+						}
+					} catch (e) {}
+					/* legacy iOS window.orientation: 0/180 = portrait, ±90 = landscape */
+					if (typeof window.orientation === 'number') {
+						return window.orientation === 0 || window.orientation === 180;
+					}
+					return window.innerHeight > window.innerWidth;
+				}
+
+				function applyOrientation() {
+					var portrait = isPortrait();
+					overlay.classList.toggle('show', portrait);
+					document.body.classList.toggle('portrait', portrait);
+
+					/* Pause / resume Phaser scenes */
+					try {
+						if (typeof game !== 'undefined' && game && game.scene) {
+							game.scene.scenes.forEach(function (s) {
+								if (portrait) {
+									if (s.scene.isActive())  s.scene.pause();
+								} else {
+									if (s.scene.isPaused()) s.scene.resume();
+								}
+							});
+						}
+					} catch (e) {}
+				}
+
+				/* Attach every possible orientation/resize event */
+				try { screen.orientation && screen.orientation.addEventListener('change', applyOrientation); } catch (e) {}
+				window.addEventListener('orientationchange', applyOrientation);
+				window.addEventListener('resize', applyOrientation);
+
+				/* Run at load + after Phaser boots */
+				applyOrientation();
+				setTimeout(applyOrientation, 300);
+				setTimeout(applyOrientation, 1000);
+			})();
+		</script>
 	</body>
 </html>

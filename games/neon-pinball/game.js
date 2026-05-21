@@ -19,10 +19,20 @@ function hexToNum(hex) {
 	return parseInt(hex.replace('#', ''), 16);
 }
 
-/* AudioContext synth helpers */
-const AC = (typeof AudioContext !== 'undefined') ? new AudioContext() : null;
+/* AudioContext synth helpers — lazily created on first gesture (required on mobile) */
+let AC = null;
+function getAC() {
+	if (!AC && typeof AudioContext !== 'undefined') {
+		AC = new AudioContext();
+	}
+	if (AC && AC.state === 'suspended') {
+		AC.resume();
+	}
+	return AC;
+}
 
 function playFlipperThud() {
+	const AC = getAC();
 	if (!AC) return;
 	const o = AC.createOscillator();
 	const g = AC.createGain();
@@ -36,6 +46,7 @@ function playFlipperThud() {
 }
 
 function playBumperChime(pitch) {
+	const AC = getAC();
 	if (!AC) return;
 	const freq = 400 + pitch * 120;
 	const o = AC.createOscillator();
@@ -52,6 +63,7 @@ function playBumperChime(pitch) {
 }
 
 function playMultiBallFanfare() {
+	const AC = getAC();
 	if (!AC) return;
 	[0, 200, 450].forEach((delay) => {
 		setTimeout(() => {
@@ -494,28 +506,74 @@ class GameScene extends Phaser.Scene {
 			color: this.palette.fxAccent,
 		}).setOrigin(0.5).setAlpha(0).setStroke(this.palette.fxAccent, 6);
 
-		// Controls hint
-		this.add.text(W / 2, this.H - 30, '← LEFT   FLIPPER   RIGHT →', {
+		// Controls hint — show touch hint on touch devices, keyboard hint otherwise
+		const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+		const hintText = isTouchDevice
+			? 'TAP LEFT ◀  FLIPPER  ▶ TAP RIGHT'
+			: '← LEFT   FLIPPER   RIGHT →';
+		this.add.text(W / 2, this.H - 30, hintText, {
 			...style(10), alpha: 0.3,
 		}).setOrigin(0.5);
 	}
 
 	/* Input */
 	setupInput() {
-		const W = this.W;
-
 		this.cursors = this.input.keyboard.createCursorKeys();
 		this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 		this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-		// Touch / mouse
+		// Track active touch IDs per side
+		this._leftPointers = new Set();
+		this._rightPointers = new Set();
+
+		// Use native touch events directly on the canvas.
+		// Phaser's pointer.x on a FIT-scaled canvas does NOT equal game coords on mobile —
+		// it reflects the CSS pixel position inside the scaled canvas element, which is
+		// correct, but only if the canvas is flush left. When Phaser centers it with
+		// autoCenter the offset isn't always applied consistently across browsers.
+		// Reading clientX vs canvas.getBoundingClientRect() is always exact.
+		const canvas = this.sys.game.canvas;
+
+		const getTouchSide = (clientX) => {
+			const rect = canvas.getBoundingClientRect();
+			return (clientX - rect.left) < rect.width / 2 ? 'left' : 'right';
+		};
+
+		canvas.addEventListener('touchstart', (e) => {
+			e.preventDefault();
+			for (const t of e.changedTouches) {
+				const side = getTouchSide(t.clientX);
+				if (side === 'left') {
+					this._leftPointers.add(t.identifier);
+					this.activateFlipper('left');
+				} else {
+					this._rightPointers.add(t.identifier);
+					this.activateFlipper('right');
+				}
+			}
+		}, { passive: false });
+
+		const handleTouchEnd = (e) => {
+			e.preventDefault();
+			for (const t of e.changedTouches) {
+				this._leftPointers.delete(t.identifier);
+				this._rightPointers.delete(t.identifier);
+			}
+			if (this._leftPointers.size === 0) this.deactivateFlipper('left');
+			if (this._rightPointers.size === 0) this.deactivateFlipper('right');
+		};
+
+		canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+		canvas.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+
+		// Mouse / desktop fallback via Phaser (fine for non-touch)
 		this.input.on('pointerdown', (p) => {
-			if (p.x < W / 2) this.activateFlipper('left');
+			if (p.x < this.W / 2) this.activateFlipper('left');
 			else this.activateFlipper('right');
 		});
-		this.input.on('pointerup', (p) => {
-			if (p.x < W / 2) this.deactivateFlipper('left');
-			else this.deactivateFlipper('right');
+		this.input.on('pointerup', () => {
+			this.deactivateFlipper('left');
+			this.deactivateFlipper('right');
 		});
 	}
 
@@ -817,11 +875,20 @@ class GameScene extends Phaser.Scene {
 
 	/* UPDATE */
 	update(time, delta) {
-		// Flipper key input
+		// Flipper key input — only let keyboard DEACTIVATE flippers when no touch is holding them.
+		// Previously this ran unconditionally every frame, wiping out touch state immediately.
 		const leftDown = this.cursors.left.isDown || this.keyA.isDown;
 		const rightDown = this.cursors.right.isDown || this.keyD.isDown;
-		if (leftDown) this.activateFlipper('left'); else this.deactivateFlipper('left');
-		if (rightDown) this.activateFlipper('right'); else this.deactivateFlipper('right');
+		if (leftDown) {
+			this.activateFlipper('left');
+		} else if (!this._leftPointers || this._leftPointers.size === 0) {
+			this.deactivateFlipper('left');
+		}
+		if (rightDown) {
+			this.activateFlipper('right');
+		} else if (!this._rightPointers || this._rightPointers.size === 0) {
+			this.deactivateFlipper('right');
+		}
 
 		// Animate flippers — up = tips raise, down = tips droop
 		// Left: rest=+28 (tip down-right), up=-28 (tip up-right)
@@ -946,6 +1013,9 @@ const config = {
 	width: 500,
 	height: 750,
 	backgroundColor: '#0a0a1a',
+	input: {
+		activePointers: 3,
+	},
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,

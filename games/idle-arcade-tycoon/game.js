@@ -378,7 +378,7 @@ class GameScene extends Phaser.Scene {
 			fontFamily: "'Courier New',monospace", fontSize: '14px',
 			color: '#ffffff', stroke: '#000000', strokeThickness: 4,
 			align: 'center'
-		}).setOrigin(0.5).setDepth(500).setAlpha(0);
+		}).setOrigin(0.5).setDepth(5000).setAlpha(0);
 
 		this._applyPalette();
 
@@ -509,14 +509,14 @@ class GameScene extends Phaser.Scene {
 
 		// Top bar
 		this.hudBg = this.add.rectangle(0, 0, W, 74, hex(pal.interface), 0.96)
-			.setOrigin(0, 0).setDepth(200);
+			.setOrigin(0, 0).setDepth(2000);
 		this.hudLine = this.add.rectangle(0, 74, W, 2, hex(pal.playerCore))
-			.setOrigin(0, 0).setDepth(200);
+			.setOrigin(0, 0).setDepth(2000);
 		this.hudGlow = this.add.rectangle(0, 74, W, 20, hex(pal.playerCore), 0.07)
-			.setOrigin(0, 0).setDepth(200);
+			.setOrigin(0, 0).setDepth(2000);
 
 		// Coin icon
-		this.hudCoinIco = this.add.image(28, 37, 'coin').setScale(1.3).setDepth(201);
+		this.hudCoinIco = this.add.image(28, 37, 'coin').setScale(1.3).setDepth(2001);
 
 		// Coin count
 		this.hudCoins = this.add.text(58, 14, '0', {
@@ -524,36 +524,36 @@ class GameScene extends Phaser.Scene {
 			fontSize: '30px', fontStyle: 'bold',
 			color: pal.fxAccent,
 			shadow: { offsetX: 0, offsetY: 0, color: pal.fxAccent, blur: 12, fill: true }
-		}).setDepth(201);
+		}).setDepth(2001);
 
 		// CPS
 		this.hudCPS = this.add.text(58, 50, '0.0 /sec', {
 			fontFamily: "'Courier New',monospace",
 			fontSize: '12px', color: pal.playerCore, alpha: 0.9
-		}).setDepth(201);
+		}).setDepth(2001);
 
 		// Right: LEVEL
 		this.hudLvlBg = this.add.rectangle(W - 12, 37, 130, 52, hex(pal.playerCore), 0.12)
-			.setOrigin(1, 0.5).setDepth(200).setStrokeStyle(1, hex(pal.playerCore), 0.4);
+			.setOrigin(1, 0.5).setDepth(2000).setStrokeStyle(1, hex(pal.playerCore), 0.4);
 		this.hudLvlLbl = this.add.text(W - 22, 18, 'LEVEL', {
 			fontFamily: "'Courier New',monospace", fontSize: '10px', color: pal.playerCore
-		}).setOrigin(1, 0).setDepth(201);
+		}).setOrigin(1, 0).setDepth(2001);
 		this.hudLvlNum = this.add.text(W - 22, 30, `${this.state.level}`, {
 			fontFamily: "'Courier New',monospace",
 			fontSize: '26px', fontStyle: 'bold', color: pal.fxAccent,
 			shadow: { offsetX: 0, offsetY: 0, color: pal.fxAccent, blur: 10, fill: true }
-		}).setOrigin(1, 0).setDepth(201);
+		}).setOrigin(1, 0).setDepth(2001);
 
 		// Centre: milestone progress
 		const mw = 200;
 		this.hudMileBg = this.add.rectangle(W / 2, 60, mw, 7, 0x111111)
-			.setOrigin(0.5).setDepth(201).setStrokeStyle(1, hex(pal.playerCore), 0.3);
+			.setOrigin(0.5).setDepth(2001).setStrokeStyle(1, hex(pal.playerCore), 0.3);
 		this.hudMileBar = this.add.rectangle(W / 2 - mw / 2, 60, 2, 7, hex(pal.fxAccent))
-			.setOrigin(0, 0.5).setDepth(202);
+			.setOrigin(0, 0.5).setDepth(2002);
 		this.hudMileLbl = this.add.text(W / 2, 40, 'NEXT LEVEL: 500', {
 			fontFamily: "'Courier New',monospace", fontSize: '11px',
 			color: pal.playerCore, alpha: 0.8
-		}).setOrigin(0.5).setDepth(201);
+		}).setOrigin(0.5).setDepth(2001);
 
 		// Bottom buttons
 		const bY = this.scale.height - 44;
@@ -564,18 +564,18 @@ class GameScene extends Phaser.Scene {
 
 		// Placing hint strip
 		this.hintBg = this.add.rectangle(W / 2, 90, 340, 30, 0x000000, 0)
-			.setOrigin(0.5).setDepth(499);
+			.setOrigin(0.5).setDepth(4999);
 	}
 
 	_mkBtn(x, y, label, cb, w = 150, h = 42) {
 		const pal = this.state.palette;
 		const bg = this.add.rectangle(x, y, w, h, hex(pal.interface))
-			.setDepth(200).setInteractive({ useHandCursor: true })
+			.setDepth(2000).setInteractive({ useHandCursor: true })
 			.setStrokeStyle(1.5, hex(pal.playerCore), 0.7);
 		const txt = this.add.text(x, y, label, {
 			fontFamily: "'Courier New',monospace",
 			fontSize: '13px', fontStyle: 'bold', color: pal.playerCore
-		}).setOrigin(0.5).setDepth(201);
+		}).setOrigin(0.5).setDepth(2001);
 		bg.on('pointerover', () => { bg.setFillStyle(hex(pal.playerCore), 0.18); });
 		bg.on('pointerout', () => { bg.setFillStyle(hex(pal.interface), 1); });
 		bg.on('pointerdown', () => {
@@ -603,22 +603,30 @@ class GameScene extends Phaser.Scene {
 	_buildShopPanel() {
 		const W = this.scale.width, H = this.scale.height;
 		const pal = this.state.palette;
-		const PH = 310;
 
-		this.shopCont = this.add.container(0, H + 10).setDepth(300);
+		// Adaptive panel height
+		const PH = Math.max(280, Math.min(320, H * 0.55));
+		const cardAreaH = PH - 48;
+		const rowGap = Math.floor(cardAreaH / 2);
+		const cardH = rowGap - 8;
+		const colW = Math.floor(W / 3);
+		const iw = colW - 12;
+		const btnH = 22;
+
+		this.shopCont = this.add.container(0, H + 10).setDepth(3000);
 		this._shopClosedY = H + 10;
-		this._shopOpenY = H - PH;
+		this._shopOpenY = Math.max(78, H - PH);
 
 		// Panel bg
 		const bg = this.add.rectangle(0, 0, W, PH, hex(pal.interface), 0.97).setOrigin(0, 0);
 		const topBar = this.add.rectangle(0, 0, W, 3, hex(pal.playerCore)).setOrigin(0, 0);
-		const title = this.add.text(W / 2, 16, '⬡  ARCADE SHOP  ⬡', {
-			fontFamily: "'Courier New',monospace", fontSize: '15px',
+		const title = this.add.text(W / 2, 14, '⬡  ARCADE SHOP  ⬡', {
+			fontFamily: "'Courier New',monospace", fontSize: '13px',
 			fontStyle: 'bold', color: pal.fxAccent
 		}).setOrigin(0.5, 0);
 
 		// Close
-		const closeBtn = this.add.text(W - 18, 14, '✕', {
+		const closeBtn = this.add.text(W - 18, 12, '✕', {
 			fontFamily: "'Courier New',monospace", fontSize: '22px', color: pal.fxAccent
 		}).setOrigin(1, 0).setInteractive({ useHandCursor: true });
 		closeBtn.on('pointerdown', () => this._toggleShop(false));
@@ -627,31 +635,36 @@ class GameScene extends Phaser.Scene {
 		this.shopItems = [];
 
 		CABINET_TYPES.forEach((t, i) => {
-			const col = i % 3, row = Math.floor(i / 3);
-			const ix = 18 + col * (W / 3 - 6);
-			const iy = 50 + row * 118;
-			const iw = W / 3 - 18;
+			const col = i % 3, rowIdx = Math.floor(i / 3);
+			const ix = 6 + col * colW;
+			const iy = 44 + rowIdx * rowGap;
 
-			const card = this.add.rectangle(ix, iy, iw, 108, hex(pal.background), 1)
+			const card = this.add.rectangle(ix, iy, iw, cardH, hex(pal.background), 1)
 				.setOrigin(0, 0).setStrokeStyle(1, hex(pal.playerCore), 0.5)
 				.setInteractive({ useHandCursor: true });
 
-			const thumb = this.add.image(ix + 40, iy + 54, `cabinet_${i}`).setScale(0.52);
-			const name = this.add.text(ix + 82, iy + 14, t.name, {
-				fontFamily: "'Courier New',monospace", fontSize: '12px',
+			const thumbScale = Math.min(0.45, cardH / 220);
+			const thumb = this.add.image(ix + iw / 2, iy + 25, `cabinet_${i}`).setScale(thumbScale);
+			
+			const name = this.add.text(ix + iw / 2, iy + 52, t.name, {
+				fontFamily: "'Courier New',monospace", fontSize: '10px',
 				fontStyle: 'bold', color: pal.playerCore
-			});
-			const cpsT = this.add.text(ix + 82, iy + 34, `+${t.baseCPS}/s`, {
-				fontFamily: "'Courier New',monospace", fontSize: '11px', color: pal.fxAccent
-			});
-			const costT = this.add.text(ix + 82, iy + 54, t.buyCost === 0 ? 'FREE' : `🪙${fmtN(t.buyCost)}`, {
-				fontFamily: "'Courier New',monospace", fontSize: '12px',
+			}).setOrigin(0.5);
+			
+			const cpsT = this.add.text(ix + iw / 2, iy + 64, `+${t.baseCPS}/s`, {
+				fontFamily: "'Courier New',monospace", fontSize: '9px', color: pal.fxAccent
+			}).setOrigin(0.5);
+			
+			const costT = this.add.text(ix + iw / 2, iy + 76, t.buyCost === 0 ? 'FREE' : `🪙${fmtN(t.buyCost)}`, {
+				fontFamily: "'Courier New',monospace", fontSize: '10px',
 				color: t.buyCost === 0 ? '#00ff99' : '#eeeeee'
-			});
-			const placeBtn = this.add.rectangle(ix + iw / 2, iy + 88, iw - 20, 24, hex(pal.playerCore))
+			}).setOrigin(0.5);
+
+			const btnY = iy + cardH - btnH / 2 - 4;
+			const placeBtn = this.add.rectangle(ix + iw / 2, btnY, iw - 10, btnH, hex(pal.playerCore))
 				.setOrigin(0.5).setInteractive({ useHandCursor: true });
-			const placeTxt = this.add.text(ix + iw / 2, iy + 88, '▶ PLACE', {
-				fontFamily: "'Courier New',monospace", fontSize: '11px',
+			const placeTxt = this.add.text(ix + iw / 2, btnY, '▶ PLACE', {
+				fontFamily: "'Courier New',monospace", fontSize: '10px',
 				fontStyle: 'bold', color: pal.background
 			}).setOrigin(0.5);
 
@@ -693,7 +706,7 @@ class GameScene extends Phaser.Scene {
 		const W = this.scale.width, pal = this.state.palette;
 		const PW = 230;
 
-		this.infoCont = this.add.container(W + PW, 90).setDepth(300);
+		this.infoCont = this.add.container(W + PW, 90).setDepth(3000);
 		this._infoClosedX = W + 10;
 		this._infoOpenX = W - PW - 4;
 
@@ -793,23 +806,28 @@ class GameScene extends Phaser.Scene {
 	//  STATS OVERLAY
 	_buildStatsOverlay() {
 		const W = this.scale.width, H = this.scale.height, pal = this.state.palette;
-		this.statsCont = this.add.container(W / 2, H / 2).setDepth(400).setAlpha(0).setVisible(false);
+		this.statsCont = this.add.container(W / 2, H / 2).setDepth(4000).setAlpha(0).setVisible(false);
 
+		// bg and title added FIRST so they render behind everything else
 		const bg = this.add.rectangle(0, 0, 340, 260, hex(pal.interface), 0.98)
 			.setStrokeStyle(2, hex(pal.playerCore), 0.8);
 		const title = this.add.text(0, -108, '📊  STATISTICS', {
 			fontFamily: "'Courier New',monospace", fontSize: '15px', fontStyle: 'bold', color: pal.fxAccent
 		}).setOrigin(0.5);
+		this.statsCont.add([bg, title]);
 
 		this.statLines = [];
 		const fields = ['Total Earned', 'Machines', 'Upgrades', 'Clicks', 'Total CPS', 'Level'];
 		fields.forEach((f, i) => {
 			const y = -78 + i * 32;
-			this.add.text(-140, y, f + ':', { fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.playerCore })
-				.setOrigin(0, 0);
-			const v = this.add.text(140, y, '—', { fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#ffffff' })
-				.setOrigin(1, 0);
-			this.statsCont.add(v);
+			// Both label AND value added to container (not scene level)
+			const lbl = this.add.text(-140, y, f + ':', {
+				fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.playerCore
+			}).setOrigin(0, 0);
+			const v = this.add.text(140, y, '—', {
+				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#ffffff'
+			}).setOrigin(1, 0);
+			this.statsCont.add([lbl, v]);
 			this.statLines.push(v);
 		});
 
@@ -819,13 +837,7 @@ class GameScene extends Phaser.Scene {
 			fontFamily: "'Courier New',monospace", fontSize: '13px', fontStyle: 'bold', color: pal.background
 		}).setOrigin(0.5);
 		closeBtn.on('pointerdown', () => this._toggleStats(false));
-
-		this.statsCont.add([bg, title, closeBtn, closeTxt]);
-		fields.forEach((f, i) => {
-			const y = -78 + i * 32;
-			const lbl = this.add.text(-140, y, f + ':', { fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.playerCore });
-			this.statsCont.add(lbl);
-		});
+		this.statsCont.add([closeBtn, closeTxt]);
 	}
 
 	_toggleStats(force) {
@@ -960,6 +972,16 @@ class GameScene extends Phaser.Scene {
 
 		// DOM overlay
 		const newLevel = this.state.level + 1;
+
+		// EXPLICIT AD TRIGGER
+		if (newLevel % 5 === 0) {
+			try {
+				['showAd','showVideoAd','playAd','displayAd'].forEach(fn => {
+					if (typeof window.FreshPlay[fn] === 'function') window.FreshPlay[fn]();
+				});
+			} catch(_){}
+		}
+
 		window.FreshPlay.levelComplete(() => {
 			this.state.level++;
 			this.state.costMult *= 1.25;
@@ -1039,7 +1061,7 @@ class GameScene extends Phaser.Scene {
 			fontFamily: "'Courier New',monospace",
 			fontSize: `${size}px`, fontStyle: 'bold',
 			color, stroke: '#000000', strokeThickness: 4
-		}).setOrigin(0.5).setDepth(500);
+		}).setOrigin(0.5).setDepth(5000);
 		this.tweens.add({
 			targets: t, y: y - 80, alpha: { from: 1, to: 0 },
 			duration: 1100, ease: 'Power2',
@@ -1092,9 +1114,11 @@ const config = {
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,
+		min: { width: 480, height: 270 },
+		max: { width: 1920, height: 1080 },
 	},
 	render: { antialias: true, pixelArt: false },
-	input: { keyboard: true },
+	input: { keyboard: true, touch: true },
 };
 
 window.addEventListener('DOMContentLoaded', () => {

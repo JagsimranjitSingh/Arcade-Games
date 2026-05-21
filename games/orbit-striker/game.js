@@ -863,6 +863,61 @@ class PlayScene extends Phaser.Scene {
 	_gameOver() {
 		if (this.isGameOver) return;
 		this.isGameOver = true;
+
+		if (!this.revived) {
+			this.revived = true;
+			const { width: W, height: H } = this.scale;
+			const cx = W / 2, cy = H / 2;
+			const pal = this.palette;
+
+			const rBg = this.add.graphics().setDepth(400);
+			rBg.fillStyle(0x000000, 0.9);
+			rBg.fillRect(cx - 160, cy - 80, 320, 160);
+			rBg.lineStyle(2, pal.colorA, 1);
+			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
+
+			const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '24px', color: hexCss(pal.colorA)
+			}).setOrigin(0.5).setDepth(401);
+
+			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '14px', color: '#000',
+				backgroundColor: hexCss(pal.colorA), padding: {x: 10, y: 10}, align: 'center'
+			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
+
+			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#fff',
+				backgroundColor: '#444444', padding: {x: 20, y: 15}
+			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
+
+			const cleanUp = () => {
+				rBg.destroy(); rTxt.destroy(); btnRevive.destroy(); btnSkip.destroy();
+			};
+
+			btnSkip.on('pointerdown', () => {
+				cleanUp();
+				this.isGameOver = false;
+				this._gameOver();
+			});
+
+			btnRevive.on('pointerdown', () => {
+				cleanUp();
+				const doRevive = () => {
+					this.isGameOver = false;
+					this.lives = 1;
+					this.lasers = []; // clear lasers
+					this._updateLivesHUD();
+				};
+
+				if (window.FreshPlay && typeof window.FreshPlay.showVideoAd === 'function') {
+					window.FreshPlay.showVideoAd(doRevive);
+				} else {
+					doRevive();
+				}
+			});
+			return;
+		}
+
 		this._saveHi(this.score);
 		this._sound('gameover');
 

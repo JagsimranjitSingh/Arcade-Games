@@ -8,16 +8,31 @@
 			* {
 				margin: 0;
 				padding: 0;
-				box-sizing: border-box
+				box-sizing: border-box;
+				-webkit-tap-highlight-color: transparent;
 			}
 
-			html,
+			html {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #000;
+			}
+
 			body {
 				width: 100%;
 				height: 100%;
 				background: #000;
 				overflow: hidden;
-				font-family: 'Courier New', monospace
+				font-family: 'Courier New', monospace;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				touch-action: none;
+				-webkit-overflow-scrolling: none;
+				overscroll-behavior: none;
 			}
 
 			#game-container {
@@ -25,12 +40,59 @@
 				height: 100%;
 				display: flex;
 				align-items: center;
-				justify-content: center
+				justify-content: center;
+				overflow: hidden;
 			}
 
 			canvas {
 				display: block;
-				image-rendering: auto
+				image-rendering: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+
+			/* ── Rotate-to-landscape overlay ── */
+			#rotate-overlay {
+				display: none;
+				position: fixed;
+				inset: 0;
+				background: #0a0a1a;
+				z-index: 99999;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 24px;
+			}
+
+			#rotate-overlay.show {
+				display: flex;
+			}
+
+			#rotate-overlay .rotate-icon {
+				font-size: 64px;
+				animation: rotateHint 1.8s ease-in-out infinite;
+			}
+
+			#rotate-overlay p {
+				color: #00ffe7;
+				font-family: 'Courier New', monospace;
+				font-size: 16px;
+				letter-spacing: 3px;
+				text-align: center;
+				padding: 0 24px;
+				text-shadow: 0 0 12px #00ffe7;
+			}
+
+			#rotate-overlay .sub {
+				color: #555;
+				font-size: 11px;
+				letter-spacing: 2px;
+			}
+
+			@keyframes rotateHint {
+				0%, 100% { transform: rotate(0deg); }
+				40% { transform: rotate(90deg); }
+				60% { transform: rotate(90deg); }
 			}
 
 			/* Level-Up Overlay (DOM layer, above canvas) */
@@ -136,6 +198,13 @@
 	</head>
 
 	<body>
+		<!-- Rotate-to-landscape blocker -->
+		<div id="rotate-overlay">
+			<div class="rotate-icon">📱</div>
+			<p>ROTATE DEVICE TO PLAY</p>
+			<p class="sub">IDLE ARCADE TYCOON · LANDSCAPE ONLY</p>
+		</div>
+
 		<div id="game-container"></div>
 
 		<div id="lvlup-overlay">
@@ -150,5 +219,39 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
 		<script src="game.js"></script>
+		<script>
+			(function () {
+				var overlay = document.getElementById('rotate-overlay');
+
+				function checkOrientation() {
+					var isPortrait = window.innerHeight > window.innerWidth;
+					if (screen.orientation && screen.orientation.type) {
+						isPortrait = screen.orientation.type.indexOf('portrait') !== -1;
+					}
+					if (isPortrait) {
+						overlay.classList.add('show');
+						if (window._iat && window._iat.scene) {
+							window._iat.scene.scenes.forEach(function (s) {
+								if (s.sys.isActive && s.sys.isActive()) s.sys.pause();
+							});
+						}
+					} else {
+						overlay.classList.remove('show');
+						if (window._iat && window._iat.scene) {
+							window._iat.scene.scenes.forEach(function (s) {
+								if (s.sys.isPaused && s.sys.isPaused()) s.sys.resume();
+							});
+						}
+					}
+				}
+
+				window.addEventListener('resize', checkOrientation);
+				window.addEventListener('orientationchange', checkOrientation);
+				window.addEventListener('orientationchange', function () {
+					setTimeout(checkOrientation, 350);
+				});
+				checkOrientation();
+			})();
+		</script>
 	</body>
 </html>

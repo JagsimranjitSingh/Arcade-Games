@@ -72,6 +72,33 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	};
 
+	window.triggerRewardAd = function (resumeCallback) {
+		const overlay = document.createElement('div');
+		overlay.className = 'fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center';
+		overlay.innerHTML = `
+			<div class="absolute top-4 right-6 text-[#a1a1aa] font-mono text-xs">
+				Reward Ad closing in <span id="reward-ad-timer" class="text-white font-bold">15</span>s
+			</div>
+			<div class="text-[#00ff00] font-mono text-xs tracking-widest uppercase mb-4">Sponsor Message (Reward)</div>
+			<div class="w-full max-w-3xl aspect-video bg-[#1a1a1a] border border-[#333] flex items-center justify-center shadow-[0_0_50px_rgba(0,255,0,0.1)]">
+				<svg class="w-16 h-16 text-[#3f3f46] animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
+			</div>
+		`;
+		document.body.appendChild(overlay);
+
+		let timeLeft = 15;
+		const timerEl = overlay.querySelector('#reward-ad-timer');
+		const countdown = setInterval(() => {
+			timeLeft -= 1;
+			timerEl.textContent = timeLeft;
+			if (timeLeft <= 0) {
+				clearInterval(countdown);
+				document.body.removeChild(overlay);
+				if (typeof resumeCallback === 'function') resumeCallback();
+			}
+		}, 1000);
+	};
+
 
 	// ==========================================
 	// 3. CENTRALIZED DATA FETCH & INJECTION
@@ -215,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			for (const [category, count] of Object.entries(categoryCounts)) {
 				ul.innerHTML += `
                     <li>
-                        <a href="/explore.html?category=${category.toLowerCase()}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+                        <a href="/explore.html?category=${encodeURIComponent(category.toLowerCase())}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
                             <span class="uppercase">${category}</span>
                             <span class="bg-[#0f0f0f] px-1.5 py-0.5 rounded">${count}</span>
                         </a>
@@ -379,11 +406,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 
 			Array.from(categorySelect.options).forEach(opt => {
-				if (opt.value === initialCategory.toLowerCase()) categorySelect.value = opt.value;
+				if (opt.value === initialCategory.toLowerCase()) {
+					opt.selected = true;
+					categorySelect.value = opt.value;
+				}
 			});
 
 			const newSelect = categorySelect.cloneNode(true);
 			categorySelect.parentNode.replaceChild(newSelect, categorySelect);
+			newSelect.value = initialCategory.toLowerCase();
+			
 			newSelect.addEventListener('change', (e) => {
 				const val = e.target.value;
 				renderCategories(val);

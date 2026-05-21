@@ -718,6 +718,7 @@ class GameScene extends Phaser.Scene {
 	}
 
 	// Game over 
+	// Game over 
 	_doGameOver(x, y) {
 		this.alive = false;
 		this.asteroidTimer.remove();
@@ -732,6 +733,81 @@ class GameScene extends Phaser.Scene {
 		this.cameras.main.flash(400, 255, 80, 0, false);
 
 		this.ship.setVisible(false);
+
+		if (!this.revived) {
+			this.revived = true;
+			this.time.delayedCall(900, () => {
+				const W = this.scale.width, H = this.scale.height;
+				const cx = W / 2, cy = H / 2;
+				const rBg = this.add.graphics().setDepth(200);
+				rBg.fillStyle(0x000000, 0.85);
+				rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
+				rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(this.P.playerCore).color, 1);
+				rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);
+
+				const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
+					fontFamily: "'Courier New', monospace", fontSize: '20px', color: this.P.playerCore
+				}).setOrigin(0.5).setDepth(201);
+
+				const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
+					fontFamily: "'Courier New', monospace", fontSize: '14px', color: '#000', align: 'center',
+					backgroundColor: this.P.playerCore, padding: {x: 10, y: 10}
+				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
+
+				const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
+					fontFamily: "'Courier New', monospace", fontSize: '16px', color: '#fff',
+					backgroundColor: '#444444', padding: {x: 20, y: 16}
+				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
+
+				const cleanUp = () => {
+					rBg.destroy(); rTxt.destroy(); btnRevive.destroy(); btnSkip.destroy();
+				};
+
+				btnSkip.on('pointerdown', () => {
+					cleanUp();
+					window.FreshPlay.gameOver(this.score);
+					this.scene.start('GameOver', { score: this.score, level: this.level });
+				});
+
+				btnRevive.on('pointerdown', () => {
+					cleanUp();
+					const doRevive = () => {
+						// Revive
+						this.alive = true;
+						this.ship.setVisible(true);
+						this.asteroids.clear(true, true);
+						
+						this.asteroidTimer = this.time.addEvent({
+							delay: this.asteroidRate, callback: this._spawnAsteroid, callbackScope: this, loop: true
+						});
+						this.scrapTimer = this.time.addEvent({
+							delay: 1200, callback: this._spawnScrap, callbackScope: this, loop: true
+						});
+						this.scoreTimer = this.time.addEvent({
+							delay: 100, callback: () => { if (this.alive && !this.levelingUp) this.score += Math.floor(this.level * 1.5); },
+							callbackScope: this, loop: true
+						});
+						this.flameEmitter.start();
+						this._thrusterSfx = SFX.thruster();
+						
+						// Invincibility
+						this.isShielded = true;
+						this.ship.setAlpha(0.6);
+						this.time.delayedCall(2000, () => {
+							this.isShielded = false;
+							if (this.alive) this.ship.setAlpha(1);
+						});
+					};
+
+					if (window.FreshPlay && typeof window.FreshPlay.showVideoAd === 'function') {
+						window.FreshPlay.showVideoAd(doRevive);
+					} else {
+						doRevive();
+					}
+				});
+			});
+			return;
+		}
 
 		this.time.delayedCall(900, () => {
 			window.FreshPlay.gameOver(this.score);

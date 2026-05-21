@@ -632,7 +632,7 @@ class GameScene extends Phaser.Scene {
 	_advanceLevel() {
 		const doNext = () => {
 			this.levelIdx++;
-			if (this.levelIdx % 5 === 0) this.pal = getPalette();
+			// Removed palette change on level%5 as per user instruction
 			this.moves = 0; this.transitioning = false;
 			this._transitionIn();
 		};

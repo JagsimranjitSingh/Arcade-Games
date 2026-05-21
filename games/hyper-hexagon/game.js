@@ -412,6 +412,61 @@ class PlayScene extends Phaser.Scene {
 	_gameOver() {
 		if (this.isGameOver) return;
 		this.isGameOver = true;
+
+		if (!this.revived) {
+			this.revived = true;
+			const { cx, cy } = this._center();
+			const pal = this.palette;
+
+			const rBg = this.add.graphics().setDepth(300);
+			rBg.fillStyle(0x000000, 0.9);
+			rBg.fillRect(cx - 160, cy - 80, 320, 160);
+			rBg.lineStyle(2, pal.core, 1);
+			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
+
+			const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '24px', color: css(pal.core)
+			}).setOrigin(0.5).setDepth(301);
+
+			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '14px', color: '#000',
+				backgroundColor: css(pal.core), padding: {x: 10, y: 10}, align: 'center'
+			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
+
+			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#fff',
+				backgroundColor: '#444444', padding: {x: 20, y: 15}
+			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
+
+			const cleanUp = () => {
+				rBg.destroy(); rTxt.destroy(); btnRevive.destroy(); btnSkip.destroy();
+			};
+
+			btnSkip.on('pointerdown', () => {
+				cleanUp();
+				this.isGameOver = false;
+				this._gameOver();
+			});
+
+			btnRevive.on('pointerdown', () => {
+				cleanUp();
+				const doRevive = () => {
+					this.isGameOver = false;
+					this.lives = 1;
+					this.walls = []; // clear walls
+					this.isInvincible = true;
+					this.invTimer = 2.0; // invincibility
+				};
+
+				if (window.FreshPlay && typeof window.FreshPlay.showVideoAd === 'function') {
+					window.FreshPlay.showVideoAd(doRevive);
+				} else {
+					doRevive();
+				}
+			});
+			return;
+		}
+
 		this._saveHi(this.score);
 		this._sound('gameover');
 		if (window.FreshPlay) window.FreshPlay.gameOver(this.score);

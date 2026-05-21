@@ -155,10 +155,14 @@ function buildWalls(pts) {
 ══════════════════════════════════════════════════════════ */
 const config = {
 	type: Phaser.AUTO,
-	width: window.innerWidth,
-	height: window.innerHeight,
 	backgroundColor: '#04080f',
 	parent: document.body,
+	scale: {
+		mode: Phaser.Scale.RESIZE,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+		width: window.innerWidth,
+		height: window.innerHeight,
+	},
 	scene: [BootScene, GameScene, UIScene],
 };
 const game = new Phaser.Game(config);
@@ -462,6 +466,67 @@ GameScene.prototype.die = function () {
 		});
 	}
 	this.car.setVisible(false);
+	if (!this.revived) {
+		this.revived = true;
+		this.time.delayedCall(900, () => {
+			const W = this.scale.width, H = this.scale.height;
+			const cam = this.cameras.main;
+			const cx = cam.scrollX + W / 2, cy = cam.scrollY + H / 2;
+			const p = this.palette;
+
+			const rBg = this.add.graphics().setDepth(50);
+			rBg.fillStyle(0x000000, 0.9);
+			rBg.fillRect(cx - 160, cy - 80, 320, 160);
+			rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(p.playerCore).color, 1);
+			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
+
+			const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
+				fontFamily: 'monospace', fontSize: '24px', color: p.playerCore
+			}).setOrigin(0.5).setDepth(51);
+
+			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
+				fontFamily: 'monospace', fontSize: '14px', color: '#000',
+				backgroundColor: p.playerCore, padding: {x: 10, y: 10}, align: 'center'
+			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
+
+			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
+				fontFamily: 'monospace', fontSize: '16px', color: '#fff',
+				backgroundColor: '#444444', padding: {x: 20, y: 15}
+			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
+
+			const cleanUp = () => {
+				rBg.destroy(); rTxt.destroy(); btnRevive.destroy(); btnSkip.destroy();
+			};
+
+			btnSkip.on('pointerdown', () => {
+				cleanUp();
+				window.FreshPlay.gameOver(this.score);
+				this.scene.stop('UI');
+				this.showGameOver();
+			});
+
+			btnRevive.on('pointerdown', () => {
+				cleanUp();
+				const doRevive = () => {
+					this.dead = false;
+					this.car.setVisible(true);
+					this.carPos = Math.max(0, Math.floor(this.carPos) - 1);
+					this.carSpeed = this.baseSpeed;
+					this.tethered = false;
+					this.invincible = true;
+					this.time.delayedCall(1500, () => { this.invincible = false; });
+				};
+
+				if (window.FreshPlay && typeof window.FreshPlay.showVideoAd === 'function') {
+					window.FreshPlay.showVideoAd(doRevive);
+				} else {
+					doRevive();
+				}
+			});
+		});
+		return;
+	}
+
 	this.time.delayedCall(900, () => {
 		window.FreshPlay.gameOver(this.score);
 		this.scene.stop('UI');

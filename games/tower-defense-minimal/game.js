@@ -703,11 +703,66 @@
 			this.waveActive = false;
 
 			const pal = this.pal;
-			const overlay = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.75).setDepth(60);
-			const style = { fontFamily: "'Courier New', monospace", fontSize: "32px", color: "#ff2d55", stroke: "#000", strokeThickness: 3 };
-			this.add.text(W / 2, H / 2 - 30, "SYSTEM BREACH", style).setOrigin(0.5).setDepth(61);
-			const s2 = { fontFamily: "'Courier New', monospace", fontSize: "16px", color: "#" + pal.playerCore.replace("#", ""), stroke: "#000", strokeThickness: 2 };
-			this.add.text(W / 2, H / 2 + 20, `SCORE: ${this.score}`, s2).setOrigin(0.5).setDepth(61);
+			// Dark overlay
+			this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.78).setDepth(60);
+
+			// Panel background
+			const panelW = 320, panelH = 220;
+			const panelBg = this.add.rectangle(W / 2, H / 2, panelW, panelH, 0x0a0e1a, 0.97).setDepth(61);
+			panelBg.setStrokeStyle(1.5, hex(pal.hostile), 0.9);
+
+			// Corner accents
+			const cornerGfx = this.add.graphics().setDepth(62);
+			cornerGfx.lineStyle(2, hex(pal.hostile), 1);
+			const px = W / 2 - panelW / 2, py = H / 2 - panelH / 2;
+			const cs = 18;
+			[[px, py, 1, 1], [px + panelW, py, -1, 1], [px, py + panelH, 1, -1], [px + panelW, py + panelH, -1, -1]]
+				.forEach(([bx, by, sx, sy]) => {
+					cornerGfx.beginPath();
+					cornerGfx.moveTo(bx + sx * cs, by);
+					cornerGfx.lineTo(bx, by);
+					cornerGfx.lineTo(bx, by + sy * cs);
+					cornerGfx.strokePath();
+				});
+
+			// Title
+			const breachStyle = { fontFamily: "'Courier New', monospace", fontSize: "26px", color: "#ff2d55", stroke: "#000", strokeThickness: 3 };
+			this.add.text(W / 2, H / 2 - 72, "SYSTEM BREACH", breachStyle).setOrigin(0.5).setDepth(62);
+
+			// Divider line
+			const divGfx = this.add.graphics().setDepth(62);
+			divGfx.lineStyle(1, hex(pal.hostile), 0.4);
+			divGfx.beginPath();
+			divGfx.moveTo(W / 2 - 100, H / 2 - 44);
+			divGfx.lineTo(W / 2 + 100, H / 2 - 44);
+			divGfx.strokePath();
+
+			// Stats
+			const s2 = { fontFamily: "'Courier New', monospace", fontSize: "14px", color: "#" + pal.playerCore.replace("#", ""), stroke: "#000", strokeThickness: 2 };
+			this.add.text(W / 2, H / 2 - 18, "SCORE  " + String(this.score).padStart(6, "0"), s2).setOrigin(0.5).setDepth(62);
+			this.add.text(W / 2, H / 2 + 8,  "WAVE   " + String(this.level).padStart(6, " "), s2).setOrigin(0.5).setDepth(62);
+
+			// Retry button
+			const retryNormal = { fontFamily: "'Courier New', monospace", fontSize: "15px", color: "#ffe600", stroke: "#000", strokeThickness: 2 };
+			const retryBtn = this.add.text(W / 2, H / 2 + 60, "[ RETRY ]", retryNormal)
+				.setOrigin(0.5).setDepth(62).setInteractive({ useHandCursor: true });
+			retryBtn.on("pointerover", () => retryBtn.setAlpha(0.6));
+			retryBtn.on("pointerout",  () => retryBtn.setAlpha(1));
+			retryBtn.on("pointerdown", () => {
+				// Clean up audio context so it re-creates cleanly
+				try { if (audioCtx) { audioCtx.close(); audioCtx = null; } } catch (_) {}
+				this.scene.restart();
+			});
+
+			// Pulse animation on retry button
+			this.tweens.add({
+				targets: retryBtn,
+				alpha: { from: 1, to: 0.45 },
+				yoyo: true,
+				repeat: -1,
+				duration: 700,
+				ease: "Sine.easeInOut",
+			});
 
 			try { window.FreshPlay?.gameOver?.(this.score); } catch (_) { }
 		}
@@ -722,15 +777,17 @@
 			this.waveClearing = true;
 			this.waveActive = false;
 
-			// Brief pause then level complete
 			this.time.delayedCall(800, () => {
+				if (this.level % 5 === 0) {
+					try {
+						['showAd', 'showVideoAd', 'playAd', 'displayAd'].forEach(fn => {
+							if (typeof window.FreshPlay[fn] === 'function') window.FreshPlay[fn]();
+						});
+					} catch (_) { }
+				}
 				try {
 					window.FreshPlay?.levelComplete?.(() => {
 						this.level++;
-						if (this.level % 5 === 1) {
-							this.pal = getPalette();
-							this._refreshPalette();
-						}
 						this._startWave();
 						this._refreshHUD();
 						this._showLevelBanner();

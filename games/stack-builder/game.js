@@ -611,7 +611,13 @@
 			this.level++;
 			this.blockCount = 0;
 			this.swingSpeed += SWING_SPEED_INCREMENT;
-			if (this.level % 5 === 1) palette = window.FreshPlay.getCurrentPalette();
+			if ((this.level - 1) % 5 === 0 && this.level > 1) {
+				try {
+					['showAd', 'showVideoAd', 'playAd', 'displayAd'].forEach(fn => {
+						if (typeof window.FreshPlay[fn] === 'function') window.FreshPlay[fn]();
+					});
+				} catch (_) { }
+			}
 			window._bumpLevel && window._bumpLevel();
 			this._drawProg();
 			this.isTransitioning = false;

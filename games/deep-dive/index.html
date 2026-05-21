@@ -3,34 +3,200 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<title>Deep Dive</title>
+		<meta name="description" content="Deep Dive — Control a submarine descending into the abyss. Manage oxygen, dodge sea monsters, and survive the deep. Play free on FreshPlay Arcade." />
+		<title>Deep Dive — FreshPlay Arcade</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 		<style>
-			*,
-			*::before,
-			*::after {
-				box-sizing: border-box;
-				margin: 0;
-				padding: 0;
-			}
+			/* ── Reset ─────────────────────────────────────────────────────── */
+			*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-			html,
-			body {
-				width: 100%;
-				height: 100%;
+			html, body {
+				width: 100%; height: 100%;
+				background: #020810;
 				overflow: hidden;
-				background: #020c18;
+				touch-action: none;
+				user-select: none;
+				-webkit-user-select: none;
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				font-family: 'Share Tech Mono', 'Courier New', Courier, monospace;
 			}
 
 			canvas {
 				display: block;
+				touch-action: none;
+				outline: none;
+				image-rendering: auto;
+				position: fixed;
+				top: 0; left: 0;
 				width: 100% !important;
 				height: 100% !important;
+			}
+
+			/* ── Loading Screen ────────────────────────────────────────────── */
+			#loading-screen {
+				position: fixed; inset: 0;
+				background: radial-gradient(ellipse at 50% 40%, #041828 0%, #020810 70%);
+				display: flex; flex-direction: column;
+				align-items: center; justify-content: center;
+				z-index: 9999;
+				gap: 24px;
+				transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+			#loading-screen.hidden {
+				opacity: 0; pointer-events: none;
+			}
+
+			.load-logo {
+				font-family: 'Orbitron', sans-serif;
+				font-size: clamp(24px, 6vw, 42px);
+				font-weight: 800;
+				letter-spacing: 0.25em;
+				color: #00e5ff;
+				text-transform: uppercase;
+				text-shadow:
+					0 0 30px rgba(0,229,255,0.9),
+					0 0 80px rgba(0,229,255,0.4),
+					0 0 120px rgba(0,229,255,0.2);
+				animation: pulse-glow 1.8s ease-in-out infinite alternate;
+			}
+			.load-sub-text {
+				font-family: 'Share Tech Mono', monospace;
+				font-size: clamp(9px, 2vw, 12px);
+				color: #1a5a7a;
+				letter-spacing: 0.6em;
+				text-transform: uppercase;
+			}
+			.load-bar-track {
+				width: min(260px, 60vw); height: 2px;
+				background: #0a2030; position: relative;
+				overflow: hidden; border-radius: 1px;
+			}
+			.load-bar-fill {
+				height: 100%;
+				background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+				box-shadow: 0 0 15px #00e5ff;
+				animation: load-sweep 1.5s ease-in-out infinite;
+			}
+			.load-depth-label {
+				font-family: 'Share Tech Mono', monospace;
+				font-size: clamp(8px, 1.5vw, 10px);
+				color: #0d3050;
+				letter-spacing: 0.5em;
+				text-transform: uppercase;
+				margin-top: 8px;
+			}
+
+			/* Animated bubbles on loading screen */
+			.load-bubble {
+				position: absolute;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(0,229,255,0.25) 0%, rgba(0,229,255,0) 70%);
+				animation: bubble-rise linear infinite;
+			}
+			.load-bubble:nth-child(1) { left: 8%; animation-duration: 5.2s; animation-delay: 0s; width: 6px; height: 6px; }
+			.load-bubble:nth-child(2) { left: 22%; animation-duration: 4.5s; animation-delay: 0.4s; width: 10px; height: 10px; }
+			.load-bubble:nth-child(3) { left: 40%; animation-duration: 6.0s; animation-delay: 1.0s; width: 8px; height: 8px; }
+			.load-bubble:nth-child(4) { left: 58%; animation-duration: 4.0s; animation-delay: 0.2s; width: 5px; height: 5px; }
+			.load-bubble:nth-child(5) { left: 75%; animation-duration: 5.5s; animation-delay: 0.7s; width: 9px; height: 9px; }
+			.load-bubble:nth-child(6) { left: 88%; animation-duration: 4.8s; animation-delay: 1.3s; width: 6px; height: 6px; }
+			.load-bubble:nth-child(7) { left: 15%; animation-duration: 6.5s; animation-delay: 2.0s; width: 4px; height: 4px; }
+			.load-bubble:nth-child(8) { left: 68%; animation-duration: 5.8s; animation-delay: 0.9s; width: 7px; height: 7px; }
+
+			@keyframes bubble-rise {
+				0%   { bottom: -10px; opacity: 0; transform: translateX(0); }
+				10%  { opacity: 0.8; }
+				50%  { transform: translateX(10px); }
+				90%  { opacity: 0.4; }
+				100% { bottom: 110%; opacity: 0; transform: translateX(-5px); }
+			}
+
+			@keyframes load-sweep {
+				0%   { width: 0%; margin-left: 0; }
+				50%  { width: 55%; }
+				100% { width: 0%; margin-left: 100%; }
+			}
+
+			@keyframes pulse-glow {
+				from { text-shadow: 0 0 15px rgba(0,229,255,0.4), 0 0 40px rgba(0,229,255,0.15); }
+				to   { text-shadow: 0 0 40px rgba(0,229,255,1), 0 0 90px rgba(0,229,255,0.5), 0 0 140px rgba(0,229,255,0.2); }
+			}
+
+			/* Depth pressure lines on loading */
+			.load-pressure {
+				position: absolute;
+				width: 100%;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, rgba(0,229,255,0.06), transparent);
+				animation: pressure-sweep 3s ease-in-out infinite;
+			}
+			.load-pressure:nth-child(9) { top: 20%; animation-delay: 0s; }
+			.load-pressure:nth-child(10) { top: 45%; animation-delay: 1s; }
+			.load-pressure:nth-child(11) { top: 70%; animation-delay: 2s; }
+
+			@keyframes pressure-sweep {
+				0%, 100% { opacity: 0; }
+				50% { opacity: 1; }
 			}
 		</style>
 	</head>
 
 	<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
+		<!-- Loading Screen -->
+		<div id="loading-screen">
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-bubble"></div>
+			<div class="load-pressure"></div>
+			<div class="load-pressure"></div>
+			<div class="load-pressure"></div>
+			<div class="load-logo">Deep Dive</div>
+			<div class="load-bar-track"><div class="load-bar-fill"></div></div>
+			<div class="load-sub-text">Pressurizing hull...</div>
+			<div class="load-depth-label">Calibrating depth sensors</div>
+		</div>
+
+		<!-- Phaser 3 -->
+		<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+
+		<!-- FreshPlay SDK (fallback inline, overwritten by portal SDK) -->
+		<script>
+			window.FreshPlay = window.FreshPlay || {
+				currentLevel: 1,
+				getCurrentPalette: function() {
+					return {
+						background: '#020810',
+						playerCore: '#00e5ff',
+						fxAccent:   '#39ff14',
+						hostile:    '#ff3c3c',
+						interface:  '#e0f7ff',
+					};
+				},
+				levelComplete: function(cb) { this.currentLevel++; if (cb) cb(); },
+				gameOver: function(score) { console.log('[FreshPlay] Game Over. Score:', score); },
+			};
+		</script>
+		<script src="../../assets/js/fp-sdk.js" onerror="console.warn('[FreshPlay] SDK not found, using fallback.')"></script>
+
+		<!-- Game -->
 		<script src="game.js"></script>
+
+		<!-- Post-load -->
+		<script>
+			window.addEventListener('load', function() {
+				setTimeout(function() {
+					var ls = document.getElementById('loading-screen');
+					if (ls) ls.classList.add('hidden');
+					setTimeout(function() { if (ls) ls.remove(); }, 900);
+				}, 1200);
+			});
+		</script>
 	</body>
 </html>

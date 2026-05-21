@@ -373,6 +373,18 @@
 				align-items: center;
 				justify-content: center;
 				position: relative;
+				min-height: 0;        /* KEY: allows CSS grid 1fr to actually constrain height */
+				overflow: hidden;
+			}
+
+			/* Inner wrapper div must fill game-area for Phaser to measure correctly */
+			.game-area > div {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
 			}
 
 			#game-container {
@@ -382,6 +394,15 @@
 					0 0 40px -4px var(--core-dim),
 					0 0 80px -20px var(--core-dim);
 				animation: gamepop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+				overflow: hidden;     /* clip canvas during resize transitions */
+				flex-shrink: 0;       /* never squash the container */
+			}
+
+			/* Phaser canvas must never exceed the container */
+			#game-container canvas {
+				display: block;
+				max-width: 100%;
+				max-height: 100%;
 			}
 
 			@keyframes gamepop {
@@ -664,12 +685,10 @@
 					padding: 8px;
 					gap: 7px;
 				}
-
-				.logo-main {
-					font-size: 15px;
-				}
+				.logo-main { font-size: 15px; }
 			}
 
+			/* Tablet / mobile — hide sidebars, game fills width */
 			@media (max-width: 860px) {
 				.shell {
 					grid-template-areas:
@@ -678,17 +697,93 @@
 						"footer footer footer";
 					grid-template-columns: 1fr;
 					grid-template-rows: auto 1fr auto;
+					padding: 6px;
+					gap: 5px;
 				}
-
 				.sidebar,
-				.info-panel {
-					display: none;
-				}
+				.info-panel { display: none; }
 			}
+
+			/* Small landscape phones — strip all chrome, maximise canvas */
+			@media (max-height: 480px) {
+				.shell {
+					grid-template-areas:
+						"header header"
+						"game   game"
+						"footer footer";
+					grid-template-columns: 1fr;
+					grid-template-rows: auto 1fr auto;
+					padding: 4px;
+					gap: 3px;
+				}
+				.sidebar, .info-panel { display: none; }
+				header { padding-bottom: 3px; }
+				.logo-main { font-size: 12px; }
+				.logo-sub, .header-badges { display: none; }
+				footer { padding-top: 3px; font-size: 8px; }
+			}
+
+			/* ── LANDSCAPE-ONLY OVERLAY ── */
+			#rotate-overlay {
+				display: none;
+				position: fixed;
+				inset: 0;
+				z-index: 99999;          /* above scanlines (9999) and loader (10000) */
+				background: var(--bg);
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 28px;
+			}
+			#rotate-overlay.show { display: flex; }
+
+			.rotate-icon {
+				width: 80px;
+				height: 80px;
+				animation: rotphone 1.8s ease-in-out infinite alternate;
+			}
+			@keyframes rotphone {
+				0%   { transform: rotate(0deg); }
+				100% { transform: rotate(90deg); }
+			}
+			.rotate-title {
+				font-family: 'Orbitron', monospace;
+				font-size: 18px;
+				letter-spacing: 0.22em;
+				color: var(--core);
+				text-shadow: 0 0 20px var(--core);
+				text-transform: uppercase;
+			}
+			.rotate-sub {
+				font-family: 'Share Tech Mono', monospace;
+				font-size: 12px;
+				letter-spacing: 0.15em;
+				color: var(--accent);
+				opacity: 0.7;
+			}
+
+			/* Hide everything except overlay while in portrait */
+			body.portrait > *:not(#rotate-overlay) { visibility: hidden; }
 		</style>
 	</head>
 
 	<body>
+
+		<!-- ── Landscape-only gate ── -->
+		<div id="rotate-overlay">
+			<svg class="rotate-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<!-- phone body -->
+				<rect x="22" y="8" width="36" height="58" rx="6" stroke="var(--core)" stroke-width="2.5"/>
+				<circle cx="40" cy="57" r="3.5" fill="var(--core)" opacity="0.6"/>
+				<rect x="31" y="14" width="18" height="2" rx="1" fill="var(--core)" opacity="0.3"/>
+				<!-- rotation arrow -->
+				<path d="M58 24 A22 22 0 0 0 22 24" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+				<polyline points="53,17 58,24 51,26" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+			</svg>
+			<div class="rotate-title">Rotate Device</div>
+			<div class="rotate-sub">Tower Defense plays in landscape</div>
+		</div>
+
 		<div id="loader">
 			<div class="loader-title">TOWER DEFENSE MINIMAL</div>
 			<div class="loader-bar-wrap">
@@ -951,6 +1046,101 @@
 				const pct = Math.min(100, (killed / total) * 100);
 				document.getElementById("wave-bar").style.width = pct + "%";
 			}, 200);
+		</script>
+
+		<script>
+			(function () {
+				var overlay = document.getElementById('rotate-overlay');
+
+				function isPortrait() {
+					try {
+						if (screen.orientation && screen.orientation.type)
+							return screen.orientation.type.startsWith('portrait');
+					} catch (e) {}
+					if (typeof window.orientation === 'number')
+						return window.orientation === 0 || window.orientation === 180;
+					return window.innerHeight > window.innerWidth;
+				}
+
+				function applyOrientation() {
+					var portrait = isPortrait();
+					overlay.classList.toggle('show', portrait);
+					document.body.classList.toggle('portrait', portrait);
+
+					/* Pause / resume Phaser */
+					try {
+						var g = window.__TowerDefenseGame;
+						if (g && g.scene) {
+							g.scene.scenes.forEach(function (s) {
+								if (portrait) { if (s.scene.isActive())  s.scene.pause();  }
+								else          { if (s.scene.isPaused()) s.scene.resume(); }
+							});
+						}
+					} catch (e) {}
+				}
+
+				try { screen.orientation && screen.orientation.addEventListener('change', applyOrientation); } catch (e) {}
+				window.addEventListener('orientationchange', applyOrientation);
+				window.addEventListener('resize', applyOrientation);
+
+				applyOrientation();
+				setTimeout(applyOrientation, 300);
+				setTimeout(applyOrientation, 1200);
+			})();
+		</script>
+
+		<script>
+			/* ── Responsive canvas fit ───────────────────────────────────────────
+			   Measures the game-area div, calculates the largest 864:624 rect
+			   that fits inside it, sets #game-container to that size, then asks
+			   Phaser's Scale Manager to refresh — all in one clean pass.
+			─────────────────────────────────────────────────────────────────── */
+			(function () {
+				const GAME_W = 864, GAME_H = 624;
+				const ASPECT = GAME_W / GAME_H;
+
+				function fitCanvas() {
+					const area = document.querySelector('.game-area');
+					const container = document.getElementById('game-container');
+					if (!area || !container) return;
+
+					const aw = area.clientWidth;
+					const ah = area.clientHeight;
+					if (aw <= 0 || ah <= 0) return;
+
+					// Largest rect with 864:624 aspect that fits in available space
+					let cw, ch;
+					if (aw / ah >= ASPECT) {
+						ch = ah;
+						cw = Math.floor(ch * ASPECT);
+					} else {
+						cw = aw;
+						ch = Math.floor(cw / ASPECT);
+					}
+
+					container.style.width  = cw + 'px';
+					container.style.height = ch + 'px';
+
+					// Tell Phaser to re-measure and rescale
+					var game = window.__TowerDefenseGame;
+					if (game && game.scale) {
+						game.scale.refresh();
+					}
+				}
+
+				// Run on every resize / orientation change
+				window.addEventListener('resize', fitCanvas);
+				try {
+					screen.orientation && screen.orientation.addEventListener('change', fitCanvas);
+				} catch(e) {}
+				window.addEventListener('orientationchange', fitCanvas);
+
+				// Initial runs: immediately + after Phaser boots + after fonts load
+				fitCanvas();
+				setTimeout(fitCanvas, 200);
+				setTimeout(fitCanvas, 800);
+				setTimeout(fitCanvas, 2000);
+			})();
 		</script>
 	</body>
 </html>
