@@ -1,12 +1,40 @@
+const PORTAL_DOMAINS = [
+    'https://mytopscore.com',
+    'https://noinstallgames.com',
+    'https://games365days.com',
+    'https://game360s.com',
+    'https://mygame360.com'
+];
+
+function getCanonicalDomain(gId) {
+    let hash = 0;
+    for (let i = 0; i < gId.length; i++) {
+        hash = gId.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return PORTAL_DOMAINS[Math.abs(hash) % PORTAL_DOMAINS.length];
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	let gameId = 'neon-blade-dash'; // Default to our new game
 	const pathParts = window.location.pathname.split('/').filter(p => p);
 
-	if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'game.html') {
+	if (pathParts.includes('game')) {
+		gameId = pathParts[pathParts.indexOf('game') + 1];
+	} else if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'game.html') {
 		gameId = pathParts[pathParts.length - 1].replace('.html', '');
 	} else {
 		const urlParams = new URLSearchParams(window.location.search);
 		if (urlParams.has('id')) gameId = urlParams.get('id');
+	}
+
+	// Enforce canonical domain (except for localhost)
+	if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.hostname !== '') {
+		const expectedUrl = getCanonicalDomain(gameId);
+		const expectedHost = new URL(expectedUrl).hostname;
+		if (window.location.hostname !== expectedHost) {
+			window.location.replace(`${expectedUrl}/game/${gameId}`);
+			return;
+		}
 	}
 
 	const container = document.getElementById('game-hero-container');
@@ -70,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             `;
 						});
 					}
+				} else {
+					window.location.href = '/404.html';
 				}
 			})
 			.catch(err => console.error("Error loading game data:", err));

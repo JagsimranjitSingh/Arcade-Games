@@ -1,3 +1,25 @@
+const PORTAL_DOMAINS = [
+    'https://mytopscore.com',
+    'https://noinstallgames.com',
+    'https://games365days.com',
+    'https://game360s.com',
+    'https://mygame360.com'
+];
+
+function getGameUrl(gameId) {
+    let hash = 0;
+    for (let i = 0; i < gameId.length; i++) {
+        hash = gameId.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % PORTAL_DOMAINS.length;
+    return `${PORTAL_DOMAINS[index]}/game/${gameId}`;
+}
+
+function getCategoryUrl(categoryName) {
+    if (categoryName.toLowerCase() === 'all') return '/explore.html';
+    return `/category/${encodeURIComponent(categoryName.toLowerCase())}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	// ==========================================
 	// 1. MOBILE MENU LOGIC
@@ -116,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				init404Page(allGames);
 			} else if (path.endsWith('index.html') || path === '/') {
 				initHomepage(allGames);
-			} else if (path.endsWith('explore.html')) {
+			} else if (path.endsWith('explore.html') || path.includes('/category/')) {
 				initExplorePage(allGames);
-			} else if (path.endsWith('game.html')) {
+			} else if (path.endsWith('game.html') || path.includes('/game/')) {
 				initGamePageSidebar(allGames);
 			}
 		})
@@ -153,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						searchDropdown.classList.add('active');
 						matches.forEach(g => {
 							const a = document.createElement('a');
-							a.href = `/game.html?id=${g.id}`;
+							a.href = getGameUrl(g.id);
 							a.className = 'search-item';
 							a.innerHTML = `
                                 <img src="${g.thumbnail_url}" alt="${g.title}">
@@ -193,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="text-[#a1a1aa] text-sm md:text-base mb-8 line-clamp-2 leading-relaxed max-w-xl">${featured.description}</p>
                     
                     <div class="flex items-center gap-6">
-                        <a href="/game.html?id=${featured.id}" class="flex items-center justify-center gap-2 bg-[#00ff00] text-black font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
+                        <a href="${getGameUrl(featured.id)}" class="flex items-center justify-center gap-2 bg-[#00ff00] text-black font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
                             <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3v18l15-9L5 3z"></path></svg> Play Now
                         </a>
                         <div class="hidden md:flex items-center gap-2 text-white font-mono text-xs tracking-widest bg-black/50 backdrop-blur-md px-3 py-2 border border-[#3f3f46] rounded">
@@ -213,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			newArrivalsGrid.innerHTML = '';
 			games.slice(0, 8).forEach(g => {
 				newArrivalsGrid.innerHTML += `
-                    <a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
+                    <a href="${getGameUrl(g.id)}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
                         <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                             <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -242,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			for (const [category, count] of Object.entries(categoryCounts)) {
 				ul.innerHTML += `
                     <li>
-                        <a href="/explore.html?category=${encodeURIComponent(category.toLowerCase())}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+                        <a href="${getCategoryUrl(category)}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
                             <span class="uppercase">${category}</span>
                             <span class="bg-[#0f0f0f] px-1.5 py-0.5 rounded">${count}</span>
                         </a>
@@ -263,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			sortedGames.forEach((g, index) => {
 				const shadowClass = index === 0 ? 'drop-shadow-[0_0_8px_rgba(0,255,0,0.5)]' : opacityClasses[index];
 				container.innerHTML += `
-                    <a href="/game.html?id=${g.id}" class="flex items-center gap-4 group transition-colors hover:bg-[#0f0f0f]/50 p-1.5 rounded">
+                    <a href="${getGameUrl(g.id)}" class="flex items-center gap-4 group transition-colors hover:bg-[#0f0f0f]/50 p-1.5 rounded">
                         <span class="text-3xl font-extrabold text-[#00ff00] font-mono italic w-8 text-right ${shadowClass}">${index + 1}</span>
                         <img src="${g.thumbnail_url}" alt="${g.title}" class="w-16 h-12 rounded object-cover border border-[#27272a] group-hover:border-[#00ff00]" loading="lazy">
                         <div>
@@ -285,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				
 				trendingGames.forEach(g => {
 					trendingGrid.innerHTML += `
-						<a href="/game.html?id=${g.id}" class="flex bg-[#1a1a1a] border border-[#27272a] rounded overflow-hidden card-glow group transition-all">
+						<a href="${getGameUrl(g.id)}" class="flex bg-[#1a1a1a] border border-[#27272a] rounded overflow-hidden card-glow group transition-all">
 							<img src="${g.thumbnail_url}" alt="${g.title}" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
 							<div class="w-2/3 p-5 flex flex-col justify-center">
 								<span class="text-[#00ff00] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
@@ -353,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							<div class="swiper-wrapper">
 								${catGames.map(g => `
 									<div class="swiper-slide">
-										<a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
+										<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
 											<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                                                 <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-20">
@@ -390,8 +412,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-		const urlParams = new URLSearchParams(window.location.search);
-		const initialCategory = urlParams.get('category') || 'all';
+		const pathParts = window.location.pathname.split('/').filter(p => p);
+		let initialCategory = 'all';
+		if (pathParts.includes('category')) {
+			initialCategory = decodeURIComponent(pathParts[pathParts.indexOf('category') + 1] || 'all');
+		} else {
+			const urlParams = new URLSearchParams(window.location.search);
+			initialCategory = urlParams.get('category') || 'all';
+		}
 		
 		const categorySelect = document.getElementById('category-filter');
 		if (categorySelect) {
@@ -419,10 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			newSelect.addEventListener('change', (e) => {
 				const val = e.target.value;
 				renderCategories(val);
-				const newUrl = new URL(window.location);
-				if (val === 'all') newUrl.searchParams.delete('category');
-				else newUrl.searchParams.set('category', val);
-				window.history.pushState({}, '', newUrl);
+				window.history.pushState({}, '', getCategoryUrl(val));
 			});
 		}
 
@@ -450,7 +475,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	function initGamePageSidebar(games) {
 		let gameId = '';
 		const pathParts = window.location.pathname.split('/').filter(p => p);
-		if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'game.html') {
+		if (pathParts.includes('game')) {
+			gameId = pathParts[pathParts.indexOf('game') + 1];
+		} else if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'game.html') {
 			gameId = pathParts[pathParts.length - 1].replace('.html', '');
 		} else {
 			const urlParams = new URLSearchParams(window.location.search);
@@ -466,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const similarGames = games.filter(g => g.category.toLowerCase() === currentGame.category.toLowerCase() && g.id !== currentGame.id).slice(0, 4);
 			similarGames.forEach(g => {
 				similarGrid.innerHTML += `
-                    <a href="/game.html?id=${g.id}" class="group">
+                    <a href="${getGameUrl(g.id)}" class="group">
                         <div class="overflow-hidden rounded mb-1 border border-[#27272a] group-hover:border-[#00ff00] transition-colors relative aspect-video">
                             <img src="${g.thumbnail_url}" alt="${g.title}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                         </div>
@@ -496,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const gameContainer = document.getElementById('random-game-container');
 		if (gameContainer && mainGame) {
 			gameContainer.innerHTML = `
-				<div class="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a] group cursor-pointer" onclick="window.location.href='/game.html?id=${mainGame.id}'">
+				<div class="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a] group cursor-pointer" onclick="window.location.href='${getGameUrl(mainGame.id)}'">
                     <img src="${mainGame.thumbnail_url}" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity blur-sm" loading="lazy">
 					<div class="z-10 absolute flex flex-col items-center">
 						<span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-3">Backup Core Loaded</span>
@@ -513,7 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			for (let i = 1; i < Math.min(5, shuffled.length); i++) {
 				const g = shuffled[i];
 				html += `
-					<a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all text-left">
+					<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all text-left">
                         <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
 						    <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                         </div>
