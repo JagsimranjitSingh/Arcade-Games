@@ -30,6 +30,7 @@
 	">
 	
 	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="icon" href="/assets/images/Favicon.svg" type="image/svg+xml">
 	<link rel="icon" href="/assets/images/Favicon.ico" sizes="any">
@@ -40,7 +41,7 @@
 <body class="flex flex-col min-h-screen">
 	<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
 		<div class="container mx-auto px-4 h-16 flex items-center justify-between">
-			<a href="/index.html" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
+			<a href="/" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
 				<div
 					class="border border-[#00ff00] px-2 py-1 flex items-center gap-1 group-hover:bg-[#1a1a1a] transition-colors">
 					<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
@@ -50,7 +51,7 @@
 
 			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase"
 				aria-label="Main Navigation">
-				<a href="/explore.html" class="hover:text-white transition-colors">New</a>
+				<a href="/category/all" class="hover:text-white transition-colors">New</a>
 				<a href="/category/puzzle" class="hover:text-white transition-colors">Puzzle</a>
 				<a href="/category/action" class="hover:text-white transition-colors">Action</a>
 				<a href="/category/survival" class="hover:text-white transition-colors">Survival</a>
@@ -90,7 +91,7 @@
 		</div>
 
 		<div class="px-6 mb-8">
-			<form action="/explore.html" method="get" class="relative">
+			<form action="/category/all" method="get" class="relative">
 				<input type="text" name="q" placeholder="SEARCH GAMES..."
 					class="w-full bg-transparent border-b border-[#3f3f46] focus:border-[#00ff00] pt-2 pb-2 pl-0 pr-10 text-sm font-mono text-white placeholder:text-[#52525b] outline-none tracking-widest transition-colors"
 					aria-label="Search Games Mobile">
@@ -104,7 +105,7 @@
 		</div>
 
 		<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase px-2">
-			<a href="/explore.html"
+			<a href="/category/all"
 				class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">New</a>
 			<a href="/category/puzzle"
 				class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Puzzle</a>
@@ -134,7 +135,7 @@
 						<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-white font-liberation">
 							<span class="text-[#00ff00]">⚡</span> New Arrivals
 						</h2>
-						<a href="/explore.html"
+						<a href="/category/all"
 							class="text-[#00ff00] text-xs font-mono hover:text-white uppercase transition-colors">View All</a>
 					</div>
 
@@ -202,8 +203,8 @@
 						class="text-white font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#00ff00] pl-2 font-liberation">
 						Explore</h4>
 					<ul class="space-y-2 text-xs">
-						<li><a href="/explore.html" class="hover:text-[#00ff00]">New Releases</a></li>
-						<li><a href="/explore.html" class="hover:text-[#00ff00]">All Categories</a></li>
+						<li><a href="/category/all" class="hover:text-[#00ff00]">New Releases</a></li>
+						<li><a href="/category/all" class="hover:text-[#00ff00]">All Categories</a></li>
 					</ul>
 				</div>
 				<div>
@@ -246,6 +247,7 @@
 	<script src="/assets/js/skeleton.js" defer></script>
 	<script src="/assets/js/main.js" defer></script>
 	<script>document.addEventListener('DOMContentLoaded',()=>document.body.classList.add('fp-ready'));</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 
 </html>

@@ -374,17 +374,18 @@ document.addEventListener('DOMContentLoaded', () => {
 								<span class="text-[#00ff00]">${emoji}</span> ${cat} Games
 							</h2>
 							<div class="flex gap-2">
-								<button class="fp-slider-prev cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors" data-slider-index="${index}" aria-label="Scroll left">
+								<div class="swiper-button-prev-${index} cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors" data-slider-index="${index}" aria-label="Scroll left">
 									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
-								</button>
-								<button class="fp-slider-next cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors" data-slider-index="${index}" aria-label="Scroll right">
+								</div>
+								<div class="swiper-button-next-${index} cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors" data-slider-index="${index}" aria-label="Scroll right">
 									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
-								</button>
+								</div>
 							</div>
 						</div>
-						<div class="fp-slider" data-slider-index="${index}">
+						<div class="swiper swiper-${index}">
+							<div class="swiper-wrapper">
 							${catGames.map(g => `
-								<div class="fp-slide">
+								<div class="swiper-slide">
 									<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
 										<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                                                 <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
@@ -399,13 +400,14 @@ document.addEventListener('DOMContentLoaded', () => {
 									</a>
 								</div>
 							`).join('')}
+							</div>
 						</div>
 					</section>
 				`;
 				container.insertAdjacentHTML('beforeend', sectionHtml);
 			});
 
-			document.dispatchEvent(new CustomEvent('initDynamicSliders', { detail: { count: toShow.length } }));
+			document.dispatchEvent(new CustomEvent('initDynamicSwipers', { detail: { count: toShow.length } }));
 
 			const loadMoreBtn = document.getElementById('load-more-btn');
 			if (loadMoreBtn) {

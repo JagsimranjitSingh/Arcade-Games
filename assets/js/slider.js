@@ -1,35 +1,29 @@
 // ==========================================
-// FreshPlay Arcade – Native Scroll-Snap Slider Controller
-// Replaces Swiper.js with vanilla JS arrow navigation.
-// The actual scrolling & snapping is handled by CSS:
-//   scroll-snap-type: x mandatory (on .fp-slider)
-//   scroll-snap-align: start      (on .fp-slide)
+// FreshPlay Arcade – SwiperJS Controller
+// Initializes Swiper instances dynamically once games are loaded
 // ==========================================
 
-// Listen for the custom event fired by main.js once the dynamic DOM is inserted
-document.addEventListener('initDynamicSliders', () => {
-	// Attach click handlers to all prev/next arrow buttons
-	document.querySelectorAll('.fp-slider-prev').forEach(btn => {
-		btn.addEventListener('click', () => {
-			const index = btn.dataset.sliderIndex;
-			const slider = document.querySelector(`.fp-slider[data-slider-index="${index}"]`);
-			if (slider) {
-				// Scroll left by 80% of the visible container width
-				slider.scrollBy({ left: -slider.offsetWidth * 0.8, behavior: 'smooth' });
-			}
+document.addEventListener('initDynamicSwipers', (e) => {
+	const count = e.detail.count;
+	
+	for (let i = 0; i < count; i++) {
+		new Swiper(`.swiper-${i}`, {
+			slidesPerView: 2,
+			spaceBetween: 10,
+			navigation: {
+				nextEl: `.swiper-button-next-${i}`,
+				prevEl: `.swiper-button-prev-${i}`,
+			},
+			breakpoints: {
+				640: { slidesPerView: 2, spaceBetween: 20 },
+				768: { slidesPerView: 3, spaceBetween: 20 },
+				1024: { slidesPerView: 4, spaceBetween: 20 },
+				1280: { slidesPerView: 5, spaceBetween: 20 }
+			},
+			observer: true,
+			observeParents: true,
 		});
-	});
-
-	document.querySelectorAll('.fp-slider-next').forEach(btn => {
-		btn.addEventListener('click', () => {
-			const index = btn.dataset.sliderIndex;
-			const slider = document.querySelector(`.fp-slider[data-slider-index="${index}"]`);
-			if (slider) {
-				// Scroll right by 80% of the visible container width
-				slider.scrollBy({ left: slider.offsetWidth * 0.8, behavior: 'smooth' });
-			}
-		});
-	});
+	}
 });
 
 // UI Functionality: Back to Top
