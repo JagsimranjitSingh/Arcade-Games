@@ -11,4 +11,20 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^category/([a-zA-Z0-9_-]+)/?$ explore.html?category=$1 [L,QSA]
+
+    # Clean slugs for static pages
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^contact/?$ contact.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^privacy-policy/?$ privacy.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^404/?$ 404.html [L]
+
+    # Catch-all 404 for unmatched paths
+    ErrorDocument 404 /404.html
 </IfModule>

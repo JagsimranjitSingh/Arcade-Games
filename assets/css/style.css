@@ -17,12 +17,7 @@
 	--border-color: #27272a;
 }
 
-/* ==========================================================
-   FOUC PREVENTION
-   Body starts invisible. The .fp-ready class is added by a
-   small inline script once DOMContentLoaded fires, which
-   means Tailwind has compiled and CSS is applied.
-   ========================================================== */
+
 body {
 	background-color: var(--bg-base);
 	color: var(--text-main);
@@ -213,59 +208,20 @@ body.fp-ready {
 	display: none !important;
 }
 
-/* ==========================================================
-   NATIVE CSS SCROLL-SNAP SLIDER
-   Replaces the old Swiper.js dependency. The browser handles
-   all touch physics, momentum scrolling, and snap alignment.
-   ========================================================== */
-.fp-slider {
-	display: flex;
-	overflow-x: auto;
-	scroll-snap-type: x mandatory;
-	-webkit-overflow-scrolling: touch;
-	gap: 20px;
-	padding: 20px 10px;
-	margin: -20px -10px;
-	scroll-behavior: smooth;
+.swiper {
+	padding: 20px 10px !important;
+	margin: -20px -10px !important;
 }
-
-.fp-slider::-webkit-scrollbar {
-	height: 4px;
-}
-
-.fp-slider::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-.fp-slider::-webkit-scrollbar-thumb {
-	background: #333;
-	border-radius: 2px;
-}
-
-.fp-slider::-webkit-scrollbar-thumb:hover {
-	background: var(--accent);
-}
-
-.fp-slide {
-	flex: 0 0 calc(50% - 10px);
-	scroll-snap-align: start;
-	min-width: 0;
-}
-
-@media (min-width: 640px)  { .fp-slide { flex: 0 0 calc(50% - 10px); } }
-@media (min-width: 768px)  { .fp-slide { flex: 0 0 calc(33.333% - 14px); } }
-@media (min-width: 1024px) { .fp-slide { flex: 0 0 calc(25% - 15px); } }
-@media (min-width: 1280px) { .fp-slide { flex: 0 0 calc(20% - 16px); } }
 
 .game-card {
-  position: relative;
-  z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-  will-change: transform;
+	position: relative;
+	z-index: 1;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+	will-change: transform;
 }
 
 .game-card:hover {
-  z-index: 50;
+	z-index: 50;
 }
 
 @media screen and (max-width: 400px) {
@@ -278,14 +234,20 @@ body.fp-ready {
    SKELETON LOADER ANIMATION
    ========================================== */
 @keyframes shimmer {
-	0% { transform: translateX(-100%); }
-	100% { transform: translateX(100%); }
+	0% {
+		transform: translateX(-100%);
+	}
+
+	100% {
+		transform: translateX(100%);
+	}
 }
 
 .skeleton {
 	position: relative;
 	overflow: hidden;
-	background-color: #27272a; /* Matches your border color */
+	background-color: #27272a;
+	/* Matches your border color */
 }
 
 .skeleton::after {
@@ -296,13 +258,11 @@ body.fp-ready {
 	bottom: 0;
 	left: 0;
 	transform: translateX(-100%);
-	background-image: linear-gradient(
-		90deg,
-		rgba(255, 255, 255, 0) 0,
-		rgba(255, 255, 255, 0.04) 20%,
-		rgba(255, 255, 255, 0.08) 60%,
-		rgba(255, 255, 255, 0) 100%
-	);
+	background-image: linear-gradient(90deg,
+			rgba(255, 255, 255, 0) 0,
+			rgba(255, 255, 255, 0.04) 20%,
+			rgba(255, 255, 255, 0.08) 60%,
+			rgba(255, 255, 255, 0) 100%);
 	animation: shimmer 1.5s infinite;
 	z-index: 10;
 }
@@ -312,6 +272,7 @@ body.fp-ready {
 	color: transparent !important;
 	border-radius: 4px;
 }
+
 .skeleton-text * {
 	visibility: hidden;
 }

@@ -10,6 +10,12 @@ document.addEventListener('initDynamicSwipers', (e) => {
 		new Swiper(`.swiper-${i}`, {
 			slidesPerView: 2,
 			spaceBetween: 10,
+			loop: true,
+			autoplay: {
+				delay: 2500,
+				disableOnInteraction: true,
+				pauseOnMouseEnter: true,
+			},
 			navigation: {
 				nextEl: `.swiper-button-next-${i}`,
 				prevEl: `.swiper-button-prev-${i}`,

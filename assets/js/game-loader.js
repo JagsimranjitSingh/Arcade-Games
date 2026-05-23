@@ -27,15 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (urlParams.has('id')) gameId = urlParams.get('id');
 	}
 
-	// Enforce canonical domain (except for localhost)
-	if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.hostname !== '') {
-		const expectedUrl = getCanonicalDomain(gameId);
-		const expectedHost = new URL(expectedUrl).hostname;
-		if (window.location.hostname !== expectedHost) {
-			window.location.replace(`${expectedUrl}/game/${gameId}`);
-			return;
-		}
-	}
+	// Domain enforcement removed to prevent infinite loops with GoDaddy 301 forwarding.
+	// Users arriving from secondary domains will stay on the current domain.
 
 	const container = document.getElementById('game-hero-container');
 
