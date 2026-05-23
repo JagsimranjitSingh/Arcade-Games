@@ -17,7 +17,12 @@ function getGameUrl(gameId) {
 
 function getCategoryUrl(categoryName) {
     if (categoryName.toLowerCase() === 'all') return '/explore.html';
-    return `/category/${encodeURIComponent(categoryName.toLowerCase())}`;
+    // Normalize to clean slug: "Physics & Skill" → "physics-skill"
+    const slug = categoryName.toLowerCase()
+        .replace(/&/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    return `/category/${slug}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -337,6 +342,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const categoryNames = Object.keys(categories);
 		let visibleCount = 2; 
 
+		function slugify(str) {
+			return str.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+		}
+
 		function renderCategories(filter = 'all') {
 			container.innerHTML = '';
 			
@@ -344,7 +353,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (filter === 'all') {
 				toShow = categoryNames.slice(0, visibleCount);
 			} else {
-				toShow = categoryNames.filter(c => c.toLowerCase() === filter.toLowerCase());
+				// Match by slug so URL like /category/physics-skill finds "PHYSICS & SKILL"
+				const filterSlug = slugify(filter);
+				toShow = categoryNames.filter(c => slugify(c) === filterSlug);
 			}
 
 			toShow.forEach((cat, index) => {
@@ -363,40 +374,38 @@ document.addEventListener('DOMContentLoaded', () => {
 								<span class="text-[#00ff00]">${emoji}</span> ${cat} Games
 							</h2>
 							<div class="flex gap-2">
-								<div class="swiper-button-prev-${index} cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+								<button class="fp-slider-prev cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors" data-slider-index="${index}" aria-label="Scroll left">
 									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
-								</div>
-								<div class="swiper-button-next-${index} cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors">
+								</button>
+								<button class="fp-slider-next cursor-pointer p-1 text-[#a1a1aa] hover:text-[#00ff00] transition-colors" data-slider-index="${index}" aria-label="Scroll right">
 									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
-								</div>
+								</button>
 							</div>
 						</div>
-						<div class="swiper swiper-${index}">
-							<div class="swiper-wrapper">
-								${catGames.map(g => `
-									<div class="swiper-slide">
-										<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
-											<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+						<div class="fp-slider" data-slider-index="${index}">
+							${catGames.map(g => `
+								<div class="fp-slide">
+									<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all">
+										<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                                                 <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-20">
                                                     <span class="text-[#00ff00] font-mono text-xs uppercase tracking-widest border border-[#00ff00] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(0,255,0,0.2)]">Play Now</span>
                                                 </div>
                                             </div>
-											<div class="p-3 flex flex-col flex-grow">
-												<h3 class="font-bold text-sm text-white truncate uppercase">${g.title}</h3>
-												<p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase">${g.category}</p>
-											</div>
-										</a>
-									</div>
-								`).join('')}
-							</div>
+										<div class="p-3 flex flex-col flex-grow">
+											<h3 class="font-bold text-sm text-white truncate uppercase">${g.title}</h3>
+											<p class="text-[10px] text-[#a1a1aa] font-mono mt-1 uppercase">${g.category}</p>
+										</div>
+									</a>
+								</div>
+							`).join('')}
 						</div>
 					</section>
 				`;
 				container.insertAdjacentHTML('beforeend', sectionHtml);
 			});
 
-			document.dispatchEvent(new CustomEvent('initDynamicSwipers', { detail: { count: toShow.length } }));
+			document.dispatchEvent(new CustomEvent('initDynamicSliders', { detail: { count: toShow.length } }));
 
 			const loadMoreBtn = document.getElementById('load-more-btn');
 			if (loadMoreBtn) {
@@ -415,6 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const pathParts = window.location.pathname.split('/').filter(p => p);
 		let initialCategory = 'all';
 		if (pathParts.includes('category')) {
+			// Decode the slug from the URL to match against category names
 			initialCategory = decodeURIComponent(pathParts[pathParts.indexOf('category') + 1] || 'all');
 		} else {
 			const urlParams = new URLSearchParams(window.location.search);
@@ -425,16 +435,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (categorySelect) {
 			const existingOptions = Array.from(categorySelect.options).map(o => o.value);
 			categoryNames.forEach(cat => {
-				if (!existingOptions.includes(cat.toLowerCase())) {
+				const catSlug = slugify(cat);
+				if (!existingOptions.includes(catSlug)) {
 					const opt = document.createElement('option');
-					opt.value = cat.toLowerCase();
+					opt.value = catSlug;
 					opt.textContent = cat;
 					categorySelect.appendChild(opt);
 				}
 			});
 
+			const initialSlug = slugify(initialCategory);
 			Array.from(categorySelect.options).forEach(opt => {
-				if (opt.value === initialCategory.toLowerCase()) {
+				if (opt.value === initialSlug) {
 					opt.selected = true;
 					categorySelect.value = opt.value;
 				}
@@ -442,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			const newSelect = categorySelect.cloneNode(true);
 			categorySelect.parentNode.replaceChild(newSelect, categorySelect);
-			newSelect.value = initialCategory.toLowerCase();
+			newSelect.value = initialSlug;
 			
 			newSelect.addEventListener('change', (e) => {
 				const val = e.target.value;

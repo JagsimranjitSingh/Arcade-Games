@@ -17,11 +17,23 @@
 	--border-color: #27272a;
 }
 
+/* ==========================================================
+   FOUC PREVENTION
+   Body starts invisible. The .fp-ready class is added by a
+   small inline script once DOMContentLoaded fires, which
+   means Tailwind has compiled and CSS is applied.
+   ========================================================== */
 body {
 	background-color: var(--bg-base);
 	color: var(--text-main);
 	font-family: 'Inter', sans-serif;
 	overflow-x: hidden;
+	opacity: 0;
+	transition: opacity 0.15s ease-in;
+}
+
+body.fp-ready {
+	opacity: 1;
 }
 
 .font-mono {
@@ -201,10 +213,49 @@ body {
 	display: none !important;
 }
 
-.swiper {
-  padding: 20px 10px !important;
-  margin: -20px -10px !important; 
+/* ==========================================================
+   NATIVE CSS SCROLL-SNAP SLIDER
+   Replaces the old Swiper.js dependency. The browser handles
+   all touch physics, momentum scrolling, and snap alignment.
+   ========================================================== */
+.fp-slider {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	gap: 20px;
+	padding: 20px 10px;
+	margin: -20px -10px;
+	scroll-behavior: smooth;
 }
+
+.fp-slider::-webkit-scrollbar {
+	height: 4px;
+}
+
+.fp-slider::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.fp-slider::-webkit-scrollbar-thumb {
+	background: #333;
+	border-radius: 2px;
+}
+
+.fp-slider::-webkit-scrollbar-thumb:hover {
+	background: var(--accent);
+}
+
+.fp-slide {
+	flex: 0 0 calc(50% - 10px);
+	scroll-snap-align: start;
+	min-width: 0;
+}
+
+@media (min-width: 640px)  { .fp-slide { flex: 0 0 calc(50% - 10px); } }
+@media (min-width: 768px)  { .fp-slide { flex: 0 0 calc(33.333% - 14px); } }
+@media (min-width: 1024px) { .fp-slide { flex: 0 0 calc(25% - 15px); } }
+@media (min-width: 1280px) { .fp-slide { flex: 0 0 calc(20% - 16px); } }
 
 .game-card {
   position: relative;

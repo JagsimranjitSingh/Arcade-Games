@@ -1,47 +1,35 @@
-// Array to track active swiper instances so we can cleanly destroy them on filter change
-window.activeSwipers = [];
+// ==========================================
+// FreshPlay Arcade – Native Scroll-Snap Slider Controller
+// Replaces Swiper.js with vanilla JS arrow navigation.
+// The actual scrolling & snapping is handled by CSS:
+//   scroll-snap-type: x mandatory (on .fp-slider)
+//   scroll-snap-align: start      (on .fp-slide)
+// ==========================================
 
-// Listen for the custom event fired by main.js once the dynamic DOM elements are inserted
-document.addEventListener('initDynamicSwipers', (e) => {
-	// Clean up old instances to prevent memory leaks and broken math
-	if (window.activeSwipers.length > 0) {
-		window.activeSwipers.forEach(swiper => swiper.destroy(true, true));
-		window.activeSwipers = [];
-	}
-
-	const count = e.detail.count;
-	
-	const sharedConfig = {
-		slidesPerView: 2,
-		spaceBetween: 20,
-		loop: false, // FIX: Resolves the Swiper warning if a category has < 5 games
-		centeredSlides: false,
-		watchSlidesProgress: true, 
-		grabCursor: true,
-		autoplay: {
-			delay: 4000,
-			disableOnInteraction: true,
-			pauseOnMouseEnter: true
-		},
-		breakpoints: {
-			640: { slidesPerView: 2 },
-			768: { slidesPerView: 3 },
-			1024: { slidesPerView: 4 },
-			1280: { slidesPerView: 5 }
-		}
-	};
-
-	// Initialize a unique Swiper instance for every dynamic category loaded
-	for (let i = 0; i < count; i++) {
-		const swiper = new Swiper(`.swiper-${i}`, {
-			...sharedConfig,
-			navigation: {
-				nextEl: `.swiper-button-next-${i}`,
-				prevEl: `.swiper-button-prev-${i}`,
-			},
+// Listen for the custom event fired by main.js once the dynamic DOM is inserted
+document.addEventListener('initDynamicSliders', () => {
+	// Attach click handlers to all prev/next arrow buttons
+	document.querySelectorAll('.fp-slider-prev').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const index = btn.dataset.sliderIndex;
+			const slider = document.querySelector(`.fp-slider[data-slider-index="${index}"]`);
+			if (slider) {
+				// Scroll left by 80% of the visible container width
+				slider.scrollBy({ left: -slider.offsetWidth * 0.8, behavior: 'smooth' });
+			}
 		});
-		window.activeSwipers.push(swiper);
-	}
+	});
+
+	document.querySelectorAll('.fp-slider-next').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const index = btn.dataset.sliderIndex;
+			const slider = document.querySelector(`.fp-slider[data-slider-index="${index}"]`);
+			if (slider) {
+				// Scroll right by 80% of the visible container width
+				slider.scrollBy({ left: slider.offsetWidth * 0.8, behavior: 'smooth' });
+			}
+		});
+	});
 });
 
 // UI Functionality: Back to Top

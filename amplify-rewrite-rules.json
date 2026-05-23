@@ -1,0 +1,23 @@
+[
+    {
+        "source": "/game/<gameId>",
+        "target": "/game.html",
+        "status": "200",
+        "condition": null,
+        "_comment": "Serves game.html for all /game/{game-id} URLs. The JS reads the game ID from the URL path."
+    },
+    {
+        "source": "/category/<categoryName>",
+        "target": "/explore.html",
+        "status": "200",
+        "condition": null,
+        "_comment": "Serves explore.html for all /category/{slug} URLs. The JS reads the slug from the URL path."
+    },
+    {
+        "source": "/<*>",
+        "target": "/404.html",
+        "status": "404",
+        "condition": null,
+        "_comment": "Catch-all: serves the custom 404 page for any unmatched path."
+    }
+]
