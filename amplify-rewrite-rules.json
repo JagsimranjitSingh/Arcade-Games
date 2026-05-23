@@ -1,10 +1,10 @@
 [
     {
         "source": "/game/<gameId>",
-        "target": "/game.html",
+        "target": "/play.html",
         "status": "200",
         "condition": null,
-        "_comment": "Serves game.html for all /game/{game-id} URLs. The JS reads the game ID from the URL path."
+        "_comment": "Serves play.html for all /game/{game-id} URLs. The JS reads the game ID from the URL path."
     },
     {
         "source": "/category/<categoryName>",

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	if (pathParts.includes('game')) {
 		gameId = pathParts[pathParts.indexOf('game') + 1];
-	} else if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'game.html') {
+	} else if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'play.html') {
 		gameId = pathParts[pathParts.length - 1].replace('.html', '');
 	} else {
 		const urlParams = new URLSearchParams(window.location.search);

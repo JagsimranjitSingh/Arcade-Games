@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (gameContainer) {
 				// For Phase 2, we simulate the iframe. In Phase 3, this becomes a real <iframe>
 				gameContainer.innerHTML = `
-                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a] group cursor-pointer" onclick="window.location.href='/game.html?id=${mainGame.id}'">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a] group cursor-pointer" onclick="window.location.href='/play.html?id=${mainGame.id}'">
                         <img src="${mainGame.thumbnail_url}" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity blur-sm">
                         <div class="z-10 flex flex-col items-center">
                             <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-3">Backup Core Loaded</span>
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				for (let i = 1; i < 5; i++) {
 					const g = shuffled[i];
 					html += `
-                        <a href="/game.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all text-left">
+                        <a href="/play.html?id=${g.id}" class="game-card card-glow bg-[#1a1a1a] rounded overflow-hidden flex flex-col border border-[#27272a] transition-all text-left">
                             <img src="${g.thumbnail_url}" alt="${g.title} thumbnail" class="w-full aspect-video object-cover" loading="lazy">
                             <div class="p-3">
                                 <h3 class="font-bold text-sm text-white truncate">${g.title}</h3>

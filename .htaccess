@@ -2,10 +2,10 @@
     RewriteEngine On
     RewriteBase /
 
-    # Route /game/{game_name} to /game.html?id={game_name}
+    # Route /game/{game_name} to /play.html?id={game_name}
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^game/([a-zA-Z0-9_-]+)/?$ game.html?id=$1 [L,QSA]
+    RewriteRule ^game/([a-zA-Z0-9_-]+)/?$ play.html?id=$1 [L,QSA]
 
     # Route /category/{category_name} to /explore.html?category={category_name}
     RewriteCond %{REQUEST_FILENAME} !-f
