@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						});
 					}
 				} else {
-					window.location.href = '/404.html';
+					window.location.href = '/404';
 				}
 			})
 			.catch(err => console.error("Error loading game data:", err));

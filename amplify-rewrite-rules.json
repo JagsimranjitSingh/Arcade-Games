@@ -1,44 +1,32 @@
 [
     {
-        "source": "/game/<gameId>",
-        "target": "/play.html",
+        "source": "/game/<*>",
         "status": "200",
-        "condition": null,
-        "_comment": "Serves play.html for all /game/{game-id} URLs. The JS reads the game ID from the URL path."
+        "target": "/play.html"
     },
     {
-        "source": "/category/<categoryName>",
-        "target": "/explore.html",
+        "source": "/category/<*>",
         "status": "200",
-        "condition": null,
-        "_comment": "Serves explore.html for all /category/{slug} URLs. The JS reads the slug from the URL path."
+        "target": "/explore.html"
     },
     {
-        "source": "/contact",
-        "target": "/contact.html",
+        "source": "/contact/",
         "status": "200",
-        "condition": null,
-        "_comment": "Serves contact.html for the clean /contact slug."
+        "target": "/contact.html"
     },
     {
-        "source": "/privacy-policy",
-        "target": "/privacy.html",
+        "source": "/privacy-policy/",
         "status": "200",
-        "condition": null,
-        "_comment": "Serves privacy.html for the clean /privacy-policy slug."
+        "target": "/privacy.html"
     },
     {
         "source": "/404",
-        "target": "/404.html",
         "status": "404",
-        "condition": null,
-        "_comment": "Serves 404.html for the clean /404 slug."
+        "target": "/404.html"
     },
     {
         "source": "/<*>",
-        "target": "/404.html",
         "status": "404",
-        "condition": null,
-        "_comment": "Catch-all: serves the custom 404 page for any unmatched path."
+        "target": "/404.html"
     }
 ]
