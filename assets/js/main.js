@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="absolute top-4 right-6 text-[#64748b] font-mono text-xs">
                     Ad closing in <span id="ad-timer" class="text-[#0f172a] font-bold">15</span>s
                 </div>
-                <div class="text-[#10b981] font-mono text-xs tracking-widest uppercase mb-4">Sponsor Message</div>
-                <div class="w-full max-w-3xl aspect-video bg-white border border-[#333] flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.1)]">
+                <div class="text-[#3b82f6] font-mono text-xs tracking-widest uppercase mb-4">Sponsor Message</div>
+                <div class="w-full max-w-3xl aspect-video bg-white border border-[#333] flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.1)]">
                     <svg class="w-16 h-16 text-[#3f3f46] animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
                 </div>
             `;
@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="absolute top-4 right-6 text-[#64748b] font-mono text-xs">
 				Reward Ad closing in <span id="reward-ad-timer" class="text-[#0f172a] font-bold">15</span>s
 			</div>
-			<div class="text-[#10b981] font-mono text-xs tracking-widest uppercase mb-4">Sponsor Message (Reward)</div>
-			<div class="w-full max-w-3xl aspect-video bg-white border border-[#333] flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.1)]">
+			<div class="text-[#3b82f6] font-mono text-xs tracking-widest uppercase mb-4">Sponsor Message (Reward)</div>
+			<div class="w-full max-w-3xl aspect-video bg-white border border-[#333] flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.1)]">
 				<svg class="w-16 h-16 text-[#3f3f46] animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
 			</div>
 		`;
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <img src="${g.thumbnail_url}" alt="${g.title}">
                                 <div>
                                     <div class="text-sm font-bold truncate w-48">${g.title}</div>
-                                    <div class="text-[10px] text-[#10b981] font-mono uppercase">${g.category}</div>
+                                    <div class="text-[10px] text-[#3b82f6] font-mono uppercase">${g.category}</div>
                                 </div>
                             `;
 							searchDropdown.appendChild(a);
@@ -215,17 +215,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="absolute inset-0 bg-gradient-to-r from-[#f8fafc]/90 via-[#f8fafc]/50 to-transparent"></div>
                 
                 <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full md:w-2/3 z-20 flex flex-col items-start">
-                    <span class="bg-[#10b981] text-black text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-4">Featured</span>
+                    <span class="bg-[#3b82f6] text-white text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-4">Featured</span>
                     <h1 class="text-4xl md:text-6xl font-bold text-[#0f172a] mb-4 tracking-wide uppercase font-liberation drop-shadow-lg">${featured.title}</h1>
                     <p class="text-[#64748b] text-sm md:text-base mb-8 line-clamp-2 leading-relaxed max-w-xl">${featured.description}</p>
                     
                     <div class="flex items-center gap-6">
-                        <a href="${getGameUrl(featured.id)}" class="flex items-center justify-center gap-2 bg-[#10b981] text-black font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
+                        <a href="${getGameUrl(featured.id)}" class="flex items-center justify-center gap-2 bg-[#3b82f6] text-white font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
                             <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3v18l15-9L5 3z"></path></svg> Play Now
                         </a>
                         <div class="hidden md:flex items-center gap-2 text-[#0f172a] font-mono text-xs tracking-widest bg-black/50 backdrop-blur-md px-3 py-2 border border-[#cbd5e1] rounded">
                             <span class="text-[#64748b] flex items-center gap-1">
-                                <svg class="w-3 h-3 text-[#10b981]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 
+                                <svg class="w-3 h-3 text-[#3b82f6]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 
                                 ${featured.rating || '4.9'}
                             </span>
                         </div>
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                             <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                <span class="text-[#10b981] font-mono text-xs uppercase tracking-widest border border-[#10b981] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(16,185,129,0.2)]">Play Now</span>
+                                <span class="text-[#3b82f6] font-mono text-xs uppercase tracking-widest border border-[#3b82f6] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(59,130,246,0.2)]">Play Now</span>
                             </div>
                         </div>
                         <div class="p-3 flex flex-col flex-grow">
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			for (const [category, count] of Object.entries(categoryCounts)) {
 				ul.innerHTML += `
                     <li>
-                        <a href="${getCategoryUrl(category)}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#f1f5f9] text-[#64748b] hover:text-[#10b981] transition-colors">
+                        <a href="${getCategoryUrl(category)}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#f1f5f9] text-[#64748b] hover:text-[#3b82f6] transition-colors">
                             <span class="uppercase">${category}</span>
                             <span class="bg-[#f8fafc] px-1.5 py-0.5 rounded">${count}</span>
                         </a>
@@ -285,16 +285,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			container.innerHTML = '';
 			
 			const sortedGames = [...games].sort((a, b) => parsePlayCount(b.play_count) - parsePlayCount(a.play_count)).slice(0, 5);
-			const opacityClasses = ['', 'opacity-80 drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]', 'opacity-60', 'opacity-40', 'opacity-20'];
+			const opacityClasses = ['', 'opacity-80 drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]', 'opacity-60', 'opacity-40', 'opacity-20'];
 			
 			sortedGames.forEach((g, index) => {
-				const shadowClass = index === 0 ? 'drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]' : opacityClasses[index];
+				const shadowClass = index === 0 ? 'drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : opacityClasses[index];
 				container.innerHTML += `
                     <a href="${getGameUrl(g.id)}" class="flex items-center gap-4 group transition-colors hover:bg-[#f8fafc]/50 p-1.5 rounded">
-                        <span class="text-3xl font-extrabold text-[#10b981] font-mono italic w-8 text-right ${shadowClass}">${index + 1}</span>
-                        <img src="${g.thumbnail_url}" alt="${g.title}" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#10b981]" loading="lazy">
+                        <span class="text-3xl font-extrabold text-[#3b82f6] font-mono italic w-8 text-right ${shadowClass}">${index + 1}</span>
+                        <img src="${g.thumbnail_url}" alt="${g.title}" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#3b82f6]" loading="lazy">
                         <div>
-                            <h4 class="text-xs font-bold text-[#0f172a] uppercase group-hover:text-[#10b981] transition-colors line-clamp-1">${g.title}</h4>
+                            <h4 class="text-xs font-bold text-[#0f172a] uppercase group-hover:text-[#3b82f6] transition-colors line-clamp-1">${g.title}</h4>
                             <p class="text-[9px] text-[#94a3b8] font-mono uppercase tracking-wider mt-0.5">${g.category}</p>
                         </div>
                     </a>
@@ -315,8 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
 						<a href="${getGameUrl(g.id)}" class="flex bg-white border border-[#e2e8f0] rounded overflow-hidden card-glow group transition-all">
 							<img src="${g.thumbnail_url}" alt="${g.title}" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
 							<div class="w-2/3 p-5 flex flex-col justify-center">
-								<span class="text-[#10b981] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
-								<h3 class="font-bold text-[#0f172a] mb-2 uppercase group-hover:text-[#10b981] transition-colors">${g.title}</h3>
+								<span class="text-[#3b82f6] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
+								<h3 class="font-bold text-[#0f172a] mb-2 uppercase group-hover:text-[#3b82f6] transition-colors">${g.title}</h3>
 								<p class="text-xs text-[#64748b] line-clamp-2 mb-3 leading-relaxed">${g.description}</p>
 								<span class="text-[10px] font-mono text-[#94a3b8]">🔥 ${g.play_count} Playing Now</span>
 							</div>
@@ -371,13 +371,13 @@ document.addEventListener('DOMContentLoaded', () => {
 					<section class="mb-16 explore-category-section" data-category="${cat.toLowerCase()}">
 						<div class="flex items-center justify-between mb-6 border-b border-[#e2e8f0] pb-2">
 							<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#0f172a] font-liberation">
-								<span class="text-[#10b981]">${emoji}</span> ${cat} Games
+								<span class="text-[#3b82f6]">${emoji}</span> ${cat} Games
 							</h2>
 							<div class="flex gap-2">
-								<div class="swiper-button-prev-${index} cursor-pointer p-1 text-[#64748b] hover:text-[#10b981] transition-colors" data-slider-index="${index}" aria-label="Scroll left">
+								<div class="swiper-button-prev-${index} cursor-pointer p-1 text-[#64748b] hover:text-[#3b82f6] transition-colors" data-slider-index="${index}" aria-label="Scroll left">
 									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
 								</div>
-								<div class="swiper-button-next-${index} cursor-pointer p-1 text-[#64748b] hover:text-[#10b981] transition-colors" data-slider-index="${index}" aria-label="Scroll right">
+								<div class="swiper-button-next-${index} cursor-pointer p-1 text-[#64748b] hover:text-[#3b82f6] transition-colors" data-slider-index="${index}" aria-label="Scroll right">
 									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
 								</div>
 							</div>
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 										<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                                                 <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-20">
-                                                    <span class="text-[#10b981] font-mono text-xs uppercase tracking-widest border border-[#10b981] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(16,185,129,0.2)]">Play Now</span>
+                                                    <span class="text-[#3b82f6] font-mono text-xs uppercase tracking-widest border border-[#3b82f6] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(59,130,246,0.2)]">Play Now</span>
                                                 </div>
                                             </div>
 										<div class="p-3 flex flex-col flex-grow">
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			similarGames.forEach(g => {
 				similarGrid.innerHTML += `
                     <a href="${getGameUrl(g.id)}" class="group">
-                        <div class="overflow-hidden rounded mb-1 border border-[#e2e8f0] group-hover:border-[#10b981] transition-colors relative aspect-video">
+                        <div class="overflow-hidden rounded mb-1 border border-[#e2e8f0] group-hover:border-[#3b82f6] transition-colors relative aspect-video">
                             <img src="${g.thumbnail_url}" alt="${g.title}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy">
                         </div>
                         <h4 class="text-xs font-bold text-[#0f172a] truncate">${g.title}</h4>
@@ -542,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					<div class="z-10 absolute flex flex-col items-center">
 						<span class="bg-red-500 text-[#0f172a] text-[10px] px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-3">Backup Core Loaded</span>
 						<h2 class="text-3xl font-bold text-[#0f172a] uppercase font-liberation tracking-widest text-center">${mainGame.title}</h2>
-						<button class="mt-6 bg-[#10b981] text-black font-bold px-6 py-2 uppercase tracking-widest text-xs btn-glow rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.4)]">Initialize Play</button>
+						<button class="mt-6 bg-[#3b82f6] text-white font-bold px-6 py-2 uppercase tracking-widest text-xs btn-glow rounded-sm shadow-[0_0_15px_rgba(59,130,246,0.4)]">Initialize Play</button>
 					</div>
 				</div>
 			`;

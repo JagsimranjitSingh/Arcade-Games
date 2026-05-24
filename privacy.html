@@ -35,28 +35,28 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-	<header class="bg-[#f8fafc] border-b border-[#e2e8f0] sticky top-0 z-50">
+	<header class="bg-[#1e293b] border-b border-[#334155] sticky top-0 z-50">
 		<div class="container mx-auto px-4 h-16 flex items-center justify-between">
 			<a href="/" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
 				<div
-					class="border border-[#10b981] px-2 py-1 flex items-center gap-1 group-hover:bg-white transition-colors">
-					<span class="text-[#0f172a] font-bold tracking-widest text-sm uppercase">FreshPlay</span>
-					<span class="text-[#10b981] font-bold tracking-widest text-sm uppercase">Arcade</span>
+					class="border border-[#3b82f6] px-2 py-1 flex items-center gap-1 group-hover:bg-[#334155] transition-colors">
+					<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+					<span class="text-[#3b82f6] font-bold tracking-widest text-sm uppercase">Arcade</span>
 				</div>
 			</a>
-			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#64748b] uppercase"
+			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#94a3b8] uppercase"
 				aria-label="Main Navigation">
-				<a href="/category/all" class="hover:text-[#0f172a] transition-colors">New</a>
-				<a href="/category/puzzle" class="hover:text-[#0f172a] transition-colors">Puzzle</a>
-				<a href="/category/action" class="hover:text-[#0f172a] transition-colors">Action</a>
-				<a href="/category/survival" class="hover:text-[#0f172a] transition-colors">Survival</a>
+				<a href="/category/all" class="hover:text-white transition-colors">New</a>
+				<a href="/category/puzzle" class="hover:text-white transition-colors">Puzzle</a>
+				<a href="/category/action" class="hover:text-white transition-colors">Action</a>
+				<a href="/category/survival" class="hover:text-white transition-colors">Survival</a>
 			</nav>
 			<div class="hidden md:flex items-center gap-4">
 				<div class="search-container group">
 					<input type="text" id="global-search" placeholder="Search games..."
-						class="search-input text-[#0f172a] pl-4 pr-10 py-1.5 rounded outline-none text-xs font-mono border focus:border-[#10b981]"
+						class="search-input bg-[#334155] text-white pl-4 pr-10 py-1.5 rounded outline-none text-xs font-mono border focus:border-[#3b82f6]"
 						aria-label="Search Games">
-					<svg class="search-icon w-5 h-5 text-[#0f172a] group-hover:text-[#10b981]" fill="none" stroke="currentColor"
+					<svg class="search-icon w-5 h-5 text-[#94a3b8] group-hover:text-[#3b82f6]" fill="none" stroke="currentColor"
 						stroke-width="2" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
 					</svg>
@@ -85,9 +85,9 @@
 		<div class="px-6 mb-8">
 			<form action="/category/all" method="get" class="relative">
 				<input type="text" name="q" placeholder="SEARCH GAMES..."
-					class="w-full bg-transparent border-b border-[#cbd5e1] focus:border-[#10b981] pt-2 pb-2 pl-0 pr-10 text-sm font-mono text-[#0f172a] placeholder:text-[#94a3b8] outline-none tracking-widest transition-colors"
+					class="w-full bg-transparent border-b border-[#cbd5e1] focus:border-[#3b82f6] pt-2 pb-2 pl-0 pr-10 text-sm font-mono text-[#0f172a] text-white placeholder:text-[#94a3b8] outline-none tracking-widest transition-colors"
 					aria-label="Search Games Mobile">
-				<button type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-[#10b981]"
+				<button type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-[#3b82f6]"
 					aria-label="Submit Search">
 					<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -96,46 +96,46 @@
 			</form>
 		</div>
 		<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#64748b] uppercase px-2">
-			<a href="/category/all" class="hover:text-[#0f172a] hover:bg-[#f8fafc] px-4 py-3.5 rounded transition-colors">New</a>
+			<a href="/category/all" class="hover:text-[#0f172a] hover:bg-[#334155] px-4 py-3.5 rounded transition-colors">New</a>
 			<a href="/category/puzzle"
-				class="hover:text-[#0f172a] hover:bg-[#f8fafc] px-4 py-3.5 rounded transition-colors">Puzzle</a>
+				class="hover:text-[#0f172a] hover:bg-[#334155] px-4 py-3.5 rounded transition-colors">Puzzle</a>
 			<a href="/category/action"
-				class="hover:text-[#0f172a] hover:bg-[#f8fafc] px-4 py-3.5 rounded transition-colors">Action</a>
+				class="hover:text-[#0f172a] hover:bg-[#334155] px-4 py-3.5 rounded transition-colors">Action</a>
 			<a href="/category/survival"
-				class="hover:text-[#0f172a] hover:bg-[#f8fafc] px-4 py-3.5 rounded transition-colors">Survival</a>
+				class="hover:text-[#0f172a] hover:bg-[#334155] px-4 py-3.5 rounded transition-colors">Survival</a>
 		</div>
 	</nav>
 	<main class="flex-grow container mx-auto px-4 py-12">
 		<div class="max-w-6xl mx-auto mb-10 pb-6 border-b border-[#e2e8f0]">
 			<h1 class="text-3xl md:text-5xl font-bold text-[#0f172a] tracking-widest uppercase mb-4 font-liberation">Privacy
 				Policy</h1>
-			<p class="text-xs text-[#10b981] font-mono tracking-widest uppercase">Effective Date: May 8, 2026</p>
+			<p class="text-xs text-[#3b82f6] font-mono tracking-widest uppercase">Effective Date: May 8, 2026</p>
 		</div>
 		<div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 relative">
 			<aside class="w-full md:w-1/4 hidden md:block">
 				<div
 					class="bg-white border border-[#e2e8f0] rounded p-6 sticky top-24 max-h-[80vh] overflow-y-auto no-scrollbar">
 					<h3
-						class="text-sm font-bold text-[#0f172a] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#10b981] pl-3">
+						class="text-sm font-bold text-[#0f172a] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#3b82f6] pl-3">
 						Contents</h3>
 					<ul class="space-y-4 text-xs text-[#64748b] font-mono">
-						<li><a href="#intro" class="hover:text-[#10b981] transition-colors block">1. Introduction</a></li>
-						<li><a href="#collection" class="hover:text-[#10b981] transition-colors block">2. Information We Collect</a>
+						<li><a href="#intro" class="hover:text-[#3b82f6] transition-colors block">1. Introduction</a></li>
+						<li><a href="#collection" class="hover:text-[#3b82f6] transition-colors block">2. Information We Collect</a>
 						</li>
-						<li><a href="#usage" class="hover:text-[#10b981] transition-colors block">3. How We Use Your Info</a></li>
-						<li><a href="#cookies" class="hover:text-[#10b981] transition-colors block">4. Cookies & Tracking</a></li>
-						<li><a href="#third-party" class="hover:text-[#10b981] transition-colors block">5. Third-Party Ads</a></li>
-						<li><a href="#sharing" class="hover:text-[#10b981] transition-colors block">6. Data Sharing</a></li>
-						<li><a href="#security" class="hover:text-[#10b981] transition-colors block">7. Data Security</a></li>
-						<li><a href="#links" class="hover:text-[#10b981] transition-colors block">8. Third-Party Links</a></li>
-						<li><a href="#children" class="hover:text-[#10b981] transition-colors block">9. Children's Privacy</a></li>
-						<li><a href="#rights" class="hover:text-[#10b981] transition-colors block">10. Your Privacy Rights</a></li>
-						<li><a href="#changes" class="hover:text-[#10b981] transition-colors block">11. Changes to Policy</a></li>
-						<li><a href="#contact" class="hover:text-[#10b981] transition-colors block">12. Contact Us</a></li>
+						<li><a href="#usage" class="hover:text-[#3b82f6] transition-colors block">3. How We Use Your Info</a></li>
+						<li><a href="#cookies" class="hover:text-[#3b82f6] transition-colors block">4. Cookies & Tracking</a></li>
+						<li><a href="#third-party" class="hover:text-[#3b82f6] transition-colors block">5. Third-Party Ads</a></li>
+						<li><a href="#sharing" class="hover:text-[#3b82f6] transition-colors block">6. Data Sharing</a></li>
+						<li><a href="#security" class="hover:text-[#3b82f6] transition-colors block">7. Data Security</a></li>
+						<li><a href="#links" class="hover:text-[#3b82f6] transition-colors block">8. Third-Party Links</a></li>
+						<li><a href="#children" class="hover:text-[#3b82f6] transition-colors block">9. Children's Privacy</a></li>
+						<li><a href="#rights" class="hover:text-[#3b82f6] transition-colors block">10. Your Privacy Rights</a></li>
+						<li><a href="#changes" class="hover:text-[#3b82f6] transition-colors block">11. Changes to Policy</a></li>
+						<li><a href="#contact" class="hover:text-[#3b82f6] transition-colors block">12. Contact Us</a></li>
 					</ul>
 				</div>
 			</aside>
-			<div class="w-full md:w-3/4 space-y-12 text-[#64748b] text-sm leading-relaxed">
+			<div class="w-full md:w-3/4 space-y-12 text-[#94a3b8] text-sm leading-relaxed">
 				<section id="intro" class="scroll-mt-24">
 					<h2 class="text-xl text-[#0f172a] font-bold mb-4 font-liberation tracking-widest uppercase">1. Introduction</h2>
 					<p>Welcome to FreshPlay Arcade ("we," "our," or "us"). We are an online arcade game web portal dedicated to
@@ -154,7 +154,7 @@
 					<h3 class="text-[#0f172a] font-bold mt-6 mb-2">A. Automatically Collected Information</h3>
 					<p class="mb-3">When you access FreshPlay Arcade, we automatically collect certain technical information about
 						your device and your visit. This does not directly reveal your specific identity but may include:</p>
-					<ul class="list-disc pl-5 space-y-2 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-2 marker:text-[#3b82f6]">
 						<li><strong class="text-[#0f172a]">Device and Network Data:</strong> Your IP address, browser type and version,
 							operating system, and device type.</li>
 						<li><strong class="text-[#0f172a]">Usage Data:</strong> Pages visited, the time and date of your visit, the time
@@ -164,7 +164,7 @@
 					</ul>
 					<h3 class="text-[#0f172a] font-bold mt-6 mb-2">B. Information You Provide to Us</h3>
 					<p class="mb-3">If we offer user accounts or you choose to contact us directly, we may collect:</p>
-					<ul class="list-disc pl-5 space-y-2 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-2 marker:text-[#3b82f6]">
 						<li><strong class="text-[#0f172a]">Account Information:</strong> If you register for an account, we may collect
 							your chosen username, email address, and password.</li>
 						<li><strong class="text-[#0f172a]">Communications:</strong> Any information you provide when you contact our
@@ -176,7 +176,7 @@
 						Information</h2>
 					<p class="mb-4">We use the collected information for various operational and business purposes, including to:
 					</p>
-					<ul class="list-disc pl-5 space-y-2 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-2 marker:text-[#3b82f6]">
 						<li>Provide, operate, and maintain the FreshPlay Arcade web portal and its games.</li>
 						<li>Improve, personalize, and expand our website's layout, content, and gaming offerings.</li>
 						<li>Understand and analyze how you use our website to monitor trends and user behavior.</li>
@@ -191,7 +191,7 @@
 						Tracking Technologies</h2>
 					<p class="mb-4">FreshPlay Arcade uses cookies, web beacons, and similar tracking technologies to enhance your
 						user experience.</p>
-					<ul class="list-disc pl-5 space-y-2 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-2 marker:text-[#3b82f6]">
 						<li><strong class="text-[#0f172a]">Cookies:</strong> Small data files stored on your device that help us
 							remember your preferences, track user trends, and facilitate login sessions.</li>
 						<li><strong class="text-[#0f172a]">Managing Cookies:</strong> You can instruct your browser to refuse all
@@ -204,7 +204,7 @@
 						Services & Advertising</h2>
 					<p class="mb-4">As a free-to-play arcade portal, we rely on third-party services to host games, analyze
 						traffic, and display advertisements.</p>
-					<ul class="list-disc pl-5 space-y-4 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-4 marker:text-[#3b82f6]">
 						<li><strong class="text-[#0f172a]">Third-Party Game Developers:</strong> Some of the browser-based HTML5 games
 							on FreshPlay Arcade are provided by independent third-party developers. While playing these games, limited
 							technical data may be processed by them to ensure proper game functionality.</li>
@@ -214,7 +214,7 @@
 						<li><strong class="text-[#0f172a]">Analytics Providers:</strong> We use analytics tools (such as Google
 							Analytics) to monitor and analyze web traffic and user behavior.</li>
 					</ul>
-					<p class="mt-4 p-4 bg-white border-l-2 border-[#10b981] text-xs font-mono">Note: We do not control the
+					<p class="mt-4 p-4 bg-white border-l-2 border-[#3b82f6] text-xs font-mono">Note: We do not control the
 						privacy practices of these third parties. You may opt out of certain personalized advertising by visiting
 						the respective ad network's consumer opt-out pages (e.g., Google's Ad Settings).</p>
 				</section>
@@ -223,7 +223,7 @@
 						Disclosure</h2>
 					<p class="mb-4">We do not sell, rent, or trade your personal information to third parties. We may share your
 						information only in the following situations:</p>
-					<ul class="list-disc pl-5 space-y-2 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-2 marker:text-[#3b82f6]">
 						<li><strong class="text-[#0f172a]">With Service Providers:</strong> We may share data with trusted vendors,
 							hosting providers, and technical partners who assist us in operating the website and delivering services
 							to you, strictly under confidentiality agreements.</li>
@@ -265,7 +265,7 @@
 						Rights</h2>
 					<p class="mb-4">Depending on your jurisdiction (such as the GDPR for European users or CCPA for California
 						residents), you may have specific rights regarding your personal data, including:</p>
-					<ul class="list-disc pl-5 space-y-2 marker:text-[#10b981]">
+					<ul class="list-disc pl-5 space-y-2 marker:text-[#3b82f6]">
 						<li>The right to access the personal information we hold about you.</li>
 						<li>The right to request that we correct any inaccurate or incomplete data.</li>
 						<li>The right to request the deletion of your personal data.</li>
@@ -288,21 +288,21 @@
 					<div class="mt-4 bg-white p-4 rounded border border-[#e2e8f0] inline-block">
 						<p class="text-[#0f172a] font-bold mb-1">FreshPlay Arcade Privacy Team</p>
 						<p class="font-mono text-xs">Email: <a href="mailto:privacy@mytopscore.com"
-								class="text-[#10b981] hover:underline">privacy@mytopscore.com</a></p>
+								class="text-[#3b82f6] hover:underline">privacy@mytopscore.com</a></p>
 					</div>
 				</section>
 			</div>
 		</div>
 	</main>
-	<footer class="bg-white border-t border-[#e2e8f0] pt-12 pb-6 mt-auto relative z-10">
+	<footer class="bg-[#1e293b] border-t border-[#334155] pt-12 pb-6 mt-auto relative z-10">
 		<div class="container mx-auto px-4">
-			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#64748b] text-sm leading-relaxed">
+			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#94a3b8] text-sm leading-relaxed">
 				<div class="md:col-span-2 flex flex-col items-start gap-4">
 					<a href="/" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
 						<div
-							class="border border-[#10b981] px-2 py-1 flex items-center gap-1 group-hover:bg-[#f8fafc] transition-colors">
-							<span class="text-[#0f172a] font-bold tracking-widest text-sm uppercase">FreshPlay</span>
-							<span class="text-[#10b981] font-bold tracking-widest text-sm uppercase">Arcade</span>
+							class="border border-[#3b82f6] px-2 py-1 flex items-center gap-1 group-hover:bg-[#334155] transition-colors">
+							<span class="text-white font-bold tracking-widest text-sm uppercase">FreshPlay</span>
+							<span class="text-[#3b82f6] font-bold tracking-widest text-sm uppercase">Arcade</span>
 						</div>
 					</a>
 					<p class="text-xs max-w-sm">Premium, high-energy HTML5 gaming portal. Instant play, zero friction. Get
@@ -310,41 +310,41 @@
 				</div>
 				<div>
 					<h4
-						class="text-[#0f172a] font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#10b981] pl-2 font-liberation">
+						class="text-white font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#3b82f6] pl-2 font-liberation">
 						Explore</h4>
 					<ul class="space-y-2 text-xs">
-						<li><a href="/category/all" class="hover:text-[#10b981] transition-colors">New Releases</a>
+						<li><a href="/category/all" class="hover:text-[#3b82f6] transition-colors">New Releases</a>
 						</li>
-						<li><a href="/category/all" class="hover:text-[#10b981] transition-colors">All Categories</a></li>
+						<li><a href="/category/all" class="hover:text-[#3b82f6] transition-colors">All Categories</a></li>
 					</ul>
 				</div>
 				<div>
 					<h4
-						class="text-[#0f172a] font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#10b981] pl-2 font-liberation">
+						class="text-white font-bold text-xs tracking-widest uppercase mb-4 font-mono border-l border-[#3b82f6] pl-2 font-liberation">
 						Company</h4>
 					<ul class="space-y-2 text-xs">
-						<li><a href="/contact" class="hover:text-[#10b981] transition-colors">Contact</a></li>
-						<li><a href="/privacy-policy" class="hover:text-[#10b981] transition-colors">Privacy Policy</a></li>
+						<li><a href="/contact" class="hover:text-[#3b82f6] transition-colors">Contact</a></li>
+						<li><a href="/privacy-policy" class="hover:text-[#3b82f6] transition-colors">Privacy Policy</a></li>
 					</ul>
 				</div>
 			</div>
 			<div
-				class="border-t border-[#e2e8f0] pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-[#64748b] font-mono tracking-wider">
+				class="border-t border-[#e2e8f0] pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-[#94a3b8] font-mono tracking-wider">
 				<p>&copy; 2026 FreshPlay Arcade. All rights reserved. Platform optimized for modern browsers.</p>
 				<div class="flex gap-4 mt-4 md:mt-0 items-center">
-					<a href="#" class="hover:text-[#0f172a]" aria-label="FreshPlay Arcade on Twitter">
+					<a href="#" class="hover:text-white" aria-label="FreshPlay Arcade on Twitter">
 						<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
 							<path
 								d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
 						</svg>
 					</a>
-					<a href="#" class="hover:text-[#0f172a]" aria-label="FreshPlay Arcade on Facebook">
+					<a href="#" class="hover:text-white" aria-label="FreshPlay Arcade on Facebook">
 						<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
 							<path
 								d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
 						</svg>
 					</a>
-					<a href="#" class="hover:text-[#0f172a]" aria-label="FreshPlay Arcade on Instagram">
+					<a href="#" class="hover:text-white" aria-label="FreshPlay Arcade on Instagram">
 						<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
 							<path
 								d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204 013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
