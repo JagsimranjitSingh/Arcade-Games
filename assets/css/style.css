@@ -3,12 +3,12 @@
 
 
 :root {
-	--bg-base: #0f0f0f;
-	--bg-card: #1a1a1a;
-	--accent: #00ff00;
-	--text-main: #ffffff;
-	--text-muted: #a1a1aa;
-	--border-color: #27272a;
+	--bg-base: #f8fafc;
+	--bg-card: #ffffff;
+	--accent: #10b981;
+	--text-main: #0f172a;
+	--text-muted: #64748b;
+	--border-color: #e2e8f0;
 }
 
 
@@ -73,9 +73,9 @@ body.fp-ready {
 }
 
 .card-glow:hover {
-	box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+	box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
 	transform: scale(1.03);
-	border-color: rgba(0, 255, 0, 0.5);
+	border-color: rgba(16, 185, 129, 0.5);
 	z-index: 10;
 }
 
@@ -84,7 +84,7 @@ body.fp-ready {
 }
 
 .btn-glow:hover {
-	box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+	box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
 }
 
 /* Interactive Hover Search */
@@ -292,8 +292,8 @@ body.fp-ready {
 	width: 200%;
 	height: 200%;
 	background-image: 
-		linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+		linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 	background-size: 60px 60px;
 	transform: perspective(600px) rotateX(60deg) translateY(-100px) translateZ(-200px);
 	animation: bgGridMove 30s linear infinite;
@@ -308,8 +308,8 @@ body.fp-ready {
 /* Geometric 3D Interactive Shapes */
 .geom-shape {
 	position: absolute;
-	border: 1px solid rgba(255, 255, 255, 0.04);
-	background: rgba(255, 255, 255, 0.01);
+	border: 1px solid rgba(0, 0, 0, 0.04);
+	background: rgba(0, 0, 0, 0.02);
 	transition: transform 0.2s ease-out, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 	backdrop-filter: blur(2px);
 	/* Base variables updated by JS */
@@ -328,9 +328,9 @@ body.fp-ready {
 
 /* 3D Hover State triggered by JS proximity */
 .geom-shape.is-hovered {
-	border-color: rgba(0, 255, 0, 0.4);
-	background: rgba(0, 255, 0, 0.05);
-	box-shadow: 0 10px 30px rgba(0, 255, 0, 0.15);
+	border-color: rgba(16, 185, 129, 0.4);
+	background: rgba(16, 185, 129, 0.05);
+	box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
 }
 
 /* Mouse gradient tracker */
@@ -340,7 +340,7 @@ body.fp-ready {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 0, 0.06), transparent 50%);
+	background: radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.06), transparent 50%);
 	opacity: 1;
 	transition: background 0.15s ease;
 }
