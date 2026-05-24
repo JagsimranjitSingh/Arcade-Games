@@ -569,3 +569,38 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 });
+
+// Interactive Background Initialization
+function initInteractiveBackground() {
+	const bg = document.createElement('div');
+	bg.className = 'interactive-bg';
+	
+	const gradient = document.createElement('div');
+	gradient.className = 'interactive-bg-gradient';
+	
+	const shape1 = document.createElement('div');
+	shape1.className = 'bg-shape bg-shape-1';
+	
+	const shape2 = document.createElement('div');
+	shape2.className = 'bg-shape bg-shape-2';
+	
+	bg.appendChild(shape1);
+	bg.appendChild(shape2);
+	bg.appendChild(gradient);
+	
+	// Prepend to body so it sits behind everything
+	document.body.prepend(bg);
+
+	// Mouse tracking for gradient effect
+	if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+		document.addEventListener('mousemove', (e) => {
+			gradient.style.setProperty('--mouse-x', `${e.clientX}px`);
+			gradient.style.setProperty('--mouse-y', `${e.clientY}px`);
+		});
+	}
+}
+
+// Run init when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initInteractiveBackground();
+});
