@@ -578,24 +578,52 @@ function initInteractiveBackground() {
 	const gradient = document.createElement('div');
 	gradient.className = 'interactive-bg-gradient';
 	
-	const shape1 = document.createElement('div');
-	shape1.className = 'bg-shape bg-shape-1';
-	
-	const shape2 = document.createElement('div');
-	shape2.className = 'bg-shape bg-shape-2';
-	
-	bg.appendChild(shape1);
-	bg.appendChild(shape2);
 	bg.appendChild(gradient);
+
+	// Create geometric 3D shapes
+	const shapes = [];
+	for (let i = 0; i < 6; i++) {
+		const shape = document.createElement('div');
+		shape.className = `geom-shape geom-shape-${i}`;
+		bg.appendChild(shape);
+		shapes.push(shape);
+	}
 	
 	// Prepend to body so it sits behind everything
 	document.body.prepend(bg);
 
-	// Mouse tracking for gradient effect
+	// Mouse tracking for gradient and 3D hover effects
 	if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 		document.addEventListener('mousemove', (e) => {
 			gradient.style.setProperty('--mouse-x', `${e.clientX}px`);
 			gradient.style.setProperty('--mouse-y', `${e.clientY}px`);
+
+			// Update shapes for 3D proximity hover effect
+			shapes.forEach(shape => {
+				const rect = shape.getBoundingClientRect();
+				const shapeX = rect.left + rect.width / 2;
+				const shapeY = rect.top + rect.height / 2;
+				
+				const distX = e.clientX - shapeX;
+				const distY = e.clientY - shapeY;
+				const distance = Math.sqrt(distX * distX + distY * distY);
+				
+				if (distance < 250) {
+					const rotateX = (distY / 250) * 35; 
+					const rotateY = -(distX / 250) * 35;
+					shape.style.setProperty('--rx', `${rotateX}deg`);
+					shape.style.setProperty('--ry', `${rotateY}deg`);
+					shape.style.setProperty('--tz', `50px`);
+					shape.style.setProperty('--scale', `1.1`);
+					shape.classList.add('is-hovered');
+				} else {
+					shape.style.setProperty('--rx', `0deg`);
+					shape.style.setProperty('--ry', `0deg`);
+					shape.style.setProperty('--tz', `0px`);
+					shape.style.setProperty('--scale', `1`);
+					shape.classList.remove('is-hovered');
+				}
+			});
 		});
 	}
 }
