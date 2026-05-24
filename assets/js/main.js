@@ -1,28 +1,28 @@
 const PORTAL_DOMAINS = [
-    'https://mytopscore.com',
-    'https://noinstallgames.com',
-    'https://games365days.com',
-    'https://game360s.com',
-    'https://mygame360.com'
+	'https://mytopscore.com',
+	'https://noinstallgames.com',
+	'https://games365days.com',
+	'https://game360s.com',
+	'https://mygame360.com'
 ];
 
 function getGameUrl(gameId) {
-    let hash = 0;
-    for (let i = 0; i < gameId.length; i++) {
-        hash = gameId.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const index = Math.abs(hash) % PORTAL_DOMAINS.length;
-    return `${PORTAL_DOMAINS[index]}/game/${gameId}`;
+	let hash = 0;
+	for (let i = 0; i < gameId.length; i++) {
+		hash = gameId.charCodeAt(i) + ((hash << 5) - hash);
+	}
+	const index = Math.abs(hash) % PORTAL_DOMAINS.length;
+	return `${PORTAL_DOMAINS[index]}/game/${gameId}`;
 }
 
 function getCategoryUrl(categoryName) {
-    if (categoryName.toLowerCase() === 'all') return '/explore.html';
-    // Normalize to clean slug: "Physics & Skill" → "physics-skill"
-    const slug = categoryName.toLowerCase()
-        .replace(/&/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-    return `/category/${slug}`;
+	if (categoryName.toLowerCase() === 'all') return '/explore.html';
+	// Normalize to clean slug: "Physics & Skill" → "physics-skill"
+	const slug = categoryName.toLowerCase()
+		.replace(/&/g, '')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '');
+	return `/category/${slug}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			initSearch(allGames);
 
 			const path = window.location.pathname;
-			
+
 			if (document.getElementById('dynamic-path')) {
 				init404Page(allGames);
 			} else if (path.endsWith('index.html') || path === '/') {
@@ -210,21 +210,21 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (heroSection) {
 			const featured = games[14];
 			heroSection.innerHTML = `
-                <img src="${featured.thumbnail_url}" alt="${featured.title}" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" loading="lazy">
+                <img src="${featured.thumbnail_url}" alt="${featured.title}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/40 to-transparent"></div>
                 <div class="absolute inset-0 bg-gradient-to-r from-[#f8fafc]/90 via-[#f8fafc]/50 to-transparent"></div>
                 
                 <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full md:w-2/3 z-20 flex flex-col items-start">
                     <span class="bg-[#3b82f6] text-white text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-4">Featured</span>
                     <h1 class="text-4xl md:text-6xl font-bold text-[#0f172a] mb-4 tracking-wide uppercase font-liberation drop-shadow-lg">${featured.title}</h1>
-                    <p class="text-[#64748b] text-sm md:text-base mb-8 line-clamp-2 leading-relaxed max-w-xl">${featured.description}</p>
+                    <p class="text-[#0f172a] text-sm md:text-base mb-8 line-clamp-2 leading-relaxed max-w-xl">${featured.description}</p>
                     
                     <div class="flex items-center gap-6">
                         <a href="${getGameUrl(featured.id)}" class="flex items-center justify-center gap-2 bg-[#3b82f6] text-white font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
                             <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3v18l15-9L5 3z"></path></svg> Play Now
                         </a>
                         <div class="hidden md:flex items-center gap-2 text-[#0f172a] font-mono text-xs tracking-widest bg-black/50 backdrop-blur-md px-3 py-2 border border-[#cbd5e1] rounded">
-                            <span class="text-[#64748b] flex items-center gap-1">
+                            <span class="text-[#fdfeff] flex items-center gap-1">
                                 <svg class="w-3 h-3 text-[#3b82f6]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 
                                 ${featured.rating || '4.9'}
                             </span>
@@ -261,8 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			acc[g.category] = (acc[g.category] || 0) + 1;
 			return acc;
 		}, {});
-		
-		const categorySidebar = document.querySelectorAll('aside .bg-\\[\\#1a1a1a\\]')[0];
+
+		const categorySidebar = document.querySelectorAll('aside .bg-white')[0];
 		if (categorySidebar) {
 			const ul = categorySidebar.querySelector('ul');
 			ul.innerHTML = '';
@@ -279,14 +279,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		// 4. Top Played
-		const topPlayedSidebar = document.querySelectorAll('aside .bg-\\[\\#1a1a1a\\]')[1];
+		const topPlayedSidebar = document.querySelectorAll('aside .bg-white')[1];
 		if (topPlayedSidebar) {
 			const container = topPlayedSidebar.querySelector('.space-y-4');
 			container.innerHTML = '';
-			
+
 			const sortedGames = [...games].sort((a, b) => parsePlayCount(b.play_count) - parsePlayCount(a.play_count)).slice(0, 5);
 			const opacityClasses = ['', 'opacity-80 drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]', 'opacity-60', 'opacity-40', 'opacity-20'];
-			
+
 			sortedGames.forEach((g, index) => {
 				const shadowClass = index === 0 ? 'drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : opacityClasses[index];
 				container.innerHTML += `
@@ -307,9 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (trendingSection) {
 			const trendingGrid = trendingSection.querySelector('.grid');
 			if (trendingGrid) {
-				trendingGrid.innerHTML = ''; 
+				trendingGrid.innerHTML = '';
 				const trendingGames = [...games].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 2);
-				
+
 				trendingGames.forEach(g => {
 					trendingGrid.innerHTML += `
 						<a href="${getGameUrl(g.id)}" class="flex bg-white border border-[#e2e8f0] rounded overflow-hidden card-glow group transition-all">
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							<div class="w-2/3 p-5 flex flex-col justify-center">
 								<span class="text-[#3b82f6] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
 								<h3 class="font-bold text-[#0f172a] mb-2 uppercase group-hover:text-[#3b82f6] transition-colors">${g.title}</h3>
-								<p class="text-xs text-[#64748b] line-clamp-2 mb-3 leading-relaxed">${g.description}</p>
+								<p class="text-xs text-[#0f172a] line-clamp-2 mb-3 leading-relaxed">${g.description}</p>
 								<span class="text-[10px] font-mono text-[#94a3b8]">🔥 ${g.play_count} Playing Now</span>
 							</div>
 						</a>
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 		const categoryNames = Object.keys(categories);
-		let visibleCount = 2; 
+		let visibleCount = 2;
 
 		function slugify(str) {
 			return str.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		function renderCategories(filter = 'all') {
 			container.innerHTML = '';
-			
+
 			let toShow = [];
 			if (filter === 'all') {
 				toShow = categoryNames.slice(0, visibleCount);
@@ -360,12 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			toShow.forEach((cat, index) => {
 				const catGames = categories[cat];
-				
+
 				let emoji = '🎮';
-				if(cat.includes('ACTION')) emoji = '⚔️';
-				if(cat.includes('PUZZLE')) emoji = '🧩';
-				if(cat.includes('RUNNER')) emoji = '🏃';
-				if(cat.includes('SURVIVAL')) emoji = '🛡️';
+				if (cat.includes('ACTION')) emoji = '⚔️';
+				if (cat.includes('PUZZLE')) emoji = '🧩';
+				if (cat.includes('RUNNER')) emoji = '🏃';
+				if (cat.includes('SURVIVAL')) emoji = '🛡️';
 
 				const sectionHtml = `
 					<section class="mb-16 explore-category-section" data-category="${cat.toLowerCase()}">
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const urlParams = new URLSearchParams(window.location.search);
 			initialCategory = urlParams.get('category') || 'all';
 		}
-		
+
 		const categorySelect = document.getElementById('category-filter');
 		if (categorySelect) {
 			const existingOptions = Array.from(categorySelect.options).map(o => o.value);
@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const newSelect = categorySelect.cloneNode(true);
 			categorySelect.parentNode.replaceChild(newSelect, categorySelect);
 			newSelect.value = initialSlug;
-			
+
 			newSelect.addEventListener('change', (e) => {
 				const val = e.target.value;
 				renderCategories(val);
@@ -471,14 +471,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (loadMoreBtn) {
 			const newBtn = loadMoreBtn.cloneNode(true);
 			loadMoreBtn.parentNode.replaceChild(newBtn, loadMoreBtn);
-			newBtn.addEventListener('click', function() {
+			newBtn.addEventListener('click', function () {
 				this.textContent = 'LOADING...';
 				this.disabled = true;
 				this.style.opacity = '0.5';
 				this.style.cursor = 'not-allowed';
 
 				setTimeout(() => {
-					visibleCount += 2; 
+					visibleCount += 2;
 					renderCategories('all');
 				}, 400);
 			});
@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (gameContainer && mainGame) {
 			gameContainer.innerHTML = `
 				<div class="absolute inset-0 flex flex-col items-center justify-center bg-white group cursor-pointer" onclick="window.location.href='${getGameUrl(mainGame.id)}'">
-                    <img src="${mainGame.thumbnail_url}" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity blur-sm" loading="lazy">
+                    <img src="${mainGame.thumbnail_url}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity blur-sm" loading="lazy">
 					<div class="z-10 absolute flex flex-col items-center">
 						<span class="bg-red-500 text-[#0f172a] text-[10px] px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-3">Backup Core Loaded</span>
 						<h2 class="text-3xl font-bold text-[#0f172a] uppercase font-liberation tracking-widest text-center">${mainGame.title}</h2>
@@ -574,10 +574,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function initInteractiveBackground() {
 	const bg = document.createElement('div');
 	bg.className = 'interactive-bg';
-	
+
 	const gradient = document.createElement('div');
 	gradient.className = 'interactive-bg-gradient';
-	
+
 	bg.appendChild(gradient);
 
 	// Create geometric 3D shapes
@@ -588,7 +588,7 @@ function initInteractiveBackground() {
 		bg.appendChild(shape);
 		shapes.push(shape);
 	}
-	
+
 	// Prepend to body so it sits behind everything
 	document.body.prepend(bg);
 
@@ -603,13 +603,13 @@ function initInteractiveBackground() {
 				const rect = shape.getBoundingClientRect();
 				const shapeX = rect.left + rect.width / 2;
 				const shapeY = rect.top + rect.height / 2;
-				
+
 				const distX = e.clientX - shapeX;
 				const distY = e.clientY - shapeY;
 				const distance = Math.sqrt(distX * distX + distY * distY);
-				
+
 				if (distance < 250) {
-					const rotateX = (distY / 250) * 35; 
+					const rotateX = (distY / 250) * 35;
 					const rotateY = -(distX / 250) * 35;
 					shape.style.setProperty('--rx', `${rotateX}deg`);
 					shape.style.setProperty('--ry', `${rotateY}deg`);
@@ -630,5 +630,5 @@ function initInteractiveBackground() {
 
 // Run init when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    initInteractiveBackground();
+	initInteractiveBackground();
 });
