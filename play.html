@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>FRESHPLAY ARCADE - Premium Web Games | No Fiction Instant Play</title>
-
 	<meta name="description"
 		content="Play premium, high-energy HTML5 games instantly on FreshPlay Arcade. Zero fiction, no accounts needed. Drift in Tokyo or solve cosmic puzzles now.">
 	<link rel="canonical" href="https://mytopscore.com/">
@@ -14,11 +12,9 @@
 	<meta property="og:image" content="https://placehold.co/1200x630/1a1a1a/00ff00?text=FRESHPLAY+ARCADE">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://mytopscore.com/">
-
 	<link rel="preconnect" href="https://cdn.tailwindcss.com">
 	<link rel="preconnect" href="https://pagead2.googlesyndication.com">
 	<link rel="preconnect" href="https://googleads.g.doubleclick.net">
-
 	<meta http-equiv="Content-Security-Policy" content="
 		default-src 'self'; 
 		script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com; 
@@ -29,16 +25,13 @@
 		connect-src 'self' https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google https://cdn.jsdelivr.net;
 		media-src 'self';
 	">
-
 	<link rel="stylesheet" href="/assets/css/style.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="icon" href="/assets/images/Favicon.svg" type="image/svg+xml">
-
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9269418653896502"
 		crossorigin="anonymous"></script>
 </head>
-
 <body class="flex flex-col min-h-screen">
 	<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
 		<div class="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -49,7 +42,6 @@
 					<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
 				</div>
 			</a>
-
 			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase"
 				aria-label="Main Navigation">
 				<a href="/category/all" class="hover:text-white transition-colors">New</a>
@@ -57,7 +49,6 @@
 				<a href="/category/action" class="hover:text-white transition-colors">Action</a>
 				<a href="/category/survival" class="hover:text-white transition-colors">Survival</a>
 			</nav>
-
 			<div class="hidden md:flex items-center gap-4">
 				<div class="search-container group">
 					<input type="text" id="global-search" placeholder="Search games..."
@@ -70,7 +61,6 @@
 					<div id="search-dropdown" class="search-dropdown rounded-b" aria-live="polite"></div>
 				</div>
 			</div>
-
 			<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Toggle Menu">
 				<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -90,7 +80,6 @@
 				</svg>
 			</button>
 		</div>
-
 		<div class="px-6 mb-8">
 			<form action="/category/all" method="get" class="relative">
 				<input type="text" name="q" placeholder="SEARCH GAMES..."
@@ -104,7 +93,6 @@
 				</button>
 			</form>
 		</div>
-
 		<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase px-2">
 			<a href="/category/all" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">New</a>
 			<a href="/category/puzzle"
@@ -115,7 +103,6 @@
 				class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Survival</a>
 		</div>
 	</nav>
-
 	<div class="container mx-auto px-4 py-6">
 		<div class="flex justify-center w-full">
 			<div class="ad-slot ad-leaderboard max-w-4xl border-[#27272a]">
@@ -123,7 +110,6 @@
 			</div>
 		</div>
 	</div>
-
 	<main class="flex-grow container mx-auto px-4 pb-12">
 		<div class="flex flex-col lg:flex-row gap-8">
 			<div class="w-full lg:w-3/4">
@@ -132,7 +118,6 @@
 					<img id="game-hero-img" src="" alt="Game Background"
 						class="absolute inset-0 w-full h-full object-cover opacity-30 transition-transform duration-1000 group-hover:scale-105">
 					<div class="absolute inset-0 bg-gradient-to-r from-[#0f0f0f] via-[#0f0f0f]/80 to-transparent"></div>
-
 					<div id="game-start-overlay"
 						class="absolute inset-0 flex flex-col justify-center p-8 md:p-14 w-full md:w-2/3 z-10">
 						<span
@@ -148,10 +133,8 @@
 							</svg> Play Now
 						</button>
 					</div>
-
 					<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
 				</div>
-
 				<div class="bg-[#1a1a1a] rounded-lg border border-[#27272a] p-6 md:p-8 mt-6">
 					<div class="flex justify-between items-start border-b border-[#27272a] pb-6 mb-6">
 						<div>
@@ -161,7 +144,6 @@
 							</p>
 						</div>
 					</div>
-
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 						<div>
 							<h3
@@ -173,7 +155,6 @@
 							</h3>
 							<p id="info-game-desc" class="text-[#a1a1aa] text-xs leading-relaxed font-mono">...</p>
 						</div>
-
 						<div>
 							<h3
 								class="flex items-center gap-2 text-white font-bold text-sm tracking-widest mb-4 uppercase font-liberation">
@@ -213,27 +194,22 @@
 					</div>
 				</div>
 			</div>
-
 			<aside class="w-full lg:w-1/4 space-y-8">
-
 				<div class="ad-slot ad-square border-[#27272a] rounded p-2 text-center" aria-label="Advertisement">
 					ADVERTISEMENT<br>AD SLOT (SQUARE)
 				</div>
-
 				<div class="bg-[#1a1a1a] rounded border border-[#27272a] p-5">
 					<h3
 						class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-b border-[#27272a] pb-2 font-liberation">
 						Similar Games</h3>
 					<div class="grid grid-cols-2 gap-3" data-skeleton="similar" data-skeleton-count="4"></div>
 				</div>
-
 				<div class="ad-slot ad-square border-[#27272a] rounded p-2 text-center" aria-label="Advertisement">
 					ADVERTISEMENT<br>AD SLOT (SQUARE)
 				</div>
 			</aside>
 		</div>
 	</main>
-
 	<footer class="bg-[#1a1a1a] border-t border-[#27272a] pt-12 pb-6 mt-auto">
 		<div class="container mx-auto px-4">
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm">
@@ -290,12 +266,10 @@
 			</div>
 		</div>
 	</footer>
-
 	<script src="/assets/js/skeleton.js" defer></script>
 	<script src="/assets/js/main.js" defer></script>
 	<script src="/assets/js/game-loader.js" defer></script>
 	<script>document.addEventListener('DOMContentLoaded', () => document.body.classList.add('fp-ready'));</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
-
 </html>

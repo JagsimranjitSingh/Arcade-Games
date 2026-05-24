@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>FRESHPLAY ARCADE - Premium Web Games | No Fiction Instant Play</title>
-
 	<meta name="description"
 		content="Play premium, high-energy HTML5 games instantly on FreshPlay Arcade. Zero fiction, no accounts needed. Drift in Tokyo or solve cosmic puzzles now.">
 	<link rel="canonical" href="https://mytopscore.com/">
@@ -14,11 +12,9 @@
 	<meta property="og:image" content="https://placehold.co/1200x630/1a1a1a/00ff00?text=FRESHPLAY+ARCADE">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://mytopscore.com/">
-
 	<link rel="preconnect" href="https://cdn.tailwindcss.com">
 	<link rel="preconnect" href="https://pagead2.googlesyndication.com">
 	<link rel="preconnect" href="https://googleads.g.doubleclick.net">
-
 	<meta http-equiv="Content-Security-Policy" content="
 		default-src 'self'; 
 		script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com; 
@@ -29,16 +25,13 @@
 		connect-src 'self' https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google https://cdn.jsdelivr.net;
 		media-src 'self';
 	">
-
 	<link rel="stylesheet" href="/assets/css/style.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="icon" href="/assets/images/Favicon.svg" type="image/svg+xml">
-
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9269418653896502"
 		crossorigin="anonymous"></script>
 </head>
-
 <body class="flex flex-col min-h-screen">
 	<header class="bg-[#0f0f0f] border-b border-[#27272a] sticky top-0 z-50">
 		<div class="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -49,7 +42,6 @@
 					<span class="text-[#00ff00] font-bold tracking-widest text-sm uppercase">Arcade</span>
 				</div>
 			</a>
-
 			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#a1a1aa] uppercase"
 				aria-label="Main Navigation">
 				<a href="/category/all" class="hover:text-white transition-colors">New</a>
@@ -57,7 +49,6 @@
 				<a href="/category/action" class="hover:text-white transition-colors">Action</a>
 				<a href="/category/survival" class="hover:text-white transition-colors">Survival</a>
 			</nav>
-
 			<div class="hidden md:flex items-center gap-4">
 				<div class="search-container group">
 					<input type="text" id="global-search" placeholder="Search games..."
@@ -70,7 +61,6 @@
 					<div id="search-dropdown" class="search-dropdown rounded-b" aria-live="polite"></div>
 				</div>
 			</div>
-
 			<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Toggle Menu">
 				<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -90,7 +80,6 @@
 				</svg>
 			</button>
 		</div>
-
 		<div class="px-6 mb-8">
 			<form action="/category/all" method="get" class="relative">
 				<input type="text" name="q" placeholder="SEARCH GAMES..."
@@ -104,7 +93,6 @@
 				</button>
 			</form>
 		</div>
-
 		<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#a1a1aa] uppercase px-2">
 			<a href="/category/all" class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">New</a>
 			<a href="/category/puzzle"
@@ -115,17 +103,14 @@
 				class="hover:text-white hover:bg-[#0f0f0f] px-4 py-3.5 rounded transition-colors">Survival</a>
 		</div>
 	</nav>
-
 	<main class="flex-grow container mx-auto px-4 py-8">
 		<div class="flex justify-center mb-10 w-full">
 			<div class="ad-slot ad-leaderboard max-w-4xl">
 				ADVERTISEMENT<br>AD SLOT (LEADERBOARD)
 			</div>
 		</div>
-
 		<h1 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest mb-8 font-liberation">Explore Games
 		</h1>
-
 		<div
 			class="flex flex-col md:flex-row gap-4 justify-between items-center bg-[#1a1a1a] p-4 rounded border border-[#27272a] mb-12">
 			<div class="flex items-center gap-4 w-full md:w-auto">
@@ -143,9 +128,7 @@
 				</select>
 			</div>
 		</div>
-
 		<div id="categories-container" data-skeleton="category-section" data-skeleton-count="2"></div>
-
 		<div class="flex flex-col items-center gap-6 mt-12 mb-16">
 			<button id="load-more-btn"
 				class="bg-transparent border border-[#00ff00] text-[#00ff00] hover:bg-[#00ff00] hover:text-black px-8 py-3 rounded uppercase font-bold tracking-widest text-xs font-mono transition-all hidden">
@@ -160,7 +143,6 @@
 			</button>
 		</div>
 	</main>
-
 	<footer class="bg-[#1a1a1a] border-t border-[#27272a] pt-12 pb-6 mt-auto">
 		<div class="container mx-auto px-4">
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#a1a1aa] text-sm">
@@ -216,12 +198,10 @@
 			</div>
 		</div>
 	</footer>
-
 	<script src="/assets/js/skeleton.js" defer></script>
 	<script src="/assets/js/main.js" defer></script>
 	<script src="/assets/js/slider.js" defer></script>
 	<script>document.addEventListener('DOMContentLoaded', () => document.body.classList.add('fp-ready'));</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
-
 </html>

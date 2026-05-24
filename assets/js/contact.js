@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const submitBtnText = submitBtn.querySelector('span');
 
 	// Make sure to replace this with your actual Web3Forms public access key
-	const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY_HERE";
+	const WEB3FORMS_ACCESS_KEY = "86f8a79c-4940-4248-86a5-3f73049a5627";
 
 	if (form) {
 		form.addEventListener('submit', function (e) {
