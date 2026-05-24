@@ -1,10 +1,11 @@
-const PORTAL_DOMAINS = [
-    'https://mytopscore.com',
-    'https://noinstallgames.com',
-    'https://games365days.com',
-    'https://game360s.com',
-    'https://mygame360.com'
-];
+// PORTAL_DOMAINS is already declared in main.js
+// const PORTAL_DOMAINS = [
+//     'https://mytopscore.com',
+//     'https://noinstallgames.com',
+//     'https://games365days.com',
+//     'https://game360s.com',
+//     'https://mygame360.com'
+// ];
 
 function getCanonicalDomain(gId) {
     let hash = 0;
