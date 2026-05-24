@@ -10,9 +10,19 @@
         "target": "/explore.html"
     },
     {
+        "source": "/contact",
+        "status": "200",
+        "target": "/contact.html"
+    },
+    {
         "source": "/contact/",
         "status": "200",
         "target": "/contact.html"
+    },
+    {
+        "source": "/privacy-policy",
+        "status": "200",
+        "target": "/privacy.html"
     },
     {
         "source": "/privacy-policy/",
@@ -21,6 +31,11 @@
     },
     {
         "source": "/404",
+        "status": "404",
+        "target": "/404.html"
+    },
+    {
+        "source": "/404/",
         "status": "404",
         "target": "/404.html"
     },
