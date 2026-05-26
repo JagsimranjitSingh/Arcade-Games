@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			// 3. UI State Update (Loading)
 			submitBtn.disabled = true;
-			submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+			submitBtn.classList.add('opacity-90', 'cursor-not-allowed');
 			submitBtnText.textContent = "TRANSMITTING...";
 
 			// Hide previous results
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				.finally(() => {
 					// Restore button state
 					submitBtn.disabled = false;
-					submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+					submitBtn.classList.remove('opacity-90', 'cursor-not-allowed');
 					submitBtnText.textContent = "SEND MESSAGE";
 				});
 		});
