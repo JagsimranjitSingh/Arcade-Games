@@ -240,16 +240,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			newArrivalsGrid.innerHTML = '';
 			games.slice(0, 8).forEach(g => {
 				newArrivalsGrid.innerHTML += `
-                    <a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[20px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+                    <a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
                         <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                             <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                                 <span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
                             </div>
                         </div>
-                        <div class="p-3 flex flex-col flex-grow">
-                            <div class="flex justify-between items-center"><h3 class="font-bold text-sm text-[#00234f] truncate">${g.title}</h3><svg class="w-5 h-5 ml-2 text-[#48d1cc] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                            <p class="text-[10px] text-[#64748b] font-mono mt-1 uppercase tracking-wider">${g.category}</p>
+                        <div class="p-2 pl-3 flex items-center">
+                            <div class="flex-1 min-w-0 pr-2">
+                                <h3 class="font-bold text-sm text-[#00234f] truncate">${g.title}</h3>
+                                <p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">${g.category}</p>
+                            </div>
+                            <div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         </div>
                     </a>
                 `;
@@ -269,9 +272,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			for (const [category, count] of Object.entries(categoryCounts)) {
 				ul.innerHTML += `
                     <li>
-                        <a href="${getCategoryUrl(category)}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#f1f5f9] text-[#64748b] hover:text-[#48d1cc] transition-colors">
+                        <a href="${getCategoryUrl(category)}" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
                             <span class="uppercase">${category}</span>
-                            <span class="bg-[#c4e2f5] px-1.5 py-0.5 rounded">${count}</span>
+                            <span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">${count}</span>
                         </a>
                     </li>
                 `;
@@ -312,11 +315,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				trendingGames.forEach(g => {
 					trendingGrid.innerHTML += `
-						<a href="${getGameUrl(g.id)}" class="flex bg-white border border-[#e2e8f0] rounded-[20px] overflow-hidden card-glow group transition-all">
+						<a href="${getGameUrl(g.id)}" class="flex bg-white border border-[#e2e8f0] rounded-[12px] overflow-hidden card-glow group transition-all">
 							<img src="${g.thumbnail_url}" alt="${g.title}" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
 							<div class="w-2/3 p-5 flex flex-col justify-center">
 								<span class="text-[#48d1cc] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
-								<div class="flex justify-between items-center mb-2"><h3 class="font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors truncate">${g.title}</h3><svg class="w-5 h-5 ml-2 text-[#48d1cc] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+								<h3 class="font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors truncate mb-2">${g.title}</h3>
 								<p class="text-xs text-[#00234f] line-clamp-2 mb-3 leading-relaxed">${g.description}</p>
 								<span class="text-[10px] font-mono text-[#94a3b8]">🔥 ${g.play_count} Playing Now</span>
 							</div>
@@ -386,16 +389,19 @@ document.addEventListener('DOMContentLoaded', () => {
 							<div class="swiper-wrapper">
 							${catGames.map(g => `
 								<div class="swiper-slide">
-									<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[20px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+									<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
 										<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                                                 <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
                                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-20">
                                                     <span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
                                                 </div>
                                             </div>
-										<div class="p-3 flex flex-col flex-grow">
-											<div class="flex justify-between items-center"><h3 class="font-bold text-sm text-[#00234f] truncate uppercase">${g.title}</h3><svg class="w-5 h-5 ml-2 text-[#48d1cc] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-											<p class="text-[10px] text-[#64748b] font-mono mt-1 uppercase">${g.category}</p>
+										<div class="p-2 pl-3 flex items-center">
+											<div class="flex-1 min-w-0 pr-2">
+												<h3 class="font-bold text-sm text-[#00234f] truncate uppercase">${g.title}</h3>
+												<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase">${g.category}</p>
+											</div>
+											<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
 										</div>
 									</a>
 								</div>
@@ -554,13 +560,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			for (let i = 1; i < Math.min(5, shuffled.length); i++) {
 				const g = shuffled[i];
 				html += `
-					<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[20px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all text-left">
+					<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all text-left">
                         <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
 						    <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
                         </div>
-						<div class="p-3">
-							<div class="flex justify-between items-center"><h3 class="font-bold text-sm text-[#00234f] truncate">${g.title}</h3><svg class="w-5 h-5 ml-2 text-[#48d1cc] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-							<p class="text-[10px] text-[#64748b] font-mono mt-1 uppercase tracking-wider">${g.category}</p>
+						<div class="p-2 pl-3 flex items-center">
+							<div class="flex-1 min-w-0 pr-2">
+								<h3 class="font-bold text-sm text-[#00234f] truncate">${g.title}</h3>
+								<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">${g.category}</p>
+							</div>
+							<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
 						</div>
 					</a>
 				`;
