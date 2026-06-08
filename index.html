@@ -105,96 +105,94 @@
 				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">Survival</a>
 		</div>
 	</nav>
-	<main class="flex-grow container mx-auto px-4 py-8">
-		<div class="flex justify-center mb-10 w-full">
-			<div class="ad-slot ad-leaderboard max-w-4xl" aria-label="Advertisement">
-				<script async
-					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
-					crossorigin="anonymous"></script>
-				<!-- AD SLOT -->
-				<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
-					data-ad-slot="3136452347" data-ad-format="auto" data-full-width-responsive="true"></ins>
-				<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
-			</div>
-		</div>
-		<div class="flex flex-col lg:flex-row gap-8">
-			<div class="w-full lg:w-3/4 flex flex-col gap-10">
-				<article
-					class="relative bg-white rounded-lg overflow-hidden border border-[#e2e8f0] group aspect-[4/5] md:aspect-[16/9]"
-					data-skeleton="featured" data-skeleton-count="1"></article>
+	<main class="flex-grow container mx-auto px-4 py-6">
+		<!-- Main + Sidebar Layout -->
+		<div class="flex flex-col lg:flex-row gap-6">
+			<div class="w-full lg:w-3/4 flex flex-col gap-6">
+				<!-- Trending Section -->
 				<section>
-					<div class="flex items-center justify-between mb-6 border-b border-[#e2e8f0] pb-2">
-						<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
-							New Arrivals
+					<div class="flex items-center justify-between mb-4 border-b border-[#e2e8f0] pb-2">
+						<h2
+							class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
+							<svg class="w-5 h-5 text-[#48d1cc]" fill="currentColor" viewBox="0 0 20 20"><path d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 0011.95 4.95c.592-.591.98-1.318 1.22-2.065.238-.74.34-1.556.271-2.432-.07-.873-.325-1.822-.794-2.867a1 1 0 00-.567-.567 7.003 7.003 0 00-2.685-.466z"/></svg>
+							Trending Now
 						</h2>
-						<a href="/category/all"
-							class="text-[#00234f] text-xs font-mono hover:text-[#48d1cc] uppercase transition-colors">View All</a>
 					</div>
-					<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6" data-skeleton="card" data-skeleton-count="8">
-					</div>
+					<div id="trending-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"
+						data-skeleton="trending" data-skeleton-count="2"></div>
 				</section>
-				<div class="flex justify-center w-full my-4">
-					<div class="ad-slot ad-leaderboard max-w-3xl border-[#e2e8f0] text-[#94a3b8]" aria-label="Advertisement">
+				<!-- Ad Banners between Trending and All Games -->
+				<div class="flex justify-center w-full">
+					<div class="ad-slot ad-leaderboard max-w-4xl" aria-label="Advertisement">
 						<script async
 							src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
 							crossorigin="anonymous"></script>
-						<!-- AD SLOT -->
 						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
-							data-ad-slot="3136452347" data-ad-format="auto" data-full-width-responsive="true"></ins>
+							data-ad-slot="3136452347" data-ad-format="auto"
+							data-full-width-responsive="true"></ins>
 						<script>
 							(adsbygoogle = window.adsbygoogle || []).push({});
 						</script>
 					</div>
 				</div>
+				<!-- All Games Section -->
 				<section>
-					<div class="flex items-center justify-between mb-6 border-b border-[#e2e8f0] pb-2">
-						<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
-							Trending Now
+					<div class="flex items-center justify-between mb-4 border-b border-[#e2e8f0] pb-2">
+						<h2
+							class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
+							All Games
 						</h2>
+						<span id="game-count"
+							class="text-[10px] font-mono text-[#64748b] uppercase tracking-widest"></span>
 					</div>
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-skeleton="trending" data-skeleton-count="2"></div>
+					<div id="all-games-grid"
+						class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4"
+						data-skeleton="card" data-skeleton-count="12"></div>
 				</section>
+				<div class="flex justify-center w-full my-2">
+					<div class="ad-slot ad-leaderboard max-w-3xl border-[#e2e8f0] text-[#94a3b8]"
+						aria-label="Advertisement">
+						<script async
+							src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
+							crossorigin="anonymous"></script>
+						<ins class="adsbygoogle" style="display:block"
+							data-ad-client="ca-pub-7922397649195717" data-ad-slot="3136452347"
+							data-ad-format="auto" data-full-width-responsive="true"></ins>
+						<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+				</div>
 			</div>
-			<aside class="w-full lg:w-1/4 flex flex-col gap-8">
-				<div class="bg-white border border-[#e2e8f0] rounded p-6">
-					<h3
-						class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-5 border-l-2 border-[#48d1cc] pl-3 font-liberation">
-						Hot Categories</h3>
-					<ul class="space-y-1 text-xs font-mono" data-skeleton="category-link" data-skeleton-count="5"></ul>
-				</div>
-				<div class="ad-slot ad-square border-[#e2e8f0] rounded p-2 text-center" aria-label="Advertisement">
-					<script async
-						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
-						crossorigin="anonymous"></script>
-					<!-- SQUARE -->
-					<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
-						data-ad-slot="2864989601" data-ad-format="auto" data-full-width-responsive="true"></ins>
-					<script>
-						(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-				</div>
-				<div class="bg-white border border-[#e2e8f0] rounded p-6">
-					<h3
-						class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-5 border-l-2 border-[#48d1cc] pl-3 font-liberation">
-						Top Played</h3>
-					<div class="space-y-4" data-skeleton="list-item" data-skeleton-count="5"></div>
+			<aside class="w-full lg:w-1/4">
+				<div class="flex flex-col gap-6 lg:sticky lg:top-20">
+					<div class="bg-white border border-[#e2e8f0] rounded p-5">
+						<h3
+							class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-l-2 border-[#48d1cc] pl-3 font-liberation">
+							Hot Categories</h3>
+						<ul class="space-y-1 text-xs font-mono" data-skeleton="category-link"
+							data-skeleton-count="5"></ul>
+					</div>
+					<div class="ad-slot ad-square border-[#e2e8f0] rounded p-2 text-center"
+						aria-label="Advertisement">
+						<script async
+							src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
+							crossorigin="anonymous"></script>
+						<ins class="adsbygoogle" style="display:block"
+							data-ad-client="ca-pub-7922397649195717" data-ad-slot="2864989601"
+							data-ad-format="auto" data-full-width-responsive="true"></ins>
+						<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+					<div class="bg-white border border-[#e2e8f0] rounded p-5">
+						<h3
+							class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-l-2 border-[#48d1cc] pl-3 font-liberation">
+							Top Played</h3>
+						<div class="space-y-4" data-skeleton="list-item" data-skeleton-count="5"></div>
+					</div>
 				</div>
 			</aside>
-		</div>
-		<div class="flex justify-center mt-12 w-full">
-			<div class="ad-slot ad-leaderboard max-w-4xl" aria-label="Advertisement">
-				<script async
-					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
-					crossorigin="anonymous"></script>
-				<!-- AD SLOT -->
-				<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
-					data-ad-slot="3136452347" data-ad-format="auto" data-full-width-responsive="true"></ins>
-				<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
-			</div>
 		</div>
 	</main>
 	<footer class="bg-[#00234f] border-t border-[#003d7a] pt-12 pb-6 mt-auto">

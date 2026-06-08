@@ -205,41 +205,41 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function initHomepage(games) {
-		// 1. Hero Banner (Fully re-written to inject DOM rather than query it)
-		const heroSection = document.querySelector('article.relative.group');
-		if (heroSection) {
-			const featured = games[14];
-			heroSection.innerHTML = `
-                <img src="${featured.thumbnail_url}" alt="${featured.title}" class="absolute inset-0 w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity duration-700" loading="lazy">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#c4e2f5] via-[#c4e2f5]/40 to-transparent"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#c4e2f5]/50 via-[#c4e2f5]/20 to-transparent"></div>
-                
-                <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full md:w-2/3 z-20 flex flex-col items-start">
-                    <span class="bg-[#00234f] text-[#c4e2f5] text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-widest mb-4">Featured</span>
-                    <h1 class="text-4xl md:text-6xl font-bold text-[#00234f] mb-4 tracking-wide uppercase font-liberation drop-shadow-lg">${featured.title}</h1>
-                    <p class="text-[#00234f] text-sm md:text-base mb-8 line-clamp-2 leading-relaxed max-w-xl">${featured.description}</p>
-                    
-                    <div class="flex items-center gap-6">
-                        <a href="${getGameUrl(featured.id)}" class="flex items-center justify-center gap-2 bg-[#00234f] text-[#c4e2f5] font-bold px-8 py-3.5 uppercase tracking-widest text-sm btn-glow rounded-sm transition-transform hover:-translate-y-1">
-                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3v18l15-9L5 3z"></path></svg> Play Now
-                        </a>
-                        <div class="hidden md:flex items-center gap-2 text-[#00234f] font-mono text-xs tracking-widest bg-black/50 backdrop-blur-md px-3 py-2 border border-[#cbd5e1] rounded">
-                            <span class="text-[#fdfeff] flex items-center gap-1">
-                                <svg class="w-3 h-3 text-[#48d1cc]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 
-                                ${featured.rating || '4.9'}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-			`;
+		// 1. Trending Now (top, full width) — top 2 rated games
+		const trendingGrid = document.getElementById('trending-grid');
+		const trendingGames = [...games].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 2);
+		const trendingIds = new Set(trendingGames.map(g => g.id));
+
+		if (trendingGrid) {
+			trendingGrid.innerHTML = '';
+			trendingGames.forEach(g => {
+				trendingGrid.innerHTML += `
+					<a href="${getGameUrl(g.id)}" class="flex bg-white border border-[#e2e8f0] rounded-[12px] overflow-hidden card-glow group transition-all">
+						<img src="${g.thumbnail_url}" alt="${g.title}" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						<div class="w-2/3 p-4 md:p-5 flex flex-col justify-center">
+							<span class="text-[#48d1cc] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
+							<h3 class="font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors truncate mb-1.5">${g.title}</h3>
+							<p class="text-xs text-[#00234f] line-clamp-2 mb-2 leading-relaxed">${g.description}</p>
+							<span class="text-[10px] font-mono text-[#94a3b8]">🔥 ${g.play_count} Playing Now</span>
+						</div>
+					</a>
+				`;
+			});
 		}
 
-		// 2. New Arrivals Grid
-		const newArrivalsGrid = document.querySelector('section .grid.grid-cols-2.lg\\:grid-cols-4');
-		if (newArrivalsGrid) {
-			newArrivalsGrid.innerHTML = '';
-			games.slice(0, 8).forEach(g => {
-				newArrivalsGrid.innerHTML += `
+		// 2. All Games Grid (excluding trending)
+		const allGamesGrid = document.getElementById('all-games-grid');
+		const gameCountEl = document.getElementById('game-count');
+		const remainingGames = games.filter(g => !trendingIds.has(g.id));
+
+		if (gameCountEl) {
+			gameCountEl.textContent = `${remainingGames.length} Games`;
+		}
+
+		if (allGamesGrid) {
+			allGamesGrid.innerHTML = '';
+			remainingGames.forEach(g => {
+				allGamesGrid.innerHTML += `
                     <a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
                         <div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
                             <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
@@ -303,30 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 `;
 			});
-		}
-
-		// 5. Trending Now
-		const trendingSection = document.querySelectorAll('section')[1];
-		if (trendingSection) {
-			const trendingGrid = trendingSection.querySelector('.grid');
-			if (trendingGrid) {
-				trendingGrid.innerHTML = '';
-				const trendingGames = [...games].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 2);
-
-				trendingGames.forEach(g => {
-					trendingGrid.innerHTML += `
-						<a href="${getGameUrl(g.id)}" class="flex bg-white border border-[#e2e8f0] rounded-[12px] overflow-hidden card-glow group transition-all">
-							<img src="${g.thumbnail_url}" alt="${g.title}" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-							<div class="w-2/3 p-5 flex flex-col justify-center">
-								<span class="text-[#48d1cc] text-[10px] font-mono uppercase mb-1 tracking-wider">${g.category}</span>
-								<h3 class="font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors truncate mb-2">${g.title}</h3>
-								<p class="text-xs text-[#00234f] line-clamp-2 mb-3 leading-relaxed">${g.description}</p>
-								<span class="text-[10px] font-mono text-[#94a3b8]">🔥 ${g.play_count} Playing Now</span>
-							</div>
-						</a>
-					`;
-				});
-			}
 		}
 	}
 
