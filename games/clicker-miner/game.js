@@ -685,8 +685,8 @@ class GameScene extends Phaser.Scene {
     const col = this.hex(tier.color);
     g.fillStyle(col, 0.18); g.fillCircle(0, 0, tier.r*2.4);
     g.fillStyle(col, 0.92); g.fillCircle(0, 0, tier.r);
-    g.fillStyle(0xffffff, 0.30); g.fillCircle(-tier.r*0.28, -tier.r*0.28, tier.r*0.38);
-    g.lineStyle(0.8, 0xffffff, 0.2); g.strokeCircle(0, 0, tier.r);
+    g.fillStyle(0x00234f, 0.30); g.fillCircle(-tier.r*0.28, -tier.r*0.28, tier.r*0.38);
+    g.lineStyle(0.8, 0x00234f, 0.2); g.strokeCircle(0, 0, tier.r);
     g.setDepth(3);
     this.botContainer.add(g);
     this.botGfx[tier.id].push(g);
@@ -943,7 +943,7 @@ class GameScene extends Phaser.Scene {
 
 const _phaserConfig = {
   type           : Phaser.AUTO,
-  backgroundColor: '#c4e2f5',
+  backgroundColor: 0xc4e2f5,
   parent         : 'game-container',
   scale          : {
     mode      : Phaser.Scale.RESIZE,

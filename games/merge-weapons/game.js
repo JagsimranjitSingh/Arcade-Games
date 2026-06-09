@@ -8,8 +8,8 @@ if (!window.FreshPlay) {
   window.FreshPlay = {
     levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); if (cb) cb(); },
     getCurrentPalette: () => ({
-      background: '#06080f',
-      playerCore:  '#00e5ff',
+      background: '#c4e2f5',
+      playerCore: '#00234f',
       hostile:     '#ff2952',
       fxAccent:    '#ffd700',
     }),
@@ -454,7 +454,7 @@ class MergeWeapons extends Phaser.Scene {
     const cw = 80, ch = 24, cx = this.arenaW/2 - cw/2, cy = 7;
     g.fillStyle(col, dps > 0 ? 0.9 : 0.3); g.fillRoundedRect(cx, cy, cw, ch, 4);
     g.lineStyle(1, col, 0.5); g.strokeRoundedRect(cx-1, cy-1, cw+2, ch+2, 5);
-    if (dps > 0) { g.fillStyle(0xffffff, 0.12); g.fillRoundedRect(cx+2, cy+2, cw-4, ch*0.4, 2); }
+    if (dps > 0) { g.fillStyle(0x00234f, 0.12); g.fillRoundedRect(cx+2, cy+2, cw-4, ch*0.4, 2); }
   }
 
   _drawGoldChip() {
@@ -464,7 +464,7 @@ class MergeWeapons extends Phaser.Scene {
     const cw = 80, ch = 24, cx = W - cw - 8, cy = this.gridTop + 7;
     g.fillStyle(col, 0.9); g.fillRoundedRect(cx, cy, cw, ch, 4);
     g.lineStyle(1, col, 0.5); g.strokeRoundedRect(cx-1, cy-1, cw+2, ch+2, 5);
-    g.fillStyle(0xffffff, 0.14); g.fillRoundedRect(cx+2, cy+2, cw-4, ch*0.4, 2);
+    g.fillStyle(0x00234f, 0.14); g.fillRoundedRect(cx+2, cy+2, cw-4, ch*0.4, 2);
   }
 
   _drawBuyBtn(hover) {
@@ -474,7 +474,7 @@ class MergeWeapons extends Phaser.Scene {
     const bx = this.gridLeft + 8;
     const by = H - 44;
     const baseCol = this.hexColor(this.palette.playerCore);
-    const col = hover ? 0xffffff : baseCol;
+    const col = hover ? 0x00234f : baseCol;
     this.gBuyBtn.clear();
     // Outer glow halo
     if (!hover) {
@@ -485,7 +485,7 @@ class MergeWeapons extends Phaser.Scene {
     this.gBuyBtn.fillStyle(col, hover ? 1 : 0.95);
     this.gBuyBtn.fillRoundedRect(bx, by, bw, bh, 6);
     // Top sheen
-    this.gBuyBtn.fillStyle(0xffffff, hover ? 0.18 : 0.14);
+    this.gBuyBtn.fillStyle(0x00234f, hover ? 0.18 : 0.14);
     this.gBuyBtn.fillRoundedRect(bx+2, by+2, bw-4, bh*0.42, 4);
     // Border
     this.gBuyBtn.lineStyle(1.5, col, hover ? 0.6 : 0.5);
@@ -628,7 +628,7 @@ class MergeWeapons extends Phaser.Scene {
     g.fillCircle(x, y-1, 4);
     g.lineStyle(1.5, visorCol, 1);
     g.strokeCircle(x, y-1, 4);
-    g.fillStyle(0xffffff, 0.45 + atk*0.45);
+    g.fillStyle(0x00234f, 0.45 + atk*0.45);
     g.fillCircle(x, y-1, 1.8);
 
     // ── Shoulder pauldrons ────────────────────────────────
@@ -663,7 +663,7 @@ class MergeWeapons extends Phaser.Scene {
       const wx = x+armExtend, wy = y-4-atk*8;
       g.fillStyle(wCol, 0.18); g.fillCircle(wx+10, wy-10, 11);
       g.lineStyle(3, wCol, 0.95); g.lineBetween(wx, wy, wx+24, wy-22);
-      g.lineStyle(1, 0xffffff, 0.35); g.lineBetween(wx, wy, wx+24, wy-22);
+      g.lineStyle(1, 0x00234f, 0.35); g.lineBetween(wx, wy, wx+24, wy-22);
       g.lineStyle(3, wCol, 0.85); g.lineBetween(wx-5, wy+5, wx+6, wy-6);
       g.lineStyle(3, 0x8b5e3c, 0.9); g.lineBetween(wx-9, wy+9, wx-1, wy+1);
     }
@@ -833,7 +833,7 @@ class MergeWeapons extends Phaser.Scene {
       e.gfx.strokeCircle(x, y, sz*0.38);
 
       // Eyes
-      e.gfx.fillStyle(0xffffff, 0.9);
+      e.gfx.fillStyle(0x00234f, 0.9);
       e.gfx.fillCircle(x-sz*0.28, y-sz*0.18, sz*0.16);
       e.gfx.fillCircle(x+sz*0.28, y-sz*0.18, sz*0.16);
       e.gfx.fillStyle(0x000000, 1);
@@ -853,7 +853,7 @@ class MergeWeapons extends Phaser.Scene {
     e.hpFg.fillStyle(hc, 0.9);
     e.hpFg.fillRoundedRect(e.x-bw/2, barY, bw*pct, 5, 2);
     // HP bar sheen
-    e.hpFg.fillStyle(0xffffff, 0.15);
+    e.hpFg.fillStyle(0x00234f, 0.15);
     e.hpFg.fillRoundedRect(e.x-bw/2, barY, bw*pct, 2, 1);
 
     e.hitFlash = Math.max(0, (e.hitFlash||0) - 0.1);
@@ -1201,7 +1201,7 @@ class MergeWeapons extends Phaser.Scene {
   }
 
   // ── Float text ────────────────────────────────────────────
-  floatText(x,y,msg,color='#fff') {
+  floatText(x,y,msg,color='#00234f') {
     const t = this.add.text(x,y,msg,{
       fontFamily:'"Courier New",monospace', fontSize:'13px', color, fontStyle:'bold',
     }).setOrigin(0.5).setDepth(38).setAlpha(1);
@@ -1336,8 +1336,8 @@ class MergeWeapons extends Phaser.Scene {
     }).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
     const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-      fontFamily: 'monospace', fontSize: '16px', color: '#fff',
-      backgroundColor: '#c4e2f5', padding: {x: 20, y: 16}
+      fontFamily: 'monospace', fontSize: '16px', color: '#00234f',
+      backgroundColor: 0xc4e2f5, padding: {x: 20, y: 16}
     }).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
     const cleanUp = () => {
@@ -1372,7 +1372,7 @@ class MergeWeapons extends Phaser.Scene {
     });
   }
 
-  hexColor(hex) { return parseInt((hex||'#ffffff').replace('#',''),16); }
+  hexColor(hex) { return parseInt((hex||'#00234f').replace('#',''),16); }
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1380,7 +1380,7 @@ class MergeWeapons extends Phaser.Scene {
 // ─────────────────────────────────────────────────────────────
 const config = {
   type: Phaser.AUTO,
-  backgroundColor: '#c4e2f5',
+  backgroundColor: 0xc4e2f5,
   scene: [Boot, LandscapePrompt, MergeWeapons],
   scale: {
     mode: Phaser.Scale.RESIZE,

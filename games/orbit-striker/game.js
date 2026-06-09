@@ -28,7 +28,7 @@ const DEFAULT_PALETTE = {
 	background: 0x000a14,
 	playerCore:  0x00e5ff,
 	fxAccent:    0xff6600,
-	interface:   0xffffff,
+	interface:   0x00234f,
 	hostile:     0xff0044
 };
 
@@ -52,22 +52,22 @@ class BootScene extends Phaser.Scene {
 		// Generate all textures procedurally
 		this._makeTex('glow_dot', 32, g => {
 			for (let i = 8; i >= 1; i--) {
-				g.fillStyle(0xffffff, (i / 8) * 0.9);
+				g.fillStyle(0x00234f, (i / 8) * 0.9);
 				g.fillCircle(16, 16, i * 2);
 			}
 		});
 		this._makeTex('ring_glow', 64, g => {
 			for (let i = 5; i >= 1; i--) {
-				g.lineStyle(i * 2, 0xffffff, (1 / i) * 0.4);
+				g.lineStyle(i * 2, 0x00234f, (1 / i) * 0.4);
 				g.strokeCircle(32, 32, 24);
 			}
 		});
 		this._makeTex('laser_head', 20, g => {
-			g.fillStyle(0xffffff, 1);
+			g.fillStyle(0x00234f, 1);
 			g.fillCircle(10, 10, 10);
 		});
 		this._makeTex('spark', 8, g => {
-			g.fillStyle(0xffffff, 1);
+			g.fillStyle(0x00234f, 1);
 			g.fillRect(0, 2, 8, 4);
 		});
 	}
@@ -369,12 +369,12 @@ class PlayScene extends Phaser.Scene {
 	// Entrance animation
 	_playEntrance() {
 		const { width: W, height: H } = this.scale;
-		const flash = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0xffffff, 1).setDepth(500);
+		const flash = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0x00234f, 1).setDepth(500);
 		this.tweens.add({ targets: flash, alpha: 0, duration: 700, ease: 'Power3', onComplete: () => flash.destroy() });
 
 		const title = this.add.text(W / 2, H / 2 - 20, 'ORBIT STRIKER', {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '32px',
-			color: '#ffffff', stroke: '#000000', strokeThickness: 4
+			color: '#00234f', stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(510).setAlpha(0);
 
 		this.tweens.add({ targets: title, alpha: 1, y: H / 2 - 40, duration: 400, ease: 'Back.Out' });
@@ -576,7 +576,7 @@ class PlayScene extends Phaser.Scene {
 			// Head glow
 			this.laserGfx.fillStyle(lz.color, 0.8);
 			this.laserGfx.fillCircle(headX, headY, 5);
-			this.laserGfx.fillStyle(0xffffff, 0.9);
+			this.laserGfx.fillStyle(0x00234f, 0.9);
 			this.laserGfx.fillCircle(headX, headY, 2.5);
 
 			// Warning arc on orbit ring
@@ -655,7 +655,7 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pop = this.add.text(W / 2, H / 2 + 60, 'LEVEL ' + this.level, {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '34px',
-			color: '#ffffff', stroke: '#000000', strokeThickness: 5
+			color: '#00234f', stroke: '#000000', strokeThickness: 5
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({
 			targets: pop, alpha: 1, scaleX: 1.2, scaleY: 1.2,
@@ -800,7 +800,7 @@ class PlayScene extends Phaser.Scene {
 			this.uiGfx.fillPath();
 
 			if (alive) {
-				this.uiGfx.lineStyle(1, 0xffffff, 0.5);
+				this.uiGfx.lineStyle(1, 0x00234f, 0.5);
 				this.uiGfx.beginPath();
 				this.uiGfx.moveTo(rx, ly - dSize);
 				this.uiGfx.lineTo(rx + dSize * 0.7, ly);
@@ -851,7 +851,7 @@ class PlayScene extends Phaser.Scene {
 			this._pauseOverlay = this.add.rectangle(W / 2, H / 2, W, H, 0x00234f, 0.72).setDepth(300);
 			this._pauseText    = this.add.text(W / 2, H / 2, 'PAUSED\n\n[ ESC / P  to resume ]', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px',
-				color: '#ffffff', align: 'center', stroke: '#000000', strokeThickness: 3
+				color: '#00234f', align: 'center', stroke: '#000000', strokeThickness: 3
 			}).setOrigin(0.5).setDepth(301);
 		} else {
 			this._pauseOverlay?.destroy(); this._pauseOverlay = null;
@@ -886,8 +886,8 @@ class PlayScene extends Phaser.Scene {
 			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#fff',
-				backgroundColor: '#c4e2f5', padding: {x: 20, y: 15}
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#00234f',
+				backgroundColor: 0xc4e2f5, padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -948,7 +948,7 @@ class PlayScene extends Phaser.Scene {
 
 			mk(W / 2, py + 28, 'GAME OVER', 28, hexCss(pal.hostile));
 			mk(W / 2, py + 72, 'SCORE', 10, hexCss(pal.ui)).setLetterSpacing(4);
-			mk(W / 2, py + 86, this.score.toLocaleString(), 40, '#ffffff');
+			mk(W / 2, py + 86, this.score.toLocaleString(), 40, '#00234f');
 			mk(W / 2, py + 142, 'BEST   ' + Math.max(this.score, this.hiScore).toLocaleString(), 12, hexCss(pal.ui));
 			mk(W / 2, py + 166, 'LEVEL REACHED: ' + this.level, 11, hexCss(pal.ui));
 
@@ -958,7 +958,7 @@ class PlayScene extends Phaser.Scene {
 				padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(403).setInteractive({ useHandCursor: true });
 
-			restartBtn.on('pointerover', () => restartBtn.setStyle({ color: hexCss(pal.colorA), backgroundColor: '#c4e2f5' }));
+			restartBtn.on('pointerover', () => restartBtn.setStyle({ color: hexCss(pal.colorA), backgroundColor: 0xc4e2f5 }));
 			restartBtn.on('pointerout',  () => restartBtn.setStyle({ color: '#000000', backgroundColor: hexCss(pal.colorA) }));
 			restartBtn.on('pointerdown', () => { this.scene.restart(); });
 
@@ -1036,7 +1036,7 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
 	scene: [BootScene, PlayScene],
 	render: {

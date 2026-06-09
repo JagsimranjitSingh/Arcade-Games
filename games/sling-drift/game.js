@@ -9,11 +9,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('Game Over – score:', score); },
 	getCurrentPalette() {
 		return {
-			background: '#04080f',
-			playerCore: '#00f0ff',
+			background: '#c4e2f5',
+			playerCore: '#00234f',
 			fxAccent: '#f0a500',
 			hostile: '#ff2d55',
-			interface: '#e8f4f8',
+			interface: '#daedf8',
 		};
 	},
 };
@@ -155,7 +155,7 @@ function buildWalls(pts) {
 ══════════════════════════════════════════════════════════ */
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -182,7 +182,7 @@ BootScene.prototype.create = function () {
 
 function createCarTexture(scene) {
 	const g = scene.make.graphics({ x: 0, y: 0, add: false });
-	g.fillStyle(0xffffff);
+	g.fillStyle(0x00234f);
 	g.fillRect(-14, -8, 28, 16);   // body
 	g.fillStyle(0xaaddff, 0.7);
 	g.fillRect(-8, -5, 12, 10);    // windshield
@@ -197,7 +197,7 @@ function createCarTexture(scene) {
 
 function createGlowTexture(scene) {
 	const g = scene.make.graphics({ x: 0, y: 0, add: false });
-	g.fillStyle(0xffffff);
+	g.fillStyle(0x00234f);
 	const r = 24;
 	for (let i = r; i >= 2; i -= 2) {
 		g.fillCircle(r, r, i);
@@ -490,8 +490,8 @@ GameScene.prototype.die = function () {
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'monospace', fontSize: '16px', color: '#fff',
-				backgroundColor: '#c4e2f5', padding: {x: 20, y: 15}
+				fontFamily: 'monospace', fontSize: '16px', color: '#00234f',
+				backgroundColor: 0xc4e2f5, padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {

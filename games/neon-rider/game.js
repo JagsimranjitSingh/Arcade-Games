@@ -8,11 +8,11 @@ if (!window.FreshPlay) {
 		_level: 1,
 		getCurrentPalette() {
 			const palettes = [
-				{ background: '#050510', playerCore: '#00f0ff', interface: '#e0e8ff', fxAccent: '#ff2d78' },
-				{ background: '#0a0a0a', playerCore: '#39ff14', interface: '#ccffcc', fxAccent: '#ff6600' },
-				{ background: '#08000f', playerCore: '#bf00ff', interface: '#e8ccff', fxAccent: '#ffdd00' },
-				{ background: '#000d1a', playerCore: '#ff9f00', interface: '#fff3cc', fxAccent: '#00eaff' },
-				{ background: '#0d0005', playerCore: '#ff2d78', interface: '#ffccdd', fxAccent: '#a0ff00' },
+				{ background: '#c4e2f5', playerCore: '#00234f', interface: '#daedf8', fxAccent: '#ff2d78' },
+				{ background: '#c4e2f5', playerCore: '#39ff14', interface: '#daedf8', fxAccent: '#ff6600' },
+				{ background: '#c4e2f5', playerCore: '#bf00ff', interface: '#daedf8', fxAccent: '#ffdd00' },
+				{ background: '#c4e2f5', playerCore: '#00234f', interface: '#daedf8', fxAccent: '#00eaff' },
+				{ background: '#c4e2f5', playerCore: '#00234f', interface: '#daedf8', fxAccent: '#a0ff00' },
 			];
 			return palettes[(Math.floor((this._level - 1) / 5)) % palettes.length];
 		},
@@ -475,7 +475,7 @@ class NeonRiderScene extends Phaser.Scene {
 			this.trackGraphics.fillRect(sx, s.y + s.visualH, s.w, 12);
 			this.trackGraphics.fillStyle(iface, 0.9);
 			this.trackGraphics.fillRect(sx, s.y, s.w, s.visualH);
-			this.trackGraphics.fillStyle(0xffffff, 0.5);
+			this.trackGraphics.fillStyle(0x00234f, 0.5);
 			this.trackGraphics.fillRect(sx, s.y, s.w, 2);
 			this.trackGraphics.fillStyle(core, 0.4);
 			this.trackGraphics.fillRect(sx, s.y + s.visualH - 2, s.w, 3);
@@ -556,7 +556,7 @@ class NeonRiderScene extends Phaser.Scene {
 		// --- Engine Block Glow ---
 		g.fillStyle(core, pulse * 0.8);
 		g.fillRoundedRect(cx - 4, cy - 2, 10, 6, 2);
-		g.fillStyle(0xffffff, 0.9);
+		g.fillStyle(0x00234f, 0.9);
 		g.fillRect(cx - 1, cy - 1, 4, 4);
 
 		// --- The Cyber-Rider ---
@@ -624,7 +624,7 @@ class NeonRiderScene extends Phaser.Scene {
 		this.levelFlash = this.add.text(W / 2, this.H * 0.35, '', {
 			fontFamily: "'Courier New', Courier, monospace",
 			fontSize: '28px',
-			color: '#ffffff',
+			color: '#00234f',
 			stroke: this.pal.accent,
 			strokeThickness: 3,
 			alpha: 0,
@@ -880,7 +880,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	parent: 'game-container',
 	physics: {
 		default: 'matter',

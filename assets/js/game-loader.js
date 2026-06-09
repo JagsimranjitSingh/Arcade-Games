@@ -43,12 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					// Dynamically populate "How To Play"
 					const howToPlayContainer = document.querySelector('#info-game-desc').parentElement.nextElementSibling.querySelector('ul');
 					if (howToPlayContainer && game.how_to_play) {
-						howToPlayContainer.innerHTML = game.how_to_play.map(instruction => `
+								howToPlayContainer.innerHTML = game.how_to_play.map(instruction => `
                             <li class="flex items-center mb-3">
                                 <div class="flex gap-1">
-                                    ${instruction.keys.map(key => `<span class="text-[#00ff00] border border-[#3f3f46] bg-[#0f0f0f] px-2 py-1 rounded text-center tracking-widest text-xs">${key}</span>`).join('')}
+                                    ${instruction.keys.map(key => `<span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-1 rounded text-center tracking-widest text-xs font-bold">${key}</span>`).join('')}
                                 </div>
-                                <span class="uppercase text-[#52525b] ml-4 tracking-widest text-xs font-mono">${instruction.action}</span>
+                                <span class="uppercase text-[#00234f] ml-4 tracking-widest text-xs font-mono font-bold">${instruction.action}</span>
                             </li>
                         `).join('');
 					}
@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
 							heroImg.style.display = 'none';
 							phaserContainer.classList.remove('hidden');
 
-							// Inject Secure Iframe and FORCE FOCUS so the game loop starts
+                            // Inject Secure Iframe and FORCE FOCUS so the game loop starts
 							phaserContainer.innerHTML = `
                                 <iframe 
                                     id="freshplay-game-frame"
                                     src="${game.game_url}" 
-                                    class="w-full h-full border-none"
+                                    class="w-full h-full border-8 border-white rounded-lg box-border"
                                     allow="autoplay; fullscreen"
                                     onload="this.contentWindow.focus()"
                                 ></iframe>

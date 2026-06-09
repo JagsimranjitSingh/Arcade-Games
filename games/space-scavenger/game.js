@@ -10,11 +10,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('[FreshPlay] gameOver', score); },
 	getCurrentPalette() {
 		return {
-			background: '#03060f',
+			background: '#c4e2f5',
 			playerCore: '#7ee8fa',
 			fxAccent: '#00ffd0',
 			hostile: '#ff4757',
-			interface: '#e0f0ff',
+			interface: '#daedf8',
 		};
 	},
 };
@@ -182,9 +182,9 @@ class BootScene extends Phaser.Scene {
 		g.fillStyle(Phaser.Display.Color.GetColor(sc2.r, sc2.g, sc2.b), 1);
 		g.fillTriangle(20, 2, 4, 40, 36, 40);
 		// cockpit
-		g.fillStyle(0xffffff, 0.85); g.fillEllipse(20, 20, 10, 14);
+		g.fillStyle(0x00234f, 0.85); g.fillEllipse(20, 20, 10, 14);
 		// wing accents
-		g.lineStyle(1.5, 0xffffff, 0.4);
+		g.lineStyle(1.5, 0x00234f, 0.4);
 		g.strokeTriangle(20, 2, 4, 40, 36, 40);
 		// engine nozzles
 		g.fillStyle(0xff9500, 0.9); g.fillEllipse(13, 41, 6, 4); g.fillEllipse(27, 41, 6, 4);
@@ -225,7 +225,7 @@ class BootScene extends Phaser.Scene {
 			g.fillStyle(0x000000, 0.25);
 			g.fillCircle(cx - r * 0.2, cy - r * 0.15, r * 0.18);
 			g.fillCircle(cx + r * 0.25, cy + r * 0.2, r * 0.12);
-			g.lineStyle(1.5, 0xffffff, 0.12); g.strokePath();
+			g.lineStyle(1.5, 0x00234f, 0.12); g.strokePath();
 			g.generateTexture(key, sz, sz);
 		});
 
@@ -236,7 +236,7 @@ class BootScene extends Phaser.Scene {
 
 		// Particle: spark 
 		g.clear();
-		g.fillStyle(0xffffff, 1); g.fillRect(0, 0, 3, 3);
+		g.fillStyle(0x00234f, 1); g.fillRect(0, 0, 3, 3);
 		g.generateTexture('spark', 3, 3);
 
 		// Particle: shield fragment 
@@ -247,7 +247,7 @@ class BootScene extends Phaser.Scene {
 
 		// Star dots (parallax layers) 
 		[1, 2, 3].forEach((s, i) => {
-			g.clear(); g.fillStyle(0xffffff, 1); g.fillCircle(s, s, s);
+			g.clear(); g.fillStyle(0x00234f, 1); g.fillCircle(s, s, s);
 			g.generateTexture(`star${i}`, s * 2, s * 2);
 		});
 
@@ -421,7 +421,7 @@ class GameScene extends Phaser.Scene {
 			speed: { min: 100, max: 300 },
 			scale: { start: 1.5, end: 0 },
 			alpha: { start: 1, end: 0 },
-			tint: [0xff4400, 0xffaa00, 0xffffff],
+			tint: [0xff4400, 0xffaa00, 0x00234f],
 			quantity: 20,
 			blendMode: 'ADD',
 			emitting: false,
@@ -484,7 +484,7 @@ class GameScene extends Phaser.Scene {
 		const barW = W - 40, barH = 4, barY = 72;
 		// Background track
 		this.shieldBg = this.add.graphics().setDepth(10);
-		this.shieldBg.fillStyle(0xffffff, 0.06);
+		this.shieldBg.fillStyle(0x00234f, 0.06);
 		this.shieldBg.fillRoundedRect(20, barY, barW, barH, 2);
 
 		// Active fill
@@ -755,8 +755,8 @@ class GameScene extends Phaser.Scene {
 				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 				const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-					fontFamily: "'Courier New', monospace", fontSize: '16px', color: '#fff',
-					backgroundColor: '#c4e2f5', padding: {x: 20, y: 16}
+					fontFamily: "'Courier New', monospace", fontSize: '16px', color: '#00234f',
+					backgroundColor: 0xc4e2f5, padding: {x: 20, y: 16}
 				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 				const cleanUp = () => {
@@ -1029,7 +1029,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 390,
 	height: 700,
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,

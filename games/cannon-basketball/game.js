@@ -8,10 +8,10 @@
 if (!window.FreshPlay) {
 	let _level = 0;
 	const PALETTES = [
-		{ background: '#0a0a12', playerCore: '#00e5ff', fxAccent: '#ffe600', hostile: '#ff2255', interface: '#b0b8d8' },
-		{ background: '#070d10', playerCore: '#39ff14', fxAccent: '#ff6b00', hostile: '#e600ff', interface: '#c8d8b0' },
-		{ background: '#0d0a14', playerCore: '#ff00aa', fxAccent: '#00ffd5', hostile: '#ff4400', interface: '#d0c8e0' },
-		{ background: '#080c08', playerCore: '#ffea00', fxAccent: '#00cfff', hostile: '#ff1155', interface: '#d4e8c8' },
+		{ background: '#c4e2f5', playerCore: '#00234f', fxAccent: '#ffe600', hostile: '#ff2255', interface: '#daedf8' },
+		{ background: '#c4e2f5', playerCore: '#39ff14', fxAccent: '#ff6b00', hostile: '#e600ff', interface: '#daedf8' },
+		{ background: '#c4e2f5', playerCore: '#00234f', fxAccent: '#00ffd5', hostile: '#ff4400', interface: '#daedf8' },
+		{ background: '#c4e2f5', playerCore: '#00234f', fxAccent: '#00cfff', hostile: '#ff1155', interface: '#daedf8' },
 	];
 	window.FreshPlay = {
 		levelComplete(cb) { _level++; setTimeout(cb, 0); },
@@ -178,7 +178,7 @@ class PreloadScene extends Phaser.Scene {
 		g.fillStyle(0x007799, 1);
 		g.fillCircle(8, 14, 16);
 		// highlight
-		g.lineStyle(2, 0xffffff, 0.5);
+		g.lineStyle(2, 0x00234f, 0.5);
 		g.strokeRoundedRect(0, 6, 54, 16, 5);
 		g.generateTexture('cannon', 56, 30);
 		g.destroy();
@@ -186,7 +186,7 @@ class PreloadScene extends Phaser.Scene {
 
 	_makeParticle() {
 		const g = this.make.graphics({ x: 0, y: 0, add: false });
-		g.fillStyle(0xffffff, 1);
+		g.fillStyle(0x00234f, 1);
 		g.fillCircle(4, 4, 4);
 		g.generateTexture('particle', 8, 8);
 		g.destroy();
@@ -724,7 +724,7 @@ new Phaser.Game({
 	type: Phaser.AUTO,
 	width: Math.min(window.innerWidth, 540),
 	height: Math.min(window.innerHeight, 800),
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	parent: document.body,
 	physics: {
 		default: 'matter',

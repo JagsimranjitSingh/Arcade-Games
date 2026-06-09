@@ -7,11 +7,11 @@
 // ---------------------------------------------------------------------------
 window.FreshPlay = window.FreshPlay || {
 	getCurrentPalette: () => ({
-		background: '#020810',
-		playerCore: '#00e5ff',
+		background: '#c4e2f5',
+		playerCore: '#00234f',
 		fxAccent: '#39ff14',
 		hostile: '#ff3c3c',
-		interface: '#e0f7ff',
+		interface: '#daedf8',
 	}),
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); if (cb) cb(); },
 	gameOver: (score) => { console.log('[FreshPlay] gameOver', score); },
@@ -38,13 +38,13 @@ const IS_TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 // Utility
 // ---------------------------------------------------------------------------
 function toHexStr(c) {
-	if (typeof c === 'number') return '#' + (c & 0xffffff).toString(16).padStart(6, '0');
+	if (typeof c === 'number') return '#' + (c & 0x00234f).toString(16).padStart(6, '0');
 	if (typeof c === 'string' && c.charAt(0) === '#') return c;
 	return '#' + parseInt(String(c), 16).toString(16).padStart(6, '0');
 }
 
 function toHexInt(c) {
-	if (typeof c === 'number') return c & 0xffffff;
+	if (typeof c === 'number') return c & 0x00234f;
 	return parseInt(String(c).replace('#', ''), 16);
 }
 
@@ -374,7 +374,7 @@ function generateTextures(scene, pal) {
 	const pc = ptC.getContext();
 	const ptR = ptSize / 2;
 	const pg = pc.createRadialGradient(ptR, ptR, 0, ptR, ptR, ptR);
-	pg.addColorStop(0, '#ffffff');
+	pg.addColorStop(0, '#00234f');
 	pg.addColorStop(0.4, 'rgba(200,250,255,0.5)');
 	pg.addColorStop(1, 'rgba(255,255,255,0)');
 	pc.fillStyle = pg;
@@ -1189,13 +1189,13 @@ class GameScene extends Phaser.Scene {
 
 			const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
 				fontFamily: "'Share Tech Mono', monospace", fontSize: '14px', color: '#00e5ff', align: 'center',
-				backgroundColor: '#c4e2f5', padding: {x: 10, y: 10}
+				backgroundColor: 0xc4e2f5, padding: {x: 10, y: 10}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 			btnRevive.setStroke('#00c8e8', 1);
 
 			const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#fff',
-				backgroundColor: '#c4e2f5', padding: {x: 20, y: 16}
+				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#00234f',
+				backgroundColor: 0xc4e2f5, padding: {x: 20, y: 16}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 			const cleanUpRevive = () => {
@@ -1548,7 +1548,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,

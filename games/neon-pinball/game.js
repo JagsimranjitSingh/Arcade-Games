@@ -7,9 +7,9 @@ window.FreshPlay = window.FreshPlay || {
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); setTimeout(cb, 800); },
 	gameOver: (score) => console.log('[FreshPlay] gameOver', score),
 	getCurrentPalette: () => ({
-		background: '#0a0a1a',
-		playerCore: '#00f5ff',
-		interface: '#e0e0ff',
+		background: '#c4e2f5',
+		playerCore: '#00234f',
+		interface: '#daedf8',
 		fxAccent: '#ff00aa',
 	}),
 };
@@ -99,12 +99,12 @@ class BootScene extends Phaser.Scene {
 	createBallTexture() {
 		const g = this.make.graphics({ add: false });
 		const r = 12;
-		g.fillStyle(0xffffff, 1);
+		g.fillStyle(0x00234f, 1);
 		g.fillCircle(r, r, r);
 		// inner glow
 		g.fillStyle(0xaaffff, 0.6);
 		g.fillCircle(r, r, r * 0.55);
-		g.fillStyle(0xffffff, 1);
+		g.fillStyle(0x00234f, 1);
 		g.fillCircle(r - 2, r - 2, 3);
 		g.generateTexture('ball', r * 2, r * 2);
 		g.destroy();
@@ -114,7 +114,7 @@ class BootScene extends Phaser.Scene {
 		// flipper: 120×18 pill shape, pointing right (mirrored in scene)
 		const g = this.make.graphics({ add: false });
 		const W = 120, H = 18;
-		g.fillStyle(0xffffff, 1);
+		g.fillStyle(0x00234f, 1);
 		g.fillRoundedRect(0, 0, W, H, H / 2);
 		g.generateTexture('flipper', W, H);
 		g.destroy();
@@ -124,11 +124,11 @@ class BootScene extends Phaser.Scene {
 		const g = this.make.graphics({ add: false });
 		const r = 22;
 		// outer ring
-		g.fillStyle(0xffffff, 1);
+		g.fillStyle(0x00234f, 1);
 		g.fillCircle(r, r, r);
 		g.fillStyle(0x000000, 1);
 		g.fillCircle(r, r, r - 4);
-		g.fillStyle(0xffffff, 0.85);
+		g.fillStyle(0x00234f, 0.85);
 		g.fillCircle(r, r, r - 8);
 		g.generateTexture('bumper', r * 2, r * 2);
 		g.destroy();
@@ -139,7 +139,7 @@ class BootScene extends Phaser.Scene {
 		const r = 48;
 		for (let i = r; i > 0; i -= 4) {
 			const alpha = 0.04 + (r - i) / r * 0.12;
-			g.fillStyle(0xffffff, alpha);
+			g.fillStyle(0x00234f, alpha);
 			g.fillCircle(r, r, i);
 		}
 		g.generateTexture('glow', r * 2, r * 2);
@@ -338,7 +338,7 @@ class GameScene extends Phaser.Scene {
 
 		positions.forEach((pos, i) => {
 			const rect = this.add.rectangle(pos.x, pos.y, 40, 12, targetColor, 1);
-			rect.setStrokeStyle(2, 0xffffff, 0.5);
+			rect.setStrokeStyle(2, 0x00234f, 0.5);
 			this.physics.add.existing(rect, true);
 			rect.body.setSize(40, 12);
 			this.targets.add(rect);
@@ -639,7 +639,7 @@ class GameScene extends Phaser.Scene {
 		const pct = t.hits / t.maxHits;
 		const color = Phaser.Display.Color.Interpolate.ColorWithColor(
 			Phaser.Display.Color.ValueToColor(hexToNum(this.palette.fxAccent)),
-			Phaser.Display.Color.ValueToColor(0xffffff),
+			Phaser.Display.Color.ValueToColor(0x00234f),
 			1, pct,
 		);
 		t.rect.setFillStyle(Phaser.Display.Color.GetColor(color.r, color.g, color.b));
@@ -765,7 +765,7 @@ class GameScene extends Phaser.Scene {
 		const highScore = Math.max(this.score, prev);
 		if (this.score > prev) this.registry.set('highScore', this.score);
 
-		const mono = (size, color = '#ffffff', bold = false) => ({
+		const mono = (size, color = '#00234f', bold = false) => ({
 			fontFamily: 'Courier New, Courier, monospace',
 			fontSize: `${size}px`,
 			color,
@@ -783,7 +783,7 @@ class GameScene extends Phaser.Scene {
 		const px = W / 2, py = H / 2;
 
 		// Dark panel background
-		const panel = this.add.rectangle(px, py, panelW, panelH, 0xffffff, 1).setDepth(21);
+		const panel = this.add.rectangle(px, py, panelW, panelH, 0x00234f, 1).setDepth(21);
 
 		// Red border (4 sides as thin rects to match the image exactly)
 		const bT = 3; // border thickness
@@ -815,7 +815,7 @@ class GameScene extends Phaser.Scene {
 		this.add.text(px, py - 66, 'SCORE', mono(11, '#aaaaaa'))
 			.setOrigin(0.5).setDepth(23).setAlpha(0.8);
 
-		const scoreTxt = this.add.text(px, py - 48, String(this.score), mono(42, '#ffffff', true))
+		const scoreTxt = this.add.text(px, py - 48, String(this.score), mono(42, '#00234f', true))
 			.setOrigin(0.5).setDepth(23);
 
 		// Score count-up
@@ -833,13 +833,13 @@ class GameScene extends Phaser.Scene {
 		// BEST
 		this.add.text(px, py + 10,
 			`BEST    ${highScore}`,
-			mono(13, '#ffffff'))
+			mono(13, '#00234f'))
 			.setOrigin(0.5).setDepth(23);
 
 		// LEVEL REACHED
 		this.add.text(px, py + 36,
 			`LEVEL REACHED: ${this.level}`,
-			mono(13, '#ffffff'))
+			mono(13, '#00234f'))
 			.setOrigin(0.5).setDepth(23);
 
 		// [ PLAY AGAIN ] button
@@ -1012,7 +1012,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 500,
 	height: 750,
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	input: {
 		activePointers: 3,
 	},

@@ -9,8 +9,8 @@ if (!window.FreshPlay) {
 	window.FreshPlay = {
 		currentLevel: 1,
 		getCurrentPalette: () => ({
-			background: '#05050f',
-			playerCore: '#00ffe7',
+			background: '#c4e2f5',
+			playerCore: '#00234f',
 			fxAccent: '#7b2fff',
 			hostile: '#ff2d78',
 		}),
@@ -193,7 +193,7 @@ class GameScene extends Phaser.Scene {
 		gfx.fillStyle(bgColor, 1);
 		gfx.fillRect(0, -20000, w, 40000);
 
-		gfx.lineStyle(1, 0xffffff, 0.03);
+		gfx.lineStyle(1, 0x00234f, 0.03);
 		for (let y = 0; y < 40000; y += 60) {
 			gfx.strokeLineShape(new Phaser.Geom.Line(0, y - 20000, w, y - 20000));
 		}
@@ -234,10 +234,10 @@ class GameScene extends Phaser.Scene {
 			g.fillStyle(platColor, 0.9);
 			g.fillRoundedRect(6, 4, w, PLAT_HEIGHT, 2);
 
-			g.fillStyle(0xffffff, 0.2);
+			g.fillStyle(0x00234f, 0.2);
 			g.fillRect(8, 5, w - 4, 2);
 
-			g.fillStyle(0xffffff, 0.15);
+			g.fillStyle(0x00234f, 0.15);
 			for (let dx = 12; dx < w + 6; dx += 14) {
 				g.fillRect(dx, PLAT_HEIGHT + 1, 6, 2);
 			}
@@ -278,7 +278,7 @@ class GameScene extends Phaser.Scene {
 			g.fillCircle(size, size, size * 0.7);
 			g.fillStyle(c, 1);
 			g.fillCircle(size, size, size * 0.42);
-			g.fillStyle(0xffffff, 0.55);
+			g.fillStyle(0x00234f, 0.55);
 			g.fillCircle(size * 0.78, size * 0.75, size * 0.16);
 
 			g.generateTexture(key, size * 2, size * 2);
@@ -302,7 +302,7 @@ class GameScene extends Phaser.Scene {
 		const pKey = 'spark';
 		if (!this.textures.exists(pKey)) {
 			const g = this.make.graphics({ add: false });
-			g.fillStyle(0xffffff, 1);
+			g.fillStyle(0x00234f, 1);
 			g.fillCircle(4, 4, 4);
 			g.generateTexture(pKey, 8, 8);
 			g.destroy();
@@ -314,7 +314,7 @@ class GameScene extends Phaser.Scene {
 			scale: { start: 0.6, end: 0 },
 			alpha: { start: 0.9, end: 0 },
 			lifespan: { min: 200, max: 500 },
-			tint: [hexToNum(PAL.playerCore), hexToNum(PAL.fxAccent), 0xffffff],
+			tint: [hexToNum(PAL.playerCore), hexToNum(PAL.fxAccent), 0x00234f],
 			quantity: 0,
 			frequency: -1,
 			blendMode: 'ADD',
@@ -737,7 +737,7 @@ const config = {
 		height: '100%',
 		parent: 'game-container',
 	},
-	backgroundColor: '#c4e2f5',
+	backgroundColor: 0xc4e2f5,
 	physics: {
 		default: 'arcade',
 		arcade: {
