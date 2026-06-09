@@ -724,7 +724,7 @@ new Phaser.Game({
 	type: Phaser.AUTO,
 	width: Math.min(window.innerWidth, 540),
 	height: Math.min(window.innerHeight, 800),
-	backgroundColor: '#0a0a12',
+	backgroundColor: '#c4e2f5',
 	parent: document.body,
 	physics: {
 		default: 'matter',

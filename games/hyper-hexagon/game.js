@@ -435,7 +435,7 @@ class PlayScene extends Phaser.Scene {
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#fff',
-				backgroundColor: '#444444', padding: {x: 20, y: 15}
+				backgroundColor: '#c4e2f5', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -475,7 +475,7 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pal = this.palette;
 
-		const overlay = this.add.rectangle(cx, cy, W * 2, H * 2, 0x000000, 0).setDepth(300);
+		const overlay = this.add.rectangle(cx, cy, W * 2, H * 2, 0x00234f, 0).setDepth(300);
 		this.tweens.add({ targets: overlay, alpha: 0.82, duration: 650 });
 
 		this.time.delayedCall(380, () => {
@@ -505,7 +505,7 @@ class PlayScene extends Phaser.Scene {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px',
 				color: '#000000', backgroundColor: css(pal.core), padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(303).setAlpha(0).setInteractive({ useHandCursor: true });
-			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: '#000000' }));
+			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: '#c4e2f5' }));
 			btn.on('pointerout', () => btn.setStyle({ color: '#000000', backgroundColor: css(pal.core) }));
 			btn.on('pointerdown', () => this.scene.restart());
 
@@ -951,7 +951,7 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#050510',
+	backgroundColor: '#c4e2f5',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
 	scene: [BootScene, PlayScene],
 	render: { antialias: true, powerPreference: 'high-performance', roundPixels: false },

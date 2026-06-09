@@ -1189,13 +1189,13 @@ class GameScene extends Phaser.Scene {
 
 			const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
 				fontFamily: "'Share Tech Mono', monospace", fontSize: '14px', color: '#00e5ff', align: 'center',
-				backgroundColor: '#003040', padding: {x: 10, y: 10}
+				backgroundColor: '#c4e2f5', padding: {x: 10, y: 10}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 			btnRevive.setStroke('#00c8e8', 1);
 
 			const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
 				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#fff',
-				backgroundColor: '#444444', padding: {x: 20, y: 16}
+				backgroundColor: '#c4e2f5', padding: {x: 20, y: 16}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 			const cleanUpRevive = () => {
@@ -1548,7 +1548,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: '#020810',
+	backgroundColor: '#c4e2f5',
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,

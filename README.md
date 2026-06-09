@@ -26,8 +26,6 @@ Looking for something specific? Use our category explorer to find exactly what y
 ### 4. Smart Search
 Know what you are looking for? Click the magnifying glass at the top of the page. Our smart search instantly checks game titles and categories to give you exactly what you want before you even finish typing!
 
-### 5. Seamless Multi-Portal Network
-We run a vast network of gaming websites to ensure you always get the fastest connection and best experience. When you click on a game, you might notice the web address change to one of our sister sites (like `noinstallgames.com` or `game360s.com`). Don't worry! You are still securely within the FreshPlay Arcade family. 
 
 ---
 

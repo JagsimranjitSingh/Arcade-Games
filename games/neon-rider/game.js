@@ -880,7 +880,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: '#050510',
+	backgroundColor: '#c4e2f5',
 	parent: 'game-container',
 	physics: {
 		default: 'matter',

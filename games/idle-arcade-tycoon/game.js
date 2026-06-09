@@ -1108,7 +1108,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 860,
 	height: 640,
-	backgroundColor: '#000000',
+	backgroundColor: '#c4e2f5',
 	parent: 'game-container',
 	scene: [BootScene, GameScene],
 	scale: {

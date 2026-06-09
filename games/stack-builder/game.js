@@ -13,7 +13,7 @@
 				const banner = document.createElement('div');
 				banner.style.cssText = `
           position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-          background:rgba(0,0,0,.85);border:1px solid #00e5ff;
+          background:rgba(255,255,255,.92);border:1px solid #48d1cc;
           padding:24px 36px;text-align:center;color:#fff;
           font-family:'Orbitron',monospace;z-index:9999;border-radius:8px;
         `;
@@ -21,7 +21,7 @@
           <div style="color:#ff1744;font-size:22px;letter-spacing:4px;margin-bottom:8px">GAME OVER</div>
           <div style="font-size:14px;color:#aaa;margin-bottom:20px">SCORE &nbsp;<span style="color:#fff">${score.toLocaleString()}</span></div>
           <button onclick="location.reload()" style="
-            background:#00e5ff;color:#000;border:none;padding:10px 28px;
+            background:#00234f;color:#c4e2f5;border:none;padding:10px 28px;
             font-family:inherit;font-size:13px;letter-spacing:3px;cursor:pointer;
             border-radius:4px;font-weight:bold;
           ">RESTART</button>
@@ -32,15 +32,15 @@
 		getCurrentPalette() {
 			const themes = [
 				// Dark neon blue (levels 1-4)
-				{ background: "#03050f", interface: "#e0f7ff", playerCore: "#00e5ff", fxAccent: "#7c4dff", hostile: "#ff1744" },
+				{ background: "#c4e2f5", interface: "#e0f7ff", playerCore: "#00e5ff", fxAccent: "#7c4dff", hostile: "#ff1744" },
 				// Emerald & gold (levels 5-9)
-				{ background: "#020e08", interface: "#f0fff4", playerCore: "#00e676", fxAccent: "#ffd600", hostile: "#ff6d00" },
+				{ background: "#c4e2f5", interface: "#f0fff4", playerCore: "#00e676", fxAccent: "#ffd600", hostile: "#ff6d00" },
 				// Crimson void (levels 10-14)
-				{ background: "#0f0208", interface: "#fff0f3", playerCore: "#ff1744", fxAccent: "#e040fb", hostile: "#ff6d00" },
+				{ background: "#c4e2f5", interface: "#fff0f3", playerCore: "#ff1744", fxAccent: "#e040fb", hostile: "#ff6d00" },
 				// Solar (levels 15-19)
 				{ background: "#100800", interface: "#fffde7", playerCore: "#ff9100", fxAccent: "#ffea00", hostile: "#e040fb" },
 				// Arctic (levels 20+)
-				{ background: "#00080f", interface: "#f0fbff", playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
+				{ background: "#c4e2f5", interface: "#f0fbff", playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
 			];
 			const idx = Math.floor((_lvl - 1) / 5) % themes.length;
 			return themes[idx];

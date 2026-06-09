@@ -783,7 +783,7 @@ class GameScene extends Phaser.Scene {
 		const px = W / 2, py = H / 2;
 
 		// Dark panel background
-		const panel = this.add.rectangle(px, py, panelW, panelH, 0x080808, 1).setDepth(21);
+		const panel = this.add.rectangle(px, py, panelW, panelH, 0xffffff, 1).setDepth(21);
 
 		// Red border (4 sides as thin rects to match the image exactly)
 		const bT = 3; // border thickness
@@ -1012,7 +1012,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 500,
 	height: 750,
-	backgroundColor: '#0a0a1a',
+	backgroundColor: '#c4e2f5',
 	input: {
 		activePointers: 3,
 	},

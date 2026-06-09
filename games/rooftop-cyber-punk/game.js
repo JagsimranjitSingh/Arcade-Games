@@ -1434,7 +1434,7 @@
 		type: Phaser.AUTO,
 		width: W,
 		height: H,
-		backgroundColor: '#06060f',
+		backgroundColor: '#c4e2f5',
 		parent: 'game-container',
 		scale: {
 			mode: Phaser.Scale.FIT,

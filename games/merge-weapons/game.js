@@ -1337,7 +1337,7 @@ class MergeWeapons extends Phaser.Scene {
 
     const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
       fontFamily: 'monospace', fontSize: '16px', color: '#fff',
-      backgroundColor: '#444444', padding: {x: 20, y: 16}
+      backgroundColor: '#c4e2f5', padding: {x: 20, y: 16}
     }).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
     const cleanUp = () => {
@@ -1380,7 +1380,7 @@ class MergeWeapons extends Phaser.Scene {
 // ─────────────────────────────────────────────────────────────
 const config = {
   type: Phaser.AUTO,
-  backgroundColor: '#06080f',
+  backgroundColor: '#c4e2f5',
   scene: [Boot, LandscapePrompt, MergeWeapons],
   scale: {
     mode: Phaser.Scale.RESIZE,

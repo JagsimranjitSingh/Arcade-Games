@@ -17,7 +17,7 @@
 			body {
 				width: 100%;
 				height: 100%;
-				background: #000000;
+				background: #c4e2f5;
 				overflow: hidden;
 				touch-action: none;
 				user-select: none;
@@ -37,7 +37,7 @@
 			#loading-screen {
 				position: fixed;
 				inset: 0;
-				background: #000;
+				background: #c4e2f5;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -57,15 +57,15 @@
 				font-size: 24px;
 				font-weight: bold;
 				letter-spacing: 0.3em;
-				color: #00ff00;
+				color: #00234f;
 				text-transform: uppercase;
-				text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+				text-shadow: 0 2px 12px rgba(0, 35, 79, 0.3);
 				animation: pulse-glow 1.2s ease-in-out infinite alternate;
 			}
 
 			.load-sub {
 				font-size: 11px;
-				color: #333;
+				color: #64748b;
 				letter-spacing: 0.4em;
 				text-transform: uppercase;
 			}
@@ -73,15 +73,15 @@
 			.load-bar-track {
 				width: 200px;
 				height: 2px;
-				background: #111;
+				background: #b0d4ea;
 				position: relative;
 				overflow: hidden;
 			}
 
 			.load-bar-fill {
 				height: 100%;
-				background: #00ff00;
-				box-shadow: 0 0 8px #00ff00;
+				background: #48d1cc;
+				box-shadow: 0 0 8px #48d1cc;
 				animation: load-sweep 1.2s ease-in-out infinite;
 			}
 
@@ -103,11 +103,11 @@
 
 			@keyframes pulse-glow {
 				from {
-					text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+					text-shadow: 0 2px 8px rgba(0, 35, 79, 0.2);
 				}
 
 				to {
-					text-shadow: 0 0 30px rgba(0, 255, 0, 1), 0 0 60px rgba(0, 255, 0, 0.4);
+					text-shadow: 0 4px 20px rgba(0, 35, 79, 0.4), 0 0 40px rgba(72, 209, 204, 0.3);
 				}
 			}
 
@@ -119,7 +119,7 @@
 				transform: translateX(-50%);
 				font-family: 'Courier New', monospace;
 				font-size: 10px;
-				color: #333;
+				color: #64748b;
 				letter-spacing: 0.3em;
 				text-transform: uppercase;
 				pointer-events: none;

@@ -1,18 +1,5 @@
-const PORTAL_DOMAINS = [
-	'https://mytopscore.com',
-	'https://noinstallgames.com',
-	'https://games365days.com',
-	'https://game360s.com',
-	'https://mygame360.com'
-];
-
 function getGameUrl(gameId) {
-	let hash = 0;
-	for (let i = 0; i < gameId.length; i++) {
-		hash = gameId.charCodeAt(i) + ((hash << 5) - hash);
-	}
-	const index = Math.abs(hash) % PORTAL_DOMAINS.length;
-	return `${PORTAL_DOMAINS[index]}/game/${gameId}`;
+	return `/game/${gameId}`;
 }
 
 function getCategoryUrl(categoryName) {

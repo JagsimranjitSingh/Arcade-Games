@@ -677,7 +677,7 @@ class GameScene extends Phaser.Scene {
 // ============================================================
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: '#0a0a12',
+	backgroundColor: '#c4e2f5',
 	parent: 'game-container',
 	scene: [BootScene, GameScene],
 	scale: {

@@ -1007,7 +1007,7 @@ function bootChromaSort() {
   window._chromaSortInst = new Phaser.Game({
     type: Phaser.AUTO,
     width: 500, height: 820,
-    backgroundColor: '#07080f',
+    backgroundColor: '#c4e2f5',
     parent: 'game-container',
     scene: [ChromaSortScene],
     // FIX: Disabled autoCenter so the index.html Flexbox layout flawlessly centers the canvas

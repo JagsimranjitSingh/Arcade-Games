@@ -1,19 +1,3 @@
-// PORTAL_DOMAINS is already declared in main.js
-// const PORTAL_DOMAINS = [
-//     'https://mytopscore.com',
-//     'https://noinstallgames.com',
-//     'https://games365days.com',
-//     'https://game360s.com',
-//     'https://mygame360.com'
-// ];
-
-function getCanonicalDomain(gId) {
-    let hash = 0;
-    for (let i = 0; i < gId.length; i++) {
-        hash = gId.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return PORTAL_DOMAINS[Math.abs(hash) % PORTAL_DOMAINS.length];
-}
 
 document.addEventListener('DOMContentLoaded', () => {
 	let gameId = 'neon-blade-dash'; // Default to our new game

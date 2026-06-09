@@ -756,7 +756,7 @@ class GameScene extends Phaser.Scene {
 
 				const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
 					fontFamily: "'Courier New', monospace", fontSize: '16px', color: '#fff',
-					backgroundColor: '#444444', padding: {x: 20, y: 16}
+					backgroundColor: '#c4e2f5', padding: {x: 20, y: 16}
 				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 				const cleanUp = () => {
@@ -1029,7 +1029,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 390,
 	height: 700,
-	backgroundColor: '#03060f',
+	backgroundColor: '#c4e2f5',
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,

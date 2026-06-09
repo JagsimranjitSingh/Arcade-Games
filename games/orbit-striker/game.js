@@ -848,7 +848,7 @@ class PlayScene extends Phaser.Scene {
 
 		if (this.isPaused) {
 			const { width: W, height: H } = this.scale;
-			this._pauseOverlay = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.72).setDepth(300);
+			this._pauseOverlay = this.add.rectangle(W / 2, H / 2, W, H, 0x00234f, 0.72).setDepth(300);
 			this._pauseText    = this.add.text(W / 2, H / 2, 'PAUSED\n\n[ ESC / P  to resume ]', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px',
 				color: '#ffffff', align: 'center', stroke: '#000000', strokeThickness: 3
@@ -887,7 +887,7 @@ class PlayScene extends Phaser.Scene {
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#fff',
-				backgroundColor: '#444444', padding: {x: 20, y: 15}
+				backgroundColor: '#c4e2f5', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -926,7 +926,7 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pal = this.palette;
 
-		const overlay = this.add.rectangle(W / 2, H / 2, W * 2, H * 2, 0x000000, 0).setDepth(400);
+		const overlay = this.add.rectangle(W / 2, H / 2, W * 2, H * 2, 0x00234f, 0).setDepth(400);
 		this.tweens.add({ targets: overlay, alpha: 0.82, duration: 600 });
 
 		this.time.delayedCall(350, () => {
@@ -958,7 +958,7 @@ class PlayScene extends Phaser.Scene {
 				padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(403).setInteractive({ useHandCursor: true });
 
-			restartBtn.on('pointerover', () => restartBtn.setStyle({ color: hexCss(pal.colorA), backgroundColor: '#000000' }));
+			restartBtn.on('pointerover', () => restartBtn.setStyle({ color: hexCss(pal.colorA), backgroundColor: '#c4e2f5' }));
 			restartBtn.on('pointerout',  () => restartBtn.setStyle({ color: '#000000', backgroundColor: hexCss(pal.colorA) }));
 			restartBtn.on('pointerdown', () => { this.scene.restart(); });
 
@@ -1036,7 +1036,7 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#000a14',
+	backgroundColor: '#c4e2f5',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
 	scene: [BootScene, PlayScene],
 	render: {

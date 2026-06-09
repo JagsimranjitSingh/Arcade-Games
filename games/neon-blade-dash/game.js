@@ -20,14 +20,14 @@ const lerpColor = (c1, c2, t) => {
 
 // Palette definitions (one per 5-level bracket)
 const PALETTES = [
-	{ bg: 0x000000, road: 0x00ccff, target: [0x00ff00, 0x00ffcc, 0x00e5ff], hostile: 0xff0044, ui: 0xffffff, fx: 0x00ffff, name: 'MATRIX' },
-	{ bg: 0x0a0010, road: 0xff00ff, target: [0x00e5ff, 0xffffff, 0x88ffcc], hostile: 0xffaa00, ui: 0xffffff, fx: 0xff00ff, name: 'VAPORWAVE' },
-	{ bg: 0x001005, road: 0x00ff88, target: [0xffaa00, 0xffff00, 0xffffff], hostile: 0xaa00ff, ui: 0xffffff, fx: 0x00ff88, name: 'TOXIC' },
-	{ bg: 0x000a18, road: 0x3366ff, target: [0x00ffcc, 0x00e5ff, 0x88ccff], hostile: 0xff3366, ui: 0xffffff, fx: 0x3366ff, name: 'OCEAN' },
-	{ bg: 0x100800, road: 0xffd700, target: [0xffd700, 0xffffff, 0xffaa00], hostile: 0xcc00ff, ui: 0xffffff, fx: 0xffd700, name: 'GOLD' },
-	{ bg: 0x0a000a, road: 0xff44cc, target: [0xff44cc, 0xffffff, 0xaa00ff], hostile: 0x00ffcc, ui: 0xffffff, fx: 0xff44cc, name: 'SAKURA' },
-	{ bg: 0x100a00, road: 0xff6600, target: [0xff6600, 0xffdd00, 0xffffff], hostile: 0x00aaff, ui: 0xffffff, fx: 0xff6600, name: 'FIRE' },
-	{ bg: 0x000000, road: 0xffffff, target: [0xffffff, 0xcccccc, 0x00ff00], hostile: 0x333333, ui: 0x00ff00, fx: 0xff0000, name: 'VOID' },
+	{ bg: 0xc4e2f5, road: 0x00ccff, target: [0x00ff00, 0x00ffcc, 0x00e5ff], hostile: 0xff0044, ui: 0xffffff, fx: 0x00ffff, name: 'MATRIX' },
+	{ bg: 0xd0e8f6, road: 0xff00ff, target: [0x00e5ff, 0xffffff, 0x88ffcc], hostile: 0xffaa00, ui: 0xffffff, fx: 0xff00ff, name: 'VAPORWAVE' },
+	{ bg: 0xd4eee6, road: 0x00ff88, target: [0xffaa00, 0xffff00, 0xffffff], hostile: 0xaa00ff, ui: 0xffffff, fx: 0x00ff88, name: 'TOXIC' },
+	{ bg: 0xc4e2f5, road: 0x3366ff, target: [0x00ffcc, 0x00e5ff, 0x88ccff], hostile: 0xff3366, ui: 0xffffff, fx: 0x3366ff, name: 'OCEAN' },
+	{ bg: 0xf5ecd4, road: 0xffd700, target: [0xffd700, 0xffffff, 0xffaa00], hostile: 0xcc00ff, ui: 0xffffff, fx: 0xffd700, name: 'GOLD' },
+	{ bg: 0xf0d8ec, road: 0xff44cc, target: [0xff44cc, 0xffffff, 0xaa00ff], hostile: 0x00ffcc, ui: 0xffffff, fx: 0xff44cc, name: 'SAKURA' },
+	{ bg: 0xf5ecd4, road: 0xff6600, target: [0xff6600, 0xffdd00, 0xffffff], hostile: 0x00aaff, ui: 0xffffff, fx: 0xff6600, name: 'FIRE' },
+	{ bg: 0xc4e2f5, road: 0xffffff, target: [0xffffff, 0xcccccc, 0x00ff00], hostile: 0x333333, ui: 0x00ff00, fx: 0xff0000, name: 'VOID' },
 ];
 
 // Boot / Preload Scen
@@ -182,7 +182,7 @@ class PlayScene extends Phaser.Scene {
 		this.scoreText = this.add.text(20, 30, '0', { ...style, fontSize: '28px', color: '#ffffff' }).setDepth(100);
 
 		// Level badge
-		this.levelBg = this.add.rectangle(w / 2, 28, 110, 36, 0x000000, 0.5).setDepth(99);
+		this.levelBg = this.add.rectangle(w / 2, 28, 110, 36, 0x00234f, 0.5).setDepth(99);
 		this.levelText = this.add.text(w / 2, 20, 'LEVEL', { ...style, fontSize: '10px', color: '#ffffff', letterSpacing: 4 }).setOrigin(0.5, 0).setDepth(100);
 		this.levelNum = this.add.text(w / 2, 30, '1', { ...style, fontSize: '28px', color: '#ffffff' }).setOrigin(0.5, 0).setDepth(100);
 
@@ -195,13 +195,13 @@ class PlayScene extends Phaser.Scene {
 
 		// Combo
 		this.comboContainer = this.add.container(w / 2, h - 60).setDepth(100).setAlpha(0);
-		const comboBg = this.add.rectangle(0, 0, 200, 44, 0x000000, 0.6);
-		this.comboLabel = this.add.text(0, -12, 'COMBO', { ...style, fontSize: '9px', color: '#ffffff', letterSpacing: 4 }).setOrigin(0.5);
+		const comboBg = this.add.rectangle(0, 0, 200, 44, 0xffffff, 0.6);
+		this.comboLabel = this.add.text(0, -12, 'COMBO', { ...style, fontSize: '9px', color: '#00234f', letterSpacing: 4 }).setOrigin(0.5);
 		this.comboValueText = this.add.text(0, 4, 'x1', { ...style, fontSize: '28px', color: '#ffffff' }).setOrigin(0.5);
 		this.comboContainer.add([comboBg, this.comboLabel, this.comboValueText]);
 
 		// Combo bar (progress timer)
-		this.comboBarBg = this.add.rectangle(w / 2, h - 30, 200, 4, 0x333333).setDepth(100).setAlpha(0);
+		this.comboBarBg = this.add.rectangle(w / 2, h - 30, 200, 4, 0xb0d4ea).setDepth(100).setAlpha(0);
 		this.comboBar = this.add.rectangle(w / 2 - 100, h - 30, 1, 4, 0xffffff).setOrigin(0, 0.5).setDepth(101).setAlpha(0);
 
 		// Pause button
@@ -453,7 +453,7 @@ class PlayScene extends Phaser.Scene {
 				case 'hexagon':
 					entity = this.add.polygon(this.scale.width / 2, -30, [28 * hs, 0, 56 * hs, 15 * hs, 56 * hs, 46 * hs, 28 * hs, 61 * hs, 0, 46 * hs, 0, 15 * hs], color); break;
 				case 'ring':
-					entity = this.add.circle(this.scale.width / 2, -30, cr, 0x000000);
+					entity = this.add.circle(this.scale.width / 2, -30, cr, 0xc4e2f5);
 					entity.setStrokeStyle(mob ? 4 : 5, color); break;
 			}
 			entity.setDepth(10);
@@ -714,23 +714,23 @@ class PlayScene extends Phaser.Scene {
 		this._playSound('gameover');
 
 		const w = this.scale.width, h = this.scale.height;
-		const overlay = this.add.rectangle(0, 0, w * 2, h * 2, 0x000000, 0).setDepth(210);
+		const overlay = this.add.rectangle(0, 0, w * 2, h * 2, 0x00234f, 0).setDepth(210);
 		this.tweens.add({ targets: overlay, alpha: 0.75, duration: 600 });
 
 		const ui = this.add.container(w / 2, h / 2).setDepth(220).setAlpha(0);
-		const panel = this.add.rectangle(0, 0, 320, 260, 0x0a0a0a, 0.95);
-		panel.setStrokeStyle(2, 0xff0044, 1);
+		const panel = this.add.rectangle(0, 0, 320, 260, 0xffffff, 0.95);
+		panel.setStrokeStyle(2, 0x48d1cc, 1);
 
 		const goText = this.add.text(0, -95, 'GAME OVER', {
-			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '30px', color: '#ff0044'
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '30px', color: '#00234f'
 		}).setOrigin(0.5);
 
 		const scoreLabel = this.add.text(0, -40, 'FINAL SCORE', {
-			fontFamily: 'Courier New', fontSize: '11px', color: '#ffffff', letterSpacing: 4
+			fontFamily: 'Courier New', fontSize: '11px', color: '#00234f', letterSpacing: 4
 		}).setOrigin(0.5);
 
 		const scoreFinal = this.add.text(0, -18, this.score.toLocaleString(), {
-			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '38px', color: '#ffffff'
+			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '38px', color: '#00234f'
 		}).setOrigin(0.5);
 
 		const hiLabel = this.add.text(0, 28, `HI SCORE: ${this._getHiScore().toLocaleString()}`, {
@@ -743,7 +743,7 @@ class PlayScene extends Phaser.Scene {
 
 		const restartBtn = this.add.text(0, 95, '[ PLAY AGAIN ]', {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px',
-			color: '#000000', backgroundColor: '#ffffff', padding: { x: 18, y: 8 }
+			color: '#000000', backgroundColor: '#c4e2f5', padding: { x: 18, y: 8 }
 		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
 		restartBtn.on('pointerover', () => restartBtn.setColor('#ffffff').setBackgroundColor('#000000'));
@@ -763,7 +763,7 @@ class PlayScene extends Phaser.Scene {
 		this.isPaused = !this.isPaused;
 		if (this.isPaused) {
 			const w = this.scale.width, h = this.scale.height;
-			this._pauseOverlay = this.add.rectangle(w / 2, h / 2, w, h, 0x000000, 0.7).setDepth(300);
+			this._pauseOverlay = this.add.rectangle(w / 2, h / 2, w, h, 0x00234f, 0.7).setDepth(300);
 			this._pauseText = this.add.text(w / 2, h / 2, 'PAUSED\n\n[ESC or P to resume]', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px', color: '#ffffff', align: 'center'
 			}).setOrigin(0.5).setDepth(301);
@@ -1015,7 +1015,7 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#000000',
+	backgroundColor: '#c4e2f5',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
 	scene: [BootScene, PlayScene],
 	render: {

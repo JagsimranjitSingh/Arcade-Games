@@ -943,7 +943,7 @@ class GameScene extends Phaser.Scene {
 
 const _phaserConfig = {
   type           : Phaser.AUTO,
-  backgroundColor: '#07080f',
+  backgroundColor: '#c4e2f5',
   parent         : 'game-container',
   scale          : {
     mode      : Phaser.Scale.RESIZE,

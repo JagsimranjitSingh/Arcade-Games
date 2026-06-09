@@ -155,7 +155,7 @@ function buildWalls(pts) {
 ══════════════════════════════════════════════════════════ */
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: '#04080f',
+	backgroundColor: '#c4e2f5',
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -491,7 +491,7 @@ GameScene.prototype.die = function () {
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
 				fontFamily: 'monospace', fontSize: '16px', color: '#fff',
-				backgroundColor: '#444444', padding: {x: 20, y: 15}
+				backgroundColor: '#c4e2f5', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
