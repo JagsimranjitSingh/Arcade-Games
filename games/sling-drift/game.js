@@ -486,12 +486,12 @@ GameScene.prototype.die = function () {
 			}).setOrigin(0.5).setDepth(51);
 
 			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
-				fontFamily: 'monospace', fontSize: '14px', color: '#000',
+				fontFamily: 'monospace', fontSize: '14px', color: '#475569',
 				backgroundColor: p.playerCore, padding: {x: 10, y: 10}, align: 'center'
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'monospace', fontSize: '16px', color: '#0f172a',
+				fontFamily: 'monospace', fontSize: '16px', color: '#2563eb',
 				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 

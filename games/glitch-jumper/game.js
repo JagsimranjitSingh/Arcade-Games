@@ -193,7 +193,7 @@ class GameScene extends Phaser.Scene {
 		gfx.fillStyle(bgColor, 1);
 		gfx.fillRect(0, -20000, w, 40000);
 
-		gfx.lineStyle(1, 0x0f172a, 0.03);
+		gfx.lineStyle(1, 0x3b82f6, 0.03);
 		for (let y = 0; y < 40000; y += 60) {
 			gfx.strokeLineShape(new Phaser.Geom.Line(0, y - 20000, w, y - 20000));
 		}
@@ -234,10 +234,10 @@ class GameScene extends Phaser.Scene {
 			g.fillStyle(platColor, 0.9);
 			g.fillRoundedRect(6, 4, w, PLAT_HEIGHT, 2);
 
-			g.fillStyle(0x0f172a, 0.2);
+			g.fillStyle(0x3b82f6, 0.2);
 			g.fillRect(8, 5, w - 4, 2);
 
-			g.fillStyle(0x0f172a, 0.15);
+			g.fillStyle(0x3b82f6, 0.15);
 			for (let dx = 12; dx < w + 6; dx += 14) {
 				g.fillRect(dx, PLAT_HEIGHT + 1, 6, 2);
 			}
@@ -278,7 +278,7 @@ class GameScene extends Phaser.Scene {
 			g.fillCircle(size, size, size * 0.7);
 			g.fillStyle(c, 1);
 			g.fillCircle(size, size, size * 0.42);
-			g.fillStyle(0x0f172a, 0.55);
+			g.fillStyle(0x3b82f6, 0.55);
 			g.fillCircle(size * 0.78, size * 0.75, size * 0.16);
 
 			g.generateTexture(key, size * 2, size * 2);
@@ -302,7 +302,7 @@ class GameScene extends Phaser.Scene {
 		const pKey = 'spark';
 		if (!this.textures.exists(pKey)) {
 			const g = this.make.graphics({ add: false });
-			g.fillStyle(0x0f172a, 1);
+			g.fillStyle(0x3b82f6, 1);
 			g.fillCircle(4, 4, 4);
 			g.generateTexture(pKey, 8, 8);
 			g.destroy();

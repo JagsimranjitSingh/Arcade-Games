@@ -488,7 +488,7 @@ class GameScene extends Phaser.Scene {
     if (count > 0) {
       const badge = this.add.circle(-pw/2+iH*0.34, y, iH*0.27, accent, 0.9);
       const bTxt  = this.add.text(-pw/2+iH*0.34, y, `${count}`, {
-        fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color:'#000',
+        fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color:'#475569',
       }).setOrigin(0.5, 0.5);
       this.panelItemsCont.add([badge, bTxt]);
     }

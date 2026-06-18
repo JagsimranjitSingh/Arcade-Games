@@ -99,12 +99,12 @@ class BootScene extends Phaser.Scene {
 	createBallTexture() {
 		const g = this.make.graphics({ add: false });
 		const r = 12;
-		g.fillStyle(0x0f172a, 1);
+		g.fillStyle(0x3b82f6, 1);
 		g.fillCircle(r, r, r);
 		// inner glow
 		g.fillStyle(0xaaffff, 0.6);
 		g.fillCircle(r, r, r * 0.55);
-		g.fillStyle(0x0f172a, 1);
+		g.fillStyle(0x3b82f6, 1);
 		g.fillCircle(r - 2, r - 2, 3);
 		g.generateTexture('ball', r * 2, r * 2);
 		g.destroy();
@@ -114,7 +114,7 @@ class BootScene extends Phaser.Scene {
 		// flipper: 120×18 pill shape, pointing right (mirrored in scene)
 		const g = this.make.graphics({ add: false });
 		const W = 120, H = 18;
-		g.fillStyle(0x0f172a, 1);
+		g.fillStyle(0x3b82f6, 1);
 		g.fillRoundedRect(0, 0, W, H, H / 2);
 		g.generateTexture('flipper', W, H);
 		g.destroy();
@@ -124,11 +124,11 @@ class BootScene extends Phaser.Scene {
 		const g = this.make.graphics({ add: false });
 		const r = 22;
 		// outer ring
-		g.fillStyle(0x0f172a, 1);
+		g.fillStyle(0x3b82f6, 1);
 		g.fillCircle(r, r, r);
 		g.fillStyle(0x000000, 1);
 		g.fillCircle(r, r, r - 4);
-		g.fillStyle(0x0f172a, 0.85);
+		g.fillStyle(0x3b82f6, 0.85);
 		g.fillCircle(r, r, r - 8);
 		g.generateTexture('bumper', r * 2, r * 2);
 		g.destroy();
@@ -139,7 +139,7 @@ class BootScene extends Phaser.Scene {
 		const r = 48;
 		for (let i = r; i > 0; i -= 4) {
 			const alpha = 0.04 + (r - i) / r * 0.12;
-			g.fillStyle(0x0f172a, alpha);
+			g.fillStyle(0x3b82f6, alpha);
 			g.fillCircle(r, r, i);
 		}
 		g.generateTexture('glow', r * 2, r * 2);

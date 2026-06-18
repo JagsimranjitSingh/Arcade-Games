@@ -178,7 +178,7 @@ class PreloadScene extends Phaser.Scene {
 		g.fillStyle(0x007799, 1);
 		g.fillCircle(8, 14, 16);
 		// highlight
-		g.lineStyle(2, 0x0f172a, 0.5);
+		g.lineStyle(2, 0x3b82f6, 0.5);
 		g.strokeRoundedRect(0, 6, 54, 16, 5);
 		g.generateTexture('cannon', 56, 30);
 		g.destroy();
@@ -186,7 +186,7 @@ class PreloadScene extends Phaser.Scene {
 
 	_makeParticle() {
 		const g = this.make.graphics({ x: 0, y: 0, add: false });
-		g.fillStyle(0x0f172a, 1);
+		g.fillStyle(0x3b82f6, 1);
 		g.fillCircle(4, 4, 4);
 		g.generateTexture('particle', 8, 8);
 		g.destroy();
@@ -636,7 +636,7 @@ class GameScene extends Phaser.Scene {
 		const txt = this.add.text(bx, by, text, {
 			fontFamily: '"Courier New", monospace',
 			fontSize: '32px', fill: color,
-			stroke: '#000000', strokeThickness: 3,
+			stroke: '#ffffff', strokeThickness: 3,
 		}).setOrigin(0.5).setDepth(41).setAlpha(0);
 
 		this.tweens.add({

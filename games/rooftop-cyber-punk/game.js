@@ -742,10 +742,10 @@
 				const cx = W / 2, cy = H / 2;
 				const bg = this.add.rectangle(cx, cy, 320, 160, 0xffffff, 0.95).setDepth(200);
 				bg.setStrokeStyle(2, s2col(this.pal.pl));
-				const txt = this.add.text(cx, cy - 35, 'SECOND CHANCE?', { fontFamily: '"Share Tech Mono", monospace', fontSize: '24px', color: '#64748b' }).setOrigin(0.5).setDepth(201);
+				const txt = this.add.text(cx, cy - 35, 'SECOND CHANCE?', { fontFamily: '"Share Tech Mono", monospace', fontSize: '24px', color: '#2563eb' }).setOrigin(0.5).setDepth(201);
 				
 				const btnRevive = this.add.rectangle(cx - 75, cy + 30, 130, 46, s2col(this.pal.pl)).setDepth(201).setInteractive({useHandCursor: true});
-				const txtRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', { fontFamily: '"Share Tech Mono", monospace', fontSize: '13px', color: '#000', align: 'center' }).setOrigin(0.5).setDepth(202);
+				const txtRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', { fontFamily: '"Share Tech Mono", monospace', fontSize: '13px', color: '#475569', align: 'center' }).setOrigin(0.5).setDepth(202);
 				
 				const btnSkip = this.add.rectangle(cx + 75, cy + 30, 130, 46, 0x475569).setDepth(201).setInteractive({useHandCursor: true});
 				const txtSkip = this.add.text(cx + 75, cy + 30, 'SKIP', { fontFamily: '"Share Tech Mono", monospace', fontSize: '16px', color: '#64748b' }).setOrigin(0.5).setDepth(202);
@@ -800,7 +800,7 @@
 				`LEVEL  ${String(this.level).padStart(2, '0')}`, {
 				fontFamily: '"Share Tech Mono","Courier New",monospace',
 				fontSize: '46px', color: this.pal.ui,
-				stroke: '#000000', strokeThickness: 3,
+				stroke: '#ffffff', strokeThickness: 3,
 			}).setOrigin(0.5).setScale(0.4).setDepth(150);
 
 			this.tweens.add({
@@ -833,7 +833,7 @@
 			const t = time * 0.001;
 			this.stars.forEach(s => {
 				const a = 0.28 + Math.sin(t * s.fr + s.ph) * 0.36;
-				g.fillStyle(0x0f172a, Math.max(0, a));
+				g.fillStyle(0x3b82f6, Math.max(0, a));
 				g.fillCircle(s.x, s.y, s.r);
 			});
 		}
@@ -1048,14 +1048,14 @@
 			g.fillTriangle(cx + 1, headTopY - 1, cx + 3, headTopY - 4, cx + 5, headTopY - 1);
 
 			// Eyes — white with dark pupil
-			g.fillStyle(0x0f172a, 0.9);
+			g.fillStyle(0x3b82f6, 0.9);
 			g.fillEllipse(cx - 3, headMidY - 1, 4, 3);
 			g.fillEllipse(cx + 3, headMidY - 1, 4, 3);
 			g.fillStyle(0x111122, 1);
 			g.fillCircle(cx - 2, headMidY - 1, 1.2);
 			g.fillCircle(cx + 4, headMidY - 1, 1.2);
 			// Eye shine
-			g.fillStyle(0x0f172a, 0.7);
+			g.fillStyle(0x3b82f6, 0.7);
 			g.fillCircle(cx - 1.5, headMidY - 1.5, 0.5);
 			g.fillCircle(cx + 4.5, headMidY - 1.5, 0.5);
 
@@ -1081,7 +1081,7 @@
 			g.fillRoundedRect(hX + 1, headTopY + 3, 4, 3, 1);
 			g.fillRoundedRect(hX + 7, headTopY + 3, 4, 3, 1);
 			// Lens shine
-			g.fillStyle(0x0f172a, 0.4);
+			g.fillStyle(0x3b82f6, 0.4);
 			g.fillRect(hX + 2, headTopY + 3, 1, 1);
 			g.fillRect(hX + 8, headTopY + 3, 1, 1);
 
@@ -1188,14 +1188,14 @@
 			g.fillTriangle(hX + 2, sy - 2, hX + 4, sy - 6, hX + 6, sy - 2);
 
 			// Eyes — intense forward stare while ducking
-			g.fillStyle(0x0f172a, 0.9);
+			g.fillStyle(0x3b82f6, 0.9);
 			g.fillEllipse(hX + 2, headMidY, 4, 3);
 			g.fillEllipse(hX + 7, headMidY, 4, 3);
 			g.fillStyle(0x111122, 1);
 			g.fillCircle(hX + 3, headMidY, 1.2);
 			g.fillCircle(hX + 8, headMidY, 1.2);
 			// Eye shine
-			g.fillStyle(0x0f172a, 0.7);
+			g.fillStyle(0x3b82f6, 0.7);
 			g.fillCircle(hX + 3.5, headMidY - 0.5, 0.5);
 			g.fillCircle(hX + 8.5, headMidY - 0.5, 0.5);
 
@@ -1231,11 +1231,11 @@
 					g.fillStyle(hC, 0.18); g.fillRect(x - 6, y - 6, w + 12, h + 12);
 					g.fillStyle(hC, 1); g.fillRect(x, y, w, h);
 					g.fillStyle(hC, 0.90); g.fillRect(x - 9, y, w + 18, 13);
-					g.fillStyle(0x0f172a, 0.16);
+					g.fillStyle(0x3b82f6, 0.16);
 					for (let sy2 = y + 17; sy2 < y + h - 4; sy2 += 10)
 						g.fillRect(x + 2, sy2, w - 4, 4);
 					g.fillStyle(hC, pulse); g.fillCircle(x + w / 2, y - 5, 5.5);
-					g.fillStyle(0x0f172a, 0.65); g.fillCircle(x + w / 2, y - 5, 2);
+					g.fillStyle(0x3b82f6, 0.65); g.fillCircle(x + w / 2, y - 5, 2);
 					g.fillStyle(hC, 0.25); g.fillRect(x - 2, GY - 4, w + 4, 4);
 				} else {
 					const pulse = 0.52 + Math.sin(t * 2.3) * 0.48;
@@ -1344,7 +1344,7 @@
 			this.add.text(W / 2, H / 2 - 116, 'S Y S T E M', sf('13px', ho)).setOrigin(0.5);
 
 			const flat = this.add.text(W / 2, H / 2 - 68, 'FLATLINED',
-				{ ...sf('56px', ho), stroke: '#000000', strokeThickness: 4 })
+				{ ...sf('56px', ho), stroke: '#ffffff', strokeThickness: 4 })
 				.setOrigin(0.5).setAlpha(0);
 			this.tweens.add({ targets: flat, alpha: 1, duration: 540, ease: 'Power2' });
 
@@ -1423,7 +1423,7 @@
 		update() {
 			this.scanGfx.clear();
 			this.scanY = (this.scanY + 1.3) % H;
-			this.scanGfx.fillStyle(0x0f172a, 0.022);
+			this.scanGfx.fillStyle(0x3b82f6, 0.022);
 			this.scanGfx.fillRect(0, this.scanY, W, 2);
 		}
 	}

@@ -234,7 +234,7 @@ class BootScene extends Phaser.Scene {
 				g.fillRect(10, sy, t.w - 26, 2);
 			}
 			// Pixel art cross on screen
-			g.fillStyle(0x0f172a, 0.6);
+			g.fillStyle(0x3b82f6, 0.6);
 			const sx = 10 + (t.w - 26) / 2, sy2 = 28 + 32 / 2;
 			g.fillRect(sx - 1, sy2 - 6, 2, 12); g.fillRect(sx - 6, sy2 - 1, 12, 2);
 			// Marquee top
@@ -265,7 +265,7 @@ class BootScene extends Phaser.Scene {
 			btns.forEach((bc, bi) => {
 				g.fillStyle(bc, 1);
 				g.fillCircle(t.w / 2 + 8 + bi * 9, t.h - 24, 4);
-				g.fillStyle(0x0f172a, 0.3);
+				g.fillStyle(0x3b82f6, 0.3);
 				g.fillCircle(t.w / 2 + 7 + bi * 9, t.h - 25, 1.5);
 			});
 			g.generateTexture(`cabinet_${i}`, t.w + 8, t.h + 6);
@@ -274,14 +274,14 @@ class BootScene extends Phaser.Scene {
 		// Glow blob
 		g.clear();
 		for (let r = 32; r > 0; r -= 4) {
-			g.fillStyle(0x0f172a, 0.06 * (1 - r / 32) + 0.02);
+			g.fillStyle(0x3b82f6, 0.06 * (1 - r / 32) + 0.02);
 			g.fillCircle(32, 32, r);
 		}
 		g.generateTexture('glow', 64, 64);
 
 		// Particle dot
 		g.clear();
-		g.fillStyle(0x0f172a, 1); g.fillCircle(5, 5, 5);
+		g.fillStyle(0x3b82f6, 1); g.fillCircle(5, 5, 5);
 		g.generateTexture('dot', 10, 10);
 
 		// Star burst (for level-up)
@@ -376,7 +376,7 @@ class GameScene extends Phaser.Scene {
 		// Placing cursor hint
 		this.placingHint = this.add.text(W / 2, 90, '', {
 			fontFamily: "'Courier New',monospace", fontSize: '14px',
-			color: '#0f172a', stroke: '#000000', strokeThickness: 4,
+			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4,
 			align: 'center'
 		}).setOrigin(0.5).setDepth(5000).setAlpha(0);
 
@@ -482,7 +482,7 @@ class GameScene extends Phaser.Scene {
 				fontFamily: "'Courier New',monospace",
 				fontSize: '11px', fontStyle: 'bold',
 				color: this.state.palette.fxAccent,
-				stroke: '#000000', strokeThickness: 3
+				stroke: '#ffffff', strokeThickness: 3
 			}
 			).setDepth(depth + 1).setOrigin(0.5);
 
@@ -825,7 +825,7 @@ class GameScene extends Phaser.Scene {
 				fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.playerCore
 			}).setOrigin(0, 0);
 			const v = this.add.text(140, y, '—', {
-				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#0f172a'
+				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#2563eb'
 			}).setOrigin(1, 0);
 			this.statsCont.add([lbl, v]);
 			this.statLines.push(v);
@@ -1060,7 +1060,7 @@ class GameScene extends Phaser.Scene {
 		const t = this.add.text(x, y, text, {
 			fontFamily: "'Courier New',monospace",
 			fontSize: `${size}px`, fontStyle: 'bold',
-			color, stroke: '#000000', strokeThickness: 4
+			color, stroke: '#ffffff', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(5000);
 		this.tweens.add({
 			targets: t, y: y - 80, alpha: { from: 1, to: 0 },

@@ -39,12 +39,12 @@ class BootScene extends Phaser.Scene {
 	preload() {
 		this._tex('glow_blob', 64, g => {
 			for (let i = 10; i >= 1; i--) {
-				g.fillStyle(0x0f172a, i / 10 * 0.85);
+				g.fillStyle(0x3b82f6, i / 10 * 0.85);
 				g.fillCircle(32, 32, i * 3.2);
 			}
 		});
 		this._tex('hex_shard', 12, g => {
-			g.fillStyle(0x0f172a, 1);
+			g.fillStyle(0x3b82f6, 1);
 			g.fillTriangle(6, 0, 12, 10, 0, 10);
 		});
 	}
@@ -159,7 +159,7 @@ class PlayScene extends Phaser.Scene {
 				};
 			}
 		} catch { }
-		return { bg: 0x050510, core: 0x00e5ff, wall: 0xff0044, ui: 0x0f172a, fx: 0xff6600 };
+		return { bg: 0x050510, core: 0x00e5ff, wall: 0xff0044, ui: 0x2563eb, fx: 0xff6600 };
 	}
 
 	/* Audio */
@@ -213,7 +213,7 @@ class PlayScene extends Phaser.Scene {
 		const MONO = 'Courier New, Courier, monospace';
 		const mk = (x, y, txt, sz, col, origin = [0, 0]) =>
 			this.add.text(x, y, txt, {
-				fontFamily: MONO, fontStyle: 'bold', fontSize: sz + 'px', color: css(col)
+				fontFamily: MONO, fontSize: sz + 'px', color: css(col)
 			}).setOrigin(...origin).setDepth(100);
 
 		this.hudScoreLabel = mk(22, 20, 'SCORE', 9, pal.ui).setLetterSpacing(4);
@@ -227,7 +227,7 @@ class PlayScene extends Phaser.Scene {
 		// Lives drawn as hex shapes inside _drawUI
 
 		this.hudPause = this.add.text(W - 22, H - 22, '[ II ]', {
-			fontFamily: MONO, fontStyle: 'bold', fontSize: '11px', color: css(pal.ui)
+			fontFamily: MONO, fontSize: '11px', color: css(pal.ui)
 		}).setOrigin(1, 1).setDepth(100).setInteractive({ useHandCursor: true });
 		this.hudPause.on('pointerdown', () => this._togglePause());
 		this.hudPause.on('pointerover', () => this.hudPause.setAlpha(0.5));
@@ -395,8 +395,8 @@ class PlayScene extends Phaser.Scene {
 		// Level-up overlay text
 		const { cx, cy } = this._center();
 		const pop = this.add.text(cx, cy, 'LEVEL ' + this.level, {
-			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '38px',
-			color: css(this.palette.ui), stroke: '#000000', strokeThickness: 6
+			fontFamily: 'Courier New', fontSize: '38px',
+			color: css(this.palette.ui), stroke: '#ffffff', strokeThickness: 6
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({ targets: pop, alpha: 1, scaleX: 1.25, scaleY: 1.25, duration: 200, yoyo: true });
 		this.time.delayedCall(750, () => {
@@ -425,16 +425,16 @@ class PlayScene extends Phaser.Scene {
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
 
 			const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '24px', color: css(pal.core)
+				fontFamily: 'Courier New', fontSize: '24px', color: css(pal.core)
 			}).setOrigin(0.5).setDepth(301);
 
 			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '14px', color: '#000',
+				fontFamily: 'Courier New', fontSize: '14px', color: '#475569',
 				backgroundColor: css(pal.core), padding: {x: 10, y: 10}, align: 'center'
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#0f172a',
+				fontFamily: 'Courier New', fontSize: '16px', color: '#2563eb',
 				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
@@ -489,7 +489,7 @@ class PlayScene extends Phaser.Scene {
 			pan.strokeRect(cx - pw / 2 + 4, cy - ph / 2 + 4, pw - 8, ph - 8);
 
 			const mk = (dy, txt, sz, col) => this.add.text(cx, cy + dy, txt, {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: sz + 'px',
+				fontFamily: 'Courier New', fontSize: sz + 'px',
 				color: col, stroke: '#000', strokeThickness: 3
 			}).setOrigin(0.5).setDepth(302).setAlpha(0);
 
@@ -502,11 +502,11 @@ class PlayScene extends Phaser.Scene {
 			];
 
 			const btn = this.add.text(cx, cy + 92, '[ PLAY AGAIN ]', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px',
-				color: '#000000', backgroundColor: css(pal.core), padding: { x: 20, y: 10 }
+				fontFamily: 'Courier New', fontSize: '16px',
+				color: '#475569', backgroundColor: css(pal.core), padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(303).setAlpha(0).setInteractive({ useHandCursor: true });
 			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: '#f8fafc' }));
-			btn.on('pointerout', () => btn.setStyle({ color: '#000000', backgroundColor: css(pal.core) }));
+			btn.on('pointerout', () => btn.setStyle({ color: '#475569', backgroundColor: css(pal.core) }));
 			btn.on('pointerdown', () => this.scene.restart());
 
 			[...els, btn].forEach(el => this.tweens.add({ targets: el, alpha: 1, duration: 280 }));
@@ -698,7 +698,7 @@ class PlayScene extends Phaser.Scene {
 		this.shipGfx.fillPath();
 
 		// Bright core highlight
-		this.shipGfx.fillStyle(0x0f172a, 0.6);
+		this.shipGfx.fillStyle(0x3b82f6, 0.6);
 		this.shipGfx.fillCircle(
 			(tip.x + left.x + right.x) / 3,
 			(tip.y + left.y + right.y) / 3,
@@ -722,7 +722,7 @@ class PlayScene extends Phaser.Scene {
 			this.uiGfx.fillStyle(col, 1);
 			this._fillHex(this.uiGfx, rx, ry, r, Math.PI / 6);
 			if (alive) {
-				this.uiGfx.lineStyle(1, 0x0f172a, 0.35);
+				this.uiGfx.lineStyle(1, 0x3b82f6, 0.35);
 				this._drawHexOutline(this.uiGfx, rx, ry, r, Math.PI / 6, 0x0f172a, 0.35, 1);
 			}
 		}
@@ -776,8 +776,8 @@ class PlayScene extends Phaser.Scene {
 	_spawnPopup(txt) {
 		const { cx, cy } = this._center();
 		const pop = this.add.text(cx, cy - 88, txt, {
-			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '20px',
-			color: css(this.palette.core), stroke: '#000000', strokeThickness: 3
+			fontFamily: 'Courier New', fontSize: '20px',
+			color: css(this.palette.core), stroke: '#ffffff', strokeThickness: 3
 		}).setOrigin(0.5).setDepth(150);
 		this.tweens.add({
 			targets: pop, y: cy - 140, alpha: 0,
@@ -818,8 +818,8 @@ class PlayScene extends Phaser.Scene {
 			const { width: W, height: H } = this.scale;
 			this._pauseOv = this.add.rectangle(cx, cy, W * 2, H * 2, 0x000000, 0.72).setDepth(400);
 			this._pauseTx = this.add.text(cx, cy, 'PAUSED\n\n[ P / ESC  to resume ]', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '26px',
-				color: '#0f172a', align: 'center', stroke: '#000000', strokeThickness: 3
+				fontFamily: 'Courier New', fontSize: '26px',
+				color: '#2563eb', align: 'center', stroke: '#ffffff', strokeThickness: 3
 			}).setOrigin(0.5).setDepth(401);
 		} else {
 			this._pauseOv?.destroy(); this._pauseOv = null;
@@ -868,8 +868,8 @@ class PlayScene extends Phaser.Scene {
 		this.tweens.add({ targets: flash, alpha: 0, duration: 700, ease: 'Power3', onComplete: () => flash.destroy() });
 
 		const title = this.add.text(cx, cy - 20, 'HYPER HEXAGON', {
-			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px',
-			color: '#0f172a', stroke: '#000000', strokeThickness: 4
+			fontFamily: 'Courier New', fontSize: '28px',
+			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(510).setAlpha(0);
 		this.tweens.add({ targets: title, alpha: 1, y: cy - 44, duration: 420, ease: 'Back.Out' });
 		this.time.delayedCall(1200, () => {

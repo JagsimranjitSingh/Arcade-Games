@@ -1185,7 +1185,7 @@ class GameScene extends Phaser.Scene {
 			rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 
 			const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
-				fontFamily: "'Orbitron', sans-serif", fontSize: '20px', color: '#00e5ff'
+				fontFamily: "'Orbitron', sans-serif", fontSize: '20px', color: '#2563eb'
 			}).setOrigin(0.5).setDepth(201);
 
 			const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
@@ -1195,7 +1195,7 @@ class GameScene extends Phaser.Scene {
 			btnRevive.setStroke('#00c8e8', 1);
 
 			const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#0f172a',
+				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#2563eb',
 				backgroundColor: '#f8fafc', padding: {x: 20, y: 16}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 

@@ -269,7 +269,7 @@
 			gfx.fillRoundedRect(x - hw, y - hh, w, h, r);
 
 			// Top sheen
-			gfx.fillStyle(0x0f172a, isBase ? 0.06 : 0.2);
+			gfx.fillStyle(0x3b82f6, isBase ? 0.06 : 0.2);
 			gfx.fillRoundedRect(x - hw + 2, y - hh + 2, w - 4, 5, 2);
 
 			// Neon border
@@ -277,7 +277,7 @@
 			gfx.strokeRoundedRect(x - hw, y - hh, w, h, r);
 
 			// Inner gleam
-			gfx.lineStyle(1, 0x0f172a, 0.1);
+			gfx.lineStyle(1, 0x3b82f6, 0.1);
 			gfx.strokeRoundedRect(x - hw + 2, y - hh + 2, w - 4, h - 4, r - 1);
 		}
 
@@ -300,7 +300,7 @@
 
 			this.scoreTxt = this.add.text(W / 2, 32, '0', {
 				fontFamily: "'Orbitron',monospace", fontSize: '42px', fontStyle: 'bold',
-				color: '#0f172a', stroke: palette.playerCore, strokeThickness: 1,
+				color: '#2563eb', stroke: palette.playerCore, strokeThickness: 1,
 			}).setOrigin(0.5, 0).setDepth(d).setScrollFactor(0);
 
 			// Level
@@ -323,7 +323,7 @@
 			// Hint
 			this.hintTxt = this.add.text(W / 2, H - 42, 'TAP  TO  DROP', {
 				fontFamily: "'Orbitron',monospace", fontSize: '11px',
-				color: '#0f172a', letterSpacing: 5,
+				color: '#2563eb', letterSpacing: 5,
 			}).setOrigin(0.5).setDepth(d).setScrollFactor(0).setAlpha(0.4);
 
 			this.tweens.add({
@@ -564,7 +564,7 @@
 				}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 				const s = this.add.text(W / 2, H * 0.48, `SCORE  ${this.score.toLocaleString()}`, {
-					fontFamily: "'Orbitron',monospace", fontSize: '20px', color: '#0f172a',
+					fontFamily: "'Orbitron',monospace", fontSize: '20px', color: '#2563eb',
 				}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 				this.tweens.add({ targets: [g, s], alpha: 1, duration: 500, delay: 100 });
@@ -589,7 +589,7 @@
 
 			const clr = this.add.text(W / 2, H * 0.49, 'COMPLETE', {
 				fontFamily: "'Orbitron',monospace", fontSize: '40px', fontStyle: 'bold',
-				color: '#0f172a', stroke: palette.playerCore, strokeThickness: 2,
+				color: '#2563eb', stroke: palette.playerCore, strokeThickness: 2,
 			}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 			this.tweens.add({

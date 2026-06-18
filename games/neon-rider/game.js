@@ -476,7 +476,7 @@ class NeonRiderScene extends Phaser.Scene {
 			this.trackGraphics.fillRect(sx, s.y + s.visualH, s.w, 12);
 			this.trackGraphics.fillStyle(iface, 0.9);
 			this.trackGraphics.fillRect(sx, s.y, s.w, s.visualH);
-			this.trackGraphics.fillStyle(0x0f172a, 0.5);
+			this.trackGraphics.fillStyle(0x3b82f6, 0.5);
 			this.trackGraphics.fillRect(sx, s.y, s.w, 2);
 			this.trackGraphics.fillStyle(core, 0.4);
 			this.trackGraphics.fillRect(sx, s.y + s.visualH - 2, s.w, 3);
@@ -557,7 +557,7 @@ class NeonRiderScene extends Phaser.Scene {
 		// --- Engine Block Glow ---
 		g.fillStyle(core, pulse * 0.8);
 		g.fillRoundedRect(cx - 4, cy - 2, 10, 6, 2);
-		g.fillStyle(0x0f172a, 0.9);
+		g.fillStyle(0x3b82f6, 0.9);
 		g.fillRect(cx - 1, cy - 1, 4, 4);
 
 		// --- The Cyber-Rider ---
@@ -625,7 +625,7 @@ class NeonRiderScene extends Phaser.Scene {
 		this.levelFlash = this.add.text(W / 2, this.H * 0.35, '', {
 			fontFamily: "'Courier New', Courier, monospace",
 			fontSize: '28px',
-			color: '#0f172a',
+			color: '#2563eb',
 			stroke: this.pal.accent,
 			strokeThickness: 3,
 			alpha: 0,

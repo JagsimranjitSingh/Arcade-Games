@@ -330,7 +330,7 @@ class GameScene extends Phaser.Scene {
 		const g = this.gridGfx; g.clear();
 		const n = this.gridSize, cs = this.cellSize, x0 = this.boardX, y0 = this.boardY;
 		for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
-			g.fillStyle(0x0f172a, 0.016);
+			g.fillStyle(0x3b82f6, 0.016);
 			g.fillRect(x0 + c * cs + 1, y0 + r * cs + 1, cs - 2, cs - 2);
 		}
 		g.lineStyle(1, hexToInt(this.palette.interface), 0.18);
@@ -357,7 +357,7 @@ class GameScene extends Phaser.Scene {
 			if (this.paths[i]?.complete) {
 				g.fillStyle(this.nodeColors[i], 1);
 				g.fillCircle(x, 38, 6);
-				g.lineStyle(1.5, 0x0f172a, 0.5);
+				g.lineStyle(1.5, 0x3b82f6, 0.5);
 				g.strokeCircle(x, 38, 6);
 			} else {
 				g.lineStyle(1.5, this.nodeColors[i], 0.5);
@@ -377,9 +377,9 @@ class GameScene extends Phaser.Scene {
 			const c = colors[nd.colorIndex];
 			g.fillStyle(c, 1);
 			g.fillCircle(cx, cy, NODE_RADIUS);
-			g.lineStyle(2, 0x0f172a, 0.3);
+			g.lineStyle(2, 0x3b82f6, 0.3);
 			g.strokeCircle(cx, cy, NODE_RADIUS);
-			g.fillStyle(0x0f172a, 0.55);
+			g.fillStyle(0x3b82f6, 0.55);
 			g.fillCircle(cx, cy, NODE_RADIUS * 0.28);
 		}
 	}
@@ -630,11 +630,11 @@ class GameScene extends Phaser.Scene {
 			this._stroke(this.glowGfx, pts);
 			this.pathGfx.lineStyle(PATH_WIDTH, color, done ? 1 : 0.9);
 			this._stroke(this.pathGfx, pts);
-			this.pathGfx.lineStyle(2.5, 0x0f172a, done ? 0.52 : 0.26);
+			this.pathGfx.lineStyle(2.5, 0x3b82f6, done ? 0.52 : 0.26);
 			this._stroke(this.pathGfx, pts);
 			if (!done) {
 				for (let i = 1; i < pts.length - 1; i++) {
-					this.pathGfx.fillStyle(0x0f172a, 0.20);
+					this.pathGfx.fillStyle(0x3b82f6, 0.20);
 					this.pathGfx.fillCircle(pts[i].x, pts[i].y, 2.5);
 				}
 			}
@@ -647,7 +647,7 @@ class GameScene extends Phaser.Scene {
 			const c = this.nodeColors[this.dragColor];
 			this.pathGfx.fillStyle(c, 0.6);
 			this.pathGfx.fillCircle(tx, ty, 7);
-			this.pathGfx.fillStyle(0x0f172a, 0.9);
+			this.pathGfx.fillStyle(0x3b82f6, 0.9);
 			this.pathGfx.fillCircle(tx, ty, 2.5);
 		}
 	}

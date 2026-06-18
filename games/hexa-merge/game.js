@@ -336,9 +336,9 @@ class GameScene extends Phaser.Scene {
 		this._fillHex(gfx, 0, 0, size + 4);
 		gfx.fillStyle(tileCol, 1);
 		this._fillHex(gfx, 0, 0, size);
-		gfx.fillStyle(0x0f172a, 0.25);
+		gfx.fillStyle(0x3b82f6, 0.25);
 		this._fillHex(gfx, 0, -size * 0.15, size * 0.55);
-		gfx.lineStyle(1.5, 0x0f172a, 0.4);
+		gfx.lineStyle(1.5, 0x3b82f6, 0.4);
 		this._strokeHex(gfx, 0, 0, size);
 
 		label.setText(String(value));
@@ -722,10 +722,10 @@ class GameScene extends Phaser.Scene {
 
 			if (i === 0) {
 				gfx.fillStyle(tcol, 1);
-				gfx.lineStyle(2.5, 0x0f172a, 0.8);
+				gfx.lineStyle(2.5, 0x3b82f6, 0.8);
 			} else {
 				gfx.fillStyle(tcol, 0.5);
-				gfx.lineStyle(1.5, 0x0f172a, 0.3);
+				gfx.lineStyle(1.5, 0x3b82f6, 0.3);
 				lbl.setAlpha(0.6);
 			}
 
@@ -745,7 +745,7 @@ class GameScene extends Phaser.Scene {
 			fontFamily: "'Courier New', Courier, monospace",
 			fontSize: '18px', fontStyle: 'bold',
 			color: fxColStr,
-			stroke: '#000000', strokeThickness: 3,
+			stroke: '#ffffff', strokeThickness: 3,
 		}).setOrigin(0.5);
 		this.tweens.add({
 			targets: t,
