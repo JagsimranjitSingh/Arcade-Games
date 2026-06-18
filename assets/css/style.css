@@ -224,7 +224,7 @@ body.fp-ready {
 
 @media screen and (max-width: 400px) {
 	.custom-main-hero {
-		aspect-ratio: 3 / 4 !important;
+		aspect-ratio: 3 / 5 !important;
 	}
 }
 
