@@ -9,8 +9,8 @@ if (!window.FreshPlay) {
 	window.FreshPlay = {
 		currentLevel: 1,
 		getCurrentPalette: () => ({
-			background: '#f8fafc',
-			playerCore: '#0f172a',
+			background: '#f0f4f8',
+			playerCore: '#3b82f6',
 			fxAccent: '#7b2fff',
 			hostile: '#ff2d78',
 		}),

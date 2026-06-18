@@ -32,15 +32,15 @@
 		getCurrentPalette() {
 			const themes = [
 				// Dark neon blue (levels 1-4)
-				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#7c4dff", hostile: "#ff1744" },
+				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#7c4dff", hostile: "#ff1744" },
 				// Emerald & gold (levels 5-9)
-				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#ffd600", hostile: "#ff6d00" },
+				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#ffd600", hostile: "#ff6d00" },
 				// Crimson void (levels 10-14)
-				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#e040fb", hostile: "#ff6d00" },
+				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#e040fb", hostile: "#ff6d00" },
 				// Solar (levels 15-19)
-				{ background: "#100800", interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#ffea00", hostile: "#e040fb" },
+				{ background: "#100800", interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#ffea00", hostile: "#e040fb" },
 				// Arctic (levels 20+)
-				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
+				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
 			];
 			const idx = Math.floor((_lvl - 1) / 5) % themes.length;
 			return themes[idx];

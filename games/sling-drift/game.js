@@ -9,11 +9,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('Game Over – score:', score); },
 	getCurrentPalette() {
 		return {
-			background: '#f8fafc',
-			playerCore: '#0f172a',
+			background: '#f0f4f8',
+			playerCore: '#3b82f6',
 			fxAccent: '#f0a500',
 			hostile: '#ff2d55',
-			interface: '#e2e8f0',
+			interface: '#cbd5e1',
 		};
 	},
 };
@@ -476,7 +476,7 @@ GameScene.prototype.die = function () {
 			const p = this.palette;
 
 			const rBg = this.add.graphics().setDepth(50);
-			rBg.fillStyle(0xf8fafc, 1);
+			rBg.fillStyle(0xffffff, 0.97);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(p.playerCore).color, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);

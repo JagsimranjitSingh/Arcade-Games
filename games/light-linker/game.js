@@ -9,9 +9,9 @@ if (typeof window.FreshPlay === 'undefined') {
 		levelComplete(cb) { this.currentLevel++; setTimeout(cb, 1800); },
 		showAd() { console.log('[FreshPlay] Ad shown'); },
 		getCurrentPalette: () => ({
-			background: '#f8fafc',
-			interface: '#e2e8f0',
-			playerCore: '#0f172a',
+			background: '#f0f4f8',
+			interface: '#cbd5e1',
+			playerCore: '#3b82f6',
 			fxAccent: '#f72585',
 			hostile: '#ffd166',
 		}),
@@ -701,7 +701,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		Object.assign(div.style, {
 			position: 'fixed', inset: '0',
 			display: 'flex', alignItems: 'center', justifyContent: 'center',
-			background: '#f8fafc',
+			background: '#f0f4f8',
 		});
 		document.body.appendChild(div);
 		document.body.style.cssText = 'margin:0;overflow:hidden;background:#0a0a12';

@@ -8,11 +8,11 @@ if (!window.FreshPlay) {
 		_level: 1,
 		getCurrentPalette() {
 			const palettes = [
-				{ background: '#f8fafc', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#ff2d78' },
-				{ background: '#f8fafc', playerCore: '#39ff14', interface: '#e2e8f0', fxAccent: '#ff6600' },
-				{ background: '#f8fafc', playerCore: '#bf00ff', interface: '#e2e8f0', fxAccent: '#ffdd00' },
-				{ background: '#f8fafc', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#00eaff' },
-				{ background: '#f8fafc', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#a0ff00' },
+				{ background: '#f0f4f8', playerCore: '#3b82f6', interface: '#cbd5e1', fxAccent: '#f43f5e' },
+				{ background: '#f0fdf4', playerCore: '#22c55e', interface: '#cbd5e1', fxAccent: '#f97316' },
+				{ background: '#faf5ff', playerCore: '#a855f7', interface: '#cbd5e1', fxAccent: '#eab308' },
+				{ background: '#eff6ff', playerCore: '#0ea5e9', interface: '#cbd5e1', fxAccent: '#10b981' },
+				{ background: '#fefce8', playerCore: '#f97316', interface: '#cbd5e1', fxAccent: '#8b5cf6' },
 			];
 			return palettes[(Math.floor((this._level - 1) / 5)) % palettes.length];
 		},

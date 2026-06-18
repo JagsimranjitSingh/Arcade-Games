@@ -8,8 +8,8 @@ if (!window.FreshPlay) {
   window.FreshPlay = {
     levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); if (cb) cb(); },
     getCurrentPalette: () => ({
-      background: '#f8fafc',
-      playerCore: '#0f172a',
+      background: '#f0f4f8',
+      playerCore: '#3b82f6',
       hostile:     '#ff2952',
       fxAccent:    '#ffd700',
     }),
@@ -1322,7 +1322,7 @@ class MergeWeapons extends Phaser.Scene {
 
     const cx = this.arenaW / 2, cy = this.arenaH / 2;
     const rBg = this.add.graphics().setDepth(200);
-    rBg.fillStyle(0xf8fafc, 1);
+    rBg.fillStyle(0xffffff, 0.97);
     rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
     rBg.lineStyle(2, this.hexColor(this.palette.playerCore), 1);
     rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);

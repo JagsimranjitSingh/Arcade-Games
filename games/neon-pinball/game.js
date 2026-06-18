@@ -7,9 +7,9 @@ window.FreshPlay = window.FreshPlay || {
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); setTimeout(cb, 800); },
 	gameOver: (score) => console.log('[FreshPlay] gameOver', score),
 	getCurrentPalette: () => ({
-		background: '#f8fafc',
-		playerCore: '#0f172a',
-		interface: '#e2e8f0',
+		background: '#f0f4f8',
+		playerCore: '#3b82f6',
+		interface: '#cbd5e1',
 		fxAccent: '#ff00aa',
 	}),
 };

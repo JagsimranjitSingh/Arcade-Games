@@ -12,11 +12,11 @@ if (!window.FreshPlay) {
 		},
 		getCurrentPalette() {
 			const P = [
-				{ background: '#f8fafc', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#ff00aa' },
-				{ background: '#f8fafc', playerCore: '#f7c948', interface: '#e2e8f0', fxAccent: '#00d4ff' },
-				{ background: '#f8fafc', playerCore: '#b44fff', interface: '#e2e8f0', fxAccent: '#39ff14' },
-				{ background: '#f8fafc', playerCore: '#39ff14', interface: '#e2e8f0', fxAccent: '#ff6b00' },
-				{ background: '#1a0808', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#00ffe7' },
+				{ background: '#f0f4f8', playerCore: '#3b82f6', interface: '#cbd5e1', fxAccent: '#ff00aa' },
+				{ background: '#f0f4f8', playerCore: '#f7c948', interface: '#cbd5e1', fxAccent: '#00d4ff' },
+				{ background: '#f0f4f8', playerCore: '#b44fff', interface: '#cbd5e1', fxAccent: '#39ff14' },
+				{ background: '#f0f4f8', playerCore: '#39ff14', interface: '#cbd5e1', fxAccent: '#ff6b00' },
+				{ background: '#1a0808', playerCore: '#3b82f6', interface: '#cbd5e1', fxAccent: '#00ffe7' },
 			];
 			return P[(this._lvl - 1) % P.length];
 		}

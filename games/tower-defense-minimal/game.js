@@ -7,11 +7,11 @@
 
 	//  PALETTE DEFAULTS  (overridden by FreshPlay)
 	const DEFAULT_PALETTE = {
-		background: '#f8fafc',
-		playerCore: '#0f172a',
+		background: '#f0f4f8',
+		playerCore: '#3b82f6',
 		hostile: "#ff2d55",
 		fxAccent: "#ffe600",
-		interface: '#e2e8f0',
+		interface: '#cbd5e1',
 	};
 
 	function getPalette() {

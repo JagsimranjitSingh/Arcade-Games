@@ -419,7 +419,7 @@ class PlayScene extends Phaser.Scene {
 			const pal = this.palette;
 
 			const rBg = this.add.graphics().setDepth(300);
-			rBg.fillStyle(0xf8fafc, 1);
+			rBg.fillStyle(0xffffff, 0.97);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, pal.core, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);

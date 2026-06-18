@@ -7,11 +7,11 @@
 // ---------------------------------------------------------------------------
 window.FreshPlay = window.FreshPlay || {
 	getCurrentPalette: () => ({
-		background: '#f8fafc',
-		playerCore: '#0f172a',
+		background: '#f0f4f8',
+		playerCore: '#3b82f6',
 		fxAccent: '#39ff14',
 		hostile: '#ff3c3c',
-		interface: '#e2e8f0',
+		interface: '#cbd5e1',
 	}),
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); if (cb) cb(); },
 	gameOver: (score) => { console.log('[FreshPlay] gameOver', score); },
@@ -946,7 +946,7 @@ class GameScene extends Phaser.Scene {
 		const barH = s ? 8 : 10;
 
 		const barBg = this.add.graphics().setDepth(41);
-		barBg.fillStyle(0xf8fafc, 1);
+		barBg.fillStyle(0xffffff, 0.97);
 		barBg.fillRoundedRect(barX, barY, barW, barH, 5);
 		barBg.lineStyle(1, fCol, 0.4);
 		barBg.strokeRoundedRect(barX, barY, barW, barH, 5);
@@ -1179,7 +1179,7 @@ class GameScene extends Phaser.Scene {
 			this.revived = true;
 			const cx = this.W / 2, cy = this.H / 2;
 			const rBg = this.add.graphics().setDepth(200);
-			rBg.fillStyle(0xf8fafc, 1);
+			rBg.fillStyle(0xffffff, 0.97);
 			rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 			rBg.lineStyle(2, 0x00e5ff, 1);
 			rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);

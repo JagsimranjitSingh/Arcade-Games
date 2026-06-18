@@ -25,11 +25,11 @@ const hexCss = hex => '#' + hex.toString(16).padStart(6, '0');
 
 // Default palette (used before FreshPlay SDK loads)
 const DEFAULT_PALETTE = {
-	background: 0xf8fafc,
-	playerCore:  0x00e5ff,
-	fxAccent:    0xff6600,
-	interface:   0x0f172a,
-	hostile:     0xff0044
+	background: 0xf0f4f8,
+	playerCore:  0x3b82f6,
+	fxAccent:    0xf97316,
+	interface:   0x334155,
+	hostile:     0xef4444
 };
 
 // Constants
@@ -52,23 +52,23 @@ class BootScene extends Phaser.Scene {
 		// Generate all textures procedurally
 		this._makeTex('glow_dot', 32, g => {
 			for (let i = 8; i >= 1; i--) {
-				g.fillStyle(0x0f172a, (i / 8) * 0.9);
+				g.fillStyle(0xffffff, (i / 8) * 0.9);
 				g.fillCircle(16, 16, i * 2);
 			}
 		});
 		this._makeTex('ring_glow', 64, g => {
 			for (let i = 5; i >= 1; i--) {
-				g.lineStyle(i * 2, 0x0f172a, (1 / i) * 0.4);
+				g.lineStyle(i * 2, 0xffffff, (1 / i) * 0.4);
 				g.strokeCircle(32, 32, 24);
 			}
 		});
 		this._makeTex('laser_head', 20, g => {
-			g.fillStyle(0x0f172a, 1);
-			g.fillCircle(10, 10, 10);
+			g.fillStyle(0xffffff, 1);
+		g.fillCircle(10, 10, 10);
 		});
 		this._makeTex('spark', 8, g => {
-			g.fillStyle(0x0f172a, 1);
-			g.fillRect(0, 2, 8, 4);
+			g.fillStyle(0xffffff, 1);
+		g.fillRect(0, 2, 8, 4);
 		});
 	}
 
@@ -369,12 +369,12 @@ class PlayScene extends Phaser.Scene {
 	// Entrance animation
 	_playEntrance() {
 		const { width: W, height: H } = this.scale;
-		const flash = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0x0f172a, 1).setDepth(500);
+		const flash = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0xffffff, 1).setDepth(500);
 		this.tweens.add({ targets: flash, alpha: 0, duration: 700, ease: 'Power3', onComplete: () => flash.destroy() });
 
 		const title = this.add.text(W / 2, H / 2 - 20, 'ORBIT STRIKER', {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '32px',
-			color: '#0f172a', stroke: '#000000', strokeThickness: 4
+			color: '#1e293b', stroke: '#ffffff', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(510).setAlpha(0);
 
 		this.tweens.add({ targets: title, alpha: 1, y: H / 2 - 40, duration: 400, ease: 'Back.Out' });
@@ -476,7 +476,7 @@ class PlayScene extends Phaser.Scene {
 		}
 
 		// Core fill
-		this.coreGfx.fillStyle(0x000000, 1);
+		this.coreGfx.fillStyle(0xf0f4f8, 1);
 		this.coreGfx.fillCircle(cx, cy, CORE_RADIUS);
 
 		// Core inner glow gradient rings
@@ -576,7 +576,7 @@ class PlayScene extends Phaser.Scene {
 			// Head glow
 			this.laserGfx.fillStyle(lz.color, 0.8);
 			this.laserGfx.fillCircle(headX, headY, 5);
-			this.laserGfx.fillStyle(0x0f172a, 0.9);
+			this.laserGfx.fillStyle(0xffffff, 0.9);
 			this.laserGfx.fillCircle(headX, headY, 2.5);
 
 			// Warning arc on orbit ring
@@ -655,7 +655,7 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pop = this.add.text(W / 2, H / 2 + 60, 'LEVEL ' + this.level, {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '34px',
-			color: '#0f172a', stroke: '#000000', strokeThickness: 5
+			color: '#0f172a', stroke: '#ffffff', strokeThickness: 5
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({
 			targets: pop, alpha: 1, scaleX: 1.2, scaleY: 1.2,
@@ -717,7 +717,7 @@ class PlayScene extends Phaser.Scene {
 	_spawnPopup(x, y, txt, color) {
 		const pop = this.add.text(x, y, txt, {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '20px',
-			color: hexCss(color), stroke: '#000000', strokeThickness: 3
+			color: hexCss(color), stroke: '#ffffff', strokeThickness: 3
 		}).setOrigin(0.5).setDepth(40);
 		this.tweens.add({
 			targets: pop, y: y - 55, alpha: 0,
@@ -848,10 +848,10 @@ class PlayScene extends Phaser.Scene {
 
 		if (this.isPaused) {
 			const { width: W, height: H } = this.scale;
-			this._pauseOverlay = this.add.rectangle(W / 2, H / 2, W, H, 0x0f172a, 0.72).setDepth(300);
+			this._pauseOverlay = this.add.rectangle(W / 2, H / 2, W, H, 0x1e293b, 0.72).setDepth(300);
 			this._pauseText    = this.add.text(W / 2, H / 2, 'PAUSED\n\n[ ESC / P  to resume ]', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px',
-				color: '#0f172a', align: 'center', stroke: '#000000', strokeThickness: 3
+				color: '#ffffff', align: 'center'
 			}).setOrigin(0.5).setDepth(301);
 		} else {
 			this._pauseOverlay?.destroy(); this._pauseOverlay = null;
@@ -871,7 +871,7 @@ class PlayScene extends Phaser.Scene {
 			const pal = this.palette;
 
 			const rBg = this.add.graphics().setDepth(400);
-			rBg.fillStyle(0xf8fafc, 1);
+			rBg.fillStyle(0xffffff, 0.97);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, pal.colorA, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
@@ -926,14 +926,14 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pal = this.palette;
 
-		const overlay = this.add.rectangle(W / 2, H / 2, W * 2, H * 2, 0x0f172a, 0).setDepth(400);
+		const overlay = this.add.rectangle(W / 2, H / 2, W * 2, H * 2, 0x1e293b, 0).setDepth(400);
 		this.tweens.add({ targets: overlay, alpha: 0.82, duration: 600 });
 
 		this.time.delayedCall(350, () => {
 			const panel = this.add.graphics().setDepth(401);
 			const pw = 340, ph = 280, px = W / 2 - pw / 2, py = H / 2 - ph / 2;
 
-			panel.fillStyle(0x000a14, 0.98);
+			panel.fillStyle(0xffffff, 0.98);
 			panel.fillRect(px, py, pw, ph);
 			panel.lineStyle(2, pal.hostile, 0.8);
 			panel.strokeRect(px, py, pw, ph);
@@ -946,7 +946,7 @@ class PlayScene extends Phaser.Scene {
 					fontSize: size + 'px', color: col
 				}).setOrigin(...origin).setDepth(402);
 
-			mk(W / 2, py + 28, 'GAME OVER', 28, hexCss(pal.hostile));
+			mk(W / 2, py + 28, 'GAME OVER', 28, '#ef4444');
 			mk(W / 2, py + 72, 'SCORE', 10, hexCss(pal.ui)).setLetterSpacing(4);
 			mk(W / 2, py + 86, this.score.toLocaleString(), 40, '#0f172a');
 			mk(W / 2, py + 142, 'BEST   ' + Math.max(this.score, this.hiScore).toLocaleString(), 12, hexCss(pal.ui));

@@ -20,14 +20,14 @@ const lerpColor = (c1, c2, t) => {
 
 // Palette definitions (one per 5-level bracket)
 const PALETTES = [
-	{ bg: 0xc4e2f5, road: 0xcbd5e1, target: [0x06b6d4, 0x1d4ed8, 0x7c3aed], hostile: 0xff0044, ui: 0x0f172a, fx: 0x00ffff, name: 'MATRIX' },
-	{ bg: 0xd0e8f6, road: 0xff00ff, target: [0x00e5ff, 0x0f172a, 0x88ffcc], hostile: 0xffaa00, ui: 0x0f172a, fx: 0xff00ff, name: 'VAPORWAVE' },
-	{ bg: 0xd4eee6, road: 0x00ff88, target: [0xffaa00, 0xffff00, 0x0f172a], hostile: 0x7c3aed, ui: 0x0f172a, fx: 0x00ff88, name: 'TOXIC' },
-	{ bg: 0xc4e2f5, road: 0x1d4ed8, target: [0x0f172a, 0x1d4ed8, 0x06b6d4], hostile: 0xff3366, ui: 0x0f172a, fx: 0x3366ff, name: 'OCEAN' },
-	{ bg: 0xf5ecd4, road: 0xffd700, target: [0xffd700, 0x0f172a, 0xffaa00], hostile: 0xcc00ff, ui: 0x0f172a, fx: 0xffd700, name: 'GOLD' },
-	{ bg: 0xf0d8ec, road: 0xff44cc, target: [0xff44cc, 0x0f172a, 0x7c3aed], hostile: 0x00ffcc, ui: 0x0f172a, fx: 0xff44cc, name: 'SAKURA' },
-	{ bg: 0xf5ecd4, road: 0xff6600, target: [0xff6600, 0xffdd00, 0x0f172a], hostile: 0x00aaff, ui: 0x0f172a, fx: 0xff6600, name: 'FIRE' },
-	{ bg: 0xc4e2f5, road: 0x0f172a, target: [0x0f172a, 0xcccccc, 0x00ff00], hostile: 0x333333, ui: 0x00ff00, fx: 0xff0000, name: 'VOID' },
+	{ bg: 0xf0f4f8, road: 0x94a3b8, target: [0x3b82f6, 0x8b5cf6, 0x06b6d4], hostile: 0xef4444, ui: 0x1e293b, fx: 0x3b82f6, name: 'SAPPHIRE' },
+	{ bg: 0xfaf5ff, road: 0xc084fc, target: [0xa855f7, 0xec4899, 0x06b6d4], hostile: 0xf97316, ui: 0x1e293b, fx: 0xa855f7, name: 'AMETHYST' },
+	{ bg: 0xf0fdf4, road: 0x86efac, target: [0x22c55e, 0xeab308, 0xf97316], hostile: 0x8b5cf6, ui: 0x1e293b, fx: 0x22c55e, name: 'EMERALD' },
+	{ bg: 0xeff6ff, road: 0x93c5fd, target: [0x2563eb, 0x0891b2, 0x7c3aed], hostile: 0xf43f5e, ui: 0x1e293b, fx: 0x2563eb, name: 'OCEAN' },
+	{ bg: 0xfefce8, road: 0xfde047, target: [0xeab308, 0xf97316, 0xef4444], hostile: 0x7c3aed, ui: 0x1e293b, fx: 0xeab308, name: 'GOLD' },
+	{ bg: 0xfdf2f8, road: 0xf9a8d4, target: [0xec4899, 0xa855f7, 0xf43f5e], hostile: 0x10b981, ui: 0x1e293b, fx: 0xec4899, name: 'SAKURA' },
+	{ bg: 0xfff7ed, road: 0xfdba74, target: [0xf97316, 0xef4444, 0xeab308], hostile: 0x0ea5e9, ui: 0x1e293b, fx: 0xf97316, name: 'FIRE' },
+	{ bg: 0xf1f5f9, road: 0x475569, target: [0x1e293b, 0x64748b, 0x0ea5e9], hostile: 0xef4444, ui: 0x22c55e, fx: 0xef4444, name: 'STEALTH' },
 ];
 
 // Boot / Preload Scen
@@ -37,7 +37,7 @@ class BootScene extends Phaser.Scene {
 	preload() {
 		// Build minimal textures in preload
 		this.makeTexture('particle', 8, (gfx) => {
-			gfx.fillStyle(0x0f172a, 1);
+			gfx.fillStyle(0xffffff, 1);
 			gfx.fillCircle(4, 4, 4);
 		});
 		this.makeTexture('glow_particle', 16, (gfx) => {
@@ -45,12 +45,12 @@ class BootScene extends Phaser.Scene {
 			for (let i = steps; i >= 1; i--) {
 				const alpha = (i / steps) * 0.8;
 				const r = (i / steps) * 8;
-				gfx.fillStyle(0x0f172a, alpha);
+				gfx.fillStyle(0xffffff, alpha);
 				gfx.fillCircle(8, 8, r);
 			}
 		});
 		this.makeTexture('slash_particle', 6, (gfx) => {
-			gfx.fillStyle(0x0f172a, 1);
+			gfx.fillStyle(0xffffff, 1);
 			gfx.fillRect(0, 0, 6, 2);
 		});
 	}
@@ -394,7 +394,7 @@ class PlayScene extends Phaser.Scene {
 		const w = this.scale.width, h = this.scale.height;
 		const announcement = this.add.text(w / 2, h / 2, `— ${PALETTES[newIndex].name} —`, {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '32px',
-			color: '#0f172a', stroke: '#000000', strokeThickness: 6
+			color: '#1e293b', stroke: '#ffffff', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(250).setAlpha(0);
 
 		this.tweens.add({ targets: announcement, alpha: 1, y: h / 2 - 20, duration: 300, ease: 'Back.Out' });
@@ -498,7 +498,7 @@ class PlayScene extends Phaser.Scene {
 		this.bladeCore.clear();
 
 		// Clean 2px core with distinct glow
-		this.bladeCore.lineStyle(2, 0x0f172a, 1);
+		this.bladeCore.lineStyle(2, roadColor, 1);
 		this.bladeGlow.lineStyle(10, roadColor, 0.6);
 
 		this.bladeCore.beginPath();
@@ -634,7 +634,7 @@ class PlayScene extends Phaser.Scene {
 		const w = this.scale.width, h = this.scale.height;
 		const pop = this.add.text(w / 2, h / 2 + 40, `LEVEL ${this.currentLevel}`, {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '36px',
-			color: '#0f172a', stroke: '#000000', strokeThickness: 5
+			color: '#1e293b', stroke: '#ffffff', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({ targets: pop, alpha: 1, scaleX: 1.2, scaleY: 1.2, duration: 200, yoyo: true });
 		this.time.delayedCall(600, () => {

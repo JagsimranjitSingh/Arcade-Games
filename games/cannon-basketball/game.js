@@ -8,10 +8,10 @@
 if (!window.FreshPlay) {
 	let _level = 0;
 	const PALETTES = [
-		{ background: '#f8fafc', playerCore: '#0f172a', fxAccent: '#ffe600', hostile: '#ff2255', interface: '#e2e8f0' },
-		{ background: '#f8fafc', playerCore: '#39ff14', fxAccent: '#ff6b00', hostile: '#e600ff', interface: '#e2e8f0' },
-		{ background: '#f8fafc', playerCore: '#0f172a', fxAccent: '#00ffd5', hostile: '#ff4400', interface: '#e2e8f0' },
-		{ background: '#f8fafc', playerCore: '#0f172a', fxAccent: '#00cfff', hostile: '#ff1155', interface: '#e2e8f0' },
+		{ background: '#f0f4f8', playerCore: '#3b82f6', fxAccent: '#eab308', hostile: '#ef4444', interface: '#cbd5e1' },
+		{ background: '#f0fdf4', playerCore: '#22c55e', fxAccent: '#f97316', hostile: '#a855f7', interface: '#cbd5e1' },
+		{ background: '#faf5ff', playerCore: '#8b5cf6', fxAccent: '#06b6d4', hostile: '#ef4444', interface: '#cbd5e1' },
+		{ background: '#eff6ff', playerCore: '#2563eb', fxAccent: '#10b981', hostile: '#f43f5e', interface: '#cbd5e1' },
 	];
 	window.FreshPlay = {
 		levelComplete(cb) { _level++; setTimeout(cb, 0); },

@@ -10,11 +10,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('[FreshPlay] gameOver', score); },
 	getCurrentPalette() {
 		return {
-			background: '#f8fafc',
+			background: '#f0f4f8',
 			playerCore: '#7ee8fa',
 			fxAccent: '#00ffd0',
 			hostile: '#ff4757',
-			interface: '#e2e8f0',
+			interface: '#cbd5e1',
 		};
 	},
 };
@@ -740,7 +740,7 @@ class GameScene extends Phaser.Scene {
 				const W = this.scale.width, H = this.scale.height;
 				const cx = W / 2, cy = H / 2;
 				const rBg = this.add.graphics().setDepth(200);
-				rBg.fillStyle(0xf8fafc, 1);
+				rBg.fillStyle(0xffffff, 0.97);
 				rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 				rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(this.P.playerCore).color, 1);
 				rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);

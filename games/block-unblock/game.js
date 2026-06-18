@@ -11,7 +11,7 @@ if (typeof window.FreshPlay === 'undefined') {
 			setTimeout(cb, 1200);
 		},
 		getCurrentPalette: () => ({
-			background: '#f8fafc', playerCore: '#0f172a', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#e2e8f0'
+			background: '#f0f4f8', playerCore: '#3b82f6', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#cbd5e1'
 		}),
 	};
 }
@@ -34,7 +34,7 @@ function getPalette() {
 	} catch (_) { return defaultPalette(); }
 }
 function defaultPalette() {
-	return { background: '#f8fafc', playerCore: '#0f172a', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#e2e8f0' };
+	return { background: '#f0f4f8', playerCore: '#3b82f6', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#cbd5e1' };
 }
 
 // Safely converts both Strings and Ints to Number for Graphics

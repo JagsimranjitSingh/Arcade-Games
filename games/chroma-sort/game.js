@@ -11,9 +11,9 @@ if (!window.FreshPlay) {
         setTimeout(cb, 800); 
     },
     getCurrentPalette: () => ({
-      background: '#f8fafc',
-      interface: '#e2e8f0',
-      playerCore: '#0f172a',
+      background: '#f0f4f8',
+      interface: '#cbd5e1',
+      playerCore: '#3b82f6',
       hostile:    '#ff2060',
       fxAccent:   '#aa44ff',
     }),
@@ -42,11 +42,11 @@ function hexToStr(h) {
 
 function getPalette() {
   let p = window.FreshPlay && window.FreshPlay.getCurrentPalette ? window.FreshPlay.getCurrentPalette() : null;
-  if (!p) p = { background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', hostile: '#ff2060', fxAccent: '#aa44ff' };
+  if (!p) p = { background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', hostile: '#ff2060', fxAccent: '#aa44ff' };
   
   return {
     background: hexToStr(p.background || '#07080f'),
-    interface: '#e2e8f0', 
+    interface: '#cbd5e1', 
     playerCore: hexToStr(p.playerCore || '#00f0ff'),
     hostile:    hexToStr(p.hostile || '#ff2060'),
     fxAccent:   hexToStr(p.fxAccent || '#aa44ff')

@@ -12,9 +12,9 @@ if (typeof window.FreshPlay === 'undefined') {
 		},
 		showAd: () => { console.log('[FreshPlay] Ad shown'); },
 		getCurrentPalette: () => ({
-			background: '#f8fafc',
-			playerCore: '#0f172a',
-			interface: '#e2e8f0',
+			background: '#f0f4f8',
+			playerCore: '#3b82f6',
+			interface: '#cbd5e1',
 			fxAccent: '#ff3cac',
 		}),
 	};
@@ -658,7 +658,7 @@ class GameScene extends Phaser.Scene {
 		const pcColInt = hexToInt(this.palette.playerCore);
 
 		this.progressBarBg.clear();
-		this.progressBarBg.fillStyle(0xf8fafc, 1);
+		this.progressBarBg.fillStyle(0xffffff, 0.97);
 		this.progressBarBg.fillRect(0, 58, W, 4);
 
 		this.progressBarFg.clear();
