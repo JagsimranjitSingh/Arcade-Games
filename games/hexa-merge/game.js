@@ -12,9 +12,9 @@ if (typeof window.FreshPlay === 'undefined') {
 		},
 		showAd: () => { console.log('[FreshPlay] Ad shown'); },
 		getCurrentPalette: () => ({
-			background: '#c4e2f5',
-			playerCore: '#00234f',
-			interface: '#daedf8',
+			background: '#f8fafc',
+			playerCore: '#0f172a',
+			interface: '#e2e8f0',
 			fxAccent: '#ff3cac',
 		}),
 	};
@@ -39,7 +39,7 @@ const hexToInt = (h) => {
 const hexToStr = (h) => {
 	if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
 	if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-	return '#00234f';
+	return '#0f172a';
 };
 
 // Axial → pixel (pointy-top)
@@ -140,6 +140,7 @@ class GameScene extends Phaser.Scene {
 	}
 
 	update(time, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
 		this._tickParticles(delta);
 		if (this.ghostCell && !this.merging) this._drawGhost();
 	}
@@ -335,9 +336,9 @@ class GameScene extends Phaser.Scene {
 		this._fillHex(gfx, 0, 0, size + 4);
 		gfx.fillStyle(tileCol, 1);
 		this._fillHex(gfx, 0, 0, size);
-		gfx.fillStyle(0x00234f, 0.25);
+		gfx.fillStyle(0x0f172a, 0.25);
 		this._fillHex(gfx, 0, -size * 0.15, size * 0.55);
-		gfx.lineStyle(1.5, 0x00234f, 0.4);
+		gfx.lineStyle(1.5, 0x0f172a, 0.4);
 		this._strokeHex(gfx, 0, 0, size);
 
 		label.setText(String(value));
@@ -657,7 +658,7 @@ class GameScene extends Phaser.Scene {
 		const pcColInt = hexToInt(this.palette.playerCore);
 
 		this.progressBarBg.clear();
-		this.progressBarBg.fillStyle(0x00234f, 0.07);
+		this.progressBarBg.fillStyle(0xf8fafc, 1);
 		this.progressBarBg.fillRect(0, 58, W, 4);
 
 		this.progressBarFg.clear();
@@ -721,10 +722,10 @@ class GameScene extends Phaser.Scene {
 
 			if (i === 0) {
 				gfx.fillStyle(tcol, 1);
-				gfx.lineStyle(2.5, 0x00234f, 0.8);
+				gfx.lineStyle(2.5, 0x0f172a, 0.8);
 			} else {
 				gfx.fillStyle(tcol, 0.5);
-				gfx.lineStyle(1.5, 0x00234f, 0.3);
+				gfx.lineStyle(1.5, 0x0f172a, 0.3);
 				lbl.setAlpha(0.6);
 			}
 
@@ -852,8 +853,9 @@ const config = {
 	type: Phaser.AUTO,
 	width: 400,
 	height: 680,
-	backgroundColor: 0xc4e2f5,
+	backgroundColor: '#f8fafc',
 	scene: [BootScene, GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	parent: 'game-container',
 	scale: {
 		mode: Phaser.Scale.FIT,

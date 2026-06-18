@@ -32,15 +32,15 @@
 		getCurrentPalette() {
 			const themes = [
 				// Dark neon blue (levels 1-4)
-				{ background: "#c4e2f5", interface: '#daedf8', playerCore: '#00234f', fxAccent: "#7c4dff", hostile: "#ff1744" },
+				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#7c4dff", hostile: "#ff1744" },
 				// Emerald & gold (levels 5-9)
-				{ background: "#c4e2f5", interface: '#daedf8', playerCore: '#00234f', fxAccent: "#ffd600", hostile: "#ff6d00" },
+				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#ffd600", hostile: "#ff6d00" },
 				// Crimson void (levels 10-14)
-				{ background: "#c4e2f5", interface: '#daedf8', playerCore: '#00234f', fxAccent: "#e040fb", hostile: "#ff6d00" },
+				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#e040fb", hostile: "#ff6d00" },
 				// Solar (levels 15-19)
-				{ background: "#100800", interface: '#daedf8', playerCore: '#00234f', fxAccent: "#ffea00", hostile: "#e040fb" },
+				{ background: "#100800", interface: '#e2e8f0', playerCore: '#0f172a', fxAccent: "#ffea00", hostile: "#e040fb" },
 				// Arctic (levels 20+)
-				{ background: "#c4e2f5", interface: '#daedf8', playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
+				{ background: '#f8fafc', interface: '#e2e8f0', playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
 			];
 			const idx = Math.floor((_lvl - 1) / 5) % themes.length;
 			return themes[idx];
@@ -204,7 +204,7 @@
 			// Scanlines
 			const sl = this.add.graphics().setDepth(9).setAlpha(0.035);
 			for (let y = 0; y < H * 8; y += 4) {
-				sl.fillStyle(0x00234f); sl.fillRect(0, y - H * 3, W, 1);
+				sl.fillStyle(0x0f172a); sl.fillRect(0, y - H * 3, W, 1);
 			}
 
 			// Grid
@@ -269,7 +269,7 @@
 			gfx.fillRoundedRect(x - hw, y - hh, w, h, r);
 
 			// Top sheen
-			gfx.fillStyle(0x00234f, isBase ? 0.06 : 0.2);
+			gfx.fillStyle(0x0f172a, isBase ? 0.06 : 0.2);
 			gfx.fillRoundedRect(x - hw + 2, y - hh + 2, w - 4, 5, 2);
 
 			// Neon border
@@ -277,7 +277,7 @@
 			gfx.strokeRoundedRect(x - hw, y - hh, w, h, r);
 
 			// Inner gleam
-			gfx.lineStyle(1, 0x00234f, 0.1);
+			gfx.lineStyle(1, 0x0f172a, 0.1);
 			gfx.strokeRoundedRect(x - hw + 2, y - hh + 2, w - 4, h - 4, r - 1);
 		}
 
@@ -300,7 +300,7 @@
 
 			this.scoreTxt = this.add.text(W / 2, 32, '0', {
 				fontFamily: "'Orbitron',monospace", fontSize: '42px', fontStyle: 'bold',
-				color: '#00234f', stroke: palette.playerCore, strokeThickness: 1,
+				color: '#0f172a', stroke: palette.playerCore, strokeThickness: 1,
 			}).setOrigin(0.5, 0).setDepth(d).setScrollFactor(0);
 
 			// Level
@@ -323,7 +323,7 @@
 			// Hint
 			this.hintTxt = this.add.text(W / 2, H - 42, 'TAP  TO  DROP', {
 				fontFamily: "'Orbitron',monospace", fontSize: '11px',
-				color: '#00234f', letterSpacing: 5,
+				color: '#0f172a', letterSpacing: 5,
 			}).setOrigin(0.5).setDepth(d).setScrollFactor(0).setAlpha(0.4);
 
 			this.tweens.add({
@@ -356,6 +356,7 @@
 
 		/* Update */
 		update(t, dt) {
+		dt = Math.min(dt || 16.6, 33.3);
 			if (!this.gameActive) return;
 			const s = dt / 1000;
 
@@ -563,7 +564,7 @@
 				}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 				const s = this.add.text(W / 2, H * 0.48, `SCORE  ${this.score.toLocaleString()}`, {
-					fontFamily: "'Orbitron',monospace", fontSize: '20px', color: '#00234f',
+					fontFamily: "'Orbitron',monospace", fontSize: '20px', color: '#0f172a',
 				}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 				this.tweens.add({ targets: [g, s], alpha: 1, duration: 500, delay: 100 });
@@ -588,7 +589,7 @@
 
 			const clr = this.add.text(W / 2, H * 0.49, 'COMPLETE', {
 				fontFamily: "'Orbitron',monospace", fontSize: '40px', fontStyle: 'bold',
-				color: '#00234f', stroke: palette.playerCore, strokeThickness: 2,
+				color: '#0f172a', stroke: palette.playerCore, strokeThickness: 2,
 			}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 			this.tweens.add({
@@ -636,5 +637,6 @@
 		parent: document.body,
 		scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
 		scene: [BootScene, GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	});
 })();

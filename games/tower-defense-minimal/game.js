@@ -7,11 +7,11 @@
 
 	//  PALETTE DEFAULTS  (overridden by FreshPlay)
 	const DEFAULT_PALETTE = {
-		background: "#c4e2f5",
-		playerCore: '#00234f',
+		background: '#f8fafc',
+		playerCore: '#0f172a',
 		hostile: "#ff2d55",
 		fxAccent: "#ffe600",
-		interface: '#daedf8',
+		interface: '#e2e8f0',
 	};
 
 	function getPalette() {
@@ -824,6 +824,7 @@
 
 		// UPDATE LOOP
 		update(time, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
 			if (this.gameEnded) return;
 			const dt = delta / 1000;
 
@@ -955,6 +956,7 @@
 		backgroundColor: DEFAULT_PALETTE.background,
 		parent: "game-container",
 		scene: [BootScene, GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 		antialias: true,
 		roundPixels: false,
 		scale: {

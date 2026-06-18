@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <iframe 
                                     id="freshplay-game-frame"
                                     src="${game.game_url}" 
-                                    class="w-full h-full border-8 border-white rounded-lg box-border"
+                                    class="w-full h-full border-2 border-white rounded-lg box-border"
                                     allow="autoplay; fullscreen"
                                     onload="this.contentWindow.focus()"
                                 ></iframe>

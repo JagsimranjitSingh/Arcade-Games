@@ -11,9 +11,9 @@ if (!window.FreshPlay) {
         setTimeout(cb, 800); 
     },
     getCurrentPalette: () => ({
-      background: '#c4e2f5',
-      interface: '#daedf8',
-      playerCore: '#00234f',
+      background: '#f8fafc',
+      interface: '#e2e8f0',
+      playerCore: '#0f172a',
       hostile:    '#ff2060',
       fxAccent:   '#aa44ff',
     }),
@@ -37,16 +37,16 @@ const HEADER_H      = 76;
 function hexToStr(h) {
   if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
   if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-  return '#00234f';
+  return '#0f172a';
 }
 
 function getPalette() {
   let p = window.FreshPlay && window.FreshPlay.getCurrentPalette ? window.FreshPlay.getCurrentPalette() : null;
-  if (!p) p = { background: '#c4e2f5', interface: '#daedf8', playerCore: '#00234f', hostile: '#ff2060', fxAccent: '#aa44ff' };
+  if (!p) p = { background: '#f8fafc', interface: '#e2e8f0', playerCore: '#0f172a', hostile: '#ff2060', fxAccent: '#aa44ff' };
   
   return {
     background: hexToStr(p.background || '#07080f'),
-    interface: '#daedf8', 
+    interface: '#e2e8f0', 
     playerCore: hexToStr(p.playerCore || '#00f0ff'),
     hostile:    hexToStr(p.hostile || '#ff2060'),
     fxAccent:   hexToStr(p.fxAccent || '#aa44ff')
@@ -218,14 +218,14 @@ class ChromaSortScene extends Phaser.Scene {
 
     // Dot grid
     const dots = this.add.graphics();
-    dots.fillStyle(0x00234f, 0.03);
+    dots.fillStyle(0x0f172a, 0.03);
     for (let x = 22; x < W; x += 36)
       for (let y = HEADER_H + 10; y < H - 40; y += 36)
         dots.fillCircle(x, y, 1);
 
     // Scan lines
     const scan = this.add.graphics();
-    scan.lineStyle(1, 0x00234f, 0.016);
+    scan.lineStyle(1, 0x0f172a, 0.016);
     for (let y = HEADER_H; y < H; y += 4) scan.lineBetween(0, y, W, y);
   }
 
@@ -246,7 +246,7 @@ class ChromaSortScene extends Phaser.Scene {
 
     this.lblLevel = this.add.text(W / 2, HEADER_H / 2, 'LEVEL 1', {
       fontFamily: 'monospace', fontSize: '20px',
-      color: '#00234f', letterSpacing: 8,
+      color: '#0f172a', letterSpacing: 8,
     }).setOrigin(0.5);
 
     this.add.text(W - 16, 14, 'MOVES', {
@@ -255,7 +255,7 @@ class ChromaSortScene extends Phaser.Scene {
     }).setOrigin(1, 0).setAlpha(0.7);
 
     this.lblMoves = this.add.text(W - 16, 30, '0', {
-      fontFamily: 'monospace', fontSize: '22px', color: '#00234f',
+      fontFamily: 'monospace', fontSize: '22px', color: '#0f172a',
     }).setOrigin(1, 0);
 
     const rBtn = this.add.text(16, HEADER_H / 2, '↺  RESTART', {
@@ -268,7 +268,7 @@ class ChromaSortScene extends Phaser.Scene {
 
     this.lblHint = this.add.text(W / 2, this.scale.height - 20, 'TAP A TUBE TO SELECT', {
       fontFamily: 'monospace', fontSize: '14px',
-      color: '#00234f', letterSpacing: 3,
+      color: '#0f172a', letterSpacing: 3,
     }).setOrigin(0.5).setAlpha(0.32);
   }
 
@@ -417,10 +417,10 @@ class ChromaSortScene extends Phaser.Scene {
         g.fillRoundedRect(clipL, lyY, innerW, LAYER_H, { bl: br - 2, br: br - 2, tl: 0, tr: 0 });
       } else {
         g.fillRect(clipL, lyY, innerW, LAYER_H);
-        g.lineStyle(1, 0x00234f, 0.10);
+        g.lineStyle(1, 0x0f172a, 0.10);
         g.lineBetween(clipL, lyY + LAYER_H, clipL + innerW, lyY + LAYER_H);
       }
-      g.fillStyle(0x00234f, 0.07);
+      g.fillStyle(0x0f172a, 0.07);
       g.fillRect(clipL, lyY, innerW * 0.28, LAYER_H);
     }
 
@@ -429,7 +429,7 @@ class ChromaSortScene extends Phaser.Scene {
     g.fillRect(lx, ty, wall, TUBE_INNER_H + wall);
     g.fillRect(lx + TUBE_W - wall, ty, wall, TUBE_INNER_H + wall);
     g.fillRoundedRect(lx, ty + TUBE_INNER_H, TUBE_W, wall * 3.5, br);
-    g.fillStyle(0x00234f, 0.05);
+    g.fillStyle(0x0f172a, 0.05);
     g.fillRect(lx + wall, ty, 3, TUBE_INNER_H);
 
     // Border
@@ -460,7 +460,7 @@ class ChromaSortScene extends Phaser.Scene {
       const by = ty - 20;
       g.fillStyle(phColor(tube.layers[0]), 1);
       g.fillCircle(x, by, 11);
-      g.lineStyle(2, 0x00234f, 0.9);
+      g.lineStyle(2, 0x0f172a, 0.9);
       g.lineBetween(x - 5, by, x - 1, by + 4);
       g.lineBetween(x - 1, by + 4, x + 7, by - 5);
     }
@@ -494,7 +494,7 @@ class ChromaSortScene extends Phaser.Scene {
       }
       wv.strokePath();
 
-      wv.fillStyle(0x00234f, 0.28);
+      wv.fillStyle(0x0f172a, 0.28);
       wv.fillCircle(
         lx + wall + innerW * 0.28,
         surfaceY + Math.sin(t + 1.5 + i) * WAVE_AMP - 1.5,
@@ -1007,9 +1007,10 @@ function bootChromaSort() {
   window._chromaSortInst = new Phaser.Game({
     type: Phaser.AUTO,
     width: 500, height: 820,
-    backgroundColor: 0xc4e2f5,
+    backgroundColor: '#f8fafc',
     parent: 'game-container',
     scene: [ChromaSortScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
     // FIX: Disabled autoCenter so the index.html Flexbox layout flawlessly centers the canvas
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.NO_CENTER },
     render: { antialias: true, powerPreference: 'high-performance' },

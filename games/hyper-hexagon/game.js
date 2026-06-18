@@ -39,12 +39,12 @@ class BootScene extends Phaser.Scene {
 	preload() {
 		this._tex('glow_blob', 64, g => {
 			for (let i = 10; i >= 1; i--) {
-				g.fillStyle(0x00234f, i / 10 * 0.85);
+				g.fillStyle(0x0f172a, i / 10 * 0.85);
 				g.fillCircle(32, 32, i * 3.2);
 			}
 		});
 		this._tex('hex_shard', 12, g => {
-			g.fillStyle(0x00234f, 1);
+			g.fillStyle(0x0f172a, 1);
 			g.fillTriangle(6, 0, 12, 10, 0, 10);
 		});
 	}
@@ -97,7 +97,7 @@ class PlayScene extends Phaser.Scene {
 		this.shakeAmt = 0;
 		this.shakeDecay = 0.82;
 		this.screenFlash = 0;
-		this.flashCol = 0x00234f;
+		this.flashCol = 0x0f172a;
 		this.pulseT = 0;
 		this.popups = [];
 
@@ -127,7 +127,7 @@ class PlayScene extends Phaser.Scene {
 		this.uiGfx = this.add.graphics().setDepth(98);
 
 		// Full-screen flash rectangle
-		this.flashRect = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0x00234f, 0).setDepth(92);
+		this.flashRect = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0x0f172a, 0).setDepth(92);
 
 		// HUD and input
 		this._buildHUD();
@@ -154,12 +154,12 @@ class PlayScene extends Phaser.Scene {
 					bg: p.background ?? 0x050510,
 					core: p.playerCore ?? 0x00e5ff,
 					wall: p.hostile ?? 0xff0044,
-					ui: p.interface ?? 0x00234f,
+					ui: p.interface ?? 0x0f172a,
 					fx: p.fxAccent ?? 0xff6600,
 				};
 			}
 		} catch { }
-		return { bg: 0x050510, core: 0x00e5ff, wall: 0xff0044, ui: 0x00234f, fx: 0xff6600 };
+		return { bg: 0x050510, core: 0x00e5ff, wall: 0xff0044, ui: 0x0f172a, fx: 0xff6600 };
 	}
 
 	/* Audio */
@@ -419,7 +419,7 @@ class PlayScene extends Phaser.Scene {
 			const pal = this.palette;
 
 			const rBg = this.add.graphics().setDepth(300);
-			rBg.fillStyle(0x000000, 0.9);
+			rBg.fillStyle(0xf8fafc, 1);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, pal.core, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
@@ -434,8 +434,8 @@ class PlayScene extends Phaser.Scene {
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#00234f',
-				backgroundColor: 0xc4e2f5, padding: {x: 20, y: 15}
+				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px', color: '#0f172a',
+				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -475,7 +475,7 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pal = this.palette;
 
-		const overlay = this.add.rectangle(cx, cy, W * 2, H * 2, 0x00234f, 0).setDepth(300);
+		const overlay = this.add.rectangle(cx, cy, W * 2, H * 2, 0x0f172a, 0).setDepth(300);
 		this.tweens.add({ targets: overlay, alpha: 0.82, duration: 650 });
 
 		this.time.delayedCall(380, () => {
@@ -496,7 +496,7 @@ class PlayScene extends Phaser.Scene {
 			const els = [
 				mk(-110, 'GAME OVER', 27, css(pal.wall)),
 				mk(-62, 'SCORE', 9, css(pal.ui)),
-				mk(-47, this.score.toLocaleString(), 42, '#00234f'),
+				mk(-47, this.score.toLocaleString(), 42, '#0f172a'),
 				mk(8, 'BEST   ' + Math.max(this.score, this.hiScore).toLocaleString(), 13, css(pal.ui)),
 				mk(32, 'LEVEL REACHED: ' + this.level, 11, css(pal.ui)),
 			];
@@ -505,7 +505,7 @@ class PlayScene extends Phaser.Scene {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '16px',
 				color: '#000000', backgroundColor: css(pal.core), padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(303).setAlpha(0).setInteractive({ useHandCursor: true });
-			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: 0xc4e2f5 }));
+			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: '#f8fafc' }));
 			btn.on('pointerout', () => btn.setStyle({ color: '#000000', backgroundColor: css(pal.core) }));
 			btn.on('pointerdown', () => this.scene.restart());
 
@@ -698,7 +698,7 @@ class PlayScene extends Phaser.Scene {
 		this.shipGfx.fillPath();
 
 		// Bright core highlight
-		this.shipGfx.fillStyle(0x00234f, 0.6);
+		this.shipGfx.fillStyle(0x0f172a, 0.6);
 		this.shipGfx.fillCircle(
 			(tip.x + left.x + right.x) / 3,
 			(tip.y + left.y + right.y) / 3,
@@ -722,8 +722,8 @@ class PlayScene extends Phaser.Scene {
 			this.uiGfx.fillStyle(col, 1);
 			this._fillHex(this.uiGfx, rx, ry, r, Math.PI / 6);
 			if (alive) {
-				this.uiGfx.lineStyle(1, 0x00234f, 0.35);
-				this._drawHexOutline(this.uiGfx, rx, ry, r, Math.PI / 6, 0x00234f, 0.35, 1);
+				this.uiGfx.lineStyle(1, 0x0f172a, 0.35);
+				this._drawHexOutline(this.uiGfx, rx, ry, r, Math.PI / 6, 0x0f172a, 0.35, 1);
 			}
 		}
 
@@ -819,7 +819,7 @@ class PlayScene extends Phaser.Scene {
 			this._pauseOv = this.add.rectangle(cx, cy, W * 2, H * 2, 0x000000, 0.72).setDepth(400);
 			this._pauseTx = this.add.text(cx, cy, 'PAUSED\n\n[ P / ESC  to resume ]', {
 				fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '26px',
-				color: '#00234f', align: 'center', stroke: '#000000', strokeThickness: 3
+				color: '#0f172a', align: 'center', stroke: '#000000', strokeThickness: 3
 			}).setOrigin(0.5).setDepth(401);
 		} else {
 			this._pauseOv?.destroy(); this._pauseOv = null;
@@ -864,12 +864,12 @@ class PlayScene extends Phaser.Scene {
 	_entrance() {
 		const { cx, cy } = this._center();
 		const { width: W, height: H } = this.scale;
-		const flash = this.add.rectangle(cx, cy, W * 3, H * 3, 0x00234f, 1).setDepth(500);
+		const flash = this.add.rectangle(cx, cy, W * 3, H * 3, 0x0f172a, 1).setDepth(500);
 		this.tweens.add({ targets: flash, alpha: 0, duration: 700, ease: 'Power3', onComplete: () => flash.destroy() });
 
 		const title = this.add.text(cx, cy - 20, 'HYPER HEXAGON', {
 			fontFamily: 'Courier New', fontStyle: 'bold', fontSize: '28px',
-			color: '#00234f', stroke: '#000000', strokeThickness: 4
+			color: '#0f172a', stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(510).setAlpha(0);
 		this.tweens.add({ targets: title, alpha: 1, y: cy - 44, duration: 420, ease: 'Back.Out' });
 		this.time.delayedCall(1200, () => {
@@ -889,6 +889,7 @@ class PlayScene extends Phaser.Scene {
 
 	/* Main Update Loop */
 	update(time, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
 		if (this.isPaused) return;
 		const dt = delta / 1000;
 
@@ -936,7 +937,7 @@ class PlayScene extends Phaser.Scene {
 		// Hi-score flash when beaten
 		const hi = this._loadHi();
 		if (this.score > hi && hi > 0) {
-			this.hudHi.setColor(Math.sin(time * 0.009) > 0 ? '#ffff00' : '#00234f');
+			this.hudHi.setColor(Math.sin(time * 0.009) > 0 ? '#ffff00' : '#0f172a');
 			this.hudHi.setText('★ HI ' + hi.toLocaleString());
 		}
 	}
@@ -951,7 +952,7 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: 0xc4e2f5,
+	backgroundColor: '#f8fafc',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
 	scene: [BootScene, PlayScene],
 	render: { antialias: true, powerPreference: 'high-performance', roundPixels: false },

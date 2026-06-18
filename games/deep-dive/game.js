@@ -7,11 +7,11 @@
 // ---------------------------------------------------------------------------
 window.FreshPlay = window.FreshPlay || {
 	getCurrentPalette: () => ({
-		background: '#c4e2f5',
-		playerCore: '#00234f',
+		background: '#f8fafc',
+		playerCore: '#0f172a',
 		fxAccent: '#39ff14',
 		hostile: '#ff3c3c',
-		interface: '#daedf8',
+		interface: '#e2e8f0',
 	}),
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); if (cb) cb(); },
 	gameOver: (score) => { console.log('[FreshPlay] gameOver', score); },
@@ -38,13 +38,13 @@ const IS_TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 // Utility
 // ---------------------------------------------------------------------------
 function toHexStr(c) {
-	if (typeof c === 'number') return '#' + (c & 0x00234f).toString(16).padStart(6, '0');
+	if (typeof c === 'number') return '#' + (c & 0x0f172a).toString(16).padStart(6, '0');
 	if (typeof c === 'string' && c.charAt(0) === '#') return c;
 	return '#' + parseInt(String(c), 16).toString(16).padStart(6, '0');
 }
 
 function toHexInt(c) {
-	if (typeof c === 'number') return c & 0x00234f;
+	if (typeof c === 'number') return c & 0x0f172a;
 	return parseInt(String(c).replace('#', ''), 16);
 }
 
@@ -374,7 +374,7 @@ function generateTextures(scene, pal) {
 	const pc = ptC.getContext();
 	const ptR = ptSize / 2;
 	const pg = pc.createRadialGradient(ptR, ptR, 0, ptR, ptR, ptR);
-	pg.addColorStop(0, '#00234f');
+	pg.addColorStop(0, '#0f172a');
 	pg.addColorStop(0.4, 'rgba(200,250,255,0.5)');
 	pg.addColorStop(1, 'rgba(255,255,255,0)');
 	pc.fillStyle = pg;
@@ -740,6 +740,7 @@ class MenuScene extends Phaser.Scene {
 	}
 
 	update(_, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
 		const W = this.scale.width, H = this.scale.height;
 		this._menuParticles.forEach(p => {
 			p.img.y -= p.speed * (delta / 1000);
@@ -945,7 +946,7 @@ class GameScene extends Phaser.Scene {
 		const barH = s ? 8 : 10;
 
 		const barBg = this.add.graphics().setDepth(41);
-		barBg.fillStyle(0x081828, 0.95);
+		barBg.fillStyle(0xf8fafc, 1);
 		barBg.fillRoundedRect(barX, barY, barW, barH, 5);
 		barBg.lineStyle(1, fCol, 0.4);
 		barBg.strokeRoundedRect(barX, barY, barW, barH, 5);
@@ -1178,7 +1179,7 @@ class GameScene extends Phaser.Scene {
 			this.revived = true;
 			const cx = this.W / 2, cy = this.H / 2;
 			const rBg = this.add.graphics().setDepth(200);
-			rBg.fillStyle(0x000000, 0.85);
+			rBg.fillStyle(0xf8fafc, 1);
 			rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 			rBg.lineStyle(2, 0x00e5ff, 1);
 			rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);
@@ -1189,13 +1190,13 @@ class GameScene extends Phaser.Scene {
 
 			const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
 				fontFamily: "'Share Tech Mono', monospace", fontSize: '14px', color: '#00e5ff', align: 'center',
-				backgroundColor: 0xc4e2f5, padding: {x: 10, y: 10}
+				backgroundColor: '#f8fafc', padding: {x: 10, y: 10}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 			btnRevive.setStroke('#00c8e8', 1);
 
 			const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#00234f',
-				backgroundColor: 0xc4e2f5, padding: {x: 20, y: 16}
+				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#0f172a',
+				backgroundColor: '#f8fafc', padding: {x: 20, y: 16}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 			const cleanUpRevive = () => {
@@ -1347,6 +1348,7 @@ class GameScene extends Phaser.Scene {
 
 	// Main Update
 	update(_, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
 		if (this.isDead || this.isLevelingUp) return;
 		const dt = delta / 1000;
 		const W = this.W, H = this.H;
@@ -1548,7 +1550,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: 0xc4e2f5,
+	backgroundColor: '#f8fafc',
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -1561,6 +1563,7 @@ const config = {
 		},
 	},
 	scene: [BootScene, MenuScene, GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 };
 
 // Export for host or run standalone

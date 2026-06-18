@@ -304,14 +304,14 @@
 			window.FreshPlay = {
 				currentLevel: 1,
 				palettes: [
-					{ background: 0x000a14, playerCore: 0x00e5ff, fxAccent: 0xff6600, interface: 0x00234f, hostile: 0xff0044 },
-					{ background: 0x1a0a1a, playerCore: 0x00e5ff, fxAccent: 0xff00ff, interface: 0x00234f, hostile: 0xffaa00 },
-					{ background: 0x101a0f, playerCore: 0xffaa00, fxAccent: 0xaa00ff, interface: 0x00234f, hostile: 0x00ff00 },
-					{ background: 0x0a1526, playerCore: 0xff00ff, fxAccent: 0x00ffff, interface: 0x00234f, hostile: 0xffaa00 },
-					{ background: 0x1a0505, playerCore: 0x00234f, fxAccent: 0xff5500, interface: 0xa1a1aa, hostile: 0xff0000 },
-					{ background: 0x000a14, playerCore: 0x00ffcc, fxAccent: 0xff3366, interface: 0x00234f, hostile: 0x3366ff },
-					{ background: 0x1a1300, playerCore: 0xffd700, fxAccent: 0xcc00ff, interface: 0x00234f, hostile: 0x00234f },
-					{ background: 0x000000, playerCore: 0x00234f, fxAccent: 0xff0000, interface: 0x00ff00, hostile: 0x333333 },
+					{ background: 0x000a14, playerCore: 0x00e5ff, fxAccent: 0xff6600, interface: 0x0f172a, hostile: 0xff0044 },
+					{ background: 0x1a0a1a, playerCore: 0x00e5ff, fxAccent: 0xff00ff, interface: 0x0f172a, hostile: 0xffaa00 },
+					{ background: 0x101a0f, playerCore: 0xffaa00, fxAccent: 0x7c3aed, interface: 0x0f172a, hostile: 0x00ff00 },
+					{ background: 0x0a1526, playerCore: 0xff00ff, fxAccent: 0x00ffff, interface: 0x0f172a, hostile: 0xffaa00 },
+					{ background: 0x1a0505, playerCore: 0x0f172a, fxAccent: 0xff5500, interface: 0xa1a1aa, hostile: 0xff0000 },
+					{ background: 0x000a14, playerCore: 0x00ffcc, fxAccent: 0xff3366, interface: 0x0f172a, hostile: 0x3366ff },
+					{ background: 0x1a1300, playerCore: 0xffd700, fxAccent: 0xcc00ff, interface: 0x0f172a, hostile: 0x0f172a },
+					{ background: 0x000000, playerCore: 0x0f172a, fxAccent: 0xff0000, interface: 0x00ff00, hostile: 0x333333 },
 				],
 				getCurrentPalette() {
 					const idx = Math.floor((this.currentLevel - 1) / 5) % this.palettes.length;

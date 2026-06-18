@@ -685,8 +685,8 @@ class GameScene extends Phaser.Scene {
     const col = this.hex(tier.color);
     g.fillStyle(col, 0.18); g.fillCircle(0, 0, tier.r*2.4);
     g.fillStyle(col, 0.92); g.fillCircle(0, 0, tier.r);
-    g.fillStyle(0x00234f, 0.30); g.fillCircle(-tier.r*0.28, -tier.r*0.28, tier.r*0.38);
-    g.lineStyle(0.8, 0x00234f, 0.2); g.strokeCircle(0, 0, tier.r);
+    g.fillStyle(0x0f172a, 0.30); g.fillCircle(-tier.r*0.28, -tier.r*0.28, tier.r*0.38);
+    g.lineStyle(0.8, 0x0f172a, 0.2); g.strokeCircle(0, 0, tier.r);
     g.setDepth(3);
     this.botContainer.add(g);
     this.botGfx[tier.id].push(g);
@@ -917,6 +917,7 @@ class GameScene extends Phaser.Scene {
   // ─────────────────────────────────────────────────────────────────────────
 
   update(_, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
     this.spineGfx.angle += delta * 0.012;
 
     BOT_TIERS.forEach(tier => {
@@ -943,7 +944,7 @@ class GameScene extends Phaser.Scene {
 
 const _phaserConfig = {
   type           : Phaser.AUTO,
-  backgroundColor: 0xc4e2f5,
+  backgroundColor: '#f8fafc',
   parent         : 'game-container',
   scale          : {
     mode      : Phaser.Scale.RESIZE,
@@ -955,6 +956,7 @@ const _phaserConfig = {
     activePointers: 4,   // multi-touch
   },
   scene: [BootScene, GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 };
 
 window._clickerMinerGame = new Phaser.Game(_phaserConfig);

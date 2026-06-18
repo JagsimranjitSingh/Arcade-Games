@@ -12,11 +12,11 @@ if (!window.FreshPlay) {
 		},
 		getCurrentPalette() {
 			const P = [
-				{ background: '#c4e2f5', playerCore: '#00234f', interface: '#daedf8', fxAccent: '#ff00aa' },
-				{ background: '#c4e2f5', playerCore: '#f7c948', interface: '#daedf8', fxAccent: '#00d4ff' },
-				{ background: '#c4e2f5', playerCore: '#b44fff', interface: '#daedf8', fxAccent: '#39ff14' },
-				{ background: '#c4e2f5', playerCore: '#39ff14', interface: '#daedf8', fxAccent: '#ff6b00' },
-				{ background: '#1a0808', playerCore: '#00234f', interface: '#daedf8', fxAccent: '#00ffe7' },
+				{ background: '#f8fafc', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#ff00aa' },
+				{ background: '#f8fafc', playerCore: '#f7c948', interface: '#e2e8f0', fxAccent: '#00d4ff' },
+				{ background: '#f8fafc', playerCore: '#b44fff', interface: '#e2e8f0', fxAccent: '#39ff14' },
+				{ background: '#f8fafc', playerCore: '#39ff14', interface: '#e2e8f0', fxAccent: '#ff6b00' },
+				{ background: '#1a0808', playerCore: '#0f172a', interface: '#e2e8f0', fxAccent: '#00ffe7' },
 			];
 			return P[(this._lvl - 1) % P.length];
 		}
@@ -234,7 +234,7 @@ class BootScene extends Phaser.Scene {
 				g.fillRect(10, sy, t.w - 26, 2);
 			}
 			// Pixel art cross on screen
-			g.fillStyle(0x00234f, 0.6);
+			g.fillStyle(0x0f172a, 0.6);
 			const sx = 10 + (t.w - 26) / 2, sy2 = 28 + 32 / 2;
 			g.fillRect(sx - 1, sy2 - 6, 2, 12); g.fillRect(sx - 6, sy2 - 1, 12, 2);
 			// Marquee top
@@ -265,7 +265,7 @@ class BootScene extends Phaser.Scene {
 			btns.forEach((bc, bi) => {
 				g.fillStyle(bc, 1);
 				g.fillCircle(t.w / 2 + 8 + bi * 9, t.h - 24, 4);
-				g.fillStyle(0x00234f, 0.3);
+				g.fillStyle(0x0f172a, 0.3);
 				g.fillCircle(t.w / 2 + 7 + bi * 9, t.h - 25, 1.5);
 			});
 			g.generateTexture(`cabinet_${i}`, t.w + 8, t.h + 6);
@@ -274,14 +274,14 @@ class BootScene extends Phaser.Scene {
 		// Glow blob
 		g.clear();
 		for (let r = 32; r > 0; r -= 4) {
-			g.fillStyle(0x00234f, 0.06 * (1 - r / 32) + 0.02);
+			g.fillStyle(0x0f172a, 0.06 * (1 - r / 32) + 0.02);
 			g.fillCircle(32, 32, r);
 		}
 		g.generateTexture('glow', 64, 64);
 
 		// Particle dot
 		g.clear();
-		g.fillStyle(0x00234f, 1); g.fillCircle(5, 5, 5);
+		g.fillStyle(0x0f172a, 1); g.fillCircle(5, 5, 5);
 		g.generateTexture('dot', 10, 10);
 
 		// Star burst (for level-up)
@@ -376,7 +376,7 @@ class GameScene extends Phaser.Scene {
 		// Placing cursor hint
 		this.placingHint = this.add.text(W / 2, 90, '', {
 			fontFamily: "'Courier New',monospace", fontSize: '14px',
-			color: '#00234f', stroke: '#000000', strokeThickness: 4,
+			color: '#0f172a', stroke: '#000000', strokeThickness: 4,
 			align: 'center'
 		}).setOrigin(0.5).setDepth(5000).setAlpha(0);
 
@@ -471,7 +471,7 @@ class GameScene extends Phaser.Scene {
 			// Cabinet sprite
 			const sprite = this.add.image(pos.x, pos.y - t.h * 0.5, 'cabinet_' + cab.typeId)
 				.setDepth(depth).setInteractive({ useHandCursor: true });
-			sprite.on('pointerover', () => { sprite.setTint(0x00234f); });
+			sprite.on('pointerover', () => { sprite.setTint(0x0f172a); });
 			sprite.on('pointerout', () => { sprite.clearTint(); });
 			sprite.on('pointerdown', () => this._onCabClick(idx));
 
@@ -825,7 +825,7 @@ class GameScene extends Phaser.Scene {
 				fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.playerCore
 			}).setOrigin(0, 0);
 			const v = this.add.text(140, y, '—', {
-				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#00234f'
+				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#0f172a'
 			}).setOrigin(1, 0);
 			this.statsCont.add([lbl, v]);
 			this.statLines.push(v);
@@ -1056,7 +1056,7 @@ class GameScene extends Phaser.Scene {
 	}
 
 	//  UTILS
-	_float(x, y, text, color = '#00234f', size = 16) {
+	_float(x, y, text, color = '#0f172a', size = 16) {
 		const t = this.add.text(x, y, text, {
 			fontFamily: "'Courier New',monospace",
 			fontSize: `${size}px`, fontStyle: 'bold',
@@ -1108,9 +1108,10 @@ const config = {
 	type: Phaser.AUTO,
 	width: 860,
 	height: 640,
-	backgroundColor: 0xc4e2f5,
+	backgroundColor: '#f8fafc',
 	parent: 'game-container',
 	scene: [BootScene, GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,

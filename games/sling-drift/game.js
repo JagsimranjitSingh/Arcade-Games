@@ -9,11 +9,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('Game Over – score:', score); },
 	getCurrentPalette() {
 		return {
-			background: '#c4e2f5',
-			playerCore: '#00234f',
+			background: '#f8fafc',
+			playerCore: '#0f172a',
 			fxAccent: '#f0a500',
 			hostile: '#ff2d55',
-			interface: '#daedf8',
+			interface: '#e2e8f0',
 		};
 	},
 };
@@ -155,7 +155,7 @@ function buildWalls(pts) {
 ══════════════════════════════════════════════════════════ */
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: 0xc4e2f5,
+	backgroundColor: '#f8fafc',
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -164,6 +164,7 @@ const config = {
 		height: window.innerHeight,
 	},
 	scene: [BootScene, GameScene, UIScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 };
 const game = new Phaser.Game(config);
 
@@ -182,7 +183,7 @@ BootScene.prototype.create = function () {
 
 function createCarTexture(scene) {
 	const g = scene.make.graphics({ x: 0, y: 0, add: false });
-	g.fillStyle(0x00234f);
+	g.fillStyle(0x0f172a);
 	g.fillRect(-14, -8, 28, 16);   // body
 	g.fillStyle(0xaaddff, 0.7);
 	g.fillRect(-8, -5, 12, 10);    // windshield
@@ -197,7 +198,7 @@ function createCarTexture(scene) {
 
 function createGlowTexture(scene) {
 	const g = scene.make.graphics({ x: 0, y: 0, add: false });
-	g.fillStyle(0x00234f);
+	g.fillStyle(0x0f172a);
 	const r = 24;
 	for (let i = r; i >= 2; i -= 2) {
 		g.fillCircle(r, r, i);
@@ -475,7 +476,7 @@ GameScene.prototype.die = function () {
 			const p = this.palette;
 
 			const rBg = this.add.graphics().setDepth(50);
-			rBg.fillStyle(0x000000, 0.9);
+			rBg.fillStyle(0xf8fafc, 1);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(p.playerCore).color, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
@@ -490,8 +491,8 @@ GameScene.prototype.die = function () {
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'monospace', fontSize: '16px', color: '#00234f',
-				backgroundColor: 0xc4e2f5, padding: {x: 20, y: 15}
+				fontFamily: 'monospace', fontSize: '16px', color: '#0f172a',
+				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {

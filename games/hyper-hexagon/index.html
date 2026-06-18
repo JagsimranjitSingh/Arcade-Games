@@ -164,9 +164,9 @@
 				},
 				getCurrentPalette: function () {
 					const palettes = [
-						{ background: 0x050508, playerCore: 0x00e5ff, fxAccent: 0xff00ff, interface: 0x00234f, hostile: 0xff0044 },
-						{ background: 0x080500, playerCore: 0xffaa00, fxAccent: 0x00ff88, interface: 0x00234f, hostile: 0xff00ff },
-						{ background: 0x000805, playerCore: 0x00ff00, fxAccent: 0xffff00, interface: 0x00234f, hostile: 0xff0000 }
+						{ background: 0x050508, playerCore: 0x00e5ff, fxAccent: 0xff00ff, interface: 0x0f172a, hostile: 0xff0044 },
+						{ background: 0x080500, playerCore: 0xffaa00, fxAccent: 0x00ff88, interface: 0x0f172a, hostile: 0xff00ff },
+						{ background: 0x000805, playerCore: 0x00ff00, fxAccent: 0xffff00, interface: 0x0f172a, hostile: 0xff0000 }
 					];
 					const idx = Math.floor((this.currentLevel - 1) / 5) % palettes.length;
 					return palettes[idx];

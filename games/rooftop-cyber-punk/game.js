@@ -36,7 +36,7 @@
 	const hexToStr = c => {
 		if (typeof c === 'string') return c.startsWith('#') ? c : '#' + c;
 		if (typeof c === 'number') return '#' + c.toString(16).padStart(6, '0');
-		return '#00234f';
+		return '#0f172a';
 	};
 
 	const hexN = s => {
@@ -476,7 +476,7 @@
 				? 'JUMP BTN  ▶◀  SLIDE BTN'
 				: '↑  JUMP       ↓  SLIDE';
 
-			this.hintTxt = this.add.text(W / 2, H - 26, hint, sf('12px', '#00234f'))
+			this.hintTxt = this.add.text(W / 2, H - 26, hint, sf('12px', '#0f172a'))
 				.setOrigin(0.5).setDepth(100).setAlpha(0.45);
 			this.tweens.add({ targets: this.hintTxt, alpha: 0, delay: 4200, duration: 1400 });
 
@@ -649,6 +649,7 @@
 
 		/* ── UPDATE ───────────────────────────────────────────────── */
 		update(time, delta) {
+		delta = Math.min(delta || 16.6, 33.3);
 			if (!this.alive) return;
 
 			if (delta > 100) delta = 100;
@@ -741,13 +742,13 @@
 				const cx = W / 2, cy = H / 2;
 				const bg = this.add.rectangle(cx, cy, 320, 160, 0x000000, 0.85).setDepth(200);
 				bg.setStrokeStyle(2, s2col(this.pal.pl));
-				const txt = this.add.text(cx, cy - 35, 'SECOND CHANCE?', { fontFamily: '"Share Tech Mono", monospace', fontSize: '24px', color: this.pal.pl }).setOrigin(0.5).setDepth(201);
+				const txt = this.add.text(cx, cy - 35, 'SECOND CHANCE?', { fontFamily: '"Share Tech Mono", monospace', fontSize: '24px', color: '#0f172a' }).setOrigin(0.5).setDepth(201);
 				
 				const btnRevive = this.add.rectangle(cx - 75, cy + 30, 130, 46, s2col(this.pal.pl)).setDepth(201).setInteractive({useHandCursor: true});
 				const txtRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', { fontFamily: '"Share Tech Mono", monospace', fontSize: '13px', color: '#000', align: 'center' }).setOrigin(0.5).setDepth(202);
 				
 				const btnSkip = this.add.rectangle(cx + 75, cy + 30, 130, 46, 0x444444).setDepth(201).setInteractive({useHandCursor: true});
-				const txtSkip = this.add.text(cx + 75, cy + 30, 'SKIP', { fontFamily: '"Share Tech Mono", monospace', fontSize: '16px', color: '#00234f' }).setOrigin(0.5).setDepth(202);
+				const txtSkip = this.add.text(cx + 75, cy + 30, 'SKIP', { fontFamily: '"Share Tech Mono", monospace', fontSize: '16px', color: '#0f172a' }).setOrigin(0.5).setDepth(202);
 
 				const proceedToOver = () => {
 					bg.destroy(); txt.destroy(); btnRevive.destroy(); txtRevive.destroy(); btnSkip.destroy(); txtSkip.destroy();
@@ -832,7 +833,7 @@
 			const t = time * 0.001;
 			this.stars.forEach(s => {
 				const a = 0.28 + Math.sin(t * s.fr + s.ph) * 0.36;
-				g.fillStyle(0x00234f, Math.max(0, a));
+				g.fillStyle(0x0f172a, Math.max(0, a));
 				g.fillCircle(s.x, s.y, s.r);
 			});
 		}
@@ -1047,14 +1048,14 @@
 			g.fillTriangle(cx + 1, headTopY - 1, cx + 3, headTopY - 4, cx + 5, headTopY - 1);
 
 			// Eyes — white with dark pupil
-			g.fillStyle(0x00234f, 0.9);
+			g.fillStyle(0x0f172a, 0.9);
 			g.fillEllipse(cx - 3, headMidY - 1, 4, 3);
 			g.fillEllipse(cx + 3, headMidY - 1, 4, 3);
 			g.fillStyle(0x111122, 1);
 			g.fillCircle(cx - 2, headMidY - 1, 1.2);
 			g.fillCircle(cx + 4, headMidY - 1, 1.2);
 			// Eye shine
-			g.fillStyle(0x00234f, 0.7);
+			g.fillStyle(0x0f172a, 0.7);
 			g.fillCircle(cx - 1.5, headMidY - 1.5, 0.5);
 			g.fillCircle(cx + 4.5, headMidY - 1.5, 0.5);
 
@@ -1080,7 +1081,7 @@
 			g.fillRoundedRect(hX + 1, headTopY + 3, 4, 3, 1);
 			g.fillRoundedRect(hX + 7, headTopY + 3, 4, 3, 1);
 			// Lens shine
-			g.fillStyle(0x00234f, 0.4);
+			g.fillStyle(0x0f172a, 0.4);
 			g.fillRect(hX + 2, headTopY + 3, 1, 1);
 			g.fillRect(hX + 8, headTopY + 3, 1, 1);
 
@@ -1187,14 +1188,14 @@
 			g.fillTriangle(hX + 2, sy - 2, hX + 4, sy - 6, hX + 6, sy - 2);
 
 			// Eyes — intense forward stare while ducking
-			g.fillStyle(0x00234f, 0.9);
+			g.fillStyle(0x0f172a, 0.9);
 			g.fillEllipse(hX + 2, headMidY, 4, 3);
 			g.fillEllipse(hX + 7, headMidY, 4, 3);
 			g.fillStyle(0x111122, 1);
 			g.fillCircle(hX + 3, headMidY, 1.2);
 			g.fillCircle(hX + 8, headMidY, 1.2);
 			// Eye shine
-			g.fillStyle(0x00234f, 0.7);
+			g.fillStyle(0x0f172a, 0.7);
 			g.fillCircle(hX + 3.5, headMidY - 0.5, 0.5);
 			g.fillCircle(hX + 8.5, headMidY - 0.5, 0.5);
 
@@ -1230,11 +1231,11 @@
 					g.fillStyle(hC, 0.18); g.fillRect(x - 6, y - 6, w + 12, h + 12);
 					g.fillStyle(hC, 1); g.fillRect(x, y, w, h);
 					g.fillStyle(hC, 0.90); g.fillRect(x - 9, y, w + 18, 13);
-					g.fillStyle(0x00234f, 0.16);
+					g.fillStyle(0x0f172a, 0.16);
 					for (let sy2 = y + 17; sy2 < y + h - 4; sy2 += 10)
 						g.fillRect(x + 2, sy2, w - 4, 4);
 					g.fillStyle(hC, pulse); g.fillCircle(x + w / 2, y - 5, 5.5);
-					g.fillStyle(0x00234f, 0.65); g.fillCircle(x + w / 2, y - 5, 2);
+					g.fillStyle(0x0f172a, 0.65); g.fillCircle(x + w / 2, y - 5, 2);
 					g.fillStyle(hC, 0.25); g.fillRect(x - 2, GY - 4, w + 4, 4);
 				} else {
 					const pulse = 0.52 + Math.sin(t * 2.3) * 0.48;
@@ -1366,7 +1367,7 @@
 
 			if (sessionBest > this.score) {
 				this.add.text(W / 2, H / 2 + 58,
-					'BEST  ' + sessionBest.toLocaleString() + ' m', sf('11px', '#00234f'))
+					'BEST  ' + sessionBest.toLocaleString() + ' m', sf('11px', '#0f172a'))
 					.setOrigin(0.5).setAlpha(0.45);
 			} else if (sessionBest === this.score && this.score > 0) {
 				this.add.text(W / 2, H / 2 + 58, '★  NEW BEST  ★', sf('11px', pl))
@@ -1388,7 +1389,7 @@
 			};
 			drawBtn(false);
 
-			const lbl = this.add.text(W / 2, H / 2 + 128, 'RUN  AGAIN', sf('16px', '#00234f'))
+			const lbl = this.add.text(W / 2, H / 2 + 128, 'RUN  AGAIN', sf('16px', '#0f172a'))
 				.setOrigin(0.5).setInteractive({ useHandCursor: true });
 			lbl.on('pointerover', () => drawBtn(true));
 			lbl.on('pointerout', () => drawBtn(false));
@@ -1414,7 +1415,7 @@
 			// Mobile hint
 			if (isTouchDevice()) {
 				this.add.text(W / 2, H / 2 + 164,
-					'TAP ANYWHERE TO RESTART', sf('11px', '#00234f'))
+					'TAP ANYWHERE TO RESTART', sf('11px', '#0f172a'))
 					.setOrigin(0.5).setAlpha(0.3);
 			}
 		}
@@ -1422,7 +1423,7 @@
 		update() {
 			this.scanGfx.clear();
 			this.scanY = (this.scanY + 1.3) % H;
-			this.scanGfx.fillStyle(0x00234f, 0.022);
+			this.scanGfx.fillStyle(0x0f172a, 0.022);
 			this.scanGfx.fillRect(0, this.scanY, W, 2);
 		}
 	}
@@ -1434,7 +1435,7 @@
 		type: Phaser.AUTO,
 		width: W,
 		height: H,
-		backgroundColor: 0xc4e2f5,
+		backgroundColor: '#f8fafc',
 		parent: 'game-container',
 		scale: {
 			mode: Phaser.Scale.FIT,
@@ -1443,6 +1444,7 @@
 		// Prevent right-click context menu on canvas
 		disableContextMenu: true,
 		scene: [GameScene, OverScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	};
 
 	if (document.readyState === 'loading') {

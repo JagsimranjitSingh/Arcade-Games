@@ -11,7 +11,7 @@ if (typeof window.FreshPlay === 'undefined') {
 			setTimeout(cb, 1200);
 		},
 		getCurrentPalette: () => ({
-			background: '#c4e2f5', playerCore: '#00234f', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#daedf8'
+			background: '#f8fafc', playerCore: '#0f172a', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#e2e8f0'
 		}),
 	};
 }
@@ -34,7 +34,7 @@ function getPalette() {
 	} catch (_) { return defaultPalette(); }
 }
 function defaultPalette() {
-	return { background: '#c4e2f5', playerCore: '#00234f', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#daedf8' };
+	return { background: '#f8fafc', playerCore: '#0f172a', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#e2e8f0' };
 }
 
 // Safely converts both Strings and Ints to Number for Graphics
@@ -47,10 +47,10 @@ function hex2int(hex) {
 function hexToStr(h) {
 	if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
 	if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-	return '#00234f';
+	return '#0f172a';
 }
 
-function lerpColor(c, t, target = 0x00234f) {
+function lerpColor(c, t, target = 0x0f172a) {
 	const r = (c >> 16) & 0xff, g = (c >> 8) & 0xff, b = c & 0xff;
 	const tr = (target >> 16) & 0xff, tg = (target >> 8) & 0xff, tb = target & 0xff;
 	return (Math.round(r + (tr - r) * t) << 16) | (Math.round(g + (tg - g) * t) << 8) | Math.round(b + (tb - b) * t);
@@ -286,12 +286,12 @@ class GameScene extends Phaser.Scene {
 
 		const dots = this.add.graphics();
 		for (let x = 20; x < W; x += 32) for (let y = 20; y < H; y += 32) {
-			dots.fillStyle(0x00234f, 0.022); dots.fillCircle(x, y, 1.2);
+			dots.fillStyle(0x0f172a, 0.022); dots.fillCircle(x, y, 1.2);
 		}
 
 		const cells = this.add.graphics();
 		for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-			cells.fillStyle(0x00234f, 0.028);
+			cells.fillStyle(0x0f172a, 0.028);
 			cells.fillRoundedRect(GX + c * CELL + 2, GY + r * CELL + 2, CELL - 4, CELL - 4, 6);
 		}
 
@@ -307,7 +307,7 @@ class GameScene extends Phaser.Scene {
 		});
 
 		const sc = this.add.graphics();
-		for (let y = GY; y < GY + ROWS * CELL; y += 8) { sc.lineStyle(1, 0x00234f, 0.015); sc.lineBetween(GX, y, GX + COLS * CELL, y); }
+		for (let y = GY; y < GY + ROWS * CELL; y += 8) { sc.lineStyle(1, 0x0f172a, 0.015); sc.lineBetween(GX, y, GX + COLS * CELL, y); }
 
 		const dv = this.add.graphics();
 		for (let c = 1; c < COLS; c++) { dv.lineStyle(1, ic, 0.10); dv.lineBetween(GX + c * CELL, GY, GX + c * CELL, GY + ROWS * CELL); }
@@ -347,13 +347,13 @@ class GameScene extends Phaser.Scene {
 		const acStr = hexToStr(this.pal.fxAccent);
 		const pcStr = hexToStr(this.pal.playerCore);
 
-		this.add.text(W / 2, 30, 'BLOCK  UNBLOCK', { fontSize: '24px', fontFamily: "'Courier New',monospace", color: '#00234f', letterSpacing: 9 }).setOrigin(0.5);
+		this.add.text(W / 2, 30, 'BLOCK  UNBLOCK', { fontSize: '24px', fontFamily: "'Courier New',monospace", color: '#0f172a', letterSpacing: 9 }).setOrigin(0.5);
 		const sep = this.add.graphics(); sep.lineStyle(1, icInt, 0.22); sep.lineBetween(GX, 55, GX + COLS * CELL, 55);
 
 		const boxY = 75, boxH = 64, bxW = 120;
 		[{ label: 'LEVEL', x: GX }, { label: 'MOVES', x: W / 2 - bxW / 2 }, { label: 'SCORE', x: GX + COLS * CELL - bxW }].forEach(({ label, x }) => {
 			const bg2 = this.add.graphics();
-			bg2.fillStyle(0x00234f, 0.03); bg2.fillRoundedRect(x, boxY, bxW, boxH, 6);
+			bg2.fillStyle(0x0f172a, 0.03); bg2.fillRoundedRect(x, boxY, bxW, boxH, 6);
 			bg2.lineStyle(1, icInt, 0.20); bg2.strokeRoundedRect(x, boxY, bxW, boxH, 6);
 			this.add.text(x + 10, boxY + 10, label, { fontSize: '10px', fontFamily: "'Courier New',monospace", color: icStr, letterSpacing: 2 }).setAlpha(0.65);
 		});
@@ -361,7 +361,7 @@ class GameScene extends Phaser.Scene {
 		const tcfg = { fontSize: '26px', fontFamily: "'Courier New',monospace" };
 		this.levelText = this.add.text(GX + 10, boxY + 28, '01', { ...tcfg, color: acStr });
 		this.movesText = this.add.text(W / 2 - bxW / 2 + 10, boxY + 28, '000', { ...tcfg, color: pcStr });
-		this.scoreText = this.add.text(GX + COLS * CELL - bxW + 10, boxY + 28, '00000', { ...tcfg, color: '#00234f' });
+		this.scoreText = this.add.text(GX + COLS * CELL - bxW + 10, boxY + 28, '00000', { ...tcfg, color: '#0f172a' });
 		const sep2 = this.add.graphics(); sep2.lineStyle(1, icInt, 0.15); sep2.lineBetween(GX, 155, GX + COLS * CELL, 155);
 	}
 
@@ -672,6 +672,7 @@ window.addEventListener('load', () => {
 		parent: 'game-wrapper',
 		backgroundColor: pal.background,
 		scene: [GameScene],
+	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 		scale: {
 			mode: Phaser.Scale.FIT,
 			autoCenter: Phaser.Scale.CENTER_BOTH,
