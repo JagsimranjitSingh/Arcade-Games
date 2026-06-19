@@ -11,7 +11,7 @@ if (typeof window.FreshPlay === 'undefined') {
 			setTimeout(cb, 1200);
 		},
 		getCurrentPalette: () => ({
-			background: '#f0f4f8', playerCore: '#3b82f6', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#cbd5e1'
+			background: '#0a0e1a', playerCore: '#00e5ff', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#1e293b'
 		}),
 	};
 }
@@ -34,7 +34,7 @@ function getPalette() {
 	} catch (_) { return defaultPalette(); }
 }
 function defaultPalette() {
-	return { background: '#f0f4f8', playerCore: '#3b82f6', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#cbd5e1' };
+	return { background: '#0a0e1a', playerCore: '#00e5ff', hostile: '#ff2d6b', fxAccent: '#ffaa00', interface: '#1e293b' };
 }
 
 // Safely converts both Strings and Ints to Number for Graphics
@@ -47,7 +47,7 @@ function hex2int(hex) {
 function hexToStr(h) {
 	if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
 	if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-	return '#0f172a';
+	return '#00e5ff';
 }
 
 function lerpColor(c, t, target = 0x0f172a) {
@@ -347,7 +347,7 @@ class GameScene extends Phaser.Scene {
 		const acStr = hexToStr(this.pal.fxAccent);
 		const pcStr = hexToStr(this.pal.playerCore);
 
-		this.add.text(W / 2, 30, 'BLOCK  UNBLOCK', { fontSize: '24px', fontFamily: "'Courier New',monospace", color: '#2563eb', letterSpacing: 9 }).setOrigin(0.5);
+		this.add.text(W / 2, 30, 'BLOCK  UNBLOCK', { fontSize: '24px', fontFamily: "'Courier New',monospace", color: '#e2e8f0', letterSpacing: 9 }).setOrigin(0.5);
 		const sep = this.add.graphics(); sep.lineStyle(1, icInt, 0.22); sep.lineBetween(GX, 55, GX + COLS * CELL, 55);
 
 		const boxY = 75, boxH = 64, bxW = 120;
@@ -361,7 +361,7 @@ class GameScene extends Phaser.Scene {
 		const tcfg = { fontSize: '26px', fontFamily: "'Courier New',monospace" };
 		this.levelText = this.add.text(GX + 10, boxY + 28, '01', { ...tcfg, color: acStr });
 		this.movesText = this.add.text(W / 2 - bxW / 2 + 10, boxY + 28, '000', { ...tcfg, color: pcStr });
-		this.scoreText = this.add.text(GX + COLS * CELL - bxW + 10, boxY + 28, '00000', { ...tcfg, color: '#2563eb' });
+		this.scoreText = this.add.text(GX + COLS * CELL - bxW + 10, boxY + 28, '00000', { ...tcfg, color: '#e2e8f0' });
 		const sep2 = this.add.graphics(); sep2.lineStyle(1, icInt, 0.15); sep2.lineBetween(GX, 155, GX + COLS * CELL, 155);
 	}
 

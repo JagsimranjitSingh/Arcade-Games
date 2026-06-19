@@ -12,11 +12,11 @@ if (!window.FreshPlay) {
 		},
 		getCurrentPalette() {
 			const P = [
-				{ background: '#f0f4f8', playerCore: '#3b82f6', interface: '#cbd5e1', fxAccent: '#ff00aa' },
-				{ background: '#f0f4f8', playerCore: '#f7c948', interface: '#cbd5e1', fxAccent: '#00d4ff' },
-				{ background: '#f0f4f8', playerCore: '#b44fff', interface: '#cbd5e1', fxAccent: '#39ff14' },
-				{ background: '#f0f4f8', playerCore: '#39ff14', interface: '#cbd5e1', fxAccent: '#ff6b00' },
-				{ background: '#1a0808', playerCore: '#3b82f6', interface: '#cbd5e1', fxAccent: '#00ffe7' },
+				{ background: '#0a0e1a', playerCore: '#00e5ff', interface: '#1e293b', fxAccent: '#ff00aa' },
+				{ background: '#0a0e1a', playerCore: '#f7c948', interface: '#1e293b', fxAccent: '#00d4ff' },
+				{ background: '#0a0e1a', playerCore: '#b44fff', interface: '#1e293b', fxAccent: '#39ff14' },
+				{ background: '#0a0e1a', playerCore: '#39ff14', interface: '#1e293b', fxAccent: '#ff6b00' },
+				{ background: '#1a0808', playerCore: '#00e5ff', interface: '#1e293b', fxAccent: '#00ffe7' },
 			];
 			return P[(this._lvl - 1) % P.length];
 		}
@@ -154,6 +154,25 @@ class GameState {
 // ══════════════════════════════════════════════════════════════
 //  BOOT SCENE  — generates all programmatic textures
 // ══════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('Game'); });
+  }
+}
+
 class BootScene extends Phaser.Scene {
 	constructor() { super('Boot'); }
 
@@ -211,7 +230,7 @@ class BootScene extends Phaser.Scene {
 			const mid = Phaser.Display.Color.IntegerToColor(c).darken(20).color;
 			g.clear();
 			// Shadow base
-			g.fillStyle(0x000000, 0.4);
+			g.fillStyle(0x000000, 0.75);
 			g.fillEllipse(t.w / 2 + 4, t.h + 4, t.w * 0.8, 14);
 			// Cabinet side (3D feel)
 			g.fillStyle(dark, 1);
@@ -240,7 +259,7 @@ class BootScene extends Phaser.Scene {
 			// Marquee top
 			g.fillStyle(c, 1);
 			g.fillRect(0, 0, t.w - 6, 22);
-			g.fillStyle(0x000000, 0.55);
+			g.fillStyle(0x000000, 0.75);
 			g.fillRect(5, 4, t.w - 16, 14);
 			// Marquee text bar
 			g.fillStyle(c, 0.8);
@@ -251,7 +270,7 @@ class BootScene extends Phaser.Scene {
 			// Coin slot
 			g.fillStyle(0x222222, 1);
 			g.fillRect(t.w / 2 - 15, t.h - 10, 30, 5);
-			g.fillStyle(0x000000, 1);
+			g.fillStyle(0x475569, 1);
 			g.fillRect(t.w / 2 - 8, t.h - 8, 16, 2);
 			// Joystick base
 			g.fillStyle(0x1a1a1a, 1);
@@ -301,7 +320,13 @@ class BootScene extends Phaser.Scene {
 		g.destroy();
 	}
 
-	create() { this.scene.start('Game'); }
+	  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('Game');
+    }
+  }
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -376,7 +401,7 @@ class GameScene extends Phaser.Scene {
 		// Placing cursor hint
 		this.placingHint = this.add.text(W / 2, 90, '', {
 			fontFamily: "'Courier New',monospace", fontSize: '14px',
-			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4,
+			color: '#e2e8f0', stroke: '#000000', strokeThickness: 4,
 			align: 'center'
 		}).setOrigin(0.5).setDepth(5000).setAlpha(0);
 
@@ -404,7 +429,7 @@ class GameScene extends Phaser.Scene {
 		}
 		// Subtle horizontal scan lines in bg
 		for (let y = 0; y < H; y += 6) {
-			this.bgGfx.fillStyle(0x000000, 0.04);
+			this.bgGfx.fillStyle(0x000000, 0.15);
 			this.bgGfx.fillRect(0, y, W, 1);
 		}
 	}
@@ -471,7 +496,7 @@ class GameScene extends Phaser.Scene {
 			// Cabinet sprite
 			const sprite = this.add.image(pos.x, pos.y - t.h * 0.5, 'cabinet_' + cab.typeId)
 				.setDepth(depth).setInteractive({ useHandCursor: true });
-			sprite.on('pointerover', () => { sprite.setTint(0x0f172a); });
+			sprite.on('pointerover', () => { sprite.setTint(0x3b82f6); });
 			sprite.on('pointerout', () => { sprite.clearTint(); });
 			sprite.on('pointerdown', () => this._onCabClick(idx));
 
@@ -480,9 +505,8 @@ class GameScene extends Phaser.Scene {
 				pos.x + t.w * 0.25, pos.y - t.h - 2,
 				`LV${cab.level}`, {
 				fontFamily: "'Courier New',monospace",
-				fontSize: '11px', fontStyle: 'bold',
-				color: this.state.palette.fxAccent,
-				stroke: '#ffffff', strokeThickness: 3
+				fontSize: '11px', color: this.state.palette.fxAccent,
+				stroke: '#000000', strokeThickness: 3
 			}
 			).setDepth(depth + 1).setOrigin(0.5);
 
@@ -521,8 +545,7 @@ class GameScene extends Phaser.Scene {
 		// Coin count
 		this.hudCoins = this.add.text(58, 14, '0', {
 			fontFamily: "'Courier New',monospace",
-			fontSize: '30px', fontStyle: 'bold',
-			color: pal.fxAccent,
+			fontSize: '30px', color: pal.fxAccent,
 			shadow: { offsetX: 0, offsetY: 0, color: pal.fxAccent, blur: 12, fill: true }
 		}).setDepth(2001);
 
@@ -540,7 +563,7 @@ class GameScene extends Phaser.Scene {
 		}).setOrigin(1, 0).setDepth(2001);
 		this.hudLvlNum = this.add.text(W - 22, 30, `${this.state.level}`, {
 			fontFamily: "'Courier New',monospace",
-			fontSize: '26px', fontStyle: 'bold', color: pal.fxAccent,
+			fontSize: '26px', color: pal.fxAccent,
 			shadow: { offsetX: 0, offsetY: 0, color: pal.fxAccent, blur: 10, fill: true }
 		}).setOrigin(1, 0).setDepth(2001);
 
@@ -574,7 +597,7 @@ class GameScene extends Phaser.Scene {
 			.setStrokeStyle(1.5, hex(pal.playerCore), 0.7);
 		const txt = this.add.text(x, y, label, {
 			fontFamily: "'Courier New',monospace",
-			fontSize: '13px', fontStyle: 'bold', color: pal.playerCore
+			fontSize: '13px', color: pal.playerCore
 		}).setOrigin(0.5).setDepth(2001);
 		bg.on('pointerover', () => { bg.setFillStyle(hex(pal.playerCore), 0.18); });
 		bg.on('pointerout', () => { bg.setFillStyle(hex(pal.interface), 1); });
@@ -622,7 +645,7 @@ class GameScene extends Phaser.Scene {
 		const topBar = this.add.rectangle(0, 0, W, 3, hex(pal.playerCore)).setOrigin(0, 0);
 		const title = this.add.text(W / 2, 14, '⬡  ARCADE SHOP  ⬡', {
 			fontFamily: "'Courier New',monospace", fontSize: '13px',
-			fontStyle: 'bold', color: pal.fxAccent
+			color: pal.fxAccent
 		}).setOrigin(0.5, 0);
 
 		// Close
@@ -648,7 +671,7 @@ class GameScene extends Phaser.Scene {
 			
 			const name = this.add.text(ix + iw / 2, iy + 52, t.name, {
 				fontFamily: "'Courier New',monospace", fontSize: '10px',
-				fontStyle: 'bold', color: pal.playerCore
+				color: pal.playerCore
 			}).setOrigin(0.5);
 			
 			const cpsT = this.add.text(ix + iw / 2, iy + 64, `+${t.baseCPS}/s`, {
@@ -665,7 +688,7 @@ class GameScene extends Phaser.Scene {
 				.setOrigin(0.5).setInteractive({ useHandCursor: true });
 			const placeTxt = this.add.text(ix + iw / 2, btnY, '▶ PLACE', {
 				fontFamily: "'Courier New',monospace", fontSize: '10px',
-				fontStyle: 'bold', color: pal.background
+				color: pal.background
 			}).setOrigin(0.5);
 
 			placeBtn.on('pointerover', () => placeBtn.setAlpha(0.75));
@@ -716,14 +739,14 @@ class GameScene extends Phaser.Scene {
 
 		this.iTitle = this.add.text(PW / 2, 14, '─ CABINET ─', {
 			fontFamily: "'Courier New',monospace", fontSize: '11px',
-			fontStyle: 'bold', color: pal.fxAccent
+			color: pal.fxAccent
 		}).setOrigin(0.5, 0);
 
 		this.iThumb = this.add.image(PW / 2, 60, 'cabinet_0').setScale(0.7);
 
 		this.iName = this.add.text(PW / 2, 108, '', {
 			fontFamily: "'Courier New',monospace", fontSize: '14px',
-			fontStyle: 'bold', color: pal.playerCore
+			color: pal.playerCore
 		}).setOrigin(0.5, 0);
 
 		this.iLevel = this.add.text(PW / 2, 128, '', {
@@ -743,7 +766,7 @@ class GameScene extends Phaser.Scene {
 			.setOrigin(0.5).setInteractive({ useHandCursor: true });
 		const upTxt = this.add.text(PW / 2, 200, '⬆  UPGRADE', {
 			fontFamily: "'Courier New',monospace", fontSize: '13px',
-			fontStyle: 'bold', color: pal.background
+			color: pal.background
 		}).setOrigin(0.5);
 		upBg.on('pointerover', () => upBg.setAlpha(0.78));
 		upBg.on('pointerout', () => upBg.setAlpha(1));
@@ -812,7 +835,7 @@ class GameScene extends Phaser.Scene {
 		const bg = this.add.rectangle(0, 0, 340, 260, hex(pal.interface), 0.98)
 			.setStrokeStyle(2, hex(pal.playerCore), 0.8);
 		const title = this.add.text(0, -108, '📊  STATISTICS', {
-			fontFamily: "'Courier New',monospace", fontSize: '15px', fontStyle: 'bold', color: pal.fxAccent
+			fontFamily: "'Courier New',monospace", fontSize: '15px', color: pal.fxAccent
 		}).setOrigin(0.5);
 		this.statsCont.add([bg, title]);
 
@@ -825,7 +848,7 @@ class GameScene extends Phaser.Scene {
 				fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.playerCore
 			}).setOrigin(0, 0);
 			const v = this.add.text(140, y, '—', {
-				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#2563eb'
+				fontFamily: "'Courier New',monospace", fontSize: '13px', color: '#e2e8f0'
 			}).setOrigin(1, 0);
 			this.statsCont.add([lbl, v]);
 			this.statLines.push(v);
@@ -834,7 +857,7 @@ class GameScene extends Phaser.Scene {
 		const closeBtn = this.add.rectangle(0, 114, 160, 34, hex(pal.playerCore))
 			.setInteractive({ useHandCursor: true }).setOrigin(0.5);
 		const closeTxt = this.add.text(0, 114, 'CLOSE', {
-			fontFamily: "'Courier New',monospace", fontSize: '13px', fontStyle: 'bold', color: pal.background
+			fontFamily: "'Courier New',monospace", fontSize: '13px', color: pal.background
 		}).setOrigin(0.5);
 		closeBtn.on('pointerdown', () => this._toggleStats(false));
 		this.statsCont.add([closeBtn, closeTxt]);
@@ -1056,11 +1079,10 @@ class GameScene extends Phaser.Scene {
 	}
 
 	//  UTILS
-	_float(x, y, text, color = '#0f172a', size = 16) {
+	_float(x, y, text, color = '#2563eb', size = 16) {
 		const t = this.add.text(x, y, text, {
 			fontFamily: "'Courier New',monospace",
-			fontSize: `${size}px`, fontStyle: 'bold',
-			color, stroke: '#ffffff', strokeThickness: 4
+			fontSize: `${size}px`, color, stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(5000);
 		this.tweens.add({
 			targets: t, y: y - 80, alpha: { from: 1, to: 0 },
@@ -1108,9 +1130,9 @@ const config = {
 	type: Phaser.AUTO,
 	width: 860,
 	height: 640,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	parent: 'game-container',
-	scene: [BootScene, GameScene],
+	scene: [BootScene, GameScene, LandscapePrompt],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	scale: {
 		mode: Phaser.Scale.FIT,

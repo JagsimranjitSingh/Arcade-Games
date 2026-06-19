@@ -20,17 +20,36 @@ const lerpColor = (c1, c2, t) => {
 
 // Palette definitions (one per 5-level bracket)
 const PALETTES = [
-	{ bg: 0xf0f4f8, road: 0x94a3b8, target: [0x3b82f6, 0x8b5cf6, 0x06b6d4], hostile: 0xef4444, ui: 0x2563eb, fx: 0x3b82f6, name: 'SAPPHIRE' },
-	{ bg: 0xfaf5ff, road: 0xc084fc, target: [0xa855f7, 0xec4899, 0x06b6d4], hostile: 0xf97316, ui: 0x2563eb, fx: 0xa855f7, name: 'AMETHYST' },
-	{ bg: 0xf0fdf4, road: 0x86efac, target: [0x22c55e, 0xeab308, 0xf97316], hostile: 0x8b5cf6, ui: 0x2563eb, fx: 0x22c55e, name: 'EMERALD' },
-	{ bg: 0xeff6ff, road: 0x93c5fd, target: [0x2563eb, 0x0891b2, 0x7c3aed], hostile: 0xf43f5e, ui: 0x2563eb, fx: 0x2563eb, name: 'OCEAN' },
-	{ bg: 0xfefce8, road: 0xfde047, target: [0xeab308, 0xf97316, 0xef4444], hostile: 0x7c3aed, ui: 0x2563eb, fx: 0xeab308, name: 'GOLD' },
-	{ bg: 0xfdf2f8, road: 0xf9a8d4, target: [0xec4899, 0xa855f7, 0xf43f5e], hostile: 0x10b981, ui: 0x2563eb, fx: 0xec4899, name: 'SAKURA' },
-	{ bg: 0xfff7ed, road: 0xfdba74, target: [0xf97316, 0xef4444, 0xeab308], hostile: 0x0ea5e9, ui: 0x2563eb, fx: 0xf97316, name: 'FIRE' },
-	{ bg: 0xf1f5f9, road: 0x475569, target: [0x3b82f6, 0x64748b, 0x0ea5e9], hostile: 0xef4444, ui: 0x22c55e, fx: 0xef4444, name: 'STEALTH' },
+	{ bg: 0x0a0e1a, road: 0x94a3b8, target: [0x3b82f6, 0x8b5cf6, 0x06b6d4], hostile: 0xef4444, ui: 0x00e5ff, fx: 0x3b82f6, name: 'SAPPHIRE' },
+	{ bg: 0x0d0a1a, road: 0xc084fc, target: [0xa855f7, 0xec4899, 0x06b6d4], hostile: 0xf97316, ui: 0x00e5ff, fx: 0xa855f7, name: 'AMETHYST' },
+	{ bg: 0x0a1a0e, road: 0x86efac, target: [0x22c55e, 0xeab308, 0xf97316], hostile: 0x8b5cf6, ui: 0x00e5ff, fx: 0x22c55e, name: 'EMERALD' },
+	{ bg: 0x0a0e1a, road: 0x93c5fd, target: [0x2563eb, 0x0891b2, 0x7c3aed], hostile: 0xf43f5e, ui: 0x00e5ff, fx: 0x2563eb, name: 'OCEAN' },
+	{ bg: 0x1a180a, road: 0xfde047, target: [0xeab308, 0xf97316, 0xef4444], hostile: 0x7c3aed, ui: 0x00e5ff, fx: 0xeab308, name: 'GOLD' },
+	{ bg: 0x1a0a12, road: 0xf9a8d4, target: [0xec4899, 0xa855f7, 0xf43f5e], hostile: 0x10b981, ui: 0x00e5ff, fx: 0xec4899, name: 'SAKURA' },
+	{ bg: 0x1a120a, road: 0xfdba74, target: [0xf97316, 0xef4444, 0xeab308], hostile: 0x0ea5e9, ui: 0x00e5ff, fx: 0xf97316, name: 'FIRE' },
+	{ bg: 0x0a0e1a, road: 0x475569, target: [0x3b82f6, 0x64748b, 0x0ea5e9], hostile: 0xef4444, ui: 0x22c55e, fx: 0xef4444, name: 'STEALTH' },
 ];
 
 // Boot / Preload Scen
+
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('PlayScene'); });
+  }
+}
+
 class BootScene extends Phaser.Scene {
 	constructor() { super('BootScene'); }
 
@@ -62,9 +81,13 @@ class BootScene extends Phaser.Scene {
 		gfx.destroy();
 	}
 
-	create() {
-		this.scene.start('PlayScene');
-	}
+	  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('PlayScene');
+    }
+  }
 }
 
 // Main Play Scen
@@ -175,29 +198,29 @@ class PlayScene extends Phaser.Scene {
 	buildHUD() {
 		const w = this.scale.width;
 		const h = this.scale.height;
-		const style = { fontFamily: 'Courier New, Courier, monospace', fontStyle: 'bold' };
+		const style = { fontFamily: 'Courier New, Courier, monospace' };
 
 		// Score
-		this.scoreLabelText = this.add.text(20, 18, 'SCORE', { ...style, fontSize: '10px', color: '#2563eb', letterSpacing: 4 }).setDepth(100);
-		this.scoreText = this.add.text(20, 30, '0', { ...style, fontSize: '28px', color: '#2563eb' }).setDepth(100);
+		this.scoreLabelText = this.add.text(20, 18, 'SCORE', { ...style, fontSize: '10px', color: '#e2e8f0', letterSpacing: 4 }).setDepth(100);
+		this.scoreText = this.add.text(20, 30, '0', { ...style, fontSize: '28px', color: '#e2e8f0' }).setDepth(100);
 
 		// Level badge
-		this.levelBg = this.add.rectangle(w / 2, 28, 110, 36, 0x0f172a, 0.5).setDepth(99);
-		this.levelText = this.add.text(w / 2, 20, 'LEVEL', { ...style, fontSize: '10px', color: '#2563eb', letterSpacing: 4 }).setOrigin(0.5, 0).setDepth(100);
-		this.levelNum = this.add.text(w / 2, 30, '1', { ...style, fontSize: '28px', color: '#2563eb' }).setOrigin(0.5, 0).setDepth(100);
+		this.levelBg = this.add.rectangle(w / 2, 28, 110, 36, 0x000000, 0.78).setDepth(99);
+		this.levelText = this.add.text(w / 2, 20, 'LEVEL', { ...style, fontSize: '10px', color: '#e2e8f0', letterSpacing: 4 }).setOrigin(0.5, 0).setDepth(100);
+		this.levelNum = this.add.text(w / 2, 30, '1', { ...style, fontSize: '28px', color: '#e2e8f0' }).setOrigin(0.5, 0).setDepth(100);
 
 		// Palette name
-		this.paletteName = this.add.text(w / 2, 58, '— MATRIX —', { ...style, fontSize: '9px', color: '#2563eb', letterSpacing: 3 }).setOrigin(0.5, 0).setDepth(100);
+		this.paletteName = this.add.text(w / 2, 58, '— MATRIX —', { ...style, fontSize: '9px', color: '#e2e8f0', letterSpacing: 3 }).setOrigin(0.5, 0).setDepth(100);
 
 		// Lives
-		this.livesText = this.add.text(w - 20, 18, 'LIVES', { ...style, fontSize: '10px', color: '#2563eb', letterSpacing: 4 }).setOrigin(1, 0).setDepth(100);
-		this.livesDiamonds = this.add.text(w - 20, 30, '◆ ◆ ◆', { ...style, fontSize: '20px', color: '#2563eb' }).setOrigin(1, 0).setDepth(100);
+		this.livesText = this.add.text(w - 20, 18, 'LIVES', { ...style, fontSize: '10px', color: '#e2e8f0', letterSpacing: 4 }).setOrigin(1, 0).setDepth(100);
+		this.livesDiamonds = this.add.text(w - 20, 30, '◆ ◆ ◆', { ...style, fontSize: '20px', color: '#e2e8f0' }).setOrigin(1, 0).setDepth(100);
 
 		// Combo
 		this.comboContainer = this.add.container(w / 2, h - 60).setDepth(100).setAlpha(0);
 		const comboBg = this.add.rectangle(0, 0, 200, 44, 0x0f172a, 0.6);
-		this.comboLabel = this.add.text(0, -12, 'COMBO', { ...style, fontSize: '9px', color: '#2563eb', letterSpacing: 4 }).setOrigin(0.5);
-		this.comboValueText = this.add.text(0, 4, 'x1', { ...style, fontSize: '28px', color: '#2563eb' }).setOrigin(0.5);
+		this.comboLabel = this.add.text(0, -12, 'COMBO', { ...style, fontSize: '9px', color: '#e2e8f0', letterSpacing: 4 }).setOrigin(0.5);
+		this.comboValueText = this.add.text(0, 4, 'x1', { ...style, fontSize: '28px', color: '#e2e8f0' }).setOrigin(0.5);
 		this.comboContainer.add([comboBg, this.comboLabel, this.comboValueText]);
 
 		// Combo bar (progress timer)
@@ -205,14 +228,14 @@ class PlayScene extends Phaser.Scene {
 		this.comboBar = this.add.rectangle(w / 2 - 100, h - 30, 1, 4, 0x0f172a).setOrigin(0, 0.5).setDepth(101).setAlpha(0);
 
 		// Pause button
-		this.pauseBtn = this.add.text(w - 20, h - 20, '[ II PAUSE ]', { ...style, fontSize: '11px', color: '#2563eb' })
+		this.pauseBtn = this.add.text(w - 20, h - 20, '[ II PAUSE ]', { ...style, fontSize: '11px', color: '#e2e8f0' })
 			.setOrigin(1, 1).setDepth(100).setInteractive({ useHandCursor: true })
 			.on('pointerdown', () => this.togglePause())
 			.on('pointerover', () => this.pauseBtn.setColor('#cccccc'))
 			.on('pointerout', () => this.pauseBtn.setColor('#0f172a'));
 
 		// High score
-		this.hiScoreText = this.add.text(20, 68, `HI ${this._getHiScore()}`, { ...style, fontSize: '10px', color: '#2563eb', letterSpacing: 2 }).setDepth(100);
+		this.hiScoreText = this.add.text(20, 68, `HI ${this._getHiScore()}`, { ...style, fontSize: '10px', color: '#e2e8f0', letterSpacing: 2 }).setDepth(100);
 
 		this.scale.on('resize', this._onResize, this);
 	}
@@ -250,8 +273,8 @@ class PlayScene extends Phaser.Scene {
 
 		// Drop-in text
 		const title = this.add.text(w / 2, -60, 'NEON BLADE DASH', {
-			fontFamily: 'Courier New', fontSize: '28px', color: '#2563eb',
-			stroke: '#ffffff', strokeThickness: 4
+			fontFamily: 'Courier New', fontSize: '28px', color: '#e2e8f0',
+			stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(301);
 
 		this.tweens.add({
@@ -394,7 +417,7 @@ class PlayScene extends Phaser.Scene {
 		const w = this.scale.width, h = this.scale.height;
 		const announcement = this.add.text(w / 2, h / 2, `— ${PALETTES[newIndex].name} —`, {
 			fontFamily: 'Courier New', fontSize: '32px',
-			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4
+			color: '#e2e8f0', stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(250).setAlpha(0);
 
 		this.tweens.add({ targets: announcement, alpha: 1, y: h / 2 - 20, duration: 300, ease: 'Back.Out' });
@@ -634,7 +657,7 @@ class PlayScene extends Phaser.Scene {
 		const w = this.scale.width, h = this.scale.height;
 		const pop = this.add.text(w / 2, h / 2 + 40, `LEVEL ${this.currentLevel}`, {
 			fontFamily: 'Courier New', fontSize: '36px',
-			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4
+			color: '#e2e8f0', stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({ targets: pop, alpha: 1, scaleX: 1.2, scaleY: 1.2, duration: 200, yoyo: true });
 		this.time.delayedCall(600, () => {
@@ -685,11 +708,11 @@ class PlayScene extends Phaser.Scene {
 		this.ripples.push({ x, y, color, radius: 0, maxRadius: 60 + this.combo * 3, alpha: 0.8, life: 1 });
 	}
 
-	_spawnPopup(x, y, text, color = '#0f172a', scale = 1) {
+	_spawnPopup(x, y, text, color = '#2563eb', scale = 1) {
 		const pop = this.add.text(x, y, text, {
 			fontFamily: 'Courier New', fontSize: `${Math.round(22 * scale)}px`,
 			color: color,
-			stroke: '#ffffff', strokeThickness: 3
+			stroke: '#000000', strokeThickness: 3
 		}).setOrigin(0.5).setDepth(150);
 		this.popups.push({ obj: pop, life: 1.0 });
 	}
@@ -721,28 +744,28 @@ class PlayScene extends Phaser.Scene {
 		panel.setStrokeStyle(2, 0x06b6d4, 1);
 
 		const goText = this.add.text(0, -95, 'GAME OVER', {
-			fontFamily: 'Courier New', fontSize: '30px', color: '#2563eb'
+			fontFamily: 'Courier New', fontSize: '30px', color: '#e2e8f0'
 		}).setOrigin(0.5);
 
 		const scoreLabel = this.add.text(0, -40, 'FINAL SCORE', {
-			fontFamily: 'Courier New', fontSize: '11px', color: '#2563eb', letterSpacing: 4
+			fontFamily: 'Courier New', fontSize: '11px', color: '#e2e8f0', letterSpacing: 4
 		}).setOrigin(0.5);
 
 		const scoreFinal = this.add.text(0, -18, this.score.toLocaleString(), {
-			fontFamily: 'Courier New', fontSize: '38px', color: '#2563eb'
+			fontFamily: 'Courier New', fontSize: '38px', color: '#e2e8f0'
 		}).setOrigin(0.5);
 
 		const hiLabel = this.add.text(0, 28, `HI SCORE: ${this._getHiScore().toLocaleString()}`, {
-			fontFamily: 'Courier New', fontSize: '13px', color: '#2563eb'
+			fontFamily: 'Courier New', fontSize: '13px', color: '#e2e8f0'
 		}).setOrigin(0.5);
 
 		const comboLabel = this.add.text(0, 54, `MAX COMBO: x${this.maxCombo}  |  LEVEL: ${this.currentLevel}`, {
-			fontFamily: 'Courier New', fontSize: '11px', color: '#2563eb'
+			fontFamily: 'Courier New', fontSize: '11px', color: '#e2e8f0'
 		}).setOrigin(0.5);
 
 		const restartBtn = this.add.text(0, 95, '[ PLAY AGAIN ]', {
 			fontFamily: 'Courier New', fontSize: '16px',
-			color: '#475569', backgroundColor: '#f8fafc', padding: { x: 18, y: 8 }
+			color: '#94a3b8', backgroundColor: '#0a0e1a', padding: { x: 18, y: 8 }
 		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
 		restartBtn.on('pointerover', () => restartBtn.setColor('#0f172a').setBackgroundColor('#000000'));
@@ -764,7 +787,7 @@ class PlayScene extends Phaser.Scene {
 			const w = this.scale.width, h = this.scale.height;
 			this._pauseOverlay = this.add.rectangle(w / 2, h / 2, w, h, 0x0f172a, 0.7).setDepth(300);
 			this._pauseText = this.add.text(w / 2, h / 2, 'PAUSED\n\n[ESC or P to resume]', {
-				fontFamily: 'Courier New', fontSize: '28px', color: '#2563eb', align: 'center'
+				fontFamily: 'Courier New', fontSize: '28px', color: '#e2e8f0', align: 'center'
 			}).setOrigin(0.5).setDepth(301);
 		} else {
 			if (this._pauseOverlay) { this._pauseOverlay.destroy(); this._pauseOverlay = null; }
@@ -1000,7 +1023,7 @@ class PlayScene extends Phaser.Scene {
 
 		const hi = this._getHiScore();
 		if (this.score >= hi && hi > 0) {
-			this.hiScoreText.setColor(Math.sin(time * 0.008) > 0 ? '#ffff00' : '#0f172a');
+			this.hiScoreText.setColor(Math.sin(time * 0.008) > 0 ? '#ffff00' : '#2563eb');
 			this.hiScoreText.setText(`★ HI ${hi.toLocaleString()}`);
 		}
 	}
@@ -1015,9 +1038,9 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
-	scene: [BootScene, PlayScene],
+	scene: [BootScene, PlayScene, LandscapePrompt],
 	render: {
 		antialias: true,
 		powerPreference: 'high-performance',

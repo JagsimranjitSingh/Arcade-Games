@@ -9,11 +9,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('Game Over – score:', score); },
 	getCurrentPalette() {
 		return {
-			background: '#f0f4f8',
-			playerCore: '#3b82f6',
+			background: '#0a0e1a',
+			playerCore: '#00e5ff',
 			fxAccent: '#f0a500',
 			hostile: '#ff2d55',
-			interface: '#cbd5e1',
+			interface: '#1e293b',
 		};
 	},
 };
@@ -155,7 +155,7 @@ function buildWalls(pts) {
 ══════════════════════════════════════════════════════════ */
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -476,7 +476,7 @@ GameScene.prototype.die = function () {
 			const p = this.palette;
 
 			const rBg = this.add.graphics().setDepth(50);
-			rBg.fillStyle(0xffffff, 0.97);
+			rBg.fillStyle(0x000000, 0.82);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(p.playerCore).color, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
@@ -486,13 +486,13 @@ GameScene.prototype.die = function () {
 			}).setOrigin(0.5).setDepth(51);
 
 			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
-				fontFamily: 'monospace', fontSize: '14px', color: '#475569',
+				fontFamily: 'monospace', fontSize: '14px', color: '#94a3b8',
 				backgroundColor: p.playerCore, padding: {x: 10, y: 10}, align: 'center'
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'monospace', fontSize: '16px', color: '#2563eb',
-				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
+				fontFamily: 'monospace', fontSize: '16px', color: '#e2e8f0',
+				backgroundColor: '#0a0e1a', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(51).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -542,7 +542,7 @@ GameScene.prototype.showGameOver = function () {
 	const p = this.palette;
 
 	const panel = this.add.graphics();
-	panel.fillStyle(0x000000, 0.85);
+	panel.fillStyle(0x000000, 0.82);
 	panel.fillRoundedRect(cx - 200, cy - 130, 400, 260, 18);
 	panel.lineStyle(2, Phaser.Display.Color.HexStringToColor(p.hostile).color, 0.9);
 	panel.strokeRoundedRect(cx - 200, cy - 130, 400, 260, 18);
@@ -850,7 +850,7 @@ UIScene.prototype.create = function () {
 
 	// Background strip top
 	this.topBar = this.add.graphics();
-	this.topBar.fillStyle(0x000000, 0.55);
+	this.topBar.fillStyle(0x000000, 0.75);
 	this.topBar.fillRect(0, 0, W, 58);
 	this.topBar.lineStyle(1, col(p.playerCore).color, 0.4);
 	this.topBar.lineBetween(0, 58, W, 58);

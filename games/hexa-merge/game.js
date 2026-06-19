@@ -12,9 +12,9 @@ if (typeof window.FreshPlay === 'undefined') {
 		},
 		showAd: () => { console.log('[FreshPlay] Ad shown'); },
 		getCurrentPalette: () => ({
-			background: '#f0f4f8',
-			playerCore: '#3b82f6',
-			interface: '#cbd5e1',
+			background: '#0a0e1a',
+			playerCore: '#00e5ff',
+			interface: '#1e293b',
 			fxAccent: '#ff3cac',
 		}),
 	};
@@ -39,7 +39,7 @@ const hexToInt = (h) => {
 const hexToStr = (h) => {
 	if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
 	if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-	return '#0f172a';
+	return '#00e5ff';
 };
 
 // Axial → pixel (pointy-top)
@@ -266,7 +266,7 @@ class GameScene extends Phaser.Scene {
 		this.boardCells.forEach(({ q, r }) => {
 			const p = hexToPixel(q, r, HEX_SIZE);
 			const px = this.cx + p.x, py = this.cy + p.y;
-			gfx.fillStyle(0x000000, 0.4);
+			gfx.fillStyle(0x000000, 0.35);
 			this._fillHex(gfx, px + 2, py + 3, HEX_SIZE - 1);
 			gfx.fillStyle(bgCol, 1);
 			this._fillHex(gfx, px, py, HEX_SIZE - 2);
@@ -318,8 +318,7 @@ class GameScene extends Phaser.Scene {
 		const text = this.add.text(0, 0, String(value), {
 			fontFamily: "'Courier New', Courier, monospace",
 			fontSize: value >= 100 ? '13px' : '17px',
-			fontStyle: 'bold',
-			color: hexToStr(this.palette.background),
+			color: '#ffffff',
 			align: 'center',
 		}).setOrigin(0.5);
 		return text;
@@ -336,9 +335,7 @@ class GameScene extends Phaser.Scene {
 		this._fillHex(gfx, 0, 0, size + 4);
 		gfx.fillStyle(tileCol, 1);
 		this._fillHex(gfx, 0, 0, size);
-		gfx.fillStyle(0x3b82f6, 0.25);
-		this._fillHex(gfx, 0, -size * 0.15, size * 0.55);
-		gfx.lineStyle(1.5, 0x3b82f6, 0.4);
+		gfx.lineStyle(1.5, tileCol, 0.5);
 		this._strokeHex(gfx, 0, 0, size);
 
 		label.setText(String(value));
@@ -615,7 +612,7 @@ class GameScene extends Phaser.Scene {
 		const pcCol = hexToStr(this.palette.playerCore);
 
 		this.hudBarGfx = this.add.graphics();
-		this.hudBarGfx.fillStyle(0x000000, 0.5);
+		this.hudBarGfx.fillStyle(0x000000, 0.75);
 		this.hudBarGfx.fillRect(0, 0, W, 64);
 
 		this.add.text(20, 10, 'SCORE', {
@@ -624,7 +621,7 @@ class GameScene extends Phaser.Scene {
 		});
 		this.scoreText = this.add.text(20, 24, '0', {
 			fontFamily: "'Courier New', Courier, monospace",
-			fontSize: '22px', fontStyle: 'bold', color: ifCol,
+			fontSize: '22px', color: ifCol,
 		});
 
 		this.add.text(W / 2, 10, 'HEXA MERGE', {
@@ -638,7 +635,7 @@ class GameScene extends Phaser.Scene {
 		}).setOrigin(1, 0);
 		this.levelText = this.add.text(W - 20, 24, '1', {
 			fontFamily: "'Courier New', Courier, monospace",
-			fontSize: '22px', fontStyle: 'bold', color: ifCol, align: 'right',
+			fontSize: '22px', color: ifCol, align: 'right',
 		}).setOrigin(1, 0);
 
 		this.progressBarBg = this.add.graphics();
@@ -658,7 +655,7 @@ class GameScene extends Phaser.Scene {
 		const pcColInt = hexToInt(this.palette.playerCore);
 
 		this.progressBarBg.clear();
-		this.progressBarBg.fillStyle(0xffffff, 0.97);
+		this.progressBarBg.fillStyle(0x000000, 0.82);
 		this.progressBarBg.fillRect(0, 58, W, 4);
 
 		this.progressBarFg.clear();
@@ -681,7 +678,7 @@ class GameScene extends Phaser.Scene {
 		this.queueGfx = this.add.graphics();
 		this.queueTiles = [];
 
-		this.queueGfx.fillStyle(0x000000, 0.45);
+		this.queueGfx.fillStyle(0x000000, 0.75);
 		this.queueGfx.fillRoundedRect(W / 2 - 110, H - 120, 220, 110, 14);
 
 		this.add.text(W / 2, H - 115, 'NEXT', {
@@ -712,8 +709,7 @@ class GameScene extends Phaser.Scene {
 			const gfx = this.add.graphics();
 			const lbl = this.add.text(qx, qy, String(val), {
 				fontFamily: "'Courier New', Courier, monospace",
-				fontSize: '14px', fontStyle: 'bold',
-				color: hexToStr(this.palette.background), align: 'center',
+				fontSize: '14px', color: '#ffffff', align: 'center',
 			}).setOrigin(0.5);
 
 			const hue = (val * 47) % 360;
@@ -722,10 +718,10 @@ class GameScene extends Phaser.Scene {
 
 			if (i === 0) {
 				gfx.fillStyle(tcol, 1);
-				gfx.lineStyle(2.5, 0x3b82f6, 0.8);
+				gfx.lineStyle(2.5, tcol, 0.8);
 			} else {
 				gfx.fillStyle(tcol, 0.5);
-				gfx.lineStyle(1.5, 0x3b82f6, 0.3);
+				gfx.lineStyle(1.5, tcol, 0.3);
 				lbl.setAlpha(0.6);
 			}
 
@@ -743,9 +739,8 @@ class GameScene extends Phaser.Scene {
 		const fxColStr = hexToStr(this.palette.fxAccent);
 		const t = this.add.text(px, py, msg, {
 			fontFamily: "'Courier New', Courier, monospace",
-			fontSize: '18px', fontStyle: 'bold',
-			color: fxColStr,
-			stroke: '#ffffff', strokeThickness: 3,
+			fontSize: '18px', color: fxColStr,
+			stroke: '#000000', strokeThickness: 3,
 		}).setOrigin(0.5);
 		this.tweens.add({
 			targets: t,
@@ -779,7 +774,7 @@ class GameScene extends Phaser.Scene {
 
 		this.add.text(W / 2, H / 2 - 80, 'GAME OVER', {
 			fontFamily: "'Courier New', Courier, monospace",
-			fontSize: '36px', fontStyle: 'bold', color: pcColStr,
+			fontSize: '36px', color: pcColStr,
 			align: 'center',
 		}).setOrigin(0.5);
 
@@ -793,8 +788,7 @@ class GameScene extends Phaser.Scene {
 		btnGfx.fillRoundedRect(W / 2 - 80, H / 2 + 20, 160, 44, 8);
 		const btnTxt = this.add.text(W / 2, H / 2 + 42, 'PLAY AGAIN', {
 			fontFamily: "'Courier New', Courier, monospace",
-			fontSize: '14px', fontStyle: 'bold',
-			color: bgColStr, align: 'center',
+			fontSize: '14px', color: bgColStr, align: 'center',
 		}).setOrigin(0.5);
 
 		btnGfx.setInteractive(
@@ -853,7 +847,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 400,
 	height: 680,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	scene: [BootScene, GameScene],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	parent: 'game-container',

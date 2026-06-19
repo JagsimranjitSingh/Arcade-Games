@@ -17,10 +17,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DEFAULT_PALETTE = {
-  background : '#f0f4f8',
-  playerCore : '#3b82f6',
+  background: '#0a0e1a',
+  playerCore: '#00e5ff',
   fxAccent   : '#f97316',
-  interface  : '#e2e8f0',
+  interface: '#1e293b',
 };
 
 const BOT_TIERS = [
@@ -200,13 +200,13 @@ class GameScene extends Phaser.Scene {
     const g  = this.gridGfx;
     const sp = Math.min(this.W, this.H) * 0.09;
     g.clear();
-    g.lineStyle(1, 0x94a3b8, 0.12);
+    g.lineStyle(1, 0x1e293b, 0.12);
     for (let x = 0; x <= this.W+sp; x += sp) { g.moveTo(x,0);     g.lineTo(x,this.H); }
     for (let y = 0; y <= this.H+sp; y += sp) { g.moveTo(0,y);     g.lineTo(this.W,y); }
     g.strokePath();
-    g.fillGradientStyle(0xf0f4f8,0xf0f4f8,0xf0f4f8,0xf0f4f8, 0.3,0.3,0,0);
+    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0.3,0.3,0,0);
     g.fillRect(0,0,this.W*0.2,this.H);
-    g.fillGradientStyle(0xf0f4f8,0xf0f4f8,0xf0f4f8,0xf0f4f8, 0,0,0.3,0.3);
+    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0,0,0.3,0.3);
     g.fillRect(this.W*0.8,0,this.W*0.2,this.H);
   }
 
@@ -293,7 +293,7 @@ class GameScene extends Phaser.Scene {
   buildUI() {
     const f = this.fs();
 
-    this.topBar     = this.add.rectangle(0,0,this.W,f.topH, 0xffffff, 0.85).setOrigin(0,0);
+    this.topBar     = this.add.rectangle(0,0,this.W,f.topH, 0x000000, 0.78).setOrigin(0,0);
     this.topBarEdge = this.add.rectangle(0,f.topH-1,this.W,1, this.hex(this.palette.playerCore), 0.22).setOrigin(0,0);
 
     this.currencyTxt = this.add.text(this.W/2, f.topH*0.30, '0 Credits', {
@@ -301,11 +301,11 @@ class GameScene extends Phaser.Scene {
     }).setOrigin(0.5, 0.5);
 
     this.incomeTxt = this.add.text(this.W/2, f.topH*0.72, '+0.0 / sec', {
-      fontFamily:'monospace', fontSize:`${f.sub}px`, color:'#64748b', align:'center',
+      fontFamily:'monospace', fontSize:`${f.sub}px`, color:'#94a3b8', align:'center',
     }).setOrigin(0.5, 0.5);
 
     this.levelTxt = this.add.text(this.W-12, f.topH*0.5, `LVL ${this.level}`, {
-      fontFamily:'monospace', fontSize:`${f.sub}px`, color:'#64748b',
+      fontFamily:'monospace', fontSize:`${f.sub}px`, color:'#94a3b8',
     }).setOrigin(1, 0.5);
 
     this.tapHint = this.add.text(this.CX, this.CY+this.CR*1.7, `TAP  +${this.tapPower}`, {
@@ -322,7 +322,7 @@ class GameScene extends Phaser.Scene {
     const bx = this.W - bw/2 - 14;
     const by = this.H - bh/2 - 14;
 
-    this.toggleBg = this.add.rectangle(bx, by, bw, bh, 0xffffff)
+    this.toggleBg = this.add.rectangle(bx, by, bw, bh, 0x0c1220)
       .setStrokeStyle(1, this.hex(this.palette.fxAccent), 0.75)
       .setInteractive({ useHandCursor:true });
     this.toggleTxt = this.add.text(bx, by, '⚙  UPGRADES', {
@@ -331,8 +331,8 @@ class GameScene extends Phaser.Scene {
 
     this.toggleBg
       .on('pointerdown', () => this.togglePanel())
-      .on('pointerover',  () => this.toggleBg.setFillStyle(0xe2e8f0))
-      .on('pointerout',   () => this.toggleBg.setFillStyle(0xffffff));
+      .on('pointerover',  () => this.toggleBg.setFillStyle(0x1e293b))
+      .on('pointerout',   () => this.toggleBg.setFillStyle(0x0c1220));
   }
 
   buildProgressBar(f) {
@@ -359,8 +359,7 @@ class GameScene extends Phaser.Scene {
     this.calcPanelGeometry();
     this.panel = this.add.container(this.closedX, this.closedY);
 
-    this.panelBg = this.add.rectangle(0, 0, this.panelW, this.panelH,
-      0xffffff, 0.97)
+    this.panelBg = this.add.rectangle(0, 0, this.panelW, this.panelH, 0x000000, 0.78)
       .setStrokeStyle(1, this.hex(this.palette.playerCore), 0.28);
     this.panel.add(this.panelBg);
 
@@ -390,7 +389,7 @@ class GameScene extends Phaser.Scene {
     const aBot = this.panelTab === 'bots';
 
     this.tabBotBg = this.add.rectangle(-half/2-2, tabY, half, 26,
-      aBot ? 0xe2e8f0 : 0xf1f5f9)
+      aBot ? 0x0d2640 : 0x0c1220)
       .setStrokeStyle(1, this.hex(this.palette.playerCore), aBot ? 0.55 : 0.20)
       .setInteractive({useHandCursor:true});
     this.tabBotTxt = this.add.text(-half/2-2, tabY, '⬡  BOTS', {
@@ -398,7 +397,7 @@ class GameScene extends Phaser.Scene {
     }).setOrigin(0.5, 0.5);
 
     this.tabMsBg = this.add.rectangle(half/2+2, tabY, half, 26,
-      !aBot ? 0xfce7f3 : 0xf1f5f9)
+      !aBot ? 0x1a0d14 : 0x0c1220)
       .setStrokeStyle(1, this.hex(this.palette.fxAccent), !aBot ? 0.55 : 0.20)
       .setInteractive({useHandCursor:true});
     this.tabMsTxt = this.add.text(half/2+2, tabY, '★  UPGRADES', {
@@ -407,11 +406,11 @@ class GameScene extends Phaser.Scene {
 
     this.tabBotBg
       .on('pointerdown', () => { this.panelTab='bots';       this.refreshPanelTabs(); this.rebuildPanelItems(); })
-      .on('pointerover',  () => { if(this.panelTab!=='bots')       this.tabBotBg.setFillStyle(0xcbd5e1); })
+      .on('pointerover',  () => { if(this.panelTab!=='bots')       this.tabBotBg.setFillStyle(0x0d1e30); })
       .on('pointerout',   () => { if(this.panelTab!=='bots')       this.tabBotBg.setFillStyle(0xf1f5f9); });
     this.tabMsBg
       .on('pointerdown', () => { this.panelTab='milestones'; this.refreshPanelTabs(); this.rebuildPanelItems(); })
-      .on('pointerover',  () => { if(this.panelTab!=='milestones') this.tabMsBg.setFillStyle(0xfde2e2); })
+      .on('pointerover',  () => { if(this.panelTab!=='milestones') this.tabMsBg.setFillStyle(0x1e0d18); })
       .on('pointerout',   () => { if(this.panelTab!=='milestones') this.tabMsBg.setFillStyle(0xf1f5f9); });
 
     this.panel.add([this.tabBotBg, this.tabBotTxt, this.tabMsBg, this.tabMsTxt]);
@@ -420,10 +419,10 @@ class GameScene extends Phaser.Scene {
   refreshPanelTabs() {
     const fSz  = `${Math.max(9,this.fs().sm)}px`;
     const aBot = this.panelTab === 'bots';
-    this.tabBotBg.setFillStyle(aBot ? 0xe2e8f0 : 0xf1f5f9)
+    this.tabBotBg.setFillStyle(aBot ? 0x0d2640 : 0x0c1220)
                  .setStrokeStyle(1, this.hex(this.palette.playerCore), aBot ? 0.55 : 0.20);
     this.tabBotTxt.setColor(aBot ? this.palette.playerCore : '#2a3860').setFontSize(fSz);
-    this.tabMsBg.setFillStyle(!aBot ? 0xfce7f3 : 0xf1f5f9)
+    this.tabMsBg.setFillStyle(!aBot ? 0x1a0d14 : 0x0c1220)
                 .setStrokeStyle(1, this.hex(this.palette.fxAccent), !aBot ? 0.55 : 0.20);
     this.tabMsTxt.setColor(!aBot ? this.palette.fxAccent : '#2a3860').setFontSize(fSz);
   }
@@ -476,10 +475,10 @@ class GameScene extends Phaser.Scene {
     const cost   = this.botCost(tier);
     const canBuy = !locked && this.currency >= cost;
     const accent = this.hex(tier.color);
-    const bgFill = locked ? 0xf1f5f9 : 0xffffff;
+    const bgFill = locked ? 0x070810 : 0x0c1220;
 
     const bg = this.add.rectangle(0, y, pw, iH, bgFill, 0.95)
-      .setStrokeStyle(1, locked ? 0xcbd5e1 : accent, locked ? 0.12 : 0.45);
+      .setStrokeStyle(1, locked ? 0x1e293b : accent, locked ? 0.12 : 0.45);
     this.panelItemsCont.add(bg);
 
     const fSz   = Math.max(9, f.sm);
@@ -488,25 +487,25 @@ class GameScene extends Phaser.Scene {
     if (count > 0) {
       const badge = this.add.circle(-pw/2+iH*0.34, y, iH*0.27, accent, 0.9);
       const bTxt  = this.add.text(-pw/2+iH*0.34, y, `${count}`, {
-        fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color:'#475569',
+        fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color:'#94a3b8',
       }).setOrigin(0.5, 0.5);
       this.panelItemsCont.add([badge, bTxt]);
     }
 
     const nameTxt = this.add.text(leftX, y-iH*0.2, tier.name, {
-      fontFamily:'monospace', fontSize:`${fSz}px`, color: locked ? '#94a3b8' : '#1e293b',
+      fontFamily:'monospace', fontSize:`${fSz}px`, color: locked ? '#334155' : '#e2e8f0',
     }).setOrigin(0, 0.5);
     const sub = locked
       ? `Req: ${UNLOCK_THRESHOLD}× ${BOT_TIERS[BOT_TIERS.indexOf(tier)-1]?.name??'previous'}`
       : `+${tier.baseIncome}/s each`;
     const subTxt = this.add.text(leftX, y+iH*0.22, sub, {
-      fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color: locked ? '#cbd5e1' : '#64748b',
+      fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color: locked ? '#1e293b' : '#94a3b8',
     }).setOrigin(0, 0.5);
     this.panelItemsCont.add([nameTxt, subTxt]);
 
     if (!locked) {
       const cTxt  = this.add.text(pw/2-8, y-iH*0.2, `${this.fmt(cost)}c`, {
-        fontFamily:'monospace', fontSize:`${fSz}px`, color: canBuy ? '#16a34a' : '#dc2626',
+        fontFamily:'monospace', fontSize:`${fSz}px`, color: canBuy ? '#00ffaa' : '#883322',
       }).setOrigin(1, 0.5);
       const bTxt2 = this.add.text(pw/2-8, y+iH*0.22, 'BUY', {
         fontFamily:'monospace', fontSize:`${Math.max(8,fSz-2)}px`, color:'#94a3b8',
@@ -514,7 +513,7 @@ class GameScene extends Phaser.Scene {
       this.panelItemsCont.add([cTxt, bTxt2]);
       bg.setInteractive({useHandCursor:true})
         .on('pointerdown', () => this.purchaseBot(tier))
-        .on('pointerover',  () => bg.setFillStyle(0xf1f5f9, 0.98))
+        .on('pointerover',  () => bg.setFillStyle(0x162840, 0.98))
         .on('pointerout',   () => bg.setFillStyle(bgFill, 0.95));
     }
   }
@@ -522,25 +521,25 @@ class GameScene extends Phaser.Scene {
   addMilestoneItem(ms, y, pw, iH, f) {
     const done   = this.milestones[ms.id];
     const canBuy = !done && this.currency >= ms.cost;
-    const bgFill = done ? 0xf0fdf4 : 0xffffff;
+    const bgFill = done ? 0x071407 : 0x0c1220;
     const accent = this.hex(this.palette.fxAccent);
 
     const bg = this.add.rectangle(0, y, pw, iH, bgFill, 0.95)
-      .setStrokeStyle(1, done ? 0x86efac : accent, done ? 0.3 : 0.45);
+      .setStrokeStyle(1, done ? 0x1a441a : accent, done ? 0.3 : 0.45);
     this.panelItemsCont.add(bg);
 
     const fSz     = Math.max(9, f.sm);
     const nameTxt = this.add.text(-pw/2+8, y-iH*0.2, ms.name, {
-      fontFamily:'monospace', fontSize:`${fSz}px`, color: done ? '#16a34a' : '#1e293b',
+      fontFamily:'monospace', fontSize:`${fSz}px`, color: done ? '#44aa44' : '#e2e8f0',
     }).setOrigin(0, 0.5);
     const subTxt  = this.add.text(-pw/2+8, y+iH*0.22, done ? '✓ PURCHASED' : ms.desc, {
-      fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color: done ? '#22c55e' : '#64748b',
+      fontFamily:'monospace', fontSize:`${Math.max(8,fSz-1)}px`, color: done ? '#22c55e' : '#94a3b8',
     }).setOrigin(0, 0.5);
     this.panelItemsCont.add([nameTxt, subTxt]);
 
     if (!done) {
       const cTxt = this.add.text(pw/2-8, y-iH*0.2, `${this.fmt(ms.cost)}c`, {
-        fontFamily:'monospace', fontSize:`${fSz}px`, color: canBuy ? '#16a34a' : '#dc2626',
+        fontFamily:'monospace', fontSize:`${fSz}px`, color: canBuy ? '#00ffaa' : '#883322',
       }).setOrigin(1, 0.5);
       const bTxt = this.add.text(pw/2-8, y+iH*0.22, 'BUY', {
         fontFamily:'monospace', fontSize:`${Math.max(8,fSz-2)}px`, color:'#94a3b8',
@@ -548,7 +547,7 @@ class GameScene extends Phaser.Scene {
       this.panelItemsCont.add([cTxt, bTxt]);
       bg.setInteractive({useHandCursor:true})
         .on('pointerdown', () => this.purchaseMilestone(ms))
-        .on('pointerover',  () => bg.setFillStyle(0xf1f5f9, 0.98))
+        .on('pointerover',  () => bg.setFillStyle(0x162840, 0.98))
         .on('pointerout',   () => bg.setFillStyle(bgFill, 0.95));
     }
   }
@@ -625,7 +624,7 @@ class GameScene extends Phaser.Scene {
       px + Phaser.Math.FloatBetween(-16, 16), py - 10,
       `+${this.fmt(val)}`,
       { fontFamily:'monospace', fontSize:`${Math.max(11,f.cur*0.56)}px`,
-        color:this.palette.playerCore, stroke:'#ffffff', strokeThickness:2 }
+        color:this.palette.playerCore, stroke:'#000000', strokeThickness:2 }
     ).setOrigin(0.5, 1).setDepth(12);
     this.floatLayer.add(txt);
     this.tweens.add({
@@ -672,7 +671,7 @@ class GameScene extends Phaser.Scene {
   }
 
   flashBuy() {
-    const f = this.add.rectangle(this.W/2, this.H/2, this.W, this.H, 0x3b82f6, 0.08).setDepth(50);
+    const f = this.add.rectangle(this.W/2, this.H/2, this.W, this.H, 0x00e5ff, 0.08).setDepth(50);
     this.tweens.add({ targets:f, alpha:0, duration:380, onComplete:() => f.destroy() });
   }
 
@@ -686,7 +685,7 @@ class GameScene extends Phaser.Scene {
     g.fillStyle(col, 0.18); g.fillCircle(0, 0, tier.r*2.4);
     g.fillStyle(col, 0.92); g.fillCircle(0, 0, tier.r);
     g.fillStyle(0xffffff, 0.30); g.fillCircle(-tier.r*0.28, -tier.r*0.28, tier.r*0.38);
-    g.lineStyle(0.8, 0x94a3b8, 0.2); g.strokeCircle(0, 0, tier.r);
+    g.lineStyle(0.8, 0x1e293b, 0.2); g.strokeCircle(0, 0, tier.r);
     g.setDepth(3);
     this.botContainer.add(g);
     this.botGfx[tier.id].push(g);
@@ -753,7 +752,7 @@ class GameScene extends Phaser.Scene {
     const f = this.fs();
     const b = this.add.text(this.W/2, this.H/2, msg, {
       fontFamily:'monospace', fontSize:`${Math.max(18,f.cur*1.05)}px`,
-      color:this.palette.fxAccent, stroke:'#ffffff', strokeThickness:3,
+      color:this.palette.fxAccent, stroke:'#000000', strokeThickness:3,
     }).setOrigin(0.5, 0.5).setAlpha(0).setDepth(200);
     this.tweens.add({
       targets:b, alpha:1, scaleX:1.2, scaleY:1.2, duration:260,
@@ -944,7 +943,7 @@ class GameScene extends Phaser.Scene {
 
 const _phaserConfig = {
   type           : Phaser.AUTO,
-  backgroundColor: '#f8fafc',
+  backgroundColor: '#0a0e1a',
   parent         : 'game-container',
   scale          : {
     mode      : Phaser.Scale.RESIZE,

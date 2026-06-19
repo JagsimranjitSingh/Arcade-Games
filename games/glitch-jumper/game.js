@@ -9,8 +9,8 @@ if (!window.FreshPlay) {
 	window.FreshPlay = {
 		currentLevel: 1,
 		getCurrentPalette: () => ({
-			background: '#f0f4f8',
-			playerCore: '#3b82f6',
+			background: '#0a0e1a',
+			playerCore: '#00e5ff',
 			fxAccent: '#7b2fff',
 			hostile: '#ff2d78',
 		}),
@@ -53,6 +53,36 @@ function hexToNum(hex) {
 /* ─────────────────────────────────────────────
 	GAME SCENE
 ───────────────────────────────────────────── */
+
+// ─────────────────────────────────────────────────────────────
+//  BOOT SCENE & LANDSCAPE PROMPT
+// ─────────────────────────────────────────────────────────────
+class Boot extends Phaser.Scene {
+  constructor() { super({key:'Boot'}); }
+  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('GameScene');
+    }
+  }
+}
+
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('GameScene'); });
+  }
+}
+
 class GameScene extends Phaser.Scene {
 	constructor() { super({ key: 'GameScene' }); }
 
@@ -314,7 +344,7 @@ class GameScene extends Phaser.Scene {
 			scale: { start: 0.6, end: 0 },
 			alpha: { start: 0.9, end: 0 },
 			lifespan: { min: 200, max: 500 },
-			tint: [hexToNum(PAL.playerCore), hexToNum(PAL.fxAccent), 0x0f172a],
+			tint: [hexToNum(PAL.playerCore), hexToNum(PAL.fxAccent), 0x94a3b8],
 			quantity: 0,
 			frequency: -1,
 			blendMode: 'ADD',
@@ -738,7 +768,7 @@ const config = {
 		height: '100%',
 		parent: 'game-container',
 	},
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	physics: {
 		default: 'arcade',
 		arcade: {
@@ -746,7 +776,7 @@ const config = {
 			debug: false,
 		},
 	},
-	scene: [GameScene],
+	scene: [Boot, LandscapePrompt, GameScene],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	render: {
 		pixelArt: false,

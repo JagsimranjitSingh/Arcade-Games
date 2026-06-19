@@ -9,9 +9,9 @@ if (typeof window.FreshPlay === 'undefined') {
 		levelComplete(cb) { this.currentLevel++; setTimeout(cb, 1800); },
 		showAd() { console.log('[FreshPlay] Ad shown'); },
 		getCurrentPalette: () => ({
-			background: '#f0f4f8',
-			interface: '#cbd5e1',
-			playerCore: '#3b82f6',
+			background: '#0a0e1a',
+			interface: '#1e293b',
+			playerCore: '#00e5ff',
 			fxAccent: '#f72585',
 			hostile: '#ffd166',
 		}),
@@ -37,7 +37,7 @@ const hexToInt = (h) => {
 const hexToStr = (h) => {
 	if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
 	if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-	return '#0f172a';
+	return '#00e5ff';
 };
 
 const cellKey = (c, r) => `${c},${r}`;
@@ -201,9 +201,34 @@ const playWin = () => [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => p
 // ============================================================
 //  BOOT
 // ============================================================
+
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('Game'); });
+  }
+}
+
 class BootScene extends Phaser.Scene {
 	constructor() { super('Boot'); }
-	create() { this.scene.start('Game'); }
+	  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('Game');
+    }
+  }
 }
 
 // ============================================================
@@ -678,9 +703,9 @@ class GameScene extends Phaser.Scene {
 // ============================================================
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	parent: 'game-container',
-	scene: [BootScene, GameScene],
+	scene: [BootScene, GameScene, LandscapePrompt],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -701,7 +726,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		Object.assign(div.style, {
 			position: 'fixed', inset: '0',
 			display: 'flex', alignItems: 'center', justifyContent: 'center',
-			background: '#f0f4f8',
+			background: '#0a0e1a',
 		});
 		document.body.appendChild(div);
 		document.body.style.cssText = 'margin:0;overflow:hidden;background:#0a0a12';

@@ -8,10 +8,10 @@
 if (!window.FreshPlay) {
 	let _level = 0;
 	const PALETTES = [
-		{ background: '#f0f4f8', playerCore: '#3b82f6', fxAccent: '#eab308', hostile: '#ef4444', interface: '#cbd5e1' },
-		{ background: '#f0fdf4', playerCore: '#22c55e', fxAccent: '#f97316', hostile: '#a855f7', interface: '#cbd5e1' },
-		{ background: '#faf5ff', playerCore: '#8b5cf6', fxAccent: '#06b6d4', hostile: '#ef4444', interface: '#cbd5e1' },
-		{ background: '#eff6ff', playerCore: '#2563eb', fxAccent: '#10b981', hostile: '#f43f5e', interface: '#cbd5e1' },
+		{ background: '#0a0e1a', playerCore: '#00e5ff', fxAccent: '#eab308', hostile: '#ef4444', interface: '#1e293b' },
+		{ background: '#0a0e1a', playerCore: '#22c55e', fxAccent: '#f97316', hostile: '#a855f7', interface: '#1e293b' },
+		{ background: '#0a0e1a', playerCore: '#8b5cf6', fxAccent: '#06b6d4', hostile: '#ef4444', interface: '#1e293b' },
+		{ background: '#0a0e1a', playerCore: '#00e5ff', fxAccent: '#10b981', hostile: '#f43f5e', interface: '#1e293b' },
 	];
 	window.FreshPlay = {
 		levelComplete(cb) { _level++; setTimeout(cb, 0); },
@@ -630,13 +630,13 @@ class GameScene extends Phaser.Scene {
 	_showBanner(text, color, onDone) {
 		const bx = this.W / 2, by = this.H / 2;
 		const bg = this.add.graphics().setDepth(40);
-		bg.fillStyle(0x000000, 0.7); bg.fillRoundedRect(bx - 140, by - 32, 280, 64, 10);
+		bg.fillStyle(0x000000, 0.75); bg.fillRoundedRect(bx - 140, by - 32, 280, 64, 10);
 		bg.lineStyle(2, hexToNum(color), 0.9); bg.strokeRoundedRect(bx - 140, by - 32, 280, 64, 10);
 
 		const txt = this.add.text(bx, by, text, {
 			fontFamily: '"Courier New", monospace',
 			fontSize: '32px', fill: color,
-			stroke: '#ffffff', strokeThickness: 3,
+			stroke: '#000000', strokeThickness: 3,
 		}).setOrigin(0.5).setDepth(41).setAlpha(0);
 
 		this.tweens.add({
@@ -725,7 +725,7 @@ new Phaser.Game({
 	type: Phaser.AUTO,
 	width: Math.min(window.innerWidth, 540),
 	height: Math.min(window.innerHeight, 800),
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	parent: document.body,
 	physics: {
 		default: 'matter',

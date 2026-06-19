@@ -7,9 +7,9 @@ window.FreshPlay = window.FreshPlay || {
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); setTimeout(cb, 800); },
 	gameOver: (score) => console.log('[FreshPlay] gameOver', score),
 	getCurrentPalette: () => ({
-		background: '#f0f4f8',
-		playerCore: '#3b82f6',
-		interface: '#cbd5e1',
+		background: '#0a0e1a',
+		playerCore: '#00e5ff',
+		interface: '#1e293b',
 		fxAccent: '#ff00aa',
 	}),
 };
@@ -126,7 +126,7 @@ class BootScene extends Phaser.Scene {
 		// outer ring
 		g.fillStyle(0x3b82f6, 1);
 		g.fillCircle(r, r, r);
-		g.fillStyle(0x000000, 1);
+		g.fillStyle(0x475569, 1);
 		g.fillCircle(r, r, r - 4);
 		g.fillStyle(0x3b82f6, 0.85);
 		g.fillCircle(r, r, r - 8);
@@ -338,7 +338,7 @@ class GameScene extends Phaser.Scene {
 
 		positions.forEach((pos, i) => {
 			const rect = this.add.rectangle(pos.x, pos.y, 40, 12, targetColor, 1);
-			rect.setStrokeStyle(2, 0x0f172a, 0.5);
+			rect.setStrokeStyle(2, 0x94a3b8, 0.5);
 			this.physics.add.existing(rect, true);
 			rect.body.setSize(40, 12);
 			this.targets.add(rect);
@@ -765,7 +765,7 @@ class GameScene extends Phaser.Scene {
 		const highScore = Math.max(this.score, prev);
 		if (this.score > prev) this.registry.set('highScore', this.score);
 
-		const mono = (size, color = '#0f172a', bold = false) => ({
+		const mono = (size, color = '#2563eb', bold = false) => ({
 			fontFamily: 'Courier New, Courier, monospace',
 			fontSize: `${size}px`,
 			color,
@@ -774,7 +774,7 @@ class GameScene extends Phaser.Scene {
 		});
 
 		// Dark full-screen overlay
-		const overlay = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.82).setDepth(20);
+		const overlay = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.78).setDepth(20);
 		overlay.setAlpha(0);
 		this.tweens.add({ targets: overlay, alpha: 1, duration: 300 });
 
@@ -783,7 +783,7 @@ class GameScene extends Phaser.Scene {
 		const px = W / 2, py = H / 2;
 
 		// Dark panel background
-		const panel = this.add.rectangle(px, py, panelW, panelH, 0x0f172a, 1).setDepth(21);
+		const panel = this.add.rectangle(px, py, panelW, panelH, 0x000000, 0.78).setDepth(21);
 
 		// Red border (4 sides as thin rects to match the image exactly)
 		const bT = 3; // border thickness
@@ -799,7 +799,7 @@ class GameScene extends Phaser.Scene {
 
 		// Subtle grid texture inside panel (matches reference background)
 		const gridG = this.add.graphics().setDepth(21);
-		gridG.lineStyle(1, 0x1a1a2e, 0.6);
+		gridG.lineStyle(1, 0xcbd5e1, 0.3);
 		for (let gx = px - panelW / 2; gx <= px + panelW / 2; gx += 28)
 			gridG.lineBetween(gx, py - panelH / 2, gx, py + panelH / 2);
 		for (let gy = py - panelH / 2; gy <= py + panelH / 2; gy += 28)
@@ -812,10 +812,10 @@ class GameScene extends Phaser.Scene {
 			.setShadow(2, 2, '#ff0000', 8, true, false);
 
 		// SCORE label + value
-		this.add.text(px, py - 66, 'SCORE', mono(11, '#aaaaaa'))
+		this.add.text(px, py - 66, 'SCORE', mono(11, '#64748b'))
 			.setOrigin(0.5).setDepth(23).setAlpha(0.8);
 
-		const scoreTxt = this.add.text(px, py - 48, String(this.score), mono(42, '#0f172a', true))
+		const scoreTxt = this.add.text(px, py - 48, String(this.score), mono(42, '#2563eb', true))
 			.setOrigin(0.5).setDepth(23);
 
 		// Score count-up
@@ -833,13 +833,13 @@ class GameScene extends Phaser.Scene {
 		// BEST
 		this.add.text(px, py + 10,
 			`BEST    ${highScore}`,
-			mono(13, '#0f172a'))
+			mono(13, '#475569'))
 			.setOrigin(0.5).setDepth(23);
 
 		// LEVEL REACHED
 		this.add.text(px, py + 36,
 			`LEVEL REACHED: ${this.level}`,
-			mono(13, '#0f172a'))
+			mono(13, '#475569'))
 			.setOrigin(0.5).setDepth(23);
 
 		// [ PLAY AGAIN ] button
@@ -851,7 +851,7 @@ class GameScene extends Phaser.Scene {
 		const btnBg = this.add.rectangle(px, btnY, btnW, btnH, GREEN, 1)
 			.setDepth(23).setInteractive({ useHandCursor: true });
 
-		const btnTxt = this.add.text(px, btnY, '[ PLAY AGAIN ]', mono(15, '#000000', true))
+		const btnTxt = this.add.text(px, btnY, '[ PLAY AGAIN ]', mono(15, '#ffffff', true))
 			.setOrigin(0.5).setDepth(24);
 
 		btnBg.on('pointerover', () => {
@@ -1013,7 +1013,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 500,
 	height: 750,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	input: {
 		activePointers: 3,
 	},

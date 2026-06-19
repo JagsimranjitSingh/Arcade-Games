@@ -7,11 +7,11 @@
 
 	//  PALETTE DEFAULTS  (overridden by FreshPlay)
 	const DEFAULT_PALETTE = {
-		background: '#f0f4f8',
-		playerCore: '#3b82f6',
+		background: '#0a0e1a',
+		playerCore: '#00e5ff',
 		hostile: "#ff2d55",
 		fxAccent: "#ffe600",
-		interface: '#cbd5e1',
+		interface: '#1e293b',
 	};
 
 	function getPalette() {
@@ -941,11 +941,34 @@
 	}
 
 	//  BOOT SCENE  (first frame palette + launch)
-	class BootScene extends Phaser.Scene {
+	
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('GameScene'); });
+  }
+}
+
+class BootScene extends Phaser.Scene {
 		constructor() { super({ key: "BootScene" }); }
-		create() {
-			this.scene.start("GameScene");
-		}
+		  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('GameScene');
+    }
+  }
 	}
 
 	//  PHASER CONFIG
@@ -955,7 +978,7 @@
 		height: H,
 		backgroundColor: DEFAULT_PALETTE.background,
 		parent: "game-container",
-		scene: [BootScene, GameScene],
+		scene: [BootScene, GameScene, LandscapePrompt],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 		antialias: true,
 		roundPixels: false,

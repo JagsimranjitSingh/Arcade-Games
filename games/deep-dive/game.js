@@ -7,11 +7,11 @@
 // ---------------------------------------------------------------------------
 window.FreshPlay = window.FreshPlay || {
 	getCurrentPalette: () => ({
-		background: '#f0f4f8',
-		playerCore: '#3b82f6',
+		background: '#0a0e1a',
+		playerCore: '#00e5ff',
 		fxAccent: '#39ff14',
 		hostile: '#ff3c3c',
-		interface: '#cbd5e1',
+		interface: '#1e293b',
 	}),
 	levelComplete: (cb) => { console.log('[FreshPlay] levelComplete'); if (cb) cb(); },
 	gameOver: (score) => { console.log('[FreshPlay] gameOver', score); },
@@ -374,7 +374,7 @@ function generateTextures(scene, pal) {
 	const pc = ptC.getContext();
 	const ptR = ptSize / 2;
 	const pg = pc.createRadialGradient(ptR, ptR, 0, ptR, ptR, ptR);
-	pg.addColorStop(0, '#0f172a');
+	pg.addColorStop(0, '#0a0e1a');
 	pg.addColorStop(0.4, 'rgba(200,250,255,0.5)');
 	pg.addColorStop(1, 'rgba(255,255,255,0)');
 	pc.fillStyle = pg;
@@ -573,6 +573,25 @@ class AudioEngine {
 // ===========================================================================
 // BOOT SCENE
 // ===========================================================================
+
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('MenuScene'); });
+  }
+}
+
 class BootScene extends Phaser.Scene {
 	constructor() { super({ key: 'BootScene' }); }
 
@@ -630,7 +649,6 @@ class MenuScene extends Phaser.Scene {
 		const title = this.add.text(W / 2, H * 0.22, 'DEEP DIVE', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: titleSize + 'px',
-			fontStyle: 'bold',
 			color: '#e8fbff',
 			stroke: '#005580',
 			strokeThickness: 3,
@@ -687,7 +705,6 @@ class MenuScene extends Phaser.Scene {
 		const startBtn = this.add.text(W / 2, btnY, '▼  DESCEND  ▼', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: startSize + 'px',
-			fontStyle: 'bold',
 			color: '#00e5ff',
 		}).setOrigin(0.5).setDepth(11).setInteractive({ useHandCursor: true });
 
@@ -857,7 +874,7 @@ class GameScene extends Phaser.Scene {
 		// Scanline overlay (subtle CRT feel)
 		const slGfx = this.add.graphics().setDepth(60).setAlpha(0.015);
 		for (let y = 0; y < H; y += 3) {
-			slGfx.lineStyle(1, 0x000000, 1);
+			slGfx.lineStyle(1, 0x1e293b, 1);
 			slGfx.lineBetween(0, y, W, y);
 		}
 
@@ -920,7 +937,6 @@ class GameScene extends Phaser.Scene {
 		this._depthText = this.add.text(textX, pad + (s ? 16 : 20), '0 m', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: valueSize,
-			fontStyle: 'bold',
 			color: '#d0f4ff',
 		}).setDepth(41);
 
@@ -928,7 +944,6 @@ class GameScene extends Phaser.Scene {
 		this._levelText = this.add.text(pad + hudW - 8, pad + 6, 'LVL 1', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: s ? '9px' : '11px',
-			fontStyle: 'bold',
 			color: '#00c8e8',
 		}).setOrigin(1, 0).setDepth(41);
 
@@ -946,7 +961,7 @@ class GameScene extends Phaser.Scene {
 		const barH = s ? 8 : 10;
 
 		const barBg = this.add.graphics().setDepth(41);
-		barBg.fillStyle(0xffffff, 0.97);
+		barBg.fillStyle(0x000000, 0.82);
 		barBg.fillRoundedRect(barX, barY, barW, barH, 5);
 		barBg.lineStyle(1, fCol, 0.4);
 		barBg.strokeRoundedRect(barX, barY, barW, barH, 5);
@@ -983,7 +998,6 @@ class GameScene extends Phaser.Scene {
 		this._scoreText = this.add.text(scoreX + 8, pad + (s ? 18 : 22), '0', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: s ? '14px' : '18px',
-			fontStyle: 'bold',
 			color: '#d0f4ff',
 		}).setDepth(41);
 
@@ -1113,7 +1127,6 @@ class GameScene extends Phaser.Scene {
 		const txt = this.add.text(W / 2, H / 2, `DEPTH ${this.level * DEPTH_PER_LEVEL}m\nLEVEL ${this.level + 1}`, {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: txtSize + 'px',
-			fontStyle: 'bold',
 			color: '#00e5ff',
 			align: 'center',
 			stroke: '#001020',
@@ -1179,24 +1192,24 @@ class GameScene extends Phaser.Scene {
 			this.revived = true;
 			const cx = this.W / 2, cy = this.H / 2;
 			const rBg = this.add.graphics().setDepth(200);
-			rBg.fillStyle(0xffffff, 0.97);
+			rBg.fillStyle(0x000000, 0.82);
 			rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 			rBg.lineStyle(2, 0x00e5ff, 1);
 			rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 
 			const rTxt = this.add.text(cx, cy - 40, 'SECOND CHANCE?', {
-				fontFamily: "'Orbitron', sans-serif", fontSize: '20px', color: '#2563eb'
+				fontFamily: "'Orbitron', sans-serif", fontSize: '20px', color: '#e2e8f0'
 			}).setOrigin(0.5).setDepth(201);
 
 			const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
 				fontFamily: "'Share Tech Mono', monospace", fontSize: '14px', color: '#00e5ff', align: 'center',
-				backgroundColor: '#f8fafc', padding: {x: 10, y: 10}
+				backgroundColor: '#0a0e1a', padding: {x: 10, y: 10}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 			btnRevive.setStroke('#00c8e8', 1);
 
 			const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#2563eb',
-				backgroundColor: '#f8fafc', padding: {x: 20, y: 16}
+				fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#e2e8f0',
+				backgroundColor: '#0a0e1a', padding: {x: 20, y: 16}
 			}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 			const cleanUpRevive = () => {
@@ -1263,7 +1276,6 @@ class GameScene extends Phaser.Scene {
 		this.add.text(W / 2, topY + (s ? 28 : 35), 'CRUSHED BY THE DEEP', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: s ? '11px' : '14px',
-			fontStyle: 'bold',
 			color: '#ff4444',
 			shadow: { offsetX: 0, offsetY: 0, color: '#ff0000', blur: 15, fill: true },
 		}).setOrigin(0.5).setDepth(81);
@@ -1278,7 +1290,6 @@ class GameScene extends Phaser.Scene {
 		this.add.text(W / 2, topY + (s ? 80 : 105), `${score} m`, {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: s ? '28px' : '38px',
-			fontStyle: 'bold',
 			color: '#d0f4ff',
 			shadow: { offsetX: 0, offsetY: 0, color: '#00e5ff', blur: 20, fill: true },
 		}).setOrigin(0.5).setDepth(81);
@@ -1309,7 +1320,6 @@ class GameScene extends Phaser.Scene {
 		const restartBtn = this.add.text(W / 2, btnY, '▼ DIVE AGAIN ▼', {
 			fontFamily: "'Orbitron', sans-serif",
 			fontSize: s ? '11px' : '14px',
-			fontStyle: 'bold',
 			color: '#00e5ff',
 		}).setOrigin(0.5).setDepth(82).setInteractive({ useHandCursor: true });
 
@@ -1550,7 +1560,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	parent: document.body,
 	scale: {
 		mode: Phaser.Scale.RESIZE,
@@ -1562,7 +1572,7 @@ const config = {
 			capture: true,
 		},
 	},
-	scene: [BootScene, MenuScene, GameScene],
+	scene: [BootScene, MenuScene, GameScene, LandscapePrompt],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 };
 

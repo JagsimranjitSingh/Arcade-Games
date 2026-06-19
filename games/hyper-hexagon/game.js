@@ -33,6 +33,25 @@ const MIN_SPAWN = 480;     // Min spawn interval cap
 /* ─────────────────────────────────────────────────────────
 	 BOOT SCENE — procedurally generate textures
 	 ───────────────────────────────────────────────────────── */
+
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('PlayScene'); });
+  }
+}
+
 class BootScene extends Phaser.Scene {
 	constructor() { super('BootScene'); }
 
@@ -56,7 +75,13 @@ class BootScene extends Phaser.Scene {
 		g.destroy();
 	}
 
-	create() { this.scene.start('PlayScene'); }
+	  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('PlayScene');
+    }
+  }
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -97,7 +122,7 @@ class PlayScene extends Phaser.Scene {
 		this.shakeAmt = 0;
 		this.shakeDecay = 0.82;
 		this.screenFlash = 0;
-		this.flashCol = 0x0f172a;
+		this.flashCol = 0x0a0e1a;
 		this.pulseT = 0;
 		this.popups = [];
 
@@ -154,12 +179,12 @@ class PlayScene extends Phaser.Scene {
 					bg: p.background ?? 0x050510,
 					core: p.playerCore ?? 0x00e5ff,
 					wall: p.hostile ?? 0xff0044,
-					ui: p.interface ?? 0x0f172a,
+					ui: p.interface ?? 0x2563eb,
 					fx: p.fxAccent ?? 0xff6600,
 				};
 			}
 		} catch { }
-		return { bg: 0x050510, core: 0x00e5ff, wall: 0xff0044, ui: 0x2563eb, fx: 0xff6600 };
+		return { bg: 0x050510, core: 0x00e5ff, wall: 0xff0044, ui: 0x00e5ff, fx: 0xff6600 };
 	}
 
 	/* Audio */
@@ -396,7 +421,7 @@ class PlayScene extends Phaser.Scene {
 		const { cx, cy } = this._center();
 		const pop = this.add.text(cx, cy, 'LEVEL ' + this.level, {
 			fontFamily: 'Courier New', fontSize: '38px',
-			color: css(this.palette.ui), stroke: '#ffffff', strokeThickness: 6
+			color: css(this.palette.ui), stroke: '#000000', strokeThickness: 6
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({ targets: pop, alpha: 1, scaleX: 1.25, scaleY: 1.25, duration: 200, yoyo: true });
 		this.time.delayedCall(750, () => {
@@ -419,7 +444,7 @@ class PlayScene extends Phaser.Scene {
 			const pal = this.palette;
 
 			const rBg = this.add.graphics().setDepth(300);
-			rBg.fillStyle(0xffffff, 0.97);
+			rBg.fillStyle(0x000000, 0.82);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, pal.core, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
@@ -429,13 +454,13 @@ class PlayScene extends Phaser.Scene {
 			}).setOrigin(0.5).setDepth(301);
 
 			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
-				fontFamily: 'Courier New', fontSize: '14px', color: '#475569',
+				fontFamily: 'Courier New', fontSize: '14px', color: '#94a3b8',
 				backgroundColor: css(pal.core), padding: {x: 10, y: 10}, align: 'center'
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'Courier New', fontSize: '16px', color: '#2563eb',
-				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
+				fontFamily: 'Courier New', fontSize: '16px', color: '#e2e8f0',
+				backgroundColor: '#0a0e1a', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(301).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -481,7 +506,7 @@ class PlayScene extends Phaser.Scene {
 		this.time.delayedCall(380, () => {
 			const pw = 330, ph = 290;
 			const pan = this.add.graphics().setDepth(301);
-			pan.fillStyle(0x000000, 0.96);
+			pan.fillStyle(0x000000, 0.82);
 			pan.fillRect(cx - pw / 2, cy - ph / 2, pw, ph);
 			pan.lineStyle(2, pal.wall, 0.9);
 			pan.strokeRect(cx - pw / 2, cy - ph / 2, pw, ph);
@@ -496,17 +521,17 @@ class PlayScene extends Phaser.Scene {
 			const els = [
 				mk(-110, 'GAME OVER', 27, css(pal.wall)),
 				mk(-62, 'SCORE', 9, css(pal.ui)),
-				mk(-47, this.score.toLocaleString(), 42, '#0f172a'),
+				mk(-47, this.score.toLocaleString(), 42, '#2563eb'),
 				mk(8, 'BEST   ' + Math.max(this.score, this.hiScore).toLocaleString(), 13, css(pal.ui)),
 				mk(32, 'LEVEL REACHED: ' + this.level, 11, css(pal.ui)),
 			];
 
 			const btn = this.add.text(cx, cy + 92, '[ PLAY AGAIN ]', {
 				fontFamily: 'Courier New', fontSize: '16px',
-				color: '#475569', backgroundColor: css(pal.core), padding: { x: 20, y: 10 }
+				color: '#94a3b8', backgroundColor: css(pal.core), padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(303).setAlpha(0).setInteractive({ useHandCursor: true });
-			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: '#f8fafc' }));
-			btn.on('pointerout', () => btn.setStyle({ color: '#475569', backgroundColor: css(pal.core) }));
+			btn.on('pointerover', () => btn.setStyle({ color: css(pal.core), backgroundColor: '#0a0e1a' }));
+			btn.on('pointerout', () => btn.setStyle({ color: '#94a3b8', backgroundColor: css(pal.core) }));
 			btn.on('pointerdown', () => this.scene.restart());
 
 			[...els, btn].forEach(el => this.tweens.add({ targets: el, alpha: 1, duration: 280 }));
@@ -626,7 +651,7 @@ class PlayScene extends Phaser.Scene {
 		}
 
 		// Core black fill
-		this.coreGfx.fillStyle(0x000000, 1);
+		this.coreGfx.fillStyle(0x475569, 1);
 		this._fillHex(this.coreGfx, cx, cy, CORE_R, this.worldAngle);
 
 		// Core border — layered glow
@@ -723,7 +748,7 @@ class PlayScene extends Phaser.Scene {
 			this._fillHex(this.uiGfx, rx, ry, r, Math.PI / 6);
 			if (alive) {
 				this.uiGfx.lineStyle(1, 0x3b82f6, 0.35);
-				this._drawHexOutline(this.uiGfx, rx, ry, r, Math.PI / 6, 0x0f172a, 0.35, 1);
+				this._drawHexOutline(this.uiGfx, rx, ry, r, Math.PI / 6, 0x94a3b8, 0.35, 1);
 			}
 		}
 
@@ -777,7 +802,7 @@ class PlayScene extends Phaser.Scene {
 		const { cx, cy } = this._center();
 		const pop = this.add.text(cx, cy - 88, txt, {
 			fontFamily: 'Courier New', fontSize: '20px',
-			color: css(this.palette.core), stroke: '#ffffff', strokeThickness: 3
+			color: css(this.palette.core), stroke: '#000000', strokeThickness: 3
 		}).setOrigin(0.5).setDepth(150);
 		this.tweens.add({
 			targets: pop, y: cy - 140, alpha: 0,
@@ -816,10 +841,10 @@ class PlayScene extends Phaser.Scene {
 		if (this.isPaused) {
 			const { cx, cy } = this._center();
 			const { width: W, height: H } = this.scale;
-			this._pauseOv = this.add.rectangle(cx, cy, W * 2, H * 2, 0x000000, 0.72).setDepth(400);
+			this._pauseOv = this.add.rectangle(cx, cy, W * 2, H * 2, 0x000000, 0.78).setDepth(400);
 			this._pauseTx = this.add.text(cx, cy, 'PAUSED\n\n[ P / ESC  to resume ]', {
 				fontFamily: 'Courier New', fontSize: '26px',
-				color: '#2563eb', align: 'center', stroke: '#ffffff', strokeThickness: 3
+				color: '#e2e8f0', align: 'center', stroke: '#000000', strokeThickness: 3
 			}).setOrigin(0.5).setDepth(401);
 		} else {
 			this._pauseOv?.destroy(); this._pauseOv = null;
@@ -864,12 +889,12 @@ class PlayScene extends Phaser.Scene {
 	_entrance() {
 		const { cx, cy } = this._center();
 		const { width: W, height: H } = this.scale;
-		const flash = this.add.rectangle(cx, cy, W * 3, H * 3, 0x0f172a, 1).setDepth(500);
+		const flash = this.add.rectangle(cx, cy, W * 3, H * 3, 0x0a0e1a, 1).setDepth(500);
 		this.tweens.add({ targets: flash, alpha: 0, duration: 700, ease: 'Power3', onComplete: () => flash.destroy() });
 
 		const title = this.add.text(cx, cy - 20, 'HYPER HEXAGON', {
 			fontFamily: 'Courier New', fontSize: '28px',
-			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4
+			color: '#e2e8f0', stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(510).setAlpha(0);
 		this.tweens.add({ targets: title, alpha: 1, y: cy - 44, duration: 420, ease: 'Back.Out' });
 		this.time.delayedCall(1200, () => {
@@ -937,7 +962,7 @@ class PlayScene extends Phaser.Scene {
 		// Hi-score flash when beaten
 		const hi = this._loadHi();
 		if (this.score > hi && hi > 0) {
-			this.hudHi.setColor(Math.sin(time * 0.009) > 0 ? '#ffff00' : '#0f172a');
+			this.hudHi.setColor(Math.sin(time * 0.009) > 0 ? '#ffff00' : '#2563eb');
 			this.hudHi.setText('★ HI ' + hi.toLocaleString());
 		}
 	}
@@ -952,9 +977,9 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
-	scene: [BootScene, PlayScene],
+	scene: [BootScene, PlayScene, LandscapePrompt],
 	render: { antialias: true, powerPreference: 'high-performance', roundPixels: false },
 	fps: { target: 60, forceSetTimeOut: false },
 };

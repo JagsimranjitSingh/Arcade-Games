@@ -11,9 +11,9 @@ if (!window.FreshPlay) {
         setTimeout(cb, 800); 
     },
     getCurrentPalette: () => ({
-      background: '#f0f4f8',
-      interface: '#cbd5e1',
-      playerCore: '#3b82f6',
+      background: '#0a0e1a',
+      interface: '#1e293b',
+      playerCore: '#00e5ff',
       hostile:    '#ff2060',
       fxAccent:   '#aa44ff',
     }),
@@ -37,16 +37,16 @@ const HEADER_H      = 76;
 function hexToStr(h) {
   if (typeof h === 'string') return h.startsWith('#') ? h : '#' + h;
   if (typeof h === 'number') return '#' + h.toString(16).padStart(6, '0');
-  return '#0f172a';
+  return '#00e5ff';
 }
 
 function getPalette() {
   let p = window.FreshPlay && window.FreshPlay.getCurrentPalette ? window.FreshPlay.getCurrentPalette() : null;
-  if (!p) p = { background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', hostile: '#ff2060', fxAccent: '#aa44ff' };
+  if (!p) p = { background: '#0a0e1a', interface: '#1e293b', playerCore: '#00e5ff', hostile: '#ff2060', fxAccent: '#aa44ff' };
   
   return {
     background: hexToStr(p.background || '#07080f'),
-    interface: '#cbd5e1', 
+    interface: '#1e293b', 
     playerCore: hexToStr(p.playerCore || '#00f0ff'),
     hostile:    hexToStr(p.hostile || '#ff2060'),
     fxAccent:   hexToStr(p.fxAccent || '#aa44ff')
@@ -246,7 +246,7 @@ class ChromaSortScene extends Phaser.Scene {
 
     this.lblLevel = this.add.text(W / 2, HEADER_H / 2, 'LEVEL 1', {
       fontFamily: 'monospace', fontSize: '20px',
-      color: '#2563eb', letterSpacing: 8,
+      color: '#e2e8f0', letterSpacing: 8,
     }).setOrigin(0.5);
 
     this.add.text(W - 16, 14, 'MOVES', {
@@ -255,7 +255,7 @@ class ChromaSortScene extends Phaser.Scene {
     }).setOrigin(1, 0).setAlpha(0.7);
 
     this.lblMoves = this.add.text(W - 16, 30, '0', {
-      fontFamily: 'monospace', fontSize: '22px', color: '#2563eb',
+      fontFamily: 'monospace', fontSize: '22px', color: '#e2e8f0',
     }).setOrigin(1, 0);
 
     const rBtn = this.add.text(16, HEADER_H / 2, '↺  RESTART', {
@@ -268,7 +268,7 @@ class ChromaSortScene extends Phaser.Scene {
 
     this.lblHint = this.add.text(W / 2, this.scale.height - 20, 'TAP A TUBE TO SELECT', {
       fontFamily: 'monospace', fontSize: '14px',
-      color: '#2563eb', letterSpacing: 3,
+      color: '#e2e8f0', letterSpacing: 3,
     }).setOrigin(0.5).setAlpha(0.32);
   }
 
@@ -789,7 +789,7 @@ class ChromaSortScene extends Phaser.Scene {
     const dim = this.add.graphics();
     dim.alpha = 0;
     this.layerFX.add(dim);
-    dim.fillStyle(0x000000, 0.6);
+    dim.fillStyle(0x000000, 0.75);
     dim.fillRect(0, 0, W, H);
     this.tweens.add({ targets: dim, alpha: 1, duration: 380 });
 
@@ -829,7 +829,7 @@ class ChromaSortScene extends Phaser.Scene {
     btnGfx.fillRoundedRect(btnX, btnY, btnW, btnH, 10);
 
     const btnTxt = mkText('NEXT LEVEL  →', cx, btnY + btnH / 2, '14px', darken(p.background, -0.5) || '#000000');
-    btnTxt.setStyle({ color: '#475569' });
+    btnTxt.setStyle({ color: '#94a3b8' });
 
     const undoTxt = mkText('UNDO  [U]   RESTART  [R]', cx, btnY + btnH + 20, '10px', p.fxAccent);
     undoTxt.setAlpha(0);
@@ -1007,7 +1007,7 @@ function bootChromaSort() {
   window._chromaSortInst = new Phaser.Game({
     type: Phaser.AUTO,
     width: 500, height: 820,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0a0e1a',
     parent: 'game-container',
     scene: [ChromaSortScene],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },

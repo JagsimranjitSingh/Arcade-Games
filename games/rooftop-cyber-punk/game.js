@@ -36,7 +36,7 @@
 	const hexToStr = c => {
 		if (typeof c === 'string') return c.startsWith('#') ? c : '#' + c;
 		if (typeof c === 'number') return '#' + c.toString(16).padStart(6, '0');
-		return '#0f172a';
+		return '#00e5ff';
 	};
 
 	const hexN = s => {
@@ -51,13 +51,13 @@
 			try {
 				const p = window.FreshPlay.getCurrentPalette();
 				return {
-					bg: hexToStr(p.background || '#f0f4f8'),
-					pl: hexToStr(p.playerCore || '#06b6d4'),
-					ho: hexToStr(p.hostile || '#ef4444'),
-					ui: hexToStr(p.interface || '#8b5cf6'),
+					bg: hexToStr(p.background || '#0a0e1a'),
+					pl: hexToStr(p.playerCore || '#00e5ff'),
+					ho: hexToStr(p.hostile || '#ff2952'),
+					ui: hexToStr(p.interface || '#7c00ff'),
 				};
 			} catch {
-				return { bg: '#f0f4f8', pl: '#06b6d4', ho: '#ef4444', ui: '#8b5cf6' };
+				return { bg: '#0a0e1a', pl: '#06b6d4', ho: '#ef4444', ui: '#8b5cf6' };
 			}
 		},
 		levelComplete(cb) {
@@ -405,7 +405,7 @@
 			const g = this.add.graphics().setDepth(50);
 			const uC = s2col(this.pal.ui);
 
-			g.fillStyle(0xcbd5e1, 1);
+			g.fillStyle(0x1e293b, 1);
 			g.fillRect(0, GY, W, H - GY);
 
 			g.lineStyle(2, uC, 0.95);
@@ -422,7 +422,7 @@
 			}
 
 			for (let x = 0; x < W; x += 80) {
-				g.lineStyle(1, 0x94a3b8, 1);
+				g.lineStyle(1, 0x1e293b, 1);
 				g.beginPath(); g.moveTo(x, GY); g.lineTo(x, GY + 24); g.strokePath();
 			}
 
@@ -441,7 +441,7 @@
 
 			const scan = this.add.graphics().setDepth(92);
 			for (let y = 0; y < H; y += 3) {
-				scan.fillStyle(0x94a3b8, 0.015);
+				scan.fillStyle(0x000000, 0.15);
 				scan.fillRect(0, y, W, 1);
 			}
 
@@ -487,7 +487,7 @@
 			const bw = 178, bh = 3, bx = W / 2 - 89, by = 9;
 			const uC = s2col(this.pal.ui);
 			this.progBg.clear();
-			this.progBg.fillStyle(0xcbd5e1, 1); this.progBg.fillRect(bx, by, bw, bh);
+			this.progBg.fillStyle(0x1e293b, 1); this.progBg.fillRect(bx, by, bw, bh);
 			this.progBg.lineStyle(1, uC, 0.20); this.progBg.strokeRect(bx, by, bw, bh);
 			this.progFg.clear();
 			this.progFg.fillStyle(uC, 1);
@@ -545,7 +545,7 @@
 					width: '74px',
 					height: '74px',
 					borderRadius: '50%',
-					background: 'rgba(255,255,255,0.85)',
+					background: 'rgba(10,14,26,0.75)',
 					border: `2px solid ${color}88`,
 					display: 'flex',
 					alignItems: 'center',
@@ -575,7 +575,7 @@
 				}, { passive: false });
 				btn.addEventListener('touchend', (e) => {
 					e.preventDefault();
-					btn.style.background = 'rgba(255,255,255,0.85)';
+					btn.style.background = 'rgba(10,14,26,0.75)';
 					btn.style.boxShadow = `0 0 16px ${color}22, inset 0 0 16px rgba(0,0,0,0.5)`;
 					btn.style.transform = 'scale(1)';
 				}, { passive: false });
@@ -740,15 +740,15 @@
 				this.revived = true;
 				// Show Revive UI
 				const cx = W / 2, cy = H / 2;
-				const bg = this.add.rectangle(cx, cy, 320, 160, 0xffffff, 0.95).setDepth(200);
+				const bg = this.add.rectangle(cx, cy, 320, 160, 0x000000, 0.78).setDepth(200);
 				bg.setStrokeStyle(2, s2col(this.pal.pl));
-				const txt = this.add.text(cx, cy - 35, 'SECOND CHANCE?', { fontFamily: '"Share Tech Mono", monospace', fontSize: '24px', color: '#2563eb' }).setOrigin(0.5).setDepth(201);
+				const txt = this.add.text(cx, cy - 35, 'SECOND CHANCE?', { fontFamily: '"Share Tech Mono", monospace', fontSize: '24px', color: '#e2e8f0' }).setOrigin(0.5).setDepth(201);
 				
 				const btnRevive = this.add.rectangle(cx - 75, cy + 30, 130, 46, s2col(this.pal.pl)).setDepth(201).setInteractive({useHandCursor: true});
-				const txtRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', { fontFamily: '"Share Tech Mono", monospace', fontSize: '13px', color: '#475569', align: 'center' }).setOrigin(0.5).setDepth(202);
+				const txtRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', { fontFamily: '"Share Tech Mono", monospace', fontSize: '13px', color: '#94a3b8', align: 'center' }).setOrigin(0.5).setDepth(202);
 				
-				const btnSkip = this.add.rectangle(cx + 75, cy + 30, 130, 46, 0x475569).setDepth(201).setInteractive({useHandCursor: true});
-				const txtSkip = this.add.text(cx + 75, cy + 30, 'SKIP', { fontFamily: '"Share Tech Mono", monospace', fontSize: '16px', color: '#64748b' }).setOrigin(0.5).setDepth(202);
+				const btnSkip = this.add.rectangle(cx + 75, cy + 30, 130, 46, 0x334155).setDepth(201).setInteractive({useHandCursor: true});
+				const txtSkip = this.add.text(cx + 75, cy + 30, 'SKIP', { fontFamily: '"Share Tech Mono", monospace', fontSize: '16px', color: '#94a3b8' }).setOrigin(0.5).setDepth(202);
 
 				const proceedToOver = () => {
 					bg.destroy(); txt.destroy(); btnRevive.destroy(); txtRevive.destroy(); btnSkip.destroy(); txtSkip.destroy();
@@ -800,7 +800,7 @@
 				`LEVEL  ${String(this.level).padStart(2, '0')}`, {
 				fontFamily: '"Share Tech Mono","Courier New",monospace',
 				fontSize: '46px', color: this.pal.ui,
-				stroke: '#ffffff', strokeThickness: 3,
+				stroke: '#000000', strokeThickness: 3,
 			}).setOrigin(0.5).setScale(0.4).setDepth(150);
 
 			this.tweens.add({
@@ -1344,7 +1344,7 @@
 			this.add.text(W / 2, H / 2 - 116, 'S Y S T E M', sf('13px', ho)).setOrigin(0.5);
 
 			const flat = this.add.text(W / 2, H / 2 - 68, 'FLATLINED',
-				{ ...sf('56px', ho), stroke: '#ffffff', strokeThickness: 4 })
+				{ ...sf('56px', ho), stroke: '#000000', strokeThickness: 4 })
 				.setOrigin(0.5).setAlpha(0);
 			this.tweens.add({ targets: flat, alpha: 1, duration: 540, ease: 'Power2' });
 
@@ -1435,7 +1435,7 @@
 		type: Phaser.AUTO,
 		width: W,
 		height: H,
-		backgroundColor: '#f8fafc',
+		backgroundColor: '#0a0e1a',
 		parent: 'game-container',
 		scale: {
 			mode: Phaser.Scale.FIT,

@@ -45,6 +45,25 @@ const ROTATION_SPEED      = 3.6; // rad/s when key held
 const ROTATION_EASE       = 0.14; // lerp factor for smooth rotation
 
 // Boot Scene
+
+// ─────────────────────────────────────────────────────────────
+//  LANDSCAPE PROMPT SCENE
+// ─────────────────────────────────────────────────────────────
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('PlayScene'); });
+  }
+}
+
 class BootScene extends Phaser.Scene {
 	constructor() { super('BootScene'); }
 
@@ -79,7 +98,13 @@ class BootScene extends Phaser.Scene {
 		g.destroy();
 	}
 
-	create() { this.scene.start('PlayScene'); }
+	  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('PlayScene');
+    }
+  }
 }
 
 // Play Scene
@@ -368,12 +393,12 @@ class PlayScene extends Phaser.Scene {
 	// Entrance animation
 	_playEntrance() {
 		const { width: W, height: H } = this.scale;
-		const flash = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0xffffff, 1).setDepth(500);
+		const flash = this.add.rectangle(W / 2, H / 2, W * 3, H * 3, 0x0a0e1a, 1).setDepth(500);
 		this.tweens.add({ targets: flash, alpha: 0, duration: 700, ease: 'Power3', onComplete: () => flash.destroy() });
 
 		const title = this.add.text(W / 2, H / 2 - 20, 'ORBIT STRIKER', {
 			fontFamily: 'Courier New', fontSize: '32px',
-			color: '#2563eb', stroke: '#ffffff', strokeThickness: 4
+			color: '#e2e8f0', stroke: '#000000', strokeThickness: 4
 		}).setOrigin(0.5).setDepth(510).setAlpha(0);
 
 		this.tweens.add({ targets: title, alpha: 1, y: H / 2 - 40, duration: 400, ease: 'Back.Out' });
@@ -475,7 +500,7 @@ class PlayScene extends Phaser.Scene {
 		}
 
 		// Core fill
-		this.coreGfx.fillStyle(0xf0f4f8, 1);
+		this.coreGfx.fillStyle(0x0a0e1a, 1);
 		this.coreGfx.fillCircle(cx, cy, CORE_RADIUS);
 
 		// Core inner glow gradient rings
@@ -575,7 +600,7 @@ class PlayScene extends Phaser.Scene {
 			// Head glow
 			this.laserGfx.fillStyle(lz.color, 0.8);
 			this.laserGfx.fillCircle(headX, headY, 5);
-			this.laserGfx.fillStyle(0xffffff, 0.9);
+			this.laserGfx.fillStyle(0x000000, 0.82);
 			this.laserGfx.fillCircle(headX, headY, 2.5);
 
 			// Warning arc on orbit ring
@@ -654,7 +679,7 @@ class PlayScene extends Phaser.Scene {
 		const { width: W, height: H } = this.scale;
 		const pop = this.add.text(W / 2, H / 2 + 60, 'LEVEL ' + this.level, {
 			fontFamily: 'Courier New', fontSize: '34px',
-			color: '#2563eb', stroke: '#ffffff', strokeThickness: 5
+			color: '#e2e8f0', stroke: '#000000', strokeThickness: 5
 		}).setOrigin(0.5).setDepth(200).setAlpha(0);
 		this.tweens.add({
 			targets: pop, alpha: 1, scaleX: 1.2, scaleY: 1.2,
@@ -716,7 +741,7 @@ class PlayScene extends Phaser.Scene {
 	_spawnPopup(x, y, txt, color) {
 		const pop = this.add.text(x, y, txt, {
 			fontFamily: 'Courier New', fontSize: '20px',
-			color: hexCss(color), stroke: '#ffffff', strokeThickness: 3
+			color: hexCss(color), stroke: '#000000', strokeThickness: 3
 		}).setOrigin(0.5).setDepth(40);
 		this.tweens.add({
 			targets: pop, y: y - 55, alpha: 0,
@@ -870,7 +895,7 @@ class PlayScene extends Phaser.Scene {
 			const pal = this.palette;
 
 			const rBg = this.add.graphics().setDepth(400);
-			rBg.fillStyle(0xffffff, 0.97);
+			rBg.fillStyle(0x000000, 0.82);
 			rBg.fillRect(cx - 160, cy - 80, 320, 160);
 			rBg.lineStyle(2, pal.colorA, 1);
 			rBg.strokeRect(cx - 160, cy - 80, 320, 160);
@@ -880,13 +905,13 @@ class PlayScene extends Phaser.Scene {
 			}).setOrigin(0.5).setDepth(401);
 
 			const btnRevive = this.add.text(cx - 75, cy + 30, 'WATCH AD\nTO REVIVE', {
-				fontFamily: 'Courier New', fontSize: '14px', color: '#475569',
+				fontFamily: 'Courier New', fontSize: '14px', color: '#94a3b8',
 				backgroundColor: hexCss(pal.colorA), padding: {x: 10, y: 10}, align: 'center'
 			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
 
 			const btnSkip = this.add.text(cx + 75, cy + 30, 'SKIP', {
-				fontFamily: 'Courier New', fontSize: '16px', color: '#2563eb',
-				backgroundColor: '#f8fafc', padding: {x: 20, y: 15}
+				fontFamily: 'Courier New', fontSize: '16px', color: '#e2e8f0',
+				backgroundColor: '#0a0e1a', padding: {x: 20, y: 15}
 			}).setOrigin(0.5).setDepth(401).setInteractive({useHandCursor: true});
 
 			const cleanUp = () => {
@@ -932,7 +957,7 @@ class PlayScene extends Phaser.Scene {
 			const panel = this.add.graphics().setDepth(401);
 			const pw = 340, ph = 280, px = W / 2 - pw / 2, py = H / 2 - ph / 2;
 
-			panel.fillStyle(0xffffff, 0.98);
+			panel.fillStyle(0x000000, 0.82);
 			panel.fillRect(px, py, pw, ph);
 			panel.lineStyle(2, pal.hostile, 0.8);
 			panel.strokeRect(px, py, pw, ph);
@@ -952,12 +977,12 @@ class PlayScene extends Phaser.Scene {
 
 			const restartBtn = this.add.text(W / 2, py + ph - 40, '[ PLAY AGAIN ]', {
 				fontFamily: 'Courier New', fontSize: '16px',
-				color: '#475569', backgroundColor: hexCss(pal.colorA),
+				color: '#94a3b8', backgroundColor: hexCss(pal.colorA),
 				padding: { x: 20, y: 10 }
 			}).setOrigin(0.5).setDepth(403).setInteractive({ useHandCursor: true });
 
-			restartBtn.on('pointerover', () => restartBtn.setStyle({ color: hexCss(pal.colorA), backgroundColor: '#f8fafc' }));
-			restartBtn.on('pointerout',  () => restartBtn.setStyle({ color: '#475569', backgroundColor: hexCss(pal.colorA) }));
+			restartBtn.on('pointerover', () => restartBtn.setStyle({ color: hexCss(pal.colorA), backgroundColor: '#0a0e1a' }));
+			restartBtn.on('pointerout',  () => restartBtn.setStyle({ color: '#94a3b8', backgroundColor: hexCss(pal.colorA) }));
 			restartBtn.on('pointerdown', () => { this.scene.restart(); });
 
 			this.tweens.add({ targets: [panel, restartBtn], alpha: { from: 0, to: 1 }, duration: 300 });
@@ -1035,9 +1060,9 @@ const config = {
 		width: '100%',
 		height: '100%',
 	},
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
-	scene: [BootScene, PlayScene],
+	scene: [BootScene, PlayScene, LandscapePrompt],
 	render: {
 		antialias: true,
 		powerPreference: 'high-performance',

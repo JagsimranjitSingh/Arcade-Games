@@ -10,11 +10,11 @@ window.FreshPlay = window.FreshPlay || {
 	gameOver(score) { console.log('[FreshPlay] gameOver', score); },
 	getCurrentPalette() {
 		return {
-			background: '#f0f4f8',
+			background: '#0a0e1a',
 			playerCore: '#7ee8fa',
 			fxAccent: '#00ffd0',
 			hostile: '#ff4757',
-			interface: '#cbd5e1',
+			interface: '#1e293b',
 		};
 	},
 };
@@ -421,7 +421,7 @@ class GameScene extends Phaser.Scene {
 			speed: { min: 100, max: 300 },
 			scale: { start: 1.5, end: 0 },
 			alpha: { start: 1, end: 0 },
-			tint: [0xff4400, 0xffaa00, 0x0f172a],
+			tint: [0xff4400, 0xffaa00, 0x94a3b8],
 			quantity: 20,
 			blendMode: 'ADD',
 			emitting: false,
@@ -467,8 +467,7 @@ class GameScene extends Phaser.Scene {
 		}).setDepth(10);
 		this.scoreText = this.add.text(20, 30, '0', {
 			fontFamily: "'Courier New', monospace",
-			fontSize: '28px', color: this.P.interface, fontStyle: 'bold',
-		}).setDepth(10);
+			fontSize: '28px', color: this.P.interface, }).setDepth(10);
 
 		// Level
 		this.levelLabel = this.add.text(W - 20, 18, 'SECTOR', {
@@ -477,8 +476,7 @@ class GameScene extends Phaser.Scene {
 		}).setOrigin(1, 0).setDepth(10);
 		this.levelText = this.add.text(W - 20, 30, '01', {
 			fontFamily: "'Courier New', monospace",
-			fontSize: '28px', color: this.P.interface, fontStyle: 'bold',
-		}).setOrigin(1, 0).setDepth(10);
+			fontSize: '28px', color: this.P.interface, }).setOrigin(1, 0).setDepth(10);
 
 		// Shield bar 
 		const barW = W - 40, barH = 4, barY = 72;
@@ -740,7 +738,7 @@ class GameScene extends Phaser.Scene {
 				const W = this.scale.width, H = this.scale.height;
 				const cx = W / 2, cy = H / 2;
 				const rBg = this.add.graphics().setDepth(200);
-				rBg.fillStyle(0xffffff, 0.97);
+				rBg.fillStyle(0x000000, 0.82);
 				rBg.fillRoundedRect(cx - 150, cy - 80, 300, 160, 12);
 				rBg.lineStyle(2, Phaser.Display.Color.HexStringToColor(this.P.playerCore).color, 1);
 				rBg.strokeRoundedRect(cx - 150, cy - 80, 300, 160, 12);
@@ -750,13 +748,13 @@ class GameScene extends Phaser.Scene {
 				}).setOrigin(0.5).setDepth(201);
 
 				const btnRevive = this.add.text(cx - 70, cy + 30, 'WATCH AD\nTO REVIVE', {
-					fontFamily: "'Courier New', monospace", fontSize: '14px', color: '#475569', align: 'center',
+					fontFamily: "'Courier New', monospace", fontSize: '14px', color: '#94a3b8', align: 'center',
 					backgroundColor: this.P.playerCore, padding: {x: 10, y: 10}
 				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 				const btnSkip = this.add.text(cx + 70, cy + 30, 'SKIP', {
-					fontFamily: "'Courier New', monospace", fontSize: '16px', color: '#2563eb',
-					backgroundColor: '#f8fafc', padding: {x: 20, y: 16}
+					fontFamily: "'Courier New', monospace", fontSize: '16px', color: '#e2e8f0',
+					backgroundColor: '#0a0e1a', padding: {x: 20, y: 16}
 				}).setOrigin(0.5).setDepth(201).setInteractive({useHandCursor: true});
 
 				const cleanUp = () => {
@@ -830,7 +828,7 @@ class GameScene extends Phaser.Scene {
 		const banner = this.add.text(W / 2, H / 2, `SECTOR ${String(this.level).padStart(2, '0')}`, {
 			fontFamily: "'Courier New', monospace",
 			fontSize: '38px', color: this.P.fxAccent,
-			fontStyle: 'bold', letterSpacing: 8,
+			letterSpacing: 8,
 		}).setOrigin(0.5).setDepth(30).setAlpha(0);
 		const sub = this.add.text(W / 2, H / 2 + 48, 'DENSITY INCREASING', {
 			fontFamily: "'Courier New', monospace",
@@ -965,7 +963,7 @@ class GameOverScene extends Phaser.Scene {
 		const ic = P.interface;
 
 		// Dim overlay
-		this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.75).setDepth(20);
+		this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.78).setDepth(20);
 
 		// Glowing panel
 		const panel = this.add.graphics().setDepth(21);
@@ -995,8 +993,7 @@ class GameOverScene extends Phaser.Scene {
 		}).setOrigin(0.5).setDepth(22);
 		this.add.text(W / 2, panY + 92, String(this.finalScore).padStart(6, '0'), {
 			fontFamily: "'Courier New', monospace",
-			fontSize: '36px', color: ic, fontStyle: 'bold',
-		}).setOrigin(0.5).setDepth(22);
+			fontSize: '36px', color: ic, }).setOrigin(0.5).setDepth(22);
 
 		// Level reached
 		this.add.text(W / 2, panY + 144, `SECTOR ${String(this.finalLevel).padStart(2, '0')} REACHED`, {
@@ -1030,7 +1027,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: 390,
 	height: 700,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,

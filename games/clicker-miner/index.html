@@ -12,7 +12,7 @@
   <meta name="mobile-web-app-capable"                    content="yes" />
   <meta name="apple-mobile-web-app-capable"              content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style"     content="black-translucent" />
-  <meta name="theme-color"                               content="#f0f4f8" />
+  <meta name="theme-color"                               content="#0a0e1a" />
   <meta name="description"
         content="Clicker Miner — tap the Data Core, mine digital currency, build a bot army." />
   <title>Clicker Miner</title>
@@ -22,8 +22,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg    : #f0f4f8;
-      --core  : #3b82f6;
+      --bg    : #0a0e1a;
+      --core  : #00e5ff;
       --accent: #ff6b35;
       --glass : rgba(13, 17, 23, 0.92);
       --mono  : 'Courier New', 'Lucida Console', monospace;
@@ -40,7 +40,7 @@
       width   : 100%;
       height  : 100%;
       overflow: hidden;
-      background    : var(--bg);
+      background: var(--bg);
       font-family   : var(--mono);
       color         : var(--core);
       overscroll-behavior : none;
@@ -85,7 +85,7 @@
       align-items    : center;
       justify-content: center;
       gap            : 28px;
-      background     : var(--bg);
+      background: var(--bg);
       transition     : opacity 0.55s ease, visibility 0.55s ease;
     }
     #loader.hidden {
@@ -195,12 +195,12 @@
   (() => {
     'use strict';
     const PALETTES = [
-      { background: '#f0f4f8', playerCore: '#3b82f6', fxAccent:'#ff6b35', interface: '#cbd5e1' },
-      { background: '#f0f4f8', playerCore: '#3b82f6', fxAccent:'#ffdd00', interface: '#cbd5e1' },
-      { background: '#f0f4f8', playerCore: '#3b82f6', fxAccent:'#ff3366', interface: '#cbd5e1' },
-      { background: '#f0f4f8', playerCore: '#3b82f6', fxAccent:'#00aaff', interface: '#cbd5e1' },
-      { background: '#f0f4f8', playerCore:'#4488ff', fxAccent:'#ff4499', interface: '#cbd5e1' },
-      { background: '#f0f4f8', playerCore: '#3b82f6', fxAccent:'#44ffdd', interface: '#cbd5e1' },
+      { background: '#f0f4f8', playerCore: '#00e5ff', fxAccent:'#ff6b35', interface: '#1e293b' },
+      { background: '#f0f4f8', playerCore: '#00e5ff', fxAccent:'#ffdd00', interface: '#1e293b' },
+      { background: '#f0f4f8', playerCore: '#00e5ff', fxAccent:'#ff3366', interface: '#1e293b' },
+      { background: '#f0f4f8', playerCore: '#00e5ff', fxAccent:'#00aaff', interface: '#1e293b' },
+      { background: '#f0f4f8', playerCore:'#4488ff', fxAccent:'#ff4499', interface: '#1e293b' },
+      { background: '#f0f4f8', playerCore: '#00e5ff', fxAccent:'#44ffdd', interface: '#1e293b' },
     ];
     let _level = 0, _adActive = false;
     window.FreshPlay = {

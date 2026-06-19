@@ -8,11 +8,11 @@ if (!window.FreshPlay) {
 		_level: 1,
 		getCurrentPalette() {
 			const palettes = [
-				{ background: '#f0f4f8', playerCore: '#3b82f6', interface: '#cbd5e1', fxAccent: '#f43f5e' },
-				{ background: '#f0fdf4', playerCore: '#22c55e', interface: '#cbd5e1', fxAccent: '#f97316' },
-				{ background: '#faf5ff', playerCore: '#a855f7', interface: '#cbd5e1', fxAccent: '#eab308' },
-				{ background: '#eff6ff', playerCore: '#0ea5e9', interface: '#cbd5e1', fxAccent: '#10b981' },
-				{ background: '#fefce8', playerCore: '#f97316', interface: '#cbd5e1', fxAccent: '#8b5cf6' },
+				{ background: '#0a0e1a', playerCore: '#00e5ff', interface: '#1e293b', fxAccent: '#f43f5e' },
+				{ background: '#0a0e1a', playerCore: '#22c55e', interface: '#1e293b', fxAccent: '#f97316' },
+				{ background: '#0a0e1a', playerCore: '#a855f7', interface: '#1e293b', fxAccent: '#eab308' },
+				{ background: '#0a0e1a', playerCore: '#0ea5e9', interface: '#1e293b', fxAccent: '#10b981' },
+				{ background: '#0a0e1a', playerCore: '#f97316', interface: '#1e293b', fxAccent: '#8b5cf6' },
 			];
 			return palettes[(Math.floor((this._level - 1) / 5)) % palettes.length];
 		},
@@ -206,6 +206,36 @@ const AudioEngine = {
 // ============================================================
 //  PHASER 3 SCENE
 // ============================================================
+
+// ─────────────────────────────────────────────────────────────
+//  BOOT SCENE & LANDSCAPE PROMPT
+// ─────────────────────────────────────────────────────────────
+class Boot extends Phaser.Scene {
+  constructor() { super({key:'Boot'}); }
+  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('NeonRiderScene');
+    }
+  }
+}
+
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('NeonRiderScene'); });
+  }
+}
+
 class NeonRiderScene extends Phaser.Scene {
 	constructor() { super({ key: 'NeonRiderScene' }); }
 
@@ -519,7 +549,7 @@ class NeonRiderScene extends Phaser.Scene {
 		g.fillEllipse(cx - 15, cy, 60, 30);
 
 		// --- Rear Wheel (Thick Neon Core) ---
-		g.fillStyle(0x000000, 1);
+		g.fillStyle(0x475569, 1);
 		g.fillCircle(cx - 15, cy + 5, 11);
 		g.lineStyle(4, accent, pulse);
 		g.strokeCircle(cx - 15, cy + 5, 11);
@@ -527,7 +557,7 @@ class NeonRiderScene extends Phaser.Scene {
 		g.fillCircle(cx - 15, cy + 5, 3); // Hub
 
 		// --- Front Wheel (Sleek Cyan) ---
-		g.fillStyle(0x000000, 1);
+		g.fillStyle(0x475569, 1);
 		g.fillCircle(cx + 17, cy + 5, 11);
 		g.lineStyle(3, core, 1);
 		g.strokeCircle(cx + 17, cy + 5, 11);
@@ -625,7 +655,7 @@ class NeonRiderScene extends Phaser.Scene {
 		this.levelFlash = this.add.text(W / 2, this.H * 0.35, '', {
 			fontFamily: "'Courier New', Courier, monospace",
 			fontSize: '28px',
-			color: '#2563eb',
+			color: '#e2e8f0',
 			stroke: this.pal.accent,
 			strokeThickness: 3,
 			alpha: 0,
@@ -702,7 +732,7 @@ class NeonRiderScene extends Phaser.Scene {
 		const W = this.W, H = this.H;
 		this.goGroup = this.add.group();
 
-		const overlay = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.65).setDepth(40);
+		const overlay = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.78).setDepth(40);
 
 		const title = this.add.text(W / 2, H * 0.28, 'GAME OVER', {
 			fontFamily: "'Courier New', Courier, monospace",
@@ -881,7 +911,7 @@ const config = {
 	type: Phaser.AUTO,
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: '#f8fafc',
+	backgroundColor: '#0a0e1a',
 	parent: 'game-container',
 	physics: {
 		default: 'matter',
@@ -894,7 +924,7 @@ const config = {
 		mode: Phaser.Scale.RESIZE,
 		autoCenter: Phaser.Scale.CENTER_BOTH,
 	},
-	scene: [NeonRiderScene],
+	scene: [Boot, LandscapePrompt, NeonRiderScene],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 };
 

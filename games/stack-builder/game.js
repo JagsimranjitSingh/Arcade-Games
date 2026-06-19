@@ -32,15 +32,15 @@
 		getCurrentPalette() {
 			const themes = [
 				// Dark neon blue (levels 1-4)
-				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#7c4dff", hostile: "#ff1744" },
+				{ background: '#0a0e1a', interface: '#1e293b', playerCore: '#00e5ff', fxAccent: "#7c4dff", hostile: "#ff1744" },
 				// Emerald & gold (levels 5-9)
-				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#ffd600", hostile: "#ff6d00" },
+				{ background: '#0a0e1a', interface: '#1e293b', playerCore: '#00e5ff', fxAccent: "#ffd600", hostile: "#ff6d00" },
 				// Crimson void (levels 10-14)
-				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#e040fb", hostile: "#ff6d00" },
+				{ background: '#0a0e1a', interface: '#1e293b', playerCore: '#00e5ff', fxAccent: "#e040fb", hostile: "#ff6d00" },
 				// Solar (levels 15-19)
-				{ background: "#100800", interface: '#cbd5e1', playerCore: '#3b82f6', fxAccent: "#ffea00", hostile: "#e040fb" },
+				{ background: "#100800", interface: '#1e293b', playerCore: '#00e5ff', fxAccent: "#ffea00", hostile: "#e040fb" },
 				// Arctic (levels 20+)
-				{ background: '#f0f4f8', interface: '#cbd5e1', playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
+				{ background: '#0a0e1a', interface: '#1e293b', playerCore: "#40c4ff", fxAccent: "#b3e5fc", hostile: "#ff4081" },
 			];
 			const idx = Math.floor((_lvl - 1) / 5) % themes.length;
 			return themes[idx];
@@ -299,8 +299,7 @@
 			}).setOrigin(0.5, 0).setDepth(d).setScrollFactor(0);
 
 			this.scoreTxt = this.add.text(W / 2, 32, '0', {
-				fontFamily: "'Orbitron',monospace", fontSize: '42px', fontStyle: 'bold',
-				color: '#2563eb', stroke: palette.playerCore, strokeThickness: 1,
+				fontFamily: "'Orbitron',monospace", fontSize: '42px', color: '#e2e8f0', stroke: palette.playerCore, strokeThickness: 1,
 			}).setOrigin(0.5, 0).setDepth(d).setScrollFactor(0);
 
 			// Level
@@ -316,14 +315,13 @@
 
 			// Perfect text
 			this.perfTxt = this.add.text(W / 2, H * 0.5, '', {
-				fontFamily: "'Orbitron',monospace", fontSize: '22px', fontStyle: 'bold',
-				color: '#ffea00', stroke: '#000', strokeThickness: 3,
+				fontFamily: "'Orbitron',monospace", fontSize: '22px', color: '#ffea00', stroke: '#000', strokeThickness: 3,
 			}).setOrigin(0.5).setDepth(d).setScrollFactor(0).setAlpha(0);
 
 			// Hint
 			this.hintTxt = this.add.text(W / 2, H - 42, 'TAP  TO  DROP', {
 				fontFamily: "'Orbitron',monospace", fontSize: '11px',
-				color: '#2563eb', letterSpacing: 5,
+				color: '#e2e8f0', letterSpacing: 5,
 			}).setOrigin(0.5).setDepth(d).setScrollFactor(0).setAlpha(0.4);
 
 			this.tweens.add({
@@ -465,8 +463,7 @@
 			const words = ['PERFECT', 'FLAWLESS', 'EXACT', 'IMMACULATE', 'PRISTINE'];
 			const w = words[Math.floor(Math.random() * words.length)];
 			const t = this.add.text(x, y - 34, w, {
-				fontFamily: "'Orbitron',monospace", fontSize: '19px', fontStyle: 'bold',
-				color: '#ffea00', stroke: '#000', strokeThickness: 3,
+				fontFamily: "'Orbitron',monospace", fontSize: '19px', color: '#ffea00', stroke: '#000', strokeThickness: 3,
 			}).setOrigin(0.5).setDepth(15);
 			this.tweens.add({
 				targets: t, y: y - 90, alpha: 0, duration: 850, ease: 'Quad.easeOut',
@@ -559,12 +556,11 @@
 
 			this.time.delayedCall(500, () => {
 				const g = this.add.text(W / 2, H * 0.38, 'GAME OVER', {
-					fontFamily: "'Orbitron',monospace", fontSize: '36px', fontStyle: 'bold',
-					color: '#ff1744', stroke: '#000', strokeThickness: 3,
+					fontFamily: "'Orbitron',monospace", fontSize: '36px', color: '#ff1744', stroke: '#000', strokeThickness: 3,
 				}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 				const s = this.add.text(W / 2, H * 0.48, `SCORE  ${this.score.toLocaleString()}`, {
-					fontFamily: "'Orbitron',monospace", fontSize: '20px', color: '#2563eb',
+					fontFamily: "'Orbitron',monospace", fontSize: '20px', color: '#e2e8f0',
 				}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 				this.tweens.add({ targets: [g, s], alpha: 1, duration: 500, delay: 100 });
@@ -588,8 +584,7 @@
 			}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 			const clr = this.add.text(W / 2, H * 0.49, 'COMPLETE', {
-				fontFamily: "'Orbitron',monospace", fontSize: '40px', fontStyle: 'bold',
-				color: '#2563eb', stroke: palette.playerCore, strokeThickness: 2,
+				fontFamily: "'Orbitron',monospace", fontSize: '40px', color: '#e2e8f0', stroke: palette.playerCore, strokeThickness: 2,
 			}).setOrigin(0.5).setDepth(26).setScrollFactor(0).setAlpha(0);
 
 			this.tweens.add({
