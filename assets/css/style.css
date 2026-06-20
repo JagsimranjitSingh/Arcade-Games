@@ -3,12 +3,12 @@
 
 
 :root {
-	--bg-base: #0f0f0f;
-	--bg-card: #1a1a1a;
-	--accent: #00ff00;
-	--text-main: #ffffff;
-	--text-muted: #a1a1aa;
-	--border-color: #27272a;
+	--bg-base: #c4e2f5;
+	--bg-card: #ffffff;
+	--accent: #48d1cc;
+	--text-main: #00234f;
+	--text-muted: #64748b;
+	--border-color: #e2e8f0;
 }
 
 
@@ -73,7 +73,7 @@ body.fp-ready {
 }
 
 .card-glow:hover {
-	box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+	box-shadow: 0 0 15px rgba(72, 209, 204, 0.3);
 	transform: scale(1.03);
 	border-color: rgba(72, 209, 204, 0.5);
 	z-index: 10;
