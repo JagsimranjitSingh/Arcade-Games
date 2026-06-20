@@ -531,7 +531,9 @@ class GameScene extends Phaser.Scene {
 		CAMERA / SCROLL
 	───────────────────────────────────────── */
 	_updateCamera() {
-		const targetY = this.player.y - this.scale.height * 0.75;
+		// Calculate target camera Y so the player stays at least offset distance from the bottom
+		const offset = Math.min(this.scale.height * 0.5, 300);
+		const targetY = this.player.y - this.scale.height + offset;
 		const camY = this.cameras.main.scrollY;
 
 		if (targetY < camY) {

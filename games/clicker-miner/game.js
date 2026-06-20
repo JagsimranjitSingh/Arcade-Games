@@ -155,7 +155,7 @@ class GameScene extends Phaser.Scene {
     return { ...DEFAULT_PALETTE };
   }
 
-  hex(h) { return parseInt((h || '#000000').replace('#', ''), 16); }
+  hex(h) { if (typeof h === 'number') return h; return parseInt((h || '#000000').replace('#', ''), 16); }
 
   fs() {
     const d = Math.min(this.W, this.H);
@@ -198,15 +198,18 @@ class GameScene extends Phaser.Scene {
 
   redrawGrid() {
     const g  = this.gridGfx;
-    const sp = Math.min(this.W, this.H) * 0.09;
     g.clear();
-    g.lineStyle(1, 0x1e293b, 0.12);
-    for (let x = 0; x <= this.W+sp; x += sp) { g.moveTo(x,0);     g.lineTo(x,this.H); }
-    for (let y = 0; y <= this.H+sp; y += sp) { g.moveTo(0,y);     g.lineTo(this.W,y); }
-    g.strokePath();
-    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0.3,0.3,0,0);
+    // Luxury dark ambient vignette
+    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0.5,0.5,0,0);
+    g.fillRect(0,0,this.W,this.H*0.2);
+    
+    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0,0,0.5,0.5);
+    g.fillRect(0,this.H*0.8,this.W,this.H*0.2);
+    
+    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0.5,0,0.5,0);
     g.fillRect(0,0,this.W*0.2,this.H);
-    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0,0,0.3,0.3);
+    
+    g.fillGradientStyle(0x000000,0x000000,0x000000,0x000000, 0,0.5,0,0.5);
     g.fillRect(this.W*0.8,0,this.W*0.2,this.H);
   }
 

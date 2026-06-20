@@ -201,14 +201,12 @@
 			// Background
 			this.add.rectangle(W / 2, H / 2, W, H, hex(pal.background)).setDepth(0);
 
-			// Grid dots
+			// Ambient gradient
 			const gridGfx = this.add.graphics().setDepth(1);
-			gridGfx.fillStyle(hex(pal.interface), 0.18);
-			for (let c = 0; c < COLS; c++) {
-				for (let r = 0; r < ROWS; r++) {
-					gridGfx.fillRect(c * CELL + CELL / 2 - 1, r * CELL + CELL / 2 - 1, 2, 2);
-				}
-			}
+			gridGfx.fillGradientStyle(0x00e5ff, 0x00e5ff, 0x000000, 0x000000, 0.05, 0.05, 0, 0);
+			gridGfx.fillRect(0, 0, W, H * 0.3);
+			gridGfx.fillGradientStyle(0x000000, 0x000000, 0x000000, 0x000000, 0, 0, 0.2, 0.2);
+			gridGfx.fillRect(0, H * 0.7, W, H * 0.3);
 
 			// Path
 			this.pathGfx = this.add.graphics().setDepth(2);
