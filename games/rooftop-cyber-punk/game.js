@@ -273,7 +273,7 @@ class Boot extends Phaser.Scene {
     if (this.scale.width < this.scale.height) {
       this.scene.start('LandscapePrompt');
     } else {
-      this.scene.start('GameScene');
+      this.scene.start('Game');
     }
   }
 }
@@ -289,7 +289,7 @@ class LandscapePrompt extends Phaser.Scene {
       color:'#e2e8f0'
     }).setOrigin(0.5);
     this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
-    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('GameScene'); });
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('Game'); });
   }
 }
 

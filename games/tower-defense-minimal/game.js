@@ -302,26 +302,18 @@
 		// HUD
 		_buildHUD() {
 			const pal = this.pal;
-			const hudY = H - 1;
 			// HUD bar background
 			this.hudBg = this.add.rectangle(W / 2, H - 20, W, 40, hex(pal.background), 0.95).setDepth(20);
 			this.add.rectangle(W / 2, H - 39, W, 1, hex(pal.playerCore), 0.4).setDepth(21);
 
-			const style = {
-				fontFamily: "'Courier New', monospace",
-				fontSize: "13px",
-				color: "#" + pal.playerCore.replace("#", ""),
-				stroke: "#000",
-				strokeThickness: 2,
-			};
+			const style = { fontFamily: "'Courier New', monospace", fontSize: "16px", color: "#" + pal.interface.replace("#", ""), stroke: "#000", strokeThickness: 2 };
 
-			this.hudEnergy = this.add.text(14, H - 27, "⚡ 80", style).setDepth(22);
-			this.hudLevel = this.add.text(W / 2, H - 27, "WAVE 1", { ...style, fontSize: "14px" }).setOrigin(0.5, 0).setDepth(22);
-			this.hudScore = this.add.text(W - 14, H - 27, "0 pts", { ...style }).setOrigin(1, 0).setDepth(22);
+			this.hudEnergy = this.add.text(14, H - 32, "⚡ 80", style).setOrigin(0, 0).setDepth(22);
+			this.hudLevel = this.add.text(W / 2, H - 32, "WAVE 1", { ...style, fontSize: "16px" }).setOrigin(0.5, 0).setDepth(22);
+			this.hudScore = this.add.text(W - 14, H - 32, "0 pts", { ...style }).setOrigin(1, 0).setDepth(22);
 
-			// Tower cost legend
-			const legendStyle = { fontFamily: "'Courier New', monospace", fontSize: "10px", color: "#" + pal.interface.replace("#", "aa"), stroke: "#000", strokeThickness: 1 };
-			this.add.text(W / 2 - 100, H - 14, "TAP GRID: Place Tower (30⚡)  |  TAP TOWER: Upgrade (20⚡)", legendStyle).setOrigin(0.5, 1).setDepth(22);
+			const legendStyle = { fontFamily: "'Courier New', monospace", fontSize: "12px", color: "#" + pal.interface.replace("#", "aa"), stroke: "#000", strokeThickness: 1 };
+			this.add.text(W / 2, H - 10, "TAP GRID: Place Tower (30⚡)  |  TAP TOWER: Upgrade (20⚡)", legendStyle).setOrigin(0.5, 1).setDepth(22);
 
 			this._refreshHUD();
 		}

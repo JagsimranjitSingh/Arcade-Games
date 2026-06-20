@@ -20,14 +20,9 @@ const lerpColor = (c1, c2, t) => {
 
 // Palette definitions (one per 5-level bracket)
 const PALETTES = [
-	{ bg: 0x0a0e1a, road: 0x94a3b8, target: [0x3b82f6, 0x8b5cf6, 0x06b6d4], hostile: 0xef4444, ui: 0x00e5ff, fx: 0x3b82f6, name: 'SAPPHIRE' },
-	{ bg: 0x0d0a1a, road: 0xc084fc, target: [0xa855f7, 0xec4899, 0x06b6d4], hostile: 0xf97316, ui: 0x00e5ff, fx: 0xa855f7, name: 'AMETHYST' },
-	{ bg: 0x0a1a0e, road: 0x86efac, target: [0x22c55e, 0xeab308, 0xf97316], hostile: 0x8b5cf6, ui: 0x00e5ff, fx: 0x22c55e, name: 'EMERALD' },
-	{ bg: 0x0a0e1a, road: 0x93c5fd, target: [0x2563eb, 0x0891b2, 0x7c3aed], hostile: 0xf43f5e, ui: 0x00e5ff, fx: 0x2563eb, name: 'OCEAN' },
-	{ bg: 0x1a180a, road: 0xfde047, target: [0xeab308, 0xf97316, 0xef4444], hostile: 0x7c3aed, ui: 0x00e5ff, fx: 0xeab308, name: 'GOLD' },
-	{ bg: 0x1a0a12, road: 0xf9a8d4, target: [0xec4899, 0xa855f7, 0xf43f5e], hostile: 0x10b981, ui: 0x00e5ff, fx: 0xec4899, name: 'SAKURA' },
-	{ bg: 0x1a120a, road: 0xfdba74, target: [0xf97316, 0xef4444, 0xeab308], hostile: 0x0ea5e9, ui: 0x00e5ff, fx: 0xf97316, name: 'FIRE' },
-	{ bg: 0x0a0e1a, road: 0x475569, target: [0x3b82f6, 0x64748b, 0x0ea5e9], hostile: 0xef4444, ui: 0x22c55e, fx: 0xef4444, name: 'STEALTH' },
+	{ bg: 0xf8fafc, road: 0xf59e0b, target: [0x1e293b, 0x334155, 0x0f172a], hostile: 0xef4444, ui: 0x0f172a, fx: 0xf59e0b, name: 'DAYLIGHT' },
+	{ bg: 0xf1f5f9, road: 0xeab308, target: [0x0f172a, 0x475569, 0x1e293b], hostile: 0xd946ef, ui: 0x0f172a, fx: 0xeab308, name: 'SUNSET' },
+	{ bg: 0xe2e8f0, road: 0xf59e0b, target: [0x1e293b, 0x334155, 0x0f172a], hostile: 0x10b981, ui: 0x0f172a, fx: 0xf59e0b, name: 'MORNING' }
 ];
 
 // Boot / Preload Scen
@@ -35,20 +30,6 @@ const PALETTES = [
 // ─────────────────────────────────────────────────────────────
 //  LANDSCAPE PROMPT SCENE
 // ─────────────────────────────────────────────────────────────
-class LandscapePrompt extends Phaser.Scene {
-  constructor() { super({ key:'LandscapePrompt' }); }
-  create() {
-    const W=this.scale.width, H=this.scale.height;
-    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
-    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
-    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
-      fontFamily:'"Courier New",monospace', fontSize:'15px',
-      color:'#e2e8f0'
-    }).setOrigin(0.5);
-    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
-    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('PlayScene'); });
-  }
-}
 
 class BootScene extends Phaser.Scene {
 	constructor() { super('BootScene'); }
@@ -82,12 +63,8 @@ class BootScene extends Phaser.Scene {
 	}
 
 	  create() {
-    if (this.scale.width < this.scale.height) {
-      this.scene.start('LandscapePrompt');
-    } else {
-      this.scene.start('PlayScene');
-    }
-  }
+		this.scene.start('PlayScene');
+	}
 }
 
 // Main Play Scen
@@ -1040,7 +1017,7 @@ const config = {
 	},
 	backgroundColor: '#0a0e1a',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
-	scene: [BootScene, PlayScene, LandscapePrompt],
+	scene: [BootScene, PlayScene],
 	render: {
 		antialias: true,
 		powerPreference: 'high-performance',

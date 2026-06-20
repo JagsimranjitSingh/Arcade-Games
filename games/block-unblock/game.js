@@ -18,9 +18,10 @@ if (typeof window.FreshPlay === 'undefined') {
 
 // PERFECTLY CENTERED LAYOUT CONSTANTS
 const CELL = 80, COLS = 6, ROWS = 6, GAP = 5;
-const W = 800, H = 1000;
+const W = 800, H = 1422;
+const Y_OFFSET = (H - 1000) / 2;
 const GX = (W - COLS * CELL) / 2;   // 160 — Horizontally centred
-const GY = 270;                     // Mathematically balanced vertically
+const GY = 270 + Y_OFFSET;                     // Mathematically balanced vertically
 const EXIT_ROW = 2;
 const BLOCK_RADIUS = 10;
 const SNAP_DURATION = 140;
@@ -347,10 +348,10 @@ class GameScene extends Phaser.Scene {
 		const acStr = hexToStr(this.pal.fxAccent);
 		const pcStr = hexToStr(this.pal.playerCore);
 
-		this.add.text(W / 2, 30, 'BLOCK  UNBLOCK', { fontSize: '24px', fontFamily: "'Courier New',monospace", color: '#e2e8f0', letterSpacing: 9 }).setOrigin(0.5);
-		const sep = this.add.graphics(); sep.lineStyle(1, icInt, 0.22); sep.lineBetween(GX, 55, GX + COLS * CELL, 55);
+		this.add.text(W / 2, 30 + Y_OFFSET, 'BLOCK  UNBLOCK', { fontSize: '24px', fontFamily: "'Courier New',monospace", color: '#e2e8f0', letterSpacing: 9 }).setOrigin(0.5);
+		const sep = this.add.graphics(); sep.lineStyle(1, icInt, 0.22); sep.lineBetween(GX, 55 + Y_OFFSET, GX + COLS * CELL, 55 + Y_OFFSET);
 
-		const boxY = 75, boxH = 64, bxW = 120;
+		const boxY = 75 + Y_OFFSET, boxH = 64, bxW = 120;
 		[{ label: 'LEVEL', x: GX }, { label: 'MOVES', x: W / 2 - bxW / 2 }, { label: 'SCORE', x: GX + COLS * CELL - bxW }].forEach(({ label, x }) => {
 			const bg2 = this.add.graphics();
 			bg2.fillStyle(0x3b82f6, 0.03); bg2.fillRoundedRect(x, boxY, bxW, boxH, 6);
@@ -362,7 +363,7 @@ class GameScene extends Phaser.Scene {
 		this.levelText = this.add.text(GX + 10, boxY + 28, '01', { ...tcfg, color: acStr });
 		this.movesText = this.add.text(W / 2 - bxW / 2 + 10, boxY + 28, '000', { ...tcfg, color: pcStr });
 		this.scoreText = this.add.text(GX + COLS * CELL - bxW + 10, boxY + 28, '00000', { ...tcfg, color: '#e2e8f0' });
-		const sep2 = this.add.graphics(); sep2.lineStyle(1, icInt, 0.15); sep2.lineBetween(GX, 155, GX + COLS * CELL, 155);
+		const sep2 = this.add.graphics(); sep2.lineStyle(1, icInt, 0.15); sep2.lineBetween(GX, 155 + Y_OFFSET, GX + COLS * CELL, 155 + Y_OFFSET);
 	}
 
 	_updateHUD() {
