@@ -33,8 +33,8 @@
        CARD  (inherits parent grid — zero breakpoint code)
     ───────────────────────────────────────────────────── */
     .sk-card {
-      background: #1a1a1a;
-      border: 1px solid #27272a;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 4px;
       overflow: hidden;
       display: flex;
@@ -56,8 +56,8 @@
     ───────────────────────────────────────────────────── */
     .sk-trending {
       display: flex;
-      background: #1a1a1a;
-      border: 1px solid #27272a;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 4px;
       overflow: hidden;
     }
@@ -78,7 +78,7 @@
     ───────────────────────────────────────────────────── */
     .sk-cat__header {
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid #27272a;
+      border-bottom: 1px solid #e2e8f0;
       padding-bottom: 8px; margin-bottom: 24px;
     }
     .sk-cat__arrows { display: flex; gap: 8px; }
@@ -147,7 +147,7 @@
 
   T.featured = () => `
     <div style="position:absolute;inset:0;display:flex;flex-direction:column;
-                align-items:center;justify-content:center;gap:16px;background:#1a1a1a">
+                align-items:center;justify-content:center;gap:16px;background:#ffffff">
       ${line('110px', 15, 'border-radius:20px')}
       ${line('220px', 28)}
       ${line('155px', 28)}
