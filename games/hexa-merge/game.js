@@ -318,7 +318,7 @@ class GameScene extends Phaser.Scene {
 		const text = this.add.text(0, 0, String(value), {
 			fontFamily: "'Courier New', Courier, monospace",
 			fontSize: value >= 100 ? '13px' : '17px',
-			color: '#ffffff',
+			color: '#0a0e1a',
 			align: 'center',
 		}).setOrigin(0.5);
 		return text;
@@ -709,7 +709,7 @@ class GameScene extends Phaser.Scene {
 			const gfx = this.add.graphics();
 			const lbl = this.add.text(qx, qy, String(val), {
 				fontFamily: "'Courier New', Courier, monospace",
-				fontSize: '14px', color: '#ffffff', align: 'center',
+				fontSize: '14px', color: '#0a0e1a', align: 'center',
 			}).setOrigin(0.5);
 
 			const hue = (val * 47) % 360;

@@ -337,7 +337,7 @@ class GameScene extends Phaser.Scene {
 
   buildProgressBar(f) {
     const bw=this.W*0.46, bx=this.W*0.27, by=this.H-10;
-    this.pgBg    = this.add.rectangle(bx+bw/2, by, bw, 3, 0xcbd5e1).setOrigin(0.5, 0.5);
+    this.pgBg    = this.add.rectangle(bx+bw/2, by, bw, 3, 0x334155).setOrigin(0.5, 0.5);
     this.pgFill  = this.add.rectangle(bx, by, 2, 3, this.hex(this.palette.playerCore)).setOrigin(0, 0.5);
     this.pgLabel = this.add.text(bx+bw/2, by-10, 'LEVEL PROGRESS', {
       fontFamily:'monospace', fontSize:`${f.sm}px`, color:'#94a3b8',
@@ -364,7 +364,7 @@ class GameScene extends Phaser.Scene {
     this.panel.add(this.panelBg);
 
     const hH = this.panelHeaderH();
-    this.panelHdrBg  = this.add.rectangle(0, -this.panelH/2+hH/2, this.panelW, hH, 0xe2e8f0, 0.9);
+    this.panelHdrBg  = this.add.rectangle(0, -this.panelH/2+hH/2, this.panelW, hH, 0x1e293b, 1);
     this.panelHdrTxt = this.add.text(0, -this.panelH/2+hH/2, 'MINING UPGRADES', {
       fontFamily:'monospace', fontSize:`${Math.max(11,this.fs().btn)}px`, color:this.palette.playerCore,
     }).setOrigin(0.5, 0.5);

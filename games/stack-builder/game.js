@@ -58,7 +58,7 @@
 (function () {
 	"use strict";
 
-	const W = 520, H = 720;
+	const W = 520, H = 960;
 	const BLOCK_HEIGHT = 28;
 	const INITIAL_BLOCK_W = 240;
 	const BLOCKS_PER_LEVEL = 10;

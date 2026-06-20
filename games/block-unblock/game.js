@@ -18,9 +18,9 @@ if (typeof window.FreshPlay === 'undefined') {
 
 // PERFECTLY CENTERED LAYOUT CONSTANTS
 const CELL = 80, COLS = 6, ROWS = 6, GAP = 5;
-const W = 800, H = 820;
+const W = 800, H = 1000;
 const GX = (W - COLS * CELL) / 2;   // 160 — Horizontally centred
-const GY = 180;                     // Mathematically balanced vertically
+const GY = 270;                     // Mathematically balanced vertically
 const EXIT_ROW = 2;
 const BLOCK_RADIUS = 10;
 const SNAP_DURATION = 140;

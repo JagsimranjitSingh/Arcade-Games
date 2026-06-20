@@ -263,7 +263,37 @@
 	/* ================================================================
 		 SCENE: GAME
 		 ================================================================ */
-	class GameScene extends Phaser.Scene {
+	
+// ─────────────────────────────────────────────────────────────
+//  BOOT SCENE & LANDSCAPE PROMPT
+// ─────────────────────────────────────────────────────────────
+class Boot extends Phaser.Scene {
+  constructor() { super({key:'Boot'}); }
+  create() {
+    if (this.scale.width < this.scale.height) {
+      this.scene.start('LandscapePrompt');
+    } else {
+      this.scene.start('GameScene');
+    }
+  }
+}
+
+class LandscapePrompt extends Phaser.Scene {
+  constructor() { super({ key:'LandscapePrompt' }); }
+  create() {
+    const W=this.scale.width, H=this.scale.height;
+    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
+    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
+    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
+      fontFamily:'"Courier New",monospace', fontSize:'15px',
+      color:'#e2e8f0'
+    }).setOrigin(0.5);
+    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
+    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('GameScene'); });
+  }
+}
+
+class GameScene extends Phaser.Scene {
 		constructor() { super({ key: 'Game' }); }
 
 		create() {
@@ -1443,7 +1473,7 @@
 		},
 		// Prevent right-click context menu on canvas
 		disableContextMenu: true,
-		scene: [GameScene, OverScene],
+		scene: [Boot, LandscapePrompt, GameScene, OverScene],
 	fps: { target: 60, forceSetTimeOut: true, smoothStep: true },
 	};
 
