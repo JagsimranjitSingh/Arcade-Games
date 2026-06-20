@@ -83,6 +83,7 @@ class GameScene extends Phaser.Scene {
 		this.score = 0;
 		this.combo = 1;
 		this.bestCombo = 1;
+		this.highestCamY = undefined;
 
 		// Map game level dynamically to portal level if available
 		this.level = window.FreshPlay.currentLevel || 1;
@@ -349,6 +350,9 @@ class GameScene extends Phaser.Scene {
 
 	/* _setupTouchInput */
 	_setupTouchInput() {
+		if (this.touchInitialized) return;
+		this.touchInitialized = true;
+
 		const left = document.getElementById('touch-left');
 		const right = document.getElementById('touch-right');
 
@@ -362,13 +366,19 @@ class GameScene extends Phaser.Scene {
 
 		left.addEventListener('mousedown', () => setL(true));
 		left.addEventListener('mouseup', () => setL(false));
+		left.addEventListener('mouseleave', () => setL(false));
 		right.addEventListener('mousedown', () => setR(true));
 		right.addEventListener('mouseup', () => setR(false));
+		right.addEventListener('mouseleave', () => setR(false));
 
+		// Tilt
+		this.tiltLeft = false;
+		this.tiltRight = false;
 		window.addEventListener('deviceorientation', (e) => {
-			const g = e.gamma || 0;
-			this.touchLeft = g < -8;
-			this.touchRight = g > 8;
+			if (!e.gamma) return;
+			let g = e.gamma;
+			this.tiltLeft = g < -8;
+			this.tiltRight = g > 8;
 		}, { passive: true });
 	}
 
@@ -706,8 +716,8 @@ class GameScene extends Phaser.Scene {
 		const w = this.scale.width;
 
 		/* Horizontal movement */
-		const goLeft = this.cursors.left.isDown || this.wasd.left.isDown || this.touchLeft;
-		const goRight = this.cursors.right.isDown || this.wasd.right.isDown || this.touchRight;
+		const goLeft = this.cursors.left.isDown || this.wasd.left.isDown || this.touchLeft || this.tiltLeft;
+		const goRight = this.cursors.right.isDown || this.wasd.right.isDown || this.touchRight || this.tiltRight;
 
 		if (goLeft) this.player.setVelocityX(-MOVE_SPEED);
 		else if (goRight) this.player.setVelocityX(MOVE_SPEED);
