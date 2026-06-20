@@ -355,10 +355,10 @@ class GameScene extends Phaser.Scene {
 		const setL = (v) => { this.touchLeft = v; };
 		const setR = (v) => { this.touchRight = v; };
 
-		left.addEventListener('touchstart', () => setL(true), { passive: true });
-		left.addEventListener('touchend', () => setL(false), { passive: true });
-		right.addEventListener('touchstart', () => setR(true), { passive: true });
-		right.addEventListener('touchend', () => setR(false), { passive: true });
+		left.addEventListener('touchstart', (e) => { e.preventDefault(); setL(true); }, { passive: false });
+		left.addEventListener('touchend', (e) => { e.preventDefault(); setL(false); }, { passive: false });
+		right.addEventListener('touchstart', (e) => { e.preventDefault(); setR(true); }, { passive: false });
+		right.addEventListener('touchend', (e) => { e.preventDefault(); setR(false); }, { passive: false });
 
 		left.addEventListener('mousedown', () => setL(true));
 		left.addEventListener('mouseup', () => setL(false));

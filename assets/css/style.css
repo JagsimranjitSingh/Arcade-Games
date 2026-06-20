@@ -192,6 +192,7 @@ body.fp-ready {
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 	width: 100%;
+	min-width: 250px; /* Base minimum width for AdSense */
 }
 
 .ad-leaderboard {
@@ -200,6 +201,21 @@ body.fp-ready {
 
 .ad-square {
 	height: 250px;
+}
+
+@media (min-width: 768px) {
+	.ad-leaderboard {
+		min-width: 728px;
+	}
+	.ad-square {
+		min-width: 300px;
+	}
+}
+
+@media (max-width: 767px) {
+	.ad-leaderboard {
+		min-width: 320px;
+	}
 }
 
 .hide-element {
