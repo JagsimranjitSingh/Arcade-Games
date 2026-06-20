@@ -37,20 +37,6 @@ const MIN_SPAWN = 480;     // Min spawn interval cap
 // ─────────────────────────────────────────────────────────────
 //  LANDSCAPE PROMPT SCENE
 // ─────────────────────────────────────────────────────────────
-class LandscapePrompt extends Phaser.Scene {
-  constructor() { super({ key:'LandscapePrompt' }); }
-  create() {
-    const W=this.scale.width, H=this.scale.height;
-    this.add.rectangle(W/2,H/2,W,H,0x0a0e1a);
-    this.icon = this.add.text(W/2,H/2-28,'📱',{fontSize:'52px'}).setOrigin(0.5);
-    this.add.text(W/2,H/2+34,'ROTATE TO LANDSCAPE',{
-      fontFamily:'"Courier New",monospace', fontSize:'15px',
-      color:'#e2e8f0'
-    }).setOrigin(0.5);
-    this.tweens.add({targets:this.icon, angle:90, duration:700, ease:'Back.easeOut'});
-    this.scale.on('resize',()=>{ if(this.scale.width>this.scale.height) this.scene.start('PlayScene'); });
-  }
-}
 
 class BootScene extends Phaser.Scene {
 	constructor() { super('BootScene'); }
@@ -76,12 +62,8 @@ class BootScene extends Phaser.Scene {
 	}
 
 	  create() {
-    if (this.scale.width < this.scale.height) {
-      this.scene.start('LandscapePrompt');
-    } else {
-      this.scene.start('PlayScene');
-    }
-  }
+		this.scene.start('PlayScene');
+	}
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -979,7 +961,7 @@ const config = {
 	},
 	backgroundColor: '#0a0e1a',
 	physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
-	scene: [BootScene, PlayScene, LandscapePrompt],
+	scene: [BootScene, PlayScene],
 	render: { antialias: true, powerPreference: 'high-performance', roundPixels: false },
 	fps: { target: 60, forceSetTimeOut: false },
 };
