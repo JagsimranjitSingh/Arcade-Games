@@ -193,12 +193,11 @@ body.fp-ready {
 	letter-spacing: 0.1em;
 	width: 100%;
 	min-width: 250px;
-	/* Base minimum width for AdSense */
+}
 
-	ins {
-		width: 100%;
-		height: 100%;
-	}
+.ad-slot ins {
+	width: 100% !important;
+	height: 100% !important;
 }
 
 .ad-leaderboard {
