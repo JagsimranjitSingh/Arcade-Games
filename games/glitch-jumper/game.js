@@ -380,10 +380,14 @@ class GameScene extends Phaser.Scene {
 			this.tiltLeft = g < -8;
 			this.tiltRight = g > 8;
 		}, { passive: true });
+		
+		this.isReady = true;
 	}
 
 	/* _startGame */
 	_startGame() {
+		if (!this.isReady) return;
+		
 		document.getElementById('start-screen').classList.add('hidden');
 		document.getElementById('over-screen').classList.add('hidden');
 		document.getElementById('hud').style.display = 'flex';
@@ -810,7 +814,7 @@ function restartGame() {
 	}, 50);
 }
 
-document.getElementById('start-btn').addEventListener('click', () => {
+document.getElementById('start-btn').addEventListener('pointerdown', () => {
 	if (window.retroAudioCtx && window.retroAudioCtx.state === 'suspended') {
 		window.retroAudioCtx.resume();
 	}
@@ -818,7 +822,7 @@ document.getElementById('start-btn').addEventListener('click', () => {
 	if (scene) scene._startGame();
 });
 
-document.getElementById('retry-btn').addEventListener('click', () => {
+document.getElementById('retry-btn').addEventListener('pointerdown', () => {
 	if (window.retroAudioCtx && window.retroAudioCtx.state === 'suspended') {
 		window.retroAudioCtx.resume();
 	}
