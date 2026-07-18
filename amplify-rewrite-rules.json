@@ -20,6 +20,26 @@
         "target": "/contact.html"
     },
     {
+        "source": "/about",
+        "status": "200",
+        "target": "/about.html"
+    },
+    {
+        "source": "/about/",
+        "status": "200",
+        "target": "/about.html"
+    },
+    {
+        "source": "/terms",
+        "status": "200",
+        "target": "/terms.html"
+    },
+    {
+        "source": "/terms/",
+        "status": "200",
+        "target": "/terms.html"
+    },
+    {
         "source": "/privacy-policy",
         "status": "200",
         "target": "/privacy.html"

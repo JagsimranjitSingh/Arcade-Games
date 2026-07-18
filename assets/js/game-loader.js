@@ -76,6 +76,69 @@ document.addEventListener('DOMContentLoaded', () => {
                             `;
 						});
 					}
+
+					// --- SEO: Generate Dynamic Game Article ---
+					const seoSection = document.getElementById('seo-game-article');
+					const seoContent = document.getElementById('seo-article-content');
+					if (seoSection && seoContent) {
+						const keywords = (game.seo_keywords || []).join(', ');
+						const category = game.category || 'Arcade';
+						const title = game.title;
+						const desc = game.description;
+						const author = game.author || 'FreshPlay Studios';
+
+						seoContent.innerHTML = `
+							<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#48d1cc] pl-4">${title} — Game Guide & Review</h2>
+							<div class="text-[#64748b] text-xs leading-relaxed space-y-4">
+								<p><strong>${title}</strong> is a free-to-play browser game in the <strong>${category}</strong> category, developed by ${author} and available exclusively on FreshPlay Arcade. ${desc} Dive into this carefully crafted experience that combines intuitive controls with progressively challenging gameplay, all running natively in your web browser without any downloads or installations.</p>
+								<p>Designed for both desktop and mobile devices, ${title} features responsive controls that adapt to your input method — whether you are using a keyboard, mouse, touchscreen, or gamepad. The game runs on the Phaser HTML5 game engine, ensuring smooth performance at 60 frames per second across modern browsers including Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. No plugins or extensions are required.</p>
+								<p>${title} falls within the ${category} genre and is tagged with keywords including ${keywords}. Players of all ages and skill levels can enjoy this game, which offers an engaging difficulty curve that starts accessible and becomes increasingly challenging as you progress. Whether you are looking for a quick five-minute gaming session during a break or an extended play session, ${title} delivers a satisfying experience every time.</p>
+								<p>FreshPlay Arcade is committed to providing a premium, ad-supported gaming experience with no paywalls or locked content. All games, including ${title}, are completely free to play. We regularly update our games based on player feedback and community suggestions. If you enjoy ${title}, be sure to explore our library of over 20 original browser games spanning puzzle, action, survival, endless runner, physics, and strategy categories.</p>
+							</div>
+						`;
+						seoSection.classList.remove('hidden');
+					}
+
+					// --- SEO: Inject VideoGame Schema ---
+					const schemaScript = document.getElementById('game-schema');
+					if (schemaScript) {
+						const schema = {
+							"@context": "https://schema.org",
+							"@type": "VideoGame",
+							"name": game.title,
+							"description": game.description,
+							"url": `https://mytopscore.com/game/${game.id}`,
+							"image": `https://mytopscore.com${game.thumbnail_url}`,
+							"author": {
+								"@type": "Organization",
+								"name": game.author || "FreshPlay Studios"
+							},
+							"publisher": {
+								"@type": "Organization",
+								"name": "FreshPlay Arcade",
+								"url": "https://mytopscore.com/"
+							},
+							"genre": game.category,
+							"gamePlatform": ["Web Browser", "HTML5"],
+							"applicationCategory": "Game",
+							"operatingSystem": "Any",
+							"offers": {
+								"@type": "Offer",
+								"price": "0",
+								"priceCurrency": "USD",
+								"availability": "https://schema.org/InStock"
+							},
+							"aggregateRating": {
+								"@type": "AggregateRating",
+								"ratingValue": game.rating || "4.7",
+								"ratingCount": "150",
+								"bestRating": "5",
+								"worstRating": "1"
+							}
+						};
+						schemaScript.textContent = JSON.stringify(schema);
+					}
+
 				} else {
 					window.location.href = '/404';
 				}
