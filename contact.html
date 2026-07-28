@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,19 +29,16 @@
 	<link rel="stylesheet" href="/assets/css/style.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 	<script src="https://cdn.tailwindcss.com"></script>
-	<link rel="icon" href="/assets/images/Favicon.svg" type="image/svg+xml">
+	<link rel="icon" href="/assets/images/logo.png" type="image/png">
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7922397649195717"
 		crossorigin="anonymous"></script>
 </head>
+
 <body class="flex flex-col min-h-screen bg-[#c4e2f5]">
 	<header class="bg-[#00234f] border-b border-[#003d7a] relative z-50">
-		<div class="container mx-auto px-4 h-16 flex items-center justify-between">
-			<a href="/" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
-				<div
-					class="border border-[#48d1cc] px-2 py-1 flex items-center gap-1 group-hover:bg-[#003d7a] transition-colors">
-					<span class="text-[#c4e2f5] font-bold tracking-widest text-sm uppercase">FreshPlay</span>
-					<span class="text-[#48d1cc] font-bold tracking-widest text-sm uppercase">Arcade</span>
-				</div>
+		<div class="container mx-auto px-4 h-20 md:h-20 flex items-center justify-between">
+			<a href="/" class="flex items-center group" aria-label="mytopscore Home">
+				<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 			</a>
 			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#c4e2f5] uppercase"
 				aria-label="Main Navigation">
@@ -94,7 +92,8 @@
 			</form>
 		</div>
 		<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#64748b] uppercase px-2">
-			<a href="/category/all" class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">New</a>
+			<a href="/category/all"
+				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">New</a>
 			<a href="/category/puzzle"
 				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">Puzzle</a>
 			<a href="/category/action"
@@ -105,7 +104,8 @@
 	</nav>
 	<main class="flex-grow container mx-auto px-4 py-16">
 		<div class="max-w-4xl mx-auto text-center mb-16">
-			<h1 class="text-3xl md:text-5xl font-bold text-[#00234f] uppercase tracking-widest mb-4 font-liberation">Contact Us
+			<h1 class="text-3xl md:text-5xl font-bold text-[#00234f] uppercase tracking-widest mb-4 font-liberation">Contact
+				Us
 			</h1>
 			<p class="text-[#64748b] text-sm md:text-base max-w-xl mx-auto leading-relaxed">Have a question, feedback, or game
 				submission? We'd love to hear from you. Drop us a message below.</p>
@@ -171,7 +171,8 @@
 							required>
 					</div>
 					<div class="flex flex-col gap-2 relative">
-						<label for="subject" class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Subject</label>
+						<label for="subject"
+							class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Subject</label>
 						<select id="subject" name="subject"
 							class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 appearance-none font-mono cursor-pointer w-full">
 							<option value="Game Submission">Game Submission</option>
@@ -180,7 +181,8 @@
 						</select>
 					</div>
 					<div class="flex flex-col gap-2 relative">
-						<label for="message" class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Message</label>
+						<label for="message"
+							class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Message</label>
 						<textarea id="message" name="message" rows="4" placeholder="Type your message here..."
 							class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 resize-none font-mono w-full"
 							required></textarea>
@@ -199,12 +201,8 @@
 		<div class="container mx-auto px-4">
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#94a3b8] text-sm leading-relaxed">
 				<div class="md:col-span-2 flex flex-col items-start gap-4">
-					<a href="/" class="flex items-center gap-2 group" aria-label="FreshPlay Arcade Home">
-						<div
-							class="border border-[#48d1cc] px-2 py-1 flex items-center gap-1 group-hover:bg-[#003d7a] transition-colors">
-							<span class="text-[#c4e2f5] font-bold tracking-widest text-sm uppercase">FreshPlay</span>
-							<span class="text-[#48d1cc] font-bold tracking-widest text-sm uppercase">Arcade</span>
-						</div>
+					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
+						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
 					<p class="text-xs max-w-sm">Premium, high-energy HTML5 gaming portal. Instant play, zero friction. Get
 						straight into the action with the best web games available.</p>
@@ -263,4 +261,5 @@
 	<script>document.addEventListener('DOMContentLoaded', () => document.body.classList.add('fp-ready'));</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
+
 </html>
