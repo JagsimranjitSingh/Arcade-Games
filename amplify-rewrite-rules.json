@@ -60,6 +60,21 @@
         "target": "/404.html"
     },
     {
+        "source": "/blog",
+        "status": "200",
+        "target": "/blog.html"
+    },
+    {
+        "source": "/blog/",
+        "status": "200",
+        "target": "/blog.html"
+    },
+    {
+        "source": "/blog/<*>",
+        "status": "200",
+        "target": "/article.html"
+    },
+    {
         "source": "/<*>",
         "status": "404",
         "target": "/404.html"

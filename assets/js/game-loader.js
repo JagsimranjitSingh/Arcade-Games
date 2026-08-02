@@ -78,26 +78,53 @@ document.addEventListener('DOMContentLoaded', () => {
 					}
 
 					// --- SEO: Generate Dynamic Game Article ---
-					const seoSection = document.getElementById('seo-game-article');
-					const seoContent = document.getElementById('seo-article-content');
-					if (seoSection && seoContent) {
-						const keywords = (game.seo_keywords || []).join(', ');
-						const category = game.category || 'Arcade';
-						const title = game.title;
-						const desc = game.description;
-						const author = game.author || 'FreshPlay Studios';
+				const seoSection = document.getElementById('seo-game-article');
+				const seoContent = document.getElementById('seo-article-content');
+				if (seoSection && seoContent) {
+					const keywords = (game.seo_keywords || []).join(', ');
+					const category = game.category || 'Arcade';
+					const title = game.title;
+					const desc = game.description;
+					const author = game.author || 'FreshPlay Studios';
 
-						seoContent.innerHTML = `
-							<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#48d1cc] pl-4">${title} — Game Guide & Review</h2>
-							<div class="text-[#64748b] text-xs leading-relaxed space-y-4">
-								<p><strong>${title}</strong> is a free-to-play browser game in the <strong>${category}</strong> category, developed by ${author} and available exclusively on FreshPlay Arcade. ${desc} Dive into this carefully crafted experience that combines intuitive controls with progressively challenging gameplay, all running natively in your web browser without any downloads or installations.</p>
-								<p>Designed for both desktop and mobile devices, ${title} features responsive controls that adapt to your input method — whether you are using a keyboard, mouse, touchscreen, or gamepad. The game runs on the Phaser HTML5 game engine, ensuring smooth performance at 60 frames per second across modern browsers including Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. No plugins or extensions are required.</p>
-								<p>${title} falls within the ${category} genre and is tagged with keywords including ${keywords}. Players of all ages and skill levels can enjoy this game, which offers an engaging difficulty curve that starts accessible and becomes increasingly challenging as you progress. Whether you are looking for a quick five-minute gaming session during a break or an extended play session, ${title} delivers a satisfying experience every time.</p>
-								<p>FreshPlay Arcade is committed to providing a premium, ad-supported gaming experience with no paywalls or locked content. All games, including ${title}, are completely free to play. We regularly update our games based on player feedback and community suggestions. If you enjoy ${title}, be sure to explore our library of over 20 original browser games spanning puzzle, action, survival, endless runner, physics, and strategy categories.</p>
-							</div>
-						`;
-						seoSection.classList.remove('hidden');
-					}
+					// Update page meta dynamically for this specific game
+					document.title = `${title} — Play Free on FreshPlay Arcade`;
+					const metaDesc = document.querySelector('meta[name="description"]');
+					if (metaDesc) metaDesc.setAttribute('content', `Play ${title} for free on FreshPlay Arcade. ${desc} No downloads required — instant browser gaming.`);
+					const canonical = document.querySelector('link[rel="canonical"]');
+					if (canonical) canonical.setAttribute('href', `https://mytopscore.com/game/${game.id}`);
+					const ogTitle = document.querySelector('meta[property="og:title"]');
+					if (ogTitle) ogTitle.setAttribute('content', `${title} — FreshPlay Arcade`);
+					const ogDesc = document.querySelector('meta[property="og:description"]');
+					if (ogDesc) ogDesc.setAttribute('content', `Play ${title} free in your browser. ${desc}`);
+					const ogUrl = document.querySelector('meta[property="og:url"]');
+					if (ogUrl) ogUrl.setAttribute('content', `https://mytopscore.com/game/${game.id}`);
+
+					// Build control instructions text
+					const controlsText = game.how_to_play ? game.how_to_play.map(h => `${h.keys.join(' / ')} to ${h.action}`).join('; ') : 'Use your keyboard, mouse, or touchscreen';
+
+					seoContent.innerHTML = `
+						<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#48d1cc] pl-4">${title} — Complete Game Guide & Review</h2>
+						<div class="text-[#64748b] text-xs leading-relaxed space-y-4">
+							<p><strong>${title}</strong> is a free-to-play browser game in the <strong>${category}</strong> category, developed by ${author} and available exclusively on FreshPlay Arcade. ${desc} Dive into this carefully crafted experience that combines intuitive controls with progressively challenging gameplay, all running natively in your web browser without any downloads or installations.</p>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mt-6 mb-2">How to Play ${title}</h3>
+							<p>Getting started with ${title} is easy. Controls are designed to be intuitive: ${controlsText}. The game features responsive controls that work on both desktop (keyboard and mouse) and mobile devices (touch input). Difficulty scales progressively, starting with accessible early levels and ramping up to challenge even experienced players. Each session is unique, ensuring high replay value.</p>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mt-6 mb-2">Game Features</h3>
+							<ul class="list-disc pl-6 space-y-1">
+								<li>Original ${category.toLowerCase()} gameplay designed by FreshPlay Studios</li>
+								<li>Smooth 60 FPS performance on all modern browsers</li>
+								<li>Fully responsive — plays perfectly on desktop, tablet, and mobile</li>
+								<li>Synthesized audio soundtrack and sound effects</li>
+								<li>Progressive difficulty with engaging score systems</li>
+								<li>No downloads, no plugins, no account required</li>
+							</ul>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mt-6 mb-2">System Requirements</h3>
+							<p>${title} runs on any device with a modern web browser. We recommend Google Chrome, Mozilla Firefox, Apple Safari, or Microsoft Edge for the best experience. The game is optimized to run smoothly even on lower-spec devices and slower internet connections. No additional software, plugins, or extensions are needed — just open the page and play.</p>
+							<p>FreshPlay Arcade is committed to providing a premium, ad-supported gaming experience with no paywalls or locked content. All games, including ${title}, are completely free to play. We regularly update our games based on player feedback. If you enjoy ${title}, explore our library of over 20 original browser games spanning ${category.toLowerCase()}, puzzle, action, survival, and strategy categories.</p>
+						</div>
+					`;
+					seoSection.classList.remove('hidden');
+				}
 
 					// --- SEO: Inject VideoGame Schema ---
 					const schemaScript = document.getElementById('game-schema');

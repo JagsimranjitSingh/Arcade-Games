@@ -4,15 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>FRESHPLAY ARCADE - Premium Web Games | No Fiction Instant Play</title>
+	<title>Play Free Games — FreshPlay Arcade | Instant Browser Gaming</title>
 	<meta name="description"
-		content="Play premium, high-energy HTML5 games instantly on FreshPlay Arcade. Zero fiction, no accounts needed. Drift in Tokyo or solve cosmic puzzles now.">
-	<link rel="canonical" href="https://mytopscore.com/">
-	<meta property="og:title" content="FRESHPLAY ARCADE - Instant Web Gaming">
-	<meta property="og:description" content="Play the best HTML5 games instantly. Drift, shoot, solve. No friction.">
-	<meta property="og:image" content="https://placehold.co/1200x630/1a1a1a/00ff00?text=FRESHPLAY+ARCADE">
+		content="Play free HTML5 browser games instantly on FreshPlay Arcade. No downloads, no sign-ups. Choose from over 20 original games across puzzle, action, survival and strategy categories.">
+	<link rel="canonical" href="https://mytopscore.com/play">
+	<meta property="og:title" content="Play Free Games — FreshPlay Arcade">
+	<meta property="og:description" content="Play free HTML5 browser games instantly. No downloads, no sign-ups. Over 20 original games.">
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://mytopscore.com/">
+	<meta property="og:url" content="https://mytopscore.com/play">
 	<link rel="preconnect" href="https://cdn.tailwindcss.com">
 	<link rel="preconnect" href="https://pagead2.googlesyndication.com">
 	<link rel="preconnect" href="https://googleads.g.doubleclick.net">
@@ -46,6 +45,7 @@
 				<a href="/category/puzzle" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Puzzle</a>
 				<a href="/category/action" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Action</a>
 				<a href="/category/survival" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Survival</a>
+				<a href="/blog" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Blog</a>
 			</nav>
 			<div class="hidden md:flex items-center gap-4">
 				<div class="search-container group">
@@ -222,11 +222,38 @@
 				</aside>
 			</div>
 		</main>
-		<!-- Dynamic SEO Content (populated by game-loader.js) -->
-		<section id="seo-game-article" class="bg-[#f0f4f8] border-t border-[#e2e8f0] py-12 hidden">
+		<!-- Static SEO Content (visible to crawlers, enhanced by JS) -->
+		<section id="seo-game-article" class="bg-[#f0f4f8] border-t border-[#e2e8f0] py-12">
 			<div class="container mx-auto px-4 max-w-4xl">
 				<div id="seo-article-content" class="bg-white rounded-lg border border-[#e2e8f0] p-8">
-					<!-- Populated dynamically -->
+					<!-- This content is visible by default and enhanced by game-loader.js -->
+					<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#48d1cc] pl-4">About This Game</h2>
+					<div class="text-[#64748b] text-xs leading-relaxed space-y-4">
+						<p>This game is part of the FreshPlay Arcade library — a curated collection of over 20 original HTML5 browser games developed by FreshPlay Studios. Every game on our platform is designed to run natively in your web browser without requiring downloads, installations, plugins, or account creation. Simply click the Play button above to start playing instantly.</p>
+						<p>Our games are built using the Phaser HTML5 game engine and modern JavaScript, ensuring smooth 60 FPS performance across all major browsers including Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. Games are fully responsive and work seamlessly on desktop computers, tablets, and mobile phones with automatic input adaptation for keyboard, mouse, or touchscreen.</p>
+					</div>
+				</div>
+				<!-- FAQ Section -->
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-8 mt-6">
+					<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-2 border-[#48d1cc] pl-4">Frequently Asked Questions</h2>
+					<div class="space-y-6">
+						<div>
+							<h3 class="text-sm font-bold text-[#00234f] mb-2">Is this game free to play?</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed">Yes, all games on FreshPlay Arcade are completely free to play. Our platform is supported by advertising, which allows us to offer our entire library of original games at no cost to players. There are no hidden fees, in-app purchases, or premium tiers.</p>
+						</div>
+						<div>
+							<h3 class="text-sm font-bold text-[#00234f] mb-2">What devices and browsers are supported?</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed">FreshPlay Arcade games work on any modern web browser, including Chrome, Firefox, Safari, and Edge, on desktop, tablet, and mobile devices. Our games automatically detect your input method and adapt controls accordingly — keyboard and mouse on desktop, touch controls on mobile and tablet.</p>
+						</div>
+						<div>
+							<h3 class="text-sm font-bold text-[#00234f] mb-2">Do I need to create an account?</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed">No account creation is required. FreshPlay Arcade is designed for instant, friction-free gaming. Simply navigate to any game page and click Play to start. Your game progress is saved locally in your browser using standard web storage.</p>
+						</div>
+						<div>
+							<h3 class="text-sm font-bold text-[#00234f] mb-2">How do I report a bug or suggest a feature?</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed">We welcome feedback! Visit our <a href="/contact" class="text-[#48d1cc] hover:underline">Contact page</a> to submit bug reports, feature requests, or general feedback. Our development team reviews all submissions and prioritizes fixes based on impact and frequency.</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -247,6 +274,7 @@
 						<ul class="space-y-2 text-xs">
 							<li><a href="/category/all" class="hover:text-[#48d1cc]">New Releases</a></li>
 							<li><a href="/category/all" class="hover:text-[#48d1cc]">All Categories</a></li>
+						<li><a href="/blog" class="hover:text-[#48d1cc]">Blog</a></li>
 						</ul>
 					</div>
 					<div>
