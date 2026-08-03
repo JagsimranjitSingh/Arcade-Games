@@ -33,6 +33,16 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^404/?$ 404.html [L]
 
+    # Route /blog/{slug} to /article.html?id={slug}
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^blog/([a-zA-Z0-9_-]+)/?$ article.html?id=$1 [L,QSA]
+
+    # Route /blog to /blog.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^blog/?$ blog.html [L]
+
     # Catch-all 404 for unmatched paths
     ErrorDocument 404 /404.html
 </IfModule>
