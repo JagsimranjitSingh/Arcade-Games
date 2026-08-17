@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/game/:id*", "destination": "/game/:id*.html" },
+    { "source": "/category/:id*", "destination": "/explore.html" },
+    { "source": "/blog/:id*", "destination": "/blog/:id*.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/privacy-policy", "destination": "/privacy.html" }
+  ]
+}

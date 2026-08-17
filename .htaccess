@@ -2,7 +2,9 @@
     RewriteEngine On
     RewriteBase /
 
-    # Route /game/{game_name} to /play.html?id={game_name}
+    # Route /game/{game_name} to static pre-rendered page or fallback play.html?id={game_name}
+    RewriteCond %{DOCUMENT_ROOT}/game/$1.html -f
+    RewriteRule ^game/([a-zA-Z0-9_-]+)/?$ game/$1.html [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^game/([a-zA-Z0-9_-]+)/?$ play.html?id=$1 [L,QSA]
@@ -33,7 +35,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^404/?$ 404.html [L]
 
-    # Route /blog/{slug} to /article.html?id={slug}
+    # Route /blog/{slug} to static pre-rendered page or fallback article.html?id={slug}
+    RewriteCond %{DOCUMENT_ROOT}/blog/$1.html -f
+    RewriteRule ^blog/([a-zA-Z0-9_-]+)/?$ blog/$1.html [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^blog/([a-zA-Z0-9_-]+)/?$ article.html?id=$1 [L,QSA]
