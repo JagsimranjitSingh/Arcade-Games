@@ -12,6 +12,37 @@
 	<meta property="og:description" content="Browse and filter our full library of free HTML5 browser games across Puzzle, Action, Survival, and more.">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://mytopscore.com/explore">
+	<script>
+	// Dynamically fix canonical, title, and OG tags based on current category URL
+	(function() {
+		var path = window.location.pathname.replace(/\/+$/, '');
+		var categoryMap = {
+			'/category/all':           { title: 'All Free Browser Games', desc: 'Browse our complete library of free HTML5 browser games. Over 20 original games across puzzle, action, survival, physics, and strategy categories.' },
+			'/category/puzzle':        { title: 'Free Puzzle Games', desc: 'Challenge your brain with free HTML5 puzzle games. Play Chroma Sort, Block Unblock, Hexa Merge, Light Linker and more logic puzzles instantly.' },
+			'/category/action':        { title: 'Free Action Games', desc: 'Fast-paced free HTML5 action games. Play Neon Blade Dash, Orbit Striker, Hyper Hexagon, Glitch Jumper and more reflex-testing arcade games.' },
+			'/category/survival':      { title: 'Free Survival Games', desc: 'Test your survival skills with free HTML5 games. Play Deep Dive, Space Scavenger, and more survival challenges in your browser.' },
+			'/category/physics-skill': { title: 'Free Physics & Skill Games', desc: 'Physics-based free HTML5 games. Play Neon Pinball, Sling Drift, Stack Builder, Cannon Basketball and more skill-testing browser games.' },
+			'/category/endless-runner': { title: 'Free Endless Runner Games', desc: 'Run forever in free HTML5 endless runners. Play Neon Rider, Rooftop Cyber Punk and more fast-paced runner games in your browser.' },
+			'/category/strategy-idle':  { title: 'Free Strategy & Idle Games', desc: 'Strategic idle games for free. Play Idle Arcade Tycoon, Merge Weapons, Tower Defense Minimal, Clicker Miner and more browser strategy games.' }
+		};
+		var info = categoryMap[path];
+		if (info) {
+			var fullTitle = info.title + ' — FreshPlay Arcade | MyTopScore';
+			var canonicalUrl = 'https://mytopscore.com' + path;
+			document.title = fullTitle;
+			var canonical = document.querySelector('link[rel="canonical"]');
+			if (canonical) canonical.setAttribute('href', canonicalUrl);
+			var metaDesc = document.querySelector('meta[name="description"]');
+			if (metaDesc) metaDesc.setAttribute('content', info.desc);
+			var ogTitle = document.querySelector('meta[property="og:title"]');
+			if (ogTitle) ogTitle.setAttribute('content', info.title + ' — FreshPlay Arcade');
+			var ogDesc = document.querySelector('meta[property="og:description"]');
+			if (ogDesc) ogDesc.setAttribute('content', info.desc);
+			var ogUrl = document.querySelector('meta[property="og:url"]');
+			if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+		}
+	})();
+	</script>
 	<link rel="preconnect" href="https://cdn.tailwindcss.com">
 	<link rel="preconnect" href="https://pagead2.googlesyndication.com">
 	<link rel="preconnect" href="https://googleads.g.doubleclick.net">

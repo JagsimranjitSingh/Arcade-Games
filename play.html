@@ -7,11 +7,23 @@
 	<title>Play Free Games — FreshPlay Arcade | Instant Browser Gaming</title>
 	<meta name="description"
 		content="Play free HTML5 browser games instantly on FreshPlay Arcade. No downloads, no sign-ups. Choose from over 20 original games across puzzle, action, survival and strategy categories.">
-	<link rel="canonical" href="https://mytopscore.com/play">
+	<meta name="robots" content="noindex, follow">
+	<link rel="canonical" href="https://mytopscore.com/category/all">
+	<script>
+	(function() {
+		var params = new URLSearchParams(window.location.search);
+		var id = params.get('id');
+		if (id) {
+			window.location.replace('/game/' + encodeURIComponent(id));
+		} else {
+			window.location.replace('/category/all');
+		}
+	})();
+	</script>
 	<meta property="og:title" content="Play Free Games — FreshPlay Arcade">
 	<meta property="og:description" content="Play free HTML5 browser games instantly. No downloads, no sign-ups. Over 20 original games.">
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://mytopscore.com/play">
+	<meta property="og:url" content="https://mytopscore.com/category/all">
 	<link rel="preconnect" href="https://cdn.tailwindcss.com">
 	<link rel="preconnect" href="https://pagead2.googlesyndication.com">
 	<link rel="preconnect" href="https://googleads.g.doubleclick.net">

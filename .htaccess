@@ -2,6 +2,23 @@
     RewriteEngine On
     RewriteBase /
 
+    # Redirect /play or /play.html (without id query) to /category/all to eliminate Soft 404
+    RewriteCond %{QUERY_STRING} !(?:^|&)id=
+    RewriteRule ^play(\.html)?/?$ /category/all [R=301,L]
+
+    # Redirect /play.html?id=xxx to canonical /game/xxx
+    RewriteCond %{QUERY_STRING} (?:^|&)id=([a-zA-Z0-9_-]+)(?:&|$)
+    RewriteRule ^play(\.html)?/?$ /game/%1? [R=301,L]
+
+    # Legacy / Variant URL 301 Redirects to ensure Google indexes all traffic to active games
+    RewriteRule ^game/rooftop-cyber-runner/?$ /game/rooftop-cyber-punk [R=301,L]
+    RewriteRule ^game/gravity-flip/?$ /game/glitch-jumper [R=301,L]
+    RewriteRule ^game/shadow-dash/?$ /game/neon-blade-dash [R=301,L]
+    RewriteRule ^game/super-drift/?$ /game/sling-drift [R=301,L]
+    RewriteRule ^game/laser-bounce/?$ /game/neon-pinball [R=301,L]
+    RewriteRule ^game/cyber-dodge/?$ /game/orbit-striker [R=301,L]
+    RewriteRule ^game/neon-snake-evolved/?$ /game/neon-rider [R=301,L]
+
     # Route /game/{game_name} to static pre-rendered page or fallback play.html?id={game_name}
     RewriteCond %{DOCUMENT_ROOT}/game/$1.html -f
     RewriteRule ^game/([a-zA-Z0-9_-]+)/?$ game/$1.html [L]
