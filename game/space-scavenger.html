@@ -67,69 +67,64 @@
 		</div>
 	</header>
 
-	<div class="container mx-auto px-4 py-4">
-		<!-- Breadcrumb -->
-		<nav class="text-[11px] font-mono uppercase tracking-widest text-[#64748b] mb-4" aria-label="Breadcrumb">
+	<div class="container mx-auto px-4 py-8">
+		<nav class="text-xs text-[#64748b] mb-6 font-mono" aria-label="Breadcrumb">
 			<a href="/" class="hover:text-[#48d1cc]">Home</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<a href="/category/all" class="hover:text-[#48d1cc]">Games</a>
-			<span class="mx-2">›</span>
-			<a href="/category/survival" class="hover:text-[#48d1cc]">Survival</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<span class="text-[#00234f] font-bold">Space Scavenger</span>
 		</nav>
 
-		<main class="flex-grow pb-12">
-			<div class="flex flex-col lg:flex-row gap-8">
-				<div class="w-full lg:w-3/4">
-					<!-- Game Container -->
-					<div id="game-hero-container" class="relative w-full aspect-[16/9] min-h-[480px] bg-[#00234f] rounded-lg overflow-hidden border border-[#003d7a] shadow-xl group">
-						<img id="game-hero-img" src="/assets/images/space-ci.png" alt="Space Scavenger" class="absolute inset-0 w-full h-full object-cover opacity-75">
-						<div class="absolute inset-0 bg-gradient-to-t from-[#00234f] via-[#00234f]/50 to-transparent"></div>
-						<div id="game-start-overlay" class="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
-							<span class="bg-[#48d1cc] text-[#00234f] text-xs font-bold px-3 py-1 rounded font-mono uppercase tracking-widest mb-4 shadow">Survival</span>
-							<h1 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wider uppercase font-liberation drop-shadow-lg">Space Scavenger</h1>
-							<p class="text-[#c4e2f5] text-sm md:text-base max-w-xl mb-8 leading-relaxed drop-shadow">Fly a ship through an asteroid field, collecting scrap to upgrade your shields on the fly.</p>
-							<button id="play-game-btn" class="flex items-center justify-center gap-3 bg-[#48d1cc] text-[#00234f] font-bold px-10 py-4 uppercase tracking-widest text-base rounded-md shadow-2xl transition-all hover:scale-105 hover:bg-white cursor-pointer">
-								<svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M5 3v18l15-9L5 3z"></path>
-								</svg> Play Now
-							</button>
+		<main class="flex flex-col lg:flex-row gap-8">
+			<div class="w-full lg:w-3/4">
+				<div class="relative aspect-video bg-[#0a0a0a] rounded-lg overflow-hidden border border-[#1a1a2e]">
+					<img id="game-hero-img" src="/assets/images/space-ci.png" alt="Space Scavenger game screenshot" class="absolute inset-0 w-full h-full object-cover opacity-60">
+					<div id="game-start-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-black/30">
+						<h1 class="text-xl md:text-3xl font-bold text-white uppercase tracking-widest font-liberation drop-shadow-lg">Space Scavenger</h1>
+						<button id="play-game-btn" class="bg-[#48d1cc] text-[#00234f] font-bold text-sm px-8 py-3 rounded uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M5 3v18l15-9L5 3z"></path>
+							</svg> Play Now
+						</button>
+					</div>
+					<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+				</div>
+
+				<!-- Game Details Card -->
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
+					<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
+						<div>
+							<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Space Scavenger</h2>
+							<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Survival Category · Rating: 4.6 ★</p>
 						</div>
-						<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+						<div class="flex items-center gap-2">
+							<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">850K Plays</span>
+							<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
+						</div>
 					</div>
 
-					<!-- Game Details Card -->
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
-						<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
-							<div>
-								<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Space Scavenger</h2>
-								<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Survival Category · Rating: 4.6 ★</p>
-							</div>
-							<div class="flex items-center gap-2">
-								<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">850K Plays</span>
-								<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
-							</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Game Overview
+							</h3>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Space Scavenger drops you into the cockpit of a salvage ship navigating through a dense asteroid field in deep space. Your mission: collect scattered scrap metal, salvaged technology, and rare crystals to upgrade your ship's shields, engines, and weapons in real-time as threats escalate around you. It's a survival game where resource management meets twitch piloting, demanding both strategic thinking and precise control.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The asteroid field is procedurally generated with increasing density, ensuring each run presents unique navigation challenges. Early zones feature sparse, slow-moving asteroids with generous gaps. As you venture deeper, the field thickens — asteroids spin faster, cluster into formations, and occasionally fragment into smaller, harder-to-avoid shrapnel clouds on impact. Environmental hazards like solar flares (temporary visibility reduction), gravitational wells (pull your ship off course), and debris storms (rapid-fire micro-asteroid bursts) add variety and force you to adapt your piloting style moment-to-moment.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The upgrade system is the strategic backbone of Space Scavenger. Collected scrap feeds three upgrade paths: Shields (absorb more hits before destruction), Engines (increase maneuverability and top speed), and Weapons (deploy a forward-facing laser to break apart asteroids in your path). Each upgrade has five tiers, and the optimal build order depends on your playstyle. Defensive players prioritize shields, speedrunners focus on engines, and aggressive players invest in weapons to carve paths through dense asteroid clusters. Rare crystals act as a premium currency for special one-time-use abilities like a temporary force field or an emergency warp that teleports you to a safe zone.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The game tracks three metrics: maximum distance survived, total scrap collected, and highest upgrade tier achieved. These create three distinct metagames within a single run — do you play it safe to maximize distance, take risks to chase high-value scrap, or hyper-focus upgrades for maximum combat power?</p>
 						</div>
-
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Game Overview
-								</h3>
-								<p class="text-[#64748b] text-xs leading-relaxed">Fly a ship through an asteroid field, collecting scrap to upgrade your shields on the fly. Handcrafted by FreshPlay Studios for maximum browser performance and responsive controls on both touch and desktop devices.</p>
-							</div>
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Controls & How to Play
-								</h3>
-								<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
-									
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Controls &amp; How to Play
+							</h3>
+							<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
+								
             <li class="flex items-center gap-3">
                 <div class="flex gap-1">
                     <span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">ARROWS</span><span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">TOUCH</span>
@@ -137,25 +132,53 @@
                 <span class="uppercase text-[#00234f] text-[11px] font-mono font-bold tracking-widest">Steer Ship</span>
             </li>
             
-								</ul>
-							</div>
-						</div>
-
-						<!-- In-Depth Game Guide & Strategies -->
-						<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
-							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
-							<p>To master <strong>Space Scavenger</strong>, timing and pattern recognition are critical. Watch for subtle visual and audio telegraphs before major hazards appear. Focus on maintaining a steady rhythm rather than rushing, as combo multipliers reward consistency over reckless speed.</p>
-							<p>On mobile touchscreens, keep your fingers near the lower corners of the screen to maintain clear visibility of the central play area. On desktop, utilize tactile key inputs for millisecond-accurate reflex response.</p>
+							</ul>
 						</div>
 					</div>
-				</div>
 
-				<!-- Sidebar -->
-				<aside class="w-full lg:w-1/4 space-y-6">
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
-						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Survival Games</h3>
-						<div class="space-y-3">
-							
+					<!-- Game Mechanics Stats -->
+					<div class="border-t border-[#e2e8f0] pt-6 mb-6">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Game Mechanics</h3>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">3</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Upgrade Paths</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">5</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Tiers Per Path</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">3</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Hazard Types</div>
+    </div>
+</div>
+					</div>
+
+					<!-- In-Depth Strategy Guide -->
+					<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
+						<h4 class="font-bold text-[#00234f] mb-2 text-xs uppercase tracking-wider">Early Zone Resource Priority</h4>
+<p>In the first 60 seconds, prioritize engine upgrades over shields. Early asteroids are sparse enough that a more maneuverable ship avoids damage entirely, and the increased speed helps you reach more scrap faster. Shift to shield upgrades once asteroid density increases past the point where pure piloting can avoid all hits.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Scrap Collection Routes</h4>
+<p>Scrap spawns in loose clusters. Rather than chasing individual pieces, identify the cluster center and pilot a sweeping arc through it. Zigzag collection attempts waste time and expose you to collision risk. A smooth, curved approach captures 80% of a cluster's value with a fraction of the danger.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Environmental Hazard Responses</h4>
+<p>Solar flares: slow down immediately and focus on the narrow illuminated zone directly ahead. Gravitational wells: steer into the pull at a tangent angle to slingshot around rather than fighting against it. Debris storms: activate your force field if available, or retreat to the edge of the storm where micro-asteroid density is lowest.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Weapon Usage Tactics</h4>
+<p>The forward laser is most effective against large, slow-moving asteroids directly in your path. Don't waste energy shooting fast-moving debris — it's more efficient to dodge. Save weapon upgrades for the deep zones (past 300m distance) where asteroid density makes pure avoidance impossible and controlled path-clearing becomes essential for survival.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<aside class="w-full lg:w-1/4 space-y-6">
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Survival Games</h3>
+					<div class="space-y-3">
+						
             <a href="/game/deep-dive" class="flex items-center gap-3 p-2 rounded hover:bg-[#f0f4f8] transition-colors group">
                 <img src="/assets/images/deep-dive-ci.png" alt="Deep Dive" class="w-14 h-14 rounded object-cover border border-[#e2e8f0]">
                 <div>
@@ -188,37 +211,37 @@
                 </div>
             </a>
             
-						</div>
 					</div>
+				</div>
 
-					<div class="bg-[#00234f] rounded-lg p-5 text-white">
-						<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
-						<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
-						<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
-					</div>
-				</aside>
-			</div>
+				<div class="bg-[#00234f] rounded-lg p-5 text-white">
+					<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
+					<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
+					<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
+				</div>
+			</aside>
 		</main>
 
 		<!-- Frequently Asked Questions -->
-		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12">
-			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions</h2>
+		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12 mt-8">
+			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions About Space Scavenger</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed text-[#64748b]">
+
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is Space Scavenger free to play?</h3>
-					<p>Yes, Space Scavenger is 100% free to play directly in your browser on desktop, tablet, and mobile with no downloads or subscriptions required.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What are the three upgrade paths and which should I prioritize?</h3>
+					<p>Space Scavenger offers Shields (absorb more hits), Engines (better maneuverability and speed), and Weapons (forward laser to break asteroids). The optimal priority depends on your playstyle: engines first for agility-focused survival, shields for a forgiving approach, or weapons for aggressive path-clearing in dense zones.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Does this game support mobile devices?</h3>
-					<p>Yes, Space Scavenger includes automatic touchscreen support and responsive scaling for all modern smartphones and tablets.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What are the environmental hazards besides asteroids?</h3>
+					<p>Beyond asteroids, you'll encounter solar flares (reduce visibility temporarily), gravitational wells (pull your ship off course), and debris storms (rapid micro-asteroid bursts). Each hazard requires a different piloting response — slowing down, slingshot maneuvers, or using defensive abilities respectively.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How is my high score saved?</h3>
-					<p>Your game progress and best scores are automatically saved locally in your browser storage so you can pick up where you left off.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What are rare crystals used for?</h3>
+					<p>Rare crystals are a premium currency for one-time-use special abilities: a temporary force field (absorbs all damage for 5 seconds), an emergency warp (teleports to a safe zone), and a scrap magnet (attracts all nearby scrap for 10 seconds). Crystals are scarce, so choosing when to spend them is a critical strategic decision.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Who developed Space Scavenger?</h3>
-					<p>Space Scavenger was designed and engineered by FreshPlay Studios using the Phaser HTML5 web gaming framework.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is there an end goal or is it purely about surviving as long as possible?</h3>
+					<p>Space Scavenger tracks three distinct metrics: maximum distance survived, total scrap collected per run, and highest upgrade tier achieved. This creates three different playstyle goals within the same game. There is no fixed ending — the challenge is pushing your personal records across all three categories.</p>
 				</div>
 			</div>
 		</section>
@@ -232,7 +255,7 @@
 					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
 						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
-					<p class="text-xs max-w-sm leading-relaxed">MyTopScore & FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
+					<p class="text-xs max-w-sm leading-relaxed">MyTopScore &amp; FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Popular Games</h4>
@@ -249,17 +272,17 @@
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Game Categories</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/category/all" class="hover:text-[#48d1cc]">All Games Library</a></li>
-						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain & Puzzle Games</a></li>
-						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action & Reflex Games</a></li>
-						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival & Strategy Games</a></li>
-						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides & Reviews</a></li>
+						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain &amp; Puzzle Games</a></li>
+						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action &amp; Reflex Games</a></li>
+						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival &amp; Strategy Games</a></li>
+						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides &amp; Reviews</a></li>
 					</ul>
 				</div>
 				<div>
-					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust & Legal</h4>
+					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust &amp; Legal</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/about" class="hover:text-[#48d1cc]">About Our Studio</a></li>
-						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact & Support</a></li>
+						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact &amp; Support</a></li>
 						<li><a href="/terms" class="hover:text-[#48d1cc]">Terms of Service</a></li>
 						<li><a href="/privacy-policy" class="hover:text-[#48d1cc]">Privacy Policy</a></li>
 					</ul>

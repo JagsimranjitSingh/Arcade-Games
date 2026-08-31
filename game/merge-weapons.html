@@ -67,69 +67,64 @@
 		</div>
 	</header>
 
-	<div class="container mx-auto px-4 py-4">
-		<!-- Breadcrumb -->
-		<nav class="text-[11px] font-mono uppercase tracking-widest text-[#64748b] mb-4" aria-label="Breadcrumb">
+	<div class="container mx-auto px-4 py-8">
+		<nav class="text-xs text-[#64748b] mb-6 font-mono" aria-label="Breadcrumb">
 			<a href="/" class="hover:text-[#48d1cc]">Home</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<a href="/category/all" class="hover:text-[#48d1cc]">Games</a>
-			<span class="mx-2">›</span>
-			<a href="/category/strategy-idle" class="hover:text-[#48d1cc]">Strategy & Idle</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<span class="text-[#00234f] font-bold">Merge Weapons</span>
 		</nav>
 
-		<main class="flex-grow pb-12">
-			<div class="flex flex-col lg:flex-row gap-8">
-				<div class="w-full lg:w-3/4">
-					<!-- Game Container -->
-					<div id="game-hero-container" class="relative w-full aspect-[16/9] min-h-[480px] bg-[#00234f] rounded-lg overflow-hidden border border-[#003d7a] shadow-xl group">
-						<img id="game-hero-img" src="/assets/images/merge-wepons-ci.png" alt="Merge Weapons" class="absolute inset-0 w-full h-full object-cover opacity-75">
-						<div class="absolute inset-0 bg-gradient-to-t from-[#00234f] via-[#00234f]/50 to-transparent"></div>
-						<div id="game-start-overlay" class="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
-							<span class="bg-[#48d1cc] text-[#00234f] text-xs font-bold px-3 py-1 rounded font-mono uppercase tracking-widest mb-4 shadow">Strategy & Idle</span>
-							<h1 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wider uppercase font-liberation drop-shadow-lg">Merge Weapons</h1>
-							<p class="text-[#c4e2f5] text-sm md:text-base max-w-xl mb-8 leading-relaxed drop-shadow">Buy basic swords, merge two identical ones to create a stronger one, and equip heroes to fight auto-battles.</p>
-							<button id="play-game-btn" class="flex items-center justify-center gap-3 bg-[#48d1cc] text-[#00234f] font-bold px-10 py-4 uppercase tracking-widest text-base rounded-md shadow-2xl transition-all hover:scale-105 hover:bg-white cursor-pointer">
-								<svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M5 3v18l15-9L5 3z"></path>
-								</svg> Play Now
-							</button>
+		<main class="flex flex-col lg:flex-row gap-8">
+			<div class="w-full lg:w-3/4">
+				<div class="relative aspect-video bg-[#0a0a0a] rounded-lg overflow-hidden border border-[#1a1a2e]">
+					<img id="game-hero-img" src="/assets/images/merge-wepons-ci.png" alt="Merge Weapons game screenshot" class="absolute inset-0 w-full h-full object-cover opacity-60">
+					<div id="game-start-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-black/30">
+						<h1 class="text-xl md:text-3xl font-bold text-white uppercase tracking-widest font-liberation drop-shadow-lg">Merge Weapons</h1>
+						<button id="play-game-btn" class="bg-[#48d1cc] text-[#00234f] font-bold text-sm px-8 py-3 rounded uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M5 3v18l15-9L5 3z"></path>
+							</svg> Play Now
+						</button>
+					</div>
+					<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+				</div>
+
+				<!-- Game Details Card -->
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
+					<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
+						<div>
+							<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Merge Weapons</h2>
+							<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Strategy & Idle Category · Rating: 4.7 ★</p>
 						</div>
-						<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+						<div class="flex items-center gap-2">
+							<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">1.9M Plays</span>
+							<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
+						</div>
 					</div>
 
-					<!-- Game Details Card -->
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
-						<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
-							<div>
-								<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Merge Weapons</h2>
-								<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Strategy & Idle Category · Rating: 4.7 ★</p>
-							</div>
-							<div class="flex items-center gap-2">
-								<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">1.9M Plays</span>
-								<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
-							</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Game Overview
+							</h3>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Merge Weapons combines the satisfying merge mechanic of combination puzzles with an auto-battler combat system. Your job is to buy basic weapons from the shop, drag identical weapons together to merge them into more powerful versions, and equip your heroes with the strongest gear to fight increasingly difficult waves of enemies. It's a game of economic efficiency, merge optimization, and strategic hero loadout management.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The merge system follows a straightforward progression: two identical Level 1 swords merge into a Level 2 sword, two Level 2s become Level 3, and so on up to the legendary Level 10 weapons. Each level dramatically increases the weapon's damage output, attack speed, and special ability potency. The exponential power curve means a single Level 8 weapon outperforms dozens of Level 1 weapons, making merge efficiency the core skill that determines your progression speed.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The combat system runs automatically — your equipped heroes attack enemy waves based on their weapon stats and positioning. You don't control the combat directly; instead, your strategic influence comes from which weapons you equip, which heroes you assign them to, and how you arrange your hero formation. Tank heroes benefit from slow, high-damage weapons that stagger enemies. Ranged heroes excel with fast-firing weapons. Support heroes amplify their buff effects with special ability-focused weapon types.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The economy loop is carefully balanced. Defeating enemy waves earns gold for purchasing new base weapons. Higher-level waves drop more gold but require stronger weapons to clear. Spending too much on base weapons without merging leads to a cluttered board with weak gear. Spending too little and saving gold leads to underpowered heroes who can't clear waves. The sweet spot is a continuous cycle of buy, merge, equip, fight, reinvest. The game features an idle component — your heroes continue fighting while you're away, and you return to accumulated rewards ready for a merge session.</p>
 						</div>
-
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Game Overview
-								</h3>
-								<p class="text-[#64748b] text-xs leading-relaxed">Buy basic swords, merge two identical ones to create a stronger one, and equip heroes to fight auto-battles. Handcrafted by FreshPlay Studios for maximum browser performance and responsive controls on both touch and desktop devices.</p>
-							</div>
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Controls & How to Play
-								</h3>
-								<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
-									
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Controls &amp; How to Play
+							</h3>
+							<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
+								
             <li class="flex items-center gap-3">
                 <div class="flex gap-1">
                     <span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">DRAG</span><span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">TOUCH</span>
@@ -137,25 +132,53 @@
                 <span class="uppercase text-[#00234f] text-[11px] font-mono font-bold tracking-widest">Merge Items</span>
             </li>
             
-								</ul>
-							</div>
-						</div>
-
-						<!-- In-Depth Game Guide & Strategies -->
-						<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
-							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
-							<p>To master <strong>Merge Weapons</strong>, timing and pattern recognition are critical. Watch for subtle visual and audio telegraphs before major hazards appear. Focus on maintaining a steady rhythm rather than rushing, as combo multipliers reward consistency over reckless speed.</p>
-							<p>On mobile touchscreens, keep your fingers near the lower corners of the screen to maintain clear visibility of the central play area. On desktop, utilize tactile key inputs for millisecond-accurate reflex response.</p>
+							</ul>
 						</div>
 					</div>
-				</div>
 
-				<!-- Sidebar -->
-				<aside class="w-full lg:w-1/4 space-y-6">
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
-						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Strategy & Idle Games</h3>
-						<div class="space-y-3">
-							
+					<!-- Game Mechanics Stats -->
+					<div class="border-t border-[#e2e8f0] pt-6 mb-6">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Game Mechanics</h3>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">10</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Weapon Merge Levels</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">3</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Hero Classes</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">∞</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Enemy Waves</div>
+    </div>
+</div>
+					</div>
+
+					<!-- In-Depth Strategy Guide -->
+					<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
+						<h4 class="font-bold text-[#00234f] mb-2 text-xs uppercase tracking-wider">Board Management</h4>
+<p>Your merge board has limited slots. Never let it fill completely — always keep at least 2 empty slots for incoming purchases and merge results. A full board means you can't buy new weapons, breaking the buy-merge cycle. If your board gets crowded, merge lower-level duplicates even if it doesn't produce an immediate power upgrade; clearing space is more valuable than holding every piece.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Gold Efficiency</h4>
+<p>Buy weapons in pairs to ensure every purchase can be immediately merged. Buying single weapons wastes board space and delays the merge chain. If you can afford 3 identical base weapons, buy all 3 — merge two into a Level 2, save the third for when you can afford the next pair to continue the merge chain upward.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Hero-Weapon Matching</h4>
+<p>Don't just equip your highest-level weapon on any hero. Match weapon types to hero classes: tanks need slow, heavy weapons for stagger effects; rangers need fast weapons for sustained DPS; supports need special ability weapons for buff amplification. A properly matched Level 6 weapon often outperforms a mismatched Level 7 in actual combat performance.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Wave Progression Strategy</h4>
+<p>If you can't clear a wave, don't repeatedly attempt it. Instead, replay earlier waves to farm gold, invest in merges, and return with significantly stronger equipment. The gold-per-minute from comfortably farming a lower wave often exceeds the gold-per-minute from struggling against a higher wave. Patience and preparation trump brute-force attempts.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<aside class="w-full lg:w-1/4 space-y-6">
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Strategy & Idle Games</h3>
+					<div class="space-y-3">
+						
             <a href="/game/idle-arcade-tycoon" class="flex items-center gap-3 p-2 rounded hover:bg-[#f0f4f8] transition-colors group">
                 <img src="/assets/images/idle-arcade-ci.png" alt="Idle Arcade Tycoon" class="w-14 h-14 rounded object-cover border border-[#e2e8f0]">
                 <div>
@@ -188,37 +211,37 @@
                 </div>
             </a>
             
-						</div>
 					</div>
+				</div>
 
-					<div class="bg-[#00234f] rounded-lg p-5 text-white">
-						<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
-						<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
-						<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
-					</div>
-				</aside>
-			</div>
+				<div class="bg-[#00234f] rounded-lg p-5 text-white">
+					<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
+					<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
+					<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
+				</div>
+			</aside>
 		</main>
 
 		<!-- Frequently Asked Questions -->
-		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12">
-			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions</h2>
+		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12 mt-8">
+			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions About Merge Weapons</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed text-[#64748b]">
+
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is Merge Weapons free to play?</h3>
-					<p>Yes, Merge Weapons is 100% free to play directly in your browser on desktop, tablet, and mobile with no downloads or subscriptions required.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How does the weapon merging system work?</h3>
+					<p>Drag two identical-level weapons together to create one weapon of the next level. Two Level 1 swords become a Level 2 sword, and so on up to Level 10. Each merge level dramatically increases damage, attack speed, and special ability power. The exponential power scaling makes achieving high-level merges far more effective than accumulating many low-level weapons.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Does this game support mobile devices?</h3>
-					<p>Yes, Merge Weapons includes automatic touchscreen support and responsive scaling for all modern smartphones and tablets.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Do my heroes fight automatically?</h3>
+					<p>Yes — combat is fully automated. Your heroes attack enemy waves based on their equipped weapon stats, hero class abilities, and formation positioning. Your strategic input comes from weapon selection, hero-weapon matching, and formation arrangement. This lets you focus on the merge economy while combat runs independently.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How is my high score saved?</h3>
-					<p>Your game progress and best scores are automatically saved locally in your browser storage so you can pick up where you left off.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Does the game earn progress while I'm offline?</h3>
+					<p>Yes — your heroes continue fighting enemy waves while you're away. When you return, accumulated gold and rewards are waiting for you to invest in new weapons and merges. This idle component means you make progress both during active merge sessions and passive offline periods.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Who developed Merge Weapons?</h3>
-					<p>Merge Weapons was designed and engineered by FreshPlay Studios using the Phaser HTML5 web gaming framework.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What's the difference between hero classes?</h3>
+					<p>Three hero classes benefit from different weapon types: Tanks excel with slow, heavy weapons that stagger enemies and protect the front line. Rangers deal sustained damage with fast-firing weapons from the back row. Supports amplify team buffs with special ability-focused weapons. Matching weapon type to hero class is essential for optimal combat performance.</p>
 				</div>
 			</div>
 		</section>
@@ -232,7 +255,7 @@
 					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
 						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
-					<p class="text-xs max-w-sm leading-relaxed">MyTopScore & FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
+					<p class="text-xs max-w-sm leading-relaxed">MyTopScore &amp; FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Popular Games</h4>
@@ -249,17 +272,17 @@
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Game Categories</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/category/all" class="hover:text-[#48d1cc]">All Games Library</a></li>
-						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain & Puzzle Games</a></li>
-						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action & Reflex Games</a></li>
-						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival & Strategy Games</a></li>
-						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides & Reviews</a></li>
+						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain &amp; Puzzle Games</a></li>
+						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action &amp; Reflex Games</a></li>
+						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival &amp; Strategy Games</a></li>
+						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides &amp; Reviews</a></li>
 					</ul>
 				</div>
 				<div>
-					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust & Legal</h4>
+					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust &amp; Legal</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/about" class="hover:text-[#48d1cc]">About Our Studio</a></li>
-						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact & Support</a></li>
+						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact &amp; Support</a></li>
 						<li><a href="/terms" class="hover:text-[#48d1cc]">Terms of Service</a></li>
 						<li><a href="/privacy-policy" class="hover:text-[#48d1cc]">Privacy Policy</a></li>
 					</ul>

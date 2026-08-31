@@ -67,69 +67,64 @@
 		</div>
 	</header>
 
-	<div class="container mx-auto px-4 py-4">
-		<!-- Breadcrumb -->
-		<nav class="text-[11px] font-mono uppercase tracking-widest text-[#64748b] mb-4" aria-label="Breadcrumb">
+	<div class="container mx-auto px-4 py-8">
+		<nav class="text-xs text-[#64748b] mb-6 font-mono" aria-label="Breadcrumb">
 			<a href="/" class="hover:text-[#48d1cc]">Home</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<a href="/category/all" class="hover:text-[#48d1cc]">Games</a>
-			<span class="mx-2">›</span>
-			<a href="/category/puzzle" class="hover:text-[#48d1cc]">Puzzle</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<span class="text-[#00234f] font-bold">Hexa Merge</span>
 		</nav>
 
-		<main class="flex-grow pb-12">
-			<div class="flex flex-col lg:flex-row gap-8">
-				<div class="w-full lg:w-3/4">
-					<!-- Game Container -->
-					<div id="game-hero-container" class="relative w-full aspect-[16/9] min-h-[480px] bg-[#00234f] rounded-lg overflow-hidden border border-[#003d7a] shadow-xl group">
-						<img id="game-hero-img" src="/assets/images/hexa-merge-ci.png" alt="Hexa Merge" class="absolute inset-0 w-full h-full object-cover opacity-75">
-						<div class="absolute inset-0 bg-gradient-to-t from-[#00234f] via-[#00234f]/50 to-transparent"></div>
-						<div id="game-start-overlay" class="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
-							<span class="bg-[#48d1cc] text-[#00234f] text-xs font-bold px-3 py-1 rounded font-mono uppercase tracking-widest mb-4 shadow">Puzzle</span>
-							<h1 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wider uppercase font-liberation drop-shadow-lg">Hexa Merge</h1>
-							<p class="text-[#c4e2f5] text-sm md:text-base max-w-xl mb-8 leading-relaxed drop-shadow">Place hexagonal tiles on a board; connecting three of the same number merges them into a higher value.</p>
-							<button id="play-game-btn" class="flex items-center justify-center gap-3 bg-[#48d1cc] text-[#00234f] font-bold px-10 py-4 uppercase tracking-widest text-base rounded-md shadow-2xl transition-all hover:scale-105 hover:bg-white cursor-pointer">
-								<svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M5 3v18l15-9L5 3z"></path>
-								</svg> Play Now
-							</button>
+		<main class="flex flex-col lg:flex-row gap-8">
+			<div class="w-full lg:w-3/4">
+				<div class="relative aspect-video bg-[#0a0a0a] rounded-lg overflow-hidden border border-[#1a1a2e]">
+					<img id="game-hero-img" src="/assets/images/hexa-merge-ci.png" alt="Hexa Merge game screenshot" class="absolute inset-0 w-full h-full object-cover opacity-60">
+					<div id="game-start-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-black/30">
+						<h1 class="text-xl md:text-3xl font-bold text-white uppercase tracking-widest font-liberation drop-shadow-lg">Hexa Merge</h1>
+						<button id="play-game-btn" class="bg-[#48d1cc] text-[#00234f] font-bold text-sm px-8 py-3 rounded uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M5 3v18l15-9L5 3z"></path>
+							</svg> Play Now
+						</button>
+					</div>
+					<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+				</div>
+
+				<!-- Game Details Card -->
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
+					<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
+						<div>
+							<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Hexa Merge</h2>
+							<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Puzzle Category · Rating: 4.5 ★</p>
 						</div>
-						<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+						<div class="flex items-center gap-2">
+							<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">320K Plays</span>
+							<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
+						</div>
 					</div>
 
-					<!-- Game Details Card -->
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
-						<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
-							<div>
-								<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Hexa Merge</h2>
-								<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Puzzle Category · Rating: 4.5 ★</p>
-							</div>
-							<div class="flex items-center gap-2">
-								<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">320K Plays</span>
-								<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
-							</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Game Overview
+							</h3>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Hexa Merge is a relaxing yet strategically deep puzzle game where you place hexagonal tiles numbered 1 through 9 onto a honeycomb grid. When three or more tiles of the same number connect edge-to-edge, they merge into a single tile of the next higher value — three 1s become a 2, three 2s become a 3, and so on. The goal is to create the highest-value tile possible before the board fills up and no more placements are available.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The hexagonal grid fundamentally changes merge puzzle strategy compared to square-grid games. Each hex tile has six potential neighbors instead of four, meaning merge chains can branch in more directions and create more complex cascading reactions. A well-planned placement can trigger a chain of merges that clears half the board in a single satisfying cascade. Conversely, a single careless placement can block multiple potential merge paths and quickly lead to a board lock.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The game introduces special tiles at regular intervals that add variety to the core merge loop. Rainbow tiles act as wildcards, matching any adjacent number for merge purposes. Bomb tiles clear a small radius when placed, creating emergency breathing room on a crowded board. Crystal tiles lock in place permanently but are worth double value when included in a merge, rewarding you for planning around their fixed positions.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Hexa Merge features a zen mode with no time pressure for thoughtful, meditative play sessions, and a rush mode where new tiles appear on the board automatically every few seconds, forcing faster decision-making. Both modes track high scores independently. The game's soft ambient soundtrack and gentle particle effects when merging create a calm, focus-friendly atmosphere that has made it a favorite for decompression sessions among players who enjoy puzzle games that reward patience and spatial thinking over quick reflexes.</p>
 						</div>
-
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Game Overview
-								</h3>
-								<p class="text-[#64748b] text-xs leading-relaxed">Place hexagonal tiles on a board; connecting three of the same number merges them into a higher value. Handcrafted by FreshPlay Studios for maximum browser performance and responsive controls on both touch and desktop devices.</p>
-							</div>
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Controls & How to Play
-								</h3>
-								<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
-									
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Controls &amp; How to Play
+							</h3>
+							<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
+								
             <li class="flex items-center gap-3">
                 <div class="flex gap-1">
                     <span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">TAP</span>
@@ -137,25 +132,53 @@
                 <span class="uppercase text-[#00234f] text-[11px] font-mono font-bold tracking-widest">Place Tiles</span>
             </li>
             
-								</ul>
-							</div>
-						</div>
-
-						<!-- In-Depth Game Guide & Strategies -->
-						<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
-							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
-							<p>To master <strong>Hexa Merge</strong>, timing and pattern recognition are critical. Watch for subtle visual and audio telegraphs before major hazards appear. Focus on maintaining a steady rhythm rather than rushing, as combo multipliers reward consistency over reckless speed.</p>
-							<p>On mobile touchscreens, keep your fingers near the lower corners of the screen to maintain clear visibility of the central play area. On desktop, utilize tactile key inputs for millisecond-accurate reflex response.</p>
+							</ul>
 						</div>
 					</div>
-				</div>
 
-				<!-- Sidebar -->
-				<aside class="w-full lg:w-1/4 space-y-6">
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
-						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Puzzle Games</h3>
-						<div class="space-y-3">
-							
+					<!-- Game Mechanics Stats -->
+					<div class="border-t border-[#e2e8f0] pt-6 mb-6">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Game Mechanics</h3>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">6</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Neighbors Per Tile</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">3</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Special Tile Types</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">2</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Game Modes</div>
+    </div>
+</div>
+					</div>
+
+					<!-- In-Depth Strategy Guide -->
+					<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
+						<h4 class="font-bold text-[#00234f] mb-2 text-xs uppercase tracking-wider">Corner Anchoring Strategy</h4>
+<p>Always place your highest-value tile in a corner or edge position, then build merge chains toward it. Corner positions limit the number of adjacent cells to three, reducing the chance of accidentally merging your anchor tile before you're ready. Think of it as building a pyramid — your highest value sits at the apex, with supporting merge chains feeding into it.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Reading the Tile Queue</h4>
+<p>The game shows you the next 3 tiles that will be available. Always plan your current placement based on these upcoming tiles, not just immediate merges. If you see three 4s coming, start clearing a path to place them adjacently. Reacting tile-by-tile instead of planning 2-3 moves ahead is the most common reason boards fill up prematurely.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Using Special Tiles Effectively</h4>
+<p>Save bomb tiles for emergencies when the board is 70%+ full. Rainbow tiles should be placed adjacent to your highest-value cluster, not wasted on low-value merges. Crystal tiles are most valuable near your corner anchor — their permanent placement and double merge value make them excellent foundation pieces for long-term score building.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Cascade Chain Setup</h4>
+<p>The highest scores come from multi-step cascade merges. To set one up, arrange same-value tiles in a line where each merge creates a new match with the next group. For example: place three 3s adjacent to two existing 4s — the 3s merge into a 4, which then immediately chains into a merge with the adjacent 4s to create a 5. These cascades are deeply satisfying and score-efficient.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<aside class="w-full lg:w-1/4 space-y-6">
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Puzzle Games</h3>
+					<div class="space-y-3">
+						
             <a href="/game/light-linker" class="flex items-center gap-3 p-2 rounded hover:bg-[#f0f4f8] transition-colors group">
                 <img src="/assets/images/light-linker-ci.png" alt="Light Linker" class="w-14 h-14 rounded object-cover border border-[#e2e8f0]">
                 <div>
@@ -188,37 +211,37 @@
                 </div>
             </a>
             
-						</div>
 					</div>
+				</div>
 
-					<div class="bg-[#00234f] rounded-lg p-5 text-white">
-						<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
-						<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
-						<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
-					</div>
-				</aside>
-			</div>
+				<div class="bg-[#00234f] rounded-lg p-5 text-white">
+					<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
+					<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
+					<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
+				</div>
+			</aside>
 		</main>
 
 		<!-- Frequently Asked Questions -->
-		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12">
-			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions</h2>
+		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12 mt-8">
+			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions About Hexa Merge</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed text-[#64748b]">
+
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is Hexa Merge free to play?</h3>
-					<p>Yes, Hexa Merge is 100% free to play directly in your browser on desktop, tablet, and mobile with no downloads or subscriptions required.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What makes hexagonal merging different from square-grid merge games?</h3>
+					<p>In Hexa Merge, each tile has six neighbors instead of four, creating significantly more merge possibilities and chain reactions. This means both more strategic options and more complexity — a single placement affects up to six adjacent tiles, making spatial planning more rewarding (and misplacements more costly) than in traditional square-grid merge puzzles.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Does this game support mobile devices?</h3>
-					<p>Yes, Hexa Merge includes automatic touchscreen support and responsive scaling for all modern smartphones and tablets.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What are the special tiles and how should I use them?</h3>
+					<p>Hexa Merge features three special tile types: Rainbow tiles (wildcards that match any number), Bomb tiles (clear a small radius on placement for emergency space), and Crystal tiles (permanent placement, double merge value). Each appears at regular intervals. Strategic players save bombs for board emergencies and position crystals near their highest-value anchor tile.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How is my high score saved?</h3>
-					<p>Your game progress and best scores are automatically saved locally in your browser storage so you can pick up where you left off.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is there a maximum tile value I can reach?</h3>
+					<p>Theoretically, you can merge tiles up to the value of 9 through careful chain reactions. Reaching a 9-tile requires multiple cascading merges and expert board management. Most casual players reach 5 or 6, skilled players consistently hit 7, and only dedicated strategists achieve 8 or 9 in a single run.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Who developed Hexa Merge?</h3>
-					<p>Hexa Merge was designed and engineered by FreshPlay Studios using the Phaser HTML5 web gaming framework.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What's the difference between Zen mode and Rush mode?</h3>
+					<p>Zen mode offers unlimited time for each placement, making it ideal for relaxed, strategic play where you can carefully plan multi-step cascades. Rush mode automatically adds new tiles to the board every few seconds, forcing quicker decisions and creating a more intense, time-pressure experience. Both modes track high scores independently.</p>
 				</div>
 			</div>
 		</section>
@@ -232,7 +255,7 @@
 					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
 						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
-					<p class="text-xs max-w-sm leading-relaxed">MyTopScore & FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
+					<p class="text-xs max-w-sm leading-relaxed">MyTopScore &amp; FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Popular Games</h4>
@@ -249,17 +272,17 @@
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Game Categories</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/category/all" class="hover:text-[#48d1cc]">All Games Library</a></li>
-						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain & Puzzle Games</a></li>
-						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action & Reflex Games</a></li>
-						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival & Strategy Games</a></li>
-						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides & Reviews</a></li>
+						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain &amp; Puzzle Games</a></li>
+						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action &amp; Reflex Games</a></li>
+						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival &amp; Strategy Games</a></li>
+						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides &amp; Reviews</a></li>
 					</ul>
 				</div>
 				<div>
-					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust & Legal</h4>
+					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust &amp; Legal</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/about" class="hover:text-[#48d1cc]">About Our Studio</a></li>
-						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact & Support</a></li>
+						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact &amp; Support</a></li>
 						<li><a href="/terms" class="hover:text-[#48d1cc]">Terms of Service</a></li>
 						<li><a href="/privacy-policy" class="hover:text-[#48d1cc]">Privacy Policy</a></li>
 					</ul>

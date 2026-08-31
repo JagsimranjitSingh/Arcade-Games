@@ -67,69 +67,64 @@
 		</div>
 	</header>
 
-	<div class="container mx-auto px-4 py-4">
-		<!-- Breadcrumb -->
-		<nav class="text-[11px] font-mono uppercase tracking-widest text-[#64748b] mb-4" aria-label="Breadcrumb">
+	<div class="container mx-auto px-4 py-8">
+		<nav class="text-xs text-[#64748b] mb-6 font-mono" aria-label="Breadcrumb">
 			<a href="/" class="hover:text-[#48d1cc]">Home</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<a href="/category/all" class="hover:text-[#48d1cc]">Games</a>
-			<span class="mx-2">›</span>
-			<a href="/category/action" class="hover:text-[#48d1cc]">Action</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<span class="text-[#00234f] font-bold">Hyper Hexagon</span>
 		</nav>
 
-		<main class="flex-grow pb-12">
-			<div class="flex flex-col lg:flex-row gap-8">
-				<div class="w-full lg:w-3/4">
-					<!-- Game Container -->
-					<div id="game-hero-container" class="relative w-full aspect-[16/9] min-h-[480px] bg-[#00234f] rounded-lg overflow-hidden border border-[#003d7a] shadow-xl group">
-						<img id="game-hero-img" src="/assets/images/hyper-hexagon-ci.png" alt="Hyper Hexagon" class="absolute inset-0 w-full h-full object-cover opacity-75">
-						<div class="absolute inset-0 bg-gradient-to-t from-[#00234f] via-[#00234f]/50 to-transparent"></div>
-						<div id="game-start-overlay" class="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
-							<span class="bg-[#48d1cc] text-[#00234f] text-xs font-bold px-3 py-1 rounded font-mono uppercase tracking-widest mb-4 shadow">Action</span>
-							<h1 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wider uppercase font-liberation drop-shadow-lg">Hyper Hexagon</h1>
-							<p class="text-[#c4e2f5] text-sm md:text-base max-w-xl mb-8 leading-relaxed drop-shadow">Navigate a constantly shrinking hexagonal maze by rotating your ship through the gaps.</p>
-							<button id="play-game-btn" class="flex items-center justify-center gap-3 bg-[#48d1cc] text-[#00234f] font-bold px-10 py-4 uppercase tracking-widest text-base rounded-md shadow-2xl transition-all hover:scale-105 hover:bg-white cursor-pointer">
-								<svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M5 3v18l15-9L5 3z"></path>
-								</svg> Play Now
-							</button>
+		<main class="flex flex-col lg:flex-row gap-8">
+			<div class="w-full lg:w-3/4">
+				<div class="relative aspect-video bg-[#0a0a0a] rounded-lg overflow-hidden border border-[#1a1a2e]">
+					<img id="game-hero-img" src="/assets/images/hyper-hexagon-ci.png" alt="Hyper Hexagon game screenshot" class="absolute inset-0 w-full h-full object-cover opacity-60">
+					<div id="game-start-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-black/30">
+						<h1 class="text-xl md:text-3xl font-bold text-white uppercase tracking-widest font-liberation drop-shadow-lg">Hyper Hexagon</h1>
+						<button id="play-game-btn" class="bg-[#48d1cc] text-[#00234f] font-bold text-sm px-8 py-3 rounded uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M5 3v18l15-9L5 3z"></path>
+							</svg> Play Now
+						</button>
+					</div>
+					<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+				</div>
+
+				<!-- Game Details Card -->
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
+					<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
+						<div>
+							<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Hyper Hexagon</h2>
+							<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Action Category · Rating: 4.8 ★</p>
 						</div>
-						<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+						<div class="flex items-center gap-2">
+							<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">2.1M Plays</span>
+							<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
+						</div>
 					</div>
 
-					<!-- Game Details Card -->
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
-						<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
-							<div>
-								<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Hyper Hexagon</h2>
-								<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Action Category · Rating: 4.8 ★</p>
-							</div>
-							<div class="flex items-center gap-2">
-								<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">2.1M Plays</span>
-								<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
-							</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Game Overview
+							</h3>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Hyper Hexagon is a hypnotic survival game where you control a tiny ship orbiting a pulsing central hexagon. Walls close in from the outer edges of the screen, each one containing a single gap that your ship must pass through to survive. The hexagonal maze rotates, accelerates, and reverses direction without warning, creating an endlessly shifting labyrinth that tests spatial awareness and reflexes to their absolute limit.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Inspired by the legendary Super Hexagon genre, this version adds several unique mechanics that set it apart. The wall patterns follow a musical beat-map system — learning to "feel" the rhythm of the incoming walls gives attentive players a significant edge. Every 30 seconds you survive, the game shifts into a new phase with a distinct visual style and wall pattern set. Phase 1 (Point) features simple symmetric walls. Phase 2 (Line) introduces asymmetric gaps and faster rotation. Phase 3 (Triangle) adds rotating inner obstacles. Surviving past 90 seconds reaches the legendary Hexagon phase, where all mechanics combine at maximum intensity.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The game's visual design is deliberately minimalist yet mesmerizing. The central hexagon pulses with each beat, the background shifts through gradient layers, and the screen gently warps as phases progress — creating an almost trance-like state in experienced players. This visual harmony isn't just aesthetic; it serves a gameplay purpose by encoding timing information into the visual rhythm. Players who sync their rotations to the visual pulse consistently outlast those who rely purely on reaction.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The left/right control scheme is stripped to absolute basics — there are no power-ups, shields, or second chances. Pure skill determines survival time, making every new personal best feel genuinely earned. The local leaderboard tracks your best times across all phases, encouraging you to push deeper into the hexagonal maze with each attempt.</p>
 						</div>
-
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Game Overview
-								</h3>
-								<p class="text-[#64748b] text-xs leading-relaxed">Navigate a constantly shrinking hexagonal maze by rotating your ship through the gaps. Handcrafted by FreshPlay Studios for maximum browser performance and responsive controls on both touch and desktop devices.</p>
-							</div>
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Controls & How to Play
-								</h3>
-								<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
-									
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Controls &amp; How to Play
+							</h3>
+							<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
+								
             <li class="flex items-center gap-3">
                 <div class="flex gap-1">
                     <span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">LEFT</span><span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">RIGHT</span>
@@ -137,25 +132,53 @@
                 <span class="uppercase text-[#00234f] text-[11px] font-mono font-bold tracking-widest">Rotate Ship</span>
             </li>
             
-								</ul>
-							</div>
-						</div>
-
-						<!-- In-Depth Game Guide & Strategies -->
-						<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
-							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
-							<p>To master <strong>Hyper Hexagon</strong>, timing and pattern recognition are critical. Watch for subtle visual and audio telegraphs before major hazards appear. Focus on maintaining a steady rhythm rather than rushing, as combo multipliers reward consistency over reckless speed.</p>
-							<p>On mobile touchscreens, keep your fingers near the lower corners of the screen to maintain clear visibility of the central play area. On desktop, utilize tactile key inputs for millisecond-accurate reflex response.</p>
+							</ul>
 						</div>
 					</div>
-				</div>
 
-				<!-- Sidebar -->
-				<aside class="w-full lg:w-1/4 space-y-6">
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
-						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Action Games</h3>
-						<div class="space-y-3">
-							
+					<!-- Game Mechanics Stats -->
+					<div class="border-t border-[#e2e8f0] pt-6 mb-6">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Game Mechanics</h3>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">4</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Phases to Master</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">30s</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Per Phase Shift</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">∞</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Endless Survival</div>
+    </div>
+</div>
+					</div>
+
+					<!-- In-Depth Strategy Guide -->
+					<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
+						<h4 class="font-bold text-[#00234f] mb-2 text-xs uppercase tracking-wider">The First 30 Seconds — Building Rhythm</h4>
+<p>Phase 1 (Point) is your foundation. The walls arrive in symmetric pairs with wide gaps. Rather than watching individual walls, focus on the central hexagon's pulse — each pulse corresponds to a wall arrival. Tap your rotation in rhythm with the pulse to develop the muscle memory you'll need for faster phases.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Handling Direction Reversals</h4>
+<p>The maze reverses rotation direction at semi-random intervals. The tell is a brief 0.2-second pause in the hexagon's pulse. When you feel that momentary stillness, immediately prepare to mirror your rotation direction. In later phases, reversals happen more frequently and the pause window shrinks to nearly imperceptible — this is where practice separates casual players from elite survivors.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Phase 3 (Triangle) — Inner Obstacle Strategy</h4>
+<p>Triangle phase introduces rotating obstacles between the outer walls and your ship. The key insight is that inner obstacles always rotate opposite to the outer walls. When the outer maze spins clockwise, the inner obstacles spin counter-clockwise. Use this knowledge to thread gaps by moving with the inner obstacle rotation rather than against it.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Surviving the Hexagon Phase</h4>
+<p>Beyond 90 seconds, every mechanic combines at maximum speed. At this point, conscious decision-making is too slow — you must rely entirely on trained reflexes. The best preparation is repeatedly practicing Phase 2 and Phase 3 transitions until they feel automatic, freeing your attention to handle the Hexagon phase's unique combination attacks.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<aside class="w-full lg:w-1/4 space-y-6">
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Action Games</h3>
+					<div class="space-y-3">
+						
             <a href="/game/neon-blade-dash" class="flex items-center gap-3 p-2 rounded hover:bg-[#f0f4f8] transition-colors group">
                 <img src="/assets/images/neon-blade-ci.png" alt="Neon Blade Dash" class="w-14 h-14 rounded object-cover border border-[#e2e8f0]">
                 <div>
@@ -188,37 +211,37 @@
                 </div>
             </a>
             
-						</div>
 					</div>
+				</div>
 
-					<div class="bg-[#00234f] rounded-lg p-5 text-white">
-						<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
-						<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
-						<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
-					</div>
-				</aside>
-			</div>
+				<div class="bg-[#00234f] rounded-lg p-5 text-white">
+					<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
+					<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
+					<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
+				</div>
+			</aside>
 		</main>
 
 		<!-- Frequently Asked Questions -->
-		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12">
-			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions</h2>
+		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12 mt-8">
+			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions About Hyper Hexagon</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed text-[#64748b]">
+
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is Hyper Hexagon free to play?</h3>
-					<p>Yes, Hyper Hexagon is 100% free to play directly in your browser on desktop, tablet, and mobile with no downloads or subscriptions required.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What are the different phases in Hyper Hexagon?</h3>
+					<p>Hyper Hexagon has four phases: Point (simple symmetric walls, 0-30 seconds), Line (asymmetric gaps with faster rotation, 30-60s), Triangle (rotating inner obstacles, 60-90s), and Hexagon (all mechanics at maximum intensity, 90s+). Each phase has a unique visual style and wall pattern set.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Does this game support mobile devices?</h3>
-					<p>Yes, Hyper Hexagon includes automatic touchscreen support and responsive scaling for all modern smartphones and tablets.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is there an ending to Hyper Hexagon?</h3>
+					<p>Hyper Hexagon is an infinite survival game with no definitive ending. The goal is to survive as long as possible, with the Hexagon phase (beyond 90 seconds) representing the ultimate challenge. Your best survival times are saved locally, encouraging continuous improvement.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How is my high score saved?</h3>
-					<p>Your game progress and best scores are automatically saved locally in your browser storage so you can pick up where you left off.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How does the rhythm system work in the gameplay?</h3>
+					<p>The central hexagon pulses in sync with the background music, and wall arrivals are beat-mapped to this pulse. Players who synchronize their rotations with the visual and audio rhythm gain a significant timing advantage over pure reaction-based play. This rhythmic element is what makes longer survival times feel almost meditative.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Who developed Hyper Hexagon?</h3>
-					<p>Hyper Hexagon was designed and engineered by FreshPlay Studios using the Phaser HTML5 web gaming framework.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Why do I keep dying at the same point every run?</h3>
+					<p>Phase transitions at 30 and 60 seconds introduce sudden difficulty spikes. Most players hit a wall at these boundaries because the gap positioning and rotation speed change abruptly. Practice deliberately in the seconds leading up to these transitions — the key is recognizing the phase shift indicators and adjusting your rotation speed preemptively rather than reacting after the shift.</p>
 				</div>
 			</div>
 		</section>
@@ -232,7 +255,7 @@
 					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
 						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
-					<p class="text-xs max-w-sm leading-relaxed">MyTopScore & FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
+					<p class="text-xs max-w-sm leading-relaxed">MyTopScore &amp; FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Popular Games</h4>
@@ -249,17 +272,17 @@
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Game Categories</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/category/all" class="hover:text-[#48d1cc]">All Games Library</a></li>
-						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain & Puzzle Games</a></li>
-						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action & Reflex Games</a></li>
-						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival & Strategy Games</a></li>
-						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides & Reviews</a></li>
+						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain &amp; Puzzle Games</a></li>
+						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action &amp; Reflex Games</a></li>
+						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival &amp; Strategy Games</a></li>
+						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides &amp; Reviews</a></li>
 					</ul>
 				</div>
 				<div>
-					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust & Legal</h4>
+					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust &amp; Legal</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/about" class="hover:text-[#48d1cc]">About Our Studio</a></li>
-						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact & Support</a></li>
+						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact &amp; Support</a></li>
 						<li><a href="/terms" class="hover:text-[#48d1cc]">Terms of Service</a></li>
 						<li><a href="/privacy-policy" class="hover:text-[#48d1cc]">Privacy Policy</a></li>
 					</ul>

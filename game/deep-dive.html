@@ -67,69 +67,64 @@
 		</div>
 	</header>
 
-	<div class="container mx-auto px-4 py-4">
-		<!-- Breadcrumb -->
-		<nav class="text-[11px] font-mono uppercase tracking-widest text-[#64748b] mb-4" aria-label="Breadcrumb">
+	<div class="container mx-auto px-4 py-8">
+		<nav class="text-xs text-[#64748b] mb-6 font-mono" aria-label="Breadcrumb">
 			<a href="/" class="hover:text-[#48d1cc]">Home</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<a href="/category/all" class="hover:text-[#48d1cc]">Games</a>
-			<span class="mx-2">›</span>
-			<a href="/category/survival" class="hover:text-[#48d1cc]">Survival</a>
-			<span class="mx-2">›</span>
+			<span class="mx-2">/</span>
 			<span class="text-[#00234f] font-bold">Deep Dive</span>
 		</nav>
 
-		<main class="flex-grow pb-12">
-			<div class="flex flex-col lg:flex-row gap-8">
-				<div class="w-full lg:w-3/4">
-					<!-- Game Container -->
-					<div id="game-hero-container" class="relative w-full aspect-[16/9] min-h-[480px] bg-[#00234f] rounded-lg overflow-hidden border border-[#003d7a] shadow-xl group">
-						<img id="game-hero-img" src="/assets/images/deep-dive-ci.png" alt="Deep Dive" class="absolute inset-0 w-full h-full object-cover opacity-75">
-						<div class="absolute inset-0 bg-gradient-to-t from-[#00234f] via-[#00234f]/50 to-transparent"></div>
-						<div id="game-start-overlay" class="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
-							<span class="bg-[#48d1cc] text-[#00234f] text-xs font-bold px-3 py-1 rounded font-mono uppercase tracking-widest mb-4 shadow">Survival</span>
-							<h1 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wider uppercase font-liberation drop-shadow-lg">Deep Dive</h1>
-							<p class="text-[#c4e2f5] text-sm md:text-base max-w-xl mb-8 leading-relaxed drop-shadow">Control a submarine descending into the abyss, managing oxygen and dodging sea monsters.</p>
-							<button id="play-game-btn" class="flex items-center justify-center gap-3 bg-[#48d1cc] text-[#00234f] font-bold px-10 py-4 uppercase tracking-widest text-base rounded-md shadow-2xl transition-all hover:scale-105 hover:bg-white cursor-pointer">
-								<svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M5 3v18l15-9L5 3z"></path>
-								</svg> Play Now
-							</button>
+		<main class="flex flex-col lg:flex-row gap-8">
+			<div class="w-full lg:w-3/4">
+				<div class="relative aspect-video bg-[#0a0a0a] rounded-lg overflow-hidden border border-[#1a1a2e]">
+					<img id="game-hero-img" src="/assets/images/deep-dive-ci.png" alt="Deep Dive game screenshot" class="absolute inset-0 w-full h-full object-cover opacity-60">
+					<div id="game-start-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-black/30">
+						<h1 class="text-xl md:text-3xl font-bold text-white uppercase tracking-widest font-liberation drop-shadow-lg">Deep Dive</h1>
+						<button id="play-game-btn" class="bg-[#48d1cc] text-[#00234f] font-bold text-sm px-8 py-3 rounded uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2">
+							<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M5 3v18l15-9L5 3z"></path>
+							</svg> Play Now
+						</button>
+					</div>
+					<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+				</div>
+
+				<!-- Game Details Card -->
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
+					<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
+						<div>
+							<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Deep Dive</h2>
+							<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Survival Category · Rating: 4.9 ★</p>
 						</div>
-						<div id="phaser-game-container" class="absolute inset-0 z-20 hidden bg-black"></div>
+						<div class="flex items-center gap-2">
+							<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">1.8M Plays</span>
+							<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
+						</div>
 					</div>
 
-					<!-- Game Details Card -->
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-6 md:p-8 mt-6">
-						<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#e2e8f0] pb-6 mb-6 gap-4">
-							<div>
-								<h2 class="text-2xl font-bold text-[#00234f] uppercase font-liberation tracking-wider">Deep Dive</h2>
-								<p class="text-xs text-[#48d1cc] font-mono mt-1 uppercase tracking-widest font-bold">By FreshPlay Studios · Survival Category · Rating: 4.9 ★</p>
-							</div>
-							<div class="flex items-center gap-2">
-								<span class="bg-[#c4e2f5] text-[#00234f] text-xs font-mono font-bold px-3 py-1.5 rounded">1.8M Plays</span>
-								<span class="bg-[#e2e8f0] text-[#00234f] text-xs font-mono px-3 py-1.5 rounded">60 FPS</span>
-							</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Game Overview
+							</h3>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Deep Dive is an atmospheric survival game that takes you on a harrowing descent into the ocean's darkest depths aboard a fragile submarine. You must manage dwindling oxygen, avoid increasingly aggressive deep-sea creatures, and navigate through tight underwater cave systems — all while the crushing pressure at greater depths gradually weakens your hull. Every meter deeper is a calculated risk, and knowing when to surface is just as important as knowing how to survive.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">The game's core tension comes from its dual resource system: oxygen and hull integrity. Oxygen depletes constantly and can be replenished by surfacing at air pockets hidden in cave ceilings or by finding scattered oxygen canisters. Hull integrity decreases with depth pressure and creature attacks, and can only be partially repaired at rare repair stations. This creates a persistent "push your luck" dynamic — do you dive deeper for more points and rarer discoveries, or surface early to preserve your submarine?</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Deep Dive features five depth zones, each with distinct biomes and threats. The Sunlight Zone (0-200m) is relatively safe with small fish and gentle currents. The Twilight Zone (200-500m) introduces bioluminescent jellyfish swarms and stronger currents. The Midnight Zone (500-1500m) brings aggressive anglerfish, crushing pressure, and near-total darkness where only your sonar can reveal the path ahead. The Abyssal Zone (1500-3000m) contains colossal predators and labyrinthine cave systems. Reaching the Hadal Zone (3000m+) is a feat achieved by only the most skilled and risk-tolerant players, where every remaining resource matters and a single mistake means implosion.</p>
+								<p class="text-[#64748b] text-xs leading-relaxed mb-3">Your sonar ability serves dual purposes: it reveals the surrounding terrain and creature positions with a brief pulse, but it also attracts nearby predators to the sound source. This creates a strategic dilemma — using sonar in dark zones is essential for navigation but dangerous for survival. The game rewards players who learn to read environmental cues (bioluminescence patterns, current changes, distant creature sounds) to navigate with minimal sonar usage.</p>
 						</div>
-
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Game Overview
-								</h3>
-								<p class="text-[#64748b] text-xs leading-relaxed">Control a submarine descending into the abyss, managing oxygen and dodging sea monsters. Handcrafted by FreshPlay Studios for maximum browser performance and responsive controls on both touch and desktop devices.</p>
-							</div>
-							<div>
-								<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
-									<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg> Controls & How to Play
-								</h3>
-								<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
-									
+						<div>
+							<h3 class="flex items-center gap-2 text-[#00234f] font-bold text-sm tracking-widest mb-3 uppercase font-liberation">
+								<svg width="18" height="18" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg> Controls &amp; How to Play
+							</h3>
+							<ul class="text-xs text-[#64748b] space-y-2.5 font-mono">
+								
             <li class="flex items-center gap-3">
                 <div class="flex gap-1">
                     <span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">ARROWS</span><span class="text-[#00234f] border border-[#00234f] bg-[#c4e2f5] px-2 py-0.5 rounded text-center tracking-widest text-[11px] font-bold">DRAG</span>
@@ -144,25 +139,53 @@
                 <span class="uppercase text-[#00234f] text-[11px] font-mono font-bold tracking-widest">Boost / Sonar</span>
             </li>
             
-								</ul>
-							</div>
-						</div>
-
-						<!-- In-Depth Game Guide & Strategies -->
-						<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
-							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
-							<p>To master <strong>Deep Dive</strong>, timing and pattern recognition are critical. Watch for subtle visual and audio telegraphs before major hazards appear. Focus on maintaining a steady rhythm rather than rushing, as combo multipliers reward consistency over reckless speed.</p>
-							<p>On mobile touchscreens, keep your fingers near the lower corners of the screen to maintain clear visibility of the central play area. On desktop, utilize tactile key inputs for millisecond-accurate reflex response.</p>
+							</ul>
 						</div>
 					</div>
-				</div>
 
-				<!-- Sidebar -->
-				<aside class="w-full lg:w-1/4 space-y-6">
-					<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
-						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Survival Games</h3>
-						<div class="space-y-3">
-							
+					<!-- Game Mechanics Stats -->
+					<div class="border-t border-[#e2e8f0] pt-6 mb-6">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Game Mechanics</h3>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">5</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Ocean Depth Zones</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">2</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Resource Systems</div>
+    </div>
+    <div class="bg-[#f0f4f8] rounded-lg p-4 text-center">
+        <div class="text-2xl font-bold text-[#00234f]">3000m+</div>
+        <div class="text-[10px] text-[#64748b] uppercase tracking-wider font-mono mt-1">Maximum Depth</div>
+    </div>
+</div>
+					</div>
+
+					<!-- In-Depth Strategy Guide -->
+					<div class="border-t border-[#e2e8f0] pt-6 space-y-4 text-xs text-[#64748b] leading-relaxed">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest font-liberation">Gameplay Strategy &amp; Pro Tips</h3>
+						<h4 class="font-bold text-[#00234f] mb-2 text-xs uppercase tracking-wider">Oxygen Management Basics</h4>
+<p>Oxygen depletes at a constant rate that increases slightly with depth. The critical threshold is 30% — below this, your vision narrows and controls become sluggish, simulating oxygen deprivation. Always keep a mental map of the nearest air pocket or canister. If you reach 25% oxygen without a known supply nearby, immediately ascend — the risk of disorientation at low oxygen almost always leads to catastrophic outcomes.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Creature Avoidance Patterns</h4>
+<p>Each creature type has predictable behavior. Jellyfish drift in fixed patterns and are harmless to avoid once you learn their routes. Anglerfish are attracted to light — avoid using sonar when their distinctive glow is visible. Abyssal predators patrol set territories; learn their patrol boundaries and slip through during their furthest patrol point. Fighting creatures is never efficient — evasion always costs less hull integrity than combat.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">Sonar Discipline</h4>
+<p>Use sonar in short, targeted bursts rather than continuous pinging. Each ping reveals the terrain for 3 seconds — memorize the layout during this window. In the Midnight Zone and below, develop a rhythm of "ping, memorize, navigate blind for 10 seconds, ping again." This minimizes predator attraction while maintaining adequate navigation awareness.</p>
+
+<h4 class="font-bold text-[#00234f] mb-2 mt-4 text-xs uppercase tracking-wider">When to Surface</h4>
+<p>The optimal surfacing decision depends on your hull integrity, not just oxygen. Oxygen is recoverable at air pockets; hull integrity is only repairable at rare stations. If your hull drops below 40%, begin ascending immediately regardless of oxygen levels. A hull implosion is instant death, while low oxygen gives you a gradual warning through visual and control effects.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<aside class="w-full lg:w-1/4 space-y-6">
+				<div class="bg-white rounded-lg border border-[#e2e8f0] p-5">
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-b border-[#e2e8f0] pb-2 font-liberation">More Survival Games</h3>
+					<div class="space-y-3">
+						
             <a href="/game/space-scavenger" class="flex items-center gap-3 p-2 rounded hover:bg-[#f0f4f8] transition-colors group">
                 <img src="/assets/images/space-ci.png" alt="Space Scavenger" class="w-14 h-14 rounded object-cover border border-[#e2e8f0]">
                 <div>
@@ -195,37 +218,37 @@
                 </div>
             </a>
             
-						</div>
 					</div>
+				</div>
 
-					<div class="bg-[#00234f] rounded-lg p-5 text-white">
-						<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
-						<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
-						<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
-					</div>
-				</aside>
-			</div>
+				<div class="bg-[#00234f] rounded-lg p-5 text-white">
+					<h3 class="text-xs font-bold text-[#48d1cc] uppercase tracking-widest mb-2 font-mono">Instant Free Play</h3>
+					<p class="text-[11px] text-[#c4e2f5] leading-relaxed">All games on FreshPlay Arcade run in your web browser with 0 friction. No signups, no plugins, 100% free.</p>
+					<a href="/category/all" class="inline-block mt-3 bg-[#48d1cc] text-[#00234f] font-bold text-xs px-4 py-2 rounded uppercase tracking-wider hover:bg-white transition-colors">Browse 20+ Games</a>
+				</div>
+			</aside>
 		</main>
 
 		<!-- Frequently Asked Questions -->
-		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12">
-			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions</h2>
+		<section class="bg-white rounded-lg border border-[#e2e8f0] p-8 mb-12 mt-8">
+			<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest mb-6 font-liberation border-l-3 border-[#48d1cc] pl-4">Frequently Asked Questions About Deep Dive</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed text-[#64748b]">
+
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is Deep Dive free to play?</h3>
-					<p>Yes, Deep Dive is 100% free to play directly in your browser on desktop, tablet, and mobile with no downloads or subscriptions required.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How does the depth zone system work in Deep Dive?</h3>
+					<p>Deep Dive features five ocean depth zones, each with unique biomes: Sunlight Zone (0-200m, gentle), Twilight Zone (200-500m, jellyfish), Midnight Zone (500-1500m, anglerfish, near-darkness), Abyssal Zone (1500-3000m, colossal predators, cave labyrinths), and Hadal Zone (3000m+, extreme danger). Each zone increases pressure, creature aggression, and resource scarcity.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Does this game support mobile devices?</h3>
-					<p>Yes, Deep Dive includes automatic touchscreen support and responsive scaling for all modern smartphones and tablets.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">What resources do I need to manage?</h3>
+					<p>Two critical resources: Oxygen (depletes constantly, recoverable at air pockets and canisters) and Hull Integrity (damaged by pressure and creatures, repairable only at rare stations). Below 30% oxygen, your vision narrows and controls degrade. Below 40% hull, you risk catastrophic implosion. Balancing both resources against depth progression is the core challenge.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How is my high score saved?</h3>
-					<p>Your game progress and best scores are automatically saved locally in your browser storage so you can pick up where you left off.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">How does the sonar system work and why is it risky?</h3>
+					<p>Sonar sends a pulse that reveals surrounding terrain and creature positions for 3 seconds. However, the sound attracts nearby predators to your location. This creates a strategic dilemma: sonar is essential for navigation in dark zones but dangerous for survival. Expert players minimize sonar usage by memorizing terrain layouts and reading environmental cues like bioluminescence and current patterns.</p>
 				</div>
 				<div>
-					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Who developed Deep Dive?</h3>
-					<p>Deep Dive was designed and engineered by FreshPlay Studios using the Phaser HTML5 web gaming framework.</p>
+					<h3 class="font-bold text-[#00234f] mb-1.5 text-sm">Is there a way to fight the sea creatures?</h3>
+					<p>Deep Dive is primarily an evasion-based survival game. While your submarine can absorb creature hits (at the cost of hull integrity), there is no direct combat system. The optimal strategy is always to avoid creatures rather than confront them. Learning each creature type's behavior patterns and patrol routes is the key to deep, successful dives.</p>
 				</div>
 			</div>
 		</section>
@@ -239,7 +262,7 @@
 					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
 						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
-					<p class="text-xs max-w-sm leading-relaxed">MyTopScore & FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
+					<p class="text-xs max-w-sm leading-relaxed">MyTopScore &amp; FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play on all devices with zero downloads.</p>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Popular Games</h4>
@@ -256,17 +279,17 @@
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Game Categories</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/category/all" class="hover:text-[#48d1cc]">All Games Library</a></li>
-						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain & Puzzle Games</a></li>
-						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action & Reflex Games</a></li>
-						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival & Strategy Games</a></li>
-						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides & Reviews</a></li>
+						<li><a href="/category/puzzle" class="hover:text-[#48d1cc]">Brain &amp; Puzzle Games</a></li>
+						<li><a href="/category/action" class="hover:text-[#48d1cc]">Action &amp; Reflex Games</a></li>
+						<li><a href="/category/survival" class="hover:text-[#48d1cc]">Survival &amp; Strategy Games</a></li>
+						<li><a href="/blog" class="hover:text-[#48d1cc]">Gaming Guides &amp; Reviews</a></li>
 					</ul>
 				</div>
 				<div>
-					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust & Legal</h4>
+					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Trust &amp; Legal</h4>
 					<ul class="space-y-1.5 text-xs">
 						<li><a href="/about" class="hover:text-[#48d1cc]">About Our Studio</a></li>
-						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact & Support</a></li>
+						<li><a href="/contact" class="hover:text-[#48d1cc]">Contact &amp; Support</a></li>
 						<li><a href="/terms" class="hover:text-[#48d1cc]">Terms of Service</a></li>
 						<li><a href="/privacy-policy" class="hover:text-[#48d1cc]">Privacy Policy</a></li>
 					</ul>
