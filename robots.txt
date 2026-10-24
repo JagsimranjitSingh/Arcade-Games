@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Block internal template files (content served via clean URLs)
+Disallow: /play.html
+Disallow: /explore.html
+Disallow: /article.html
+Disallow: /blog.html
+
+# Block raw game assets (not for indexing)
+Disallow: /games/
+
 Sitemap: https://mytopscore.com/sitemap.xml

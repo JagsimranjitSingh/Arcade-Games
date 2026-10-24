@@ -1,8 +1,18 @@
 [
     {
+        "source": "/play",
+        "status": "301",
+        "target": "/category/all"
+    },
+    {
+        "source": "/play/",
+        "status": "301",
+        "target": "/category/all"
+    },
+    {
         "source": "/game/<*>",
         "status": "200",
-        "target": "/play.html"
+        "target": "/game/<*>.html"
     },
     {
         "source": "/category/<*>",
@@ -72,7 +82,7 @@
     {
         "source": "/blog/<*>",
         "status": "200",
-        "target": "/article.html"
+        "target": "/blog/<*>.html"
     },
     {
         "source": "/<*>",
