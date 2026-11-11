@@ -334,19 +334,6 @@ function generateHomepage() {
 <body class="flex flex-col min-h-screen fp-ready">
 ${renderHeader('')}
 \t<main class="flex-grow container mx-auto px-4 py-6">
-\t\t<!-- Hero Intro Banner -->
-\t\t<section class="bg-[#00234f] text-[#c4e2f5] rounded-xl p-6 md:p-8 mb-8 border border-[#003d7a] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-\t\t\t<div class="max-w-2xl">
-\t\t\t\t<span class="text-[10px] font-mono uppercase tracking-widest text-[#48d1cc] bg-[#003d7a] px-2.5 py-1 rounded">20 Original HTML5 Games · Instant Browser Play</span>
-\t\t\t\t<h1 class="text-2xl md:text-3xl font-bold uppercase tracking-widest font-liberation mt-3 mb-2 text-white">FreshPlay Arcade — Instant Web Gaming</h1>
-\t\t\t\t<p class="text-xs md:text-sm text-[#94a3b8] leading-relaxed">Handcrafted HTML5 &amp; Phaser browser games engineered for 60 FPS desktop and mobile play. Dive straight into reflex action, spatial logic puzzles, survival adventures, and strategy simulations — zero downloads or sign-ups required.</p>
-\t\t\t</div>
-\t\t\t<div class="flex flex-wrap gap-3 shrink-0">
-\t\t\t\t<a href="/category/all" class="bg-[#48d1cc] text-[#00234f] font-bold text-xs px-5 py-3 rounded uppercase tracking-widest font-mono hover:bg-white transition-colors">Explore All 20 Games</a>
-\t\t\t\t<a href="/blog" class="border border-[#48d1cc] text-[#c4e2f5] font-bold text-xs px-5 py-3 rounded uppercase tracking-widest font-mono hover:bg-[#003d7a] transition-colors">Read Strategy Guides</a>
-\t\t\t</div>
-\t\t</section>
-
 \t\t<!-- Main + Sidebar Layout -->
 \t\t<div class="flex flex-col lg:flex-row gap-6">
 \t\t\t<div class="w-full lg:w-3/4 flex flex-col gap-8">

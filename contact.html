@@ -47,7 +47,7 @@
 </head>
 
 <body class="flex flex-col min-h-screen bg-[#c4e2f5] fp-ready">
-		<header class="bg-[#00234f] border-b border-[#003d7a] relative z-50">
+			<header class="bg-[#00234f] border-b border-[#003d7a] relative z-50">
 		<div class="container mx-auto px-4 h-20 md:h-20 flex items-center justify-between">
 			<a href="/" class="flex items-center group" aria-label="mytopscore Home">
 				<img src="/assets/images/logo.png" alt="FreshPlay Arcade - MyTopScore logo" class="h-16 md:h-20 w-auto object-contain py-2">
@@ -159,37 +159,38 @@
 					</div>
 				</div>
 			</div>
-			<div class="bg-[#c4e2f5]/60 backdrop-blur-md border border-[#c4e2f5]/40 p-8 md:p-10 rounded-xl shadow-lg">
-				<form id="contact-form" class="flex flex-col gap-6">
+			<div class="bg-white border border-[#e2e8f0] border-t-[4px] border-t-[#48d1cc] p-8 md:p-10 rounded-xl shadow-lg">
+				<h2 class="text-lg font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-6">Send Us a Message</h2>
+				<form id="contact-form" class="flex flex-col gap-5">
 					<input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 						<div class="flex flex-col gap-2 relative">
-							<label for="first_name" class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">First
+							<label for="first_name" class="text-[11px] font-bold text-[#00234f] uppercase tracking-widest font-mono">First
 								Name</label>
 							<input type="text" id="first_name" name="first_name" placeholder="John"
-								class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 font-mono w-full"
+								class="bg-[#f8fafc] border border-[#cbd5e1] text-[#00234f] px-4 py-3 rounded-lg outline-none focus:border-[#48d1cc] focus:bg-white focus:ring-2 focus:ring-[#48d1cc]/20 transition-all text-sm placeholder:text-[#64748b] font-mono w-full"
 								required>
 						</div>
 						<div class="flex flex-col gap-2 relative">
-							<label for="last_name" class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Last
+							<label for="last_name" class="text-[11px] font-bold text-[#00234f] uppercase tracking-widest font-mono">Last
 								Name</label>
 							<input type="text" id="last_name" name="last_name" placeholder="Doe"
-								class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 font-mono w-full"
+								class="bg-[#f8fafc] border border-[#cbd5e1] text-[#00234f] px-4 py-3 rounded-lg outline-none focus:border-[#48d1cc] focus:bg-white focus:ring-2 focus:ring-[#48d1cc]/20 transition-all text-sm placeholder:text-[#64748b] font-mono w-full"
 								required>
 						</div>
 					</div>
 					<div class="flex flex-col gap-2 relative">
-						<label for="email" class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Email
+						<label for="email" class="text-[11px] font-bold text-[#00234f] uppercase tracking-widest font-mono">Email
 							Address</label>
 						<input type="email" id="email" name="email" placeholder="john@example.com"
-							class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 font-mono w-full"
+							class="bg-[#f8fafc] border border-[#cbd5e1] text-[#00234f] px-4 py-3 rounded-lg outline-none focus:border-[#48d1cc] focus:bg-white focus:ring-2 focus:ring-[#48d1cc]/20 transition-all text-sm placeholder:text-[#64748b] font-mono w-full"
 							required>
 					</div>
 					<div class="flex flex-col gap-2 relative">
 						<label for="subject"
-							class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Subject</label>
+							class="text-[11px] font-bold text-[#00234f] uppercase tracking-widest font-mono">Subject</label>
 						<select id="subject" name="subject"
-							class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 appearance-none font-mono cursor-pointer w-full">
+							class="bg-[#f8fafc] border border-[#cbd5e1] text-[#00234f] px-4 py-3 rounded-lg outline-none focus:border-[#48d1cc] focus:bg-white focus:ring-2 focus:ring-[#48d1cc]/20 transition-all text-sm font-mono cursor-pointer w-full">
 							<option value="Game Submission">Game Submission</option>
 							<option value="General Inquiry">General Inquiry</option>
 							<option value="Bug Report">Bug Report</option>
@@ -197,13 +198,13 @@
 					</div>
 					<div class="flex flex-col gap-2 relative">
 						<label for="message"
-							class="text-[10px] text-[#00234f]/70 uppercase tracking-widest font-mono">Message</label>
+							class="text-[11px] font-bold text-[#00234f] uppercase tracking-widest font-mono">Message</label>
 						<textarea id="message" name="message" rows="4" placeholder="Type your message here..."
-							class="bg-transparent border-b border-[#00234f]/30 text-[#00234f] px-4 py-3 rounded-none outline-none focus:border-[#48d1cc] transition-colors text-sm placeholder:text-[#00234f]/50 resize-none font-mono w-full"
+							class="bg-[#f8fafc] border border-[#cbd5e1] text-[#00234f] px-4 py-3 rounded-lg outline-none focus:border-[#48d1cc] focus:bg-white focus:ring-2 focus:ring-[#48d1cc]/20 transition-all text-sm placeholder:text-[#64748b] resize-none font-mono w-full"
 							required></textarea>
 					</div>
 					<button type="submit" id="submit-btn"
-						class="mt-2 bg-[#00234f] text-[#c4e2f5] font-bold uppercase tracking-widest py-4 rounded text-sm btn-glow font-mono transition-all w-full flex justify-center items-center gap-2">
+						class="mt-2 bg-[#00234f] hover:bg-[#003d7a] text-[#c4e2f5] font-bold uppercase tracking-widest py-4 rounded-lg text-sm btn-glow font-mono transition-all w-full flex justify-center items-center gap-2 cursor-pointer">
 						<span>Send Message</span>
 					</button>
 					<div id="form-result"
@@ -236,7 +237,7 @@
 			</div>
 		</div>
 	</section>
-			<footer class="bg-[#00234f] border-t border-[#003d7a] pt-12 pb-6 mt-auto">
+				<footer class="bg-[#00234f] border-t border-[#003d7a] pt-12 pb-6 mt-auto">
 		<div class="container mx-auto px-4">
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#c4e2f5] text-sm">
 				<div class="md:col-span-1 flex flex-col items-start gap-4">

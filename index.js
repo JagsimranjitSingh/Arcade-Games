@@ -85,6 +85,10 @@ function resolveCleanRoute(urlPath, query = {}, fileExistsSync = fs.existsSync, 
 }
 
 app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   const resolution = resolveCleanRoute(req.path, req.query);
   if (!resolution) return next();
 
@@ -100,6 +104,8 @@ app.use((req, res, next) => {
 app.use(
   express.static(ROOT_DIR, {
     extensions: ['html'],
+    etag: false,
+    lastModified: false,
   })
 );
 
