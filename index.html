@@ -4,14 +4,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>FRESHPLAY ARCADE - Premium Web Games | No Fiction Instant Play</title>
+	<title>FreshPlay Arcade — Play 20+ Free Original HTML5 Browser Games | MyTopScore</title>
 	<meta name="description"
-		content="Play premium, high-energy HTML5 games instantly on FreshPlay Arcade. Zero fiction, no accounts needed. Drift in Tokyo or solve cosmic puzzles now.">
+		content="Play 20+ original HTML5 browser games instantly on FreshPlay Arcade (MyTopScore). Zero friction, no downloads or accounts needed. Explore Puzzle, Action, Survival, Physics, and Strategy games plus in-depth strategy guides.">
 	<link rel="canonical" href="https://mytopscore.com/">
+	<meta property="og:title" content="FreshPlay Arcade — Play 20+ Free Original HTML5 Browser Games | MyTopScore">
+	<meta property="og:description" content="Play 20+ original HTML5 browser games instantly on FreshPlay Arcade. Zero friction, no downloads, and in-depth gaming guides.">
 	<meta property="og:image" content="https://mytopscore.com/assets/images/logo.png">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="FRESHPLAY ARCADE - Instant Web Gaming | MyTopScore">
-	<meta name="twitter:description" content="Play the best HTML5 games instantly. Drift, shoot, solve. No friction.">
+	<meta name="twitter:title" content="FreshPlay Arcade — Instant HTML5 Web Gaming | MyTopScore">
+	<meta name="twitter:description" content="Play 20+ original HTML5 games instantly in your browser. Puzzle, Action, Survival, Physics & Strategy.">
 	<meta name="twitter:image" content="https://mytopscore.com/assets/images/logo.png">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://mytopscore.com/">
@@ -39,8 +41,9 @@
 		"@context": "https://schema.org",
 		"@type": "WebSite",
 		"name": "FreshPlay Arcade",
+		"alternateName": "MyTopScore",
 		"url": "https://mytopscore.com/",
-		"description": "Play premium, high-energy HTML5 games instantly on FreshPlay Arcade. Over 20 original browser games across puzzle, action, survival, physics and strategy categories. Zero downloads, no accounts needed.",
+		"description": "Play 20+ original HTML5 games instantly on FreshPlay Arcade. Puzzle, Action, Survival, Physics, Endless Runner, and Strategy browser games with zero downloads.",
 		"publisher": {
 			"@type": "Organization",
 			"name": "FreshPlay Studios",
@@ -55,19 +58,20 @@
 	</script>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen fp-ready">
 	<header class="bg-[#00234f] border-b border-[#003d7a] relative z-50">
 		<div class="container mx-auto px-4 h-20 md:h-20 flex items-center justify-between">
 			<a href="/" class="flex items-center group" aria-label="mytopscore Home">
-				<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
+				<img src="/assets/images/logo.png" alt="FreshPlay Arcade - MyTopScore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 			</a>
-			<nav class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-[#c4e2f5] uppercase"
-				aria-label="Main Navigation">
-				<a href="/category/all" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">New</a>
+			<nav class="hidden md:flex gap-6 lg:gap-8 text-xs font-semibold tracking-[0.2em] text-[#c4e2f5] uppercase" aria-label="Main Navigation">
+				<a href="/category/all" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">All Games</a>
 				<a href="/category/puzzle" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Puzzle</a>
 				<a href="/category/action" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Action</a>
 				<a href="/category/survival" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Survival</a>
 				<a href="/blog" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Blog</a>
+				<a href="/about" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">About</a>
+				<a href="/contact" class="hover:text-[#48d1cc] transition-all hover:-translate-y-1">Contact</a>
 			</nav>
 			<div class="hidden md:flex items-center gap-4">
 				<div class="search-container group">
@@ -114,60 +118,372 @@
 			</form>
 		</div>
 		<div class="flex flex-col gap-1 text-sm font-semibold tracking-widest text-[#64748b] uppercase px-2">
-			<a href="/category/all"
-				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">New</a>
-			<a href="/category/puzzle"
-				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">Puzzle</a>
-			<a href="/category/action"
-				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">Action</a>
-			<a href="/category/survival"
-				class="hover:text-[#00234f] hover:bg-[#003d7a] px-4 py-3.5 rounded transition-colors">Survival</a>
+			<a href="/category/all" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">All Games</a>
+			<a href="/category/puzzle" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Puzzle</a>
+			<a href="/category/action" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Action</a>
+			<a href="/category/survival" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Survival</a>
+			<a href="/category/physics-skill" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Physics &amp; Skill</a>
+			<a href="/category/strategy-idle" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Strategy &amp; Idle</a>
+			<a href="/blog" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Gaming Blog</a>
+			<a href="/about" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">About Us</a>
+			<a href="/contact" class="hover:text-[#00234f] hover:bg-[#e0f0fc] px-4 py-3 rounded transition-colors">Contact</a>
 		</div>
 	</nav>
 	<main class="flex-grow container mx-auto px-4 py-6">
+		<!-- Hero Intro Banner -->
+		<section class="bg-[#00234f] text-[#c4e2f5] rounded-xl p-6 md:p-8 mb-8 border border-[#003d7a] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+			<div class="max-w-2xl">
+				<span class="text-[10px] font-mono uppercase tracking-widest text-[#48d1cc] bg-[#003d7a] px-2.5 py-1 rounded">20 Original HTML5 Games · Instant Browser Play</span>
+				<h1 class="text-2xl md:text-3xl font-bold uppercase tracking-widest font-liberation mt-3 mb-2 text-white">FreshPlay Arcade — Instant Web Gaming</h1>
+				<p class="text-xs md:text-sm text-[#94a3b8] leading-relaxed">Handcrafted HTML5 &amp; Phaser browser games engineered for 60 FPS desktop and mobile play. Dive straight into reflex action, spatial logic puzzles, survival adventures, and strategy simulations — zero downloads or sign-ups required.</p>
+			</div>
+			<div class="flex flex-wrap gap-3 shrink-0">
+				<a href="/category/all" class="bg-[#48d1cc] text-[#00234f] font-bold text-xs px-5 py-3 rounded uppercase tracking-widest font-mono hover:bg-white transition-colors">Explore All 20 Games</a>
+				<a href="/blog" class="border border-[#48d1cc] text-[#c4e2f5] font-bold text-xs px-5 py-3 rounded uppercase tracking-widest font-mono hover:bg-[#003d7a] transition-colors">Read Strategy Guides</a>
+			</div>
+		</section>
+
 		<!-- Main + Sidebar Layout -->
 		<div class="flex flex-col lg:flex-row gap-6">
-			<div class="w-full lg:w-3/4 flex flex-col gap-6">
+			<div class="w-full lg:w-3/4 flex flex-col gap-8">
 				<!-- Trending Section -->
 				<section>
 					<div class="flex items-center justify-between mb-4 border-b border-[#e2e8f0] pb-2">
-						<h2
-							class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
+						<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
 							<svg class="w-5 h-5 text-[#48d1cc]" fill="currentColor" viewBox="0 0 20 20">
-								<path
-									d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 0011.95 4.95c.592-.591.98-1.318 1.22-2.065.238-.74.34-1.556.271-2.432-.07-.873-.325-1.822-.794-2.867a1 1 0 00-.567-.567 7.003 7.003 0 00-2.685-.466z" />
+								<path d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 0011.95 4.95c.592-.591.98-1.318 1.22-2.065.238-.74.34-1.556.271-2.432-.07-.873-.325-1.822-.794-2.867a1 1 0 00-.567-.567 7.003 7.003 0 00-2.685-.466z" />
 							</svg>
 							Trending Now
 						</h2>
+						<a href="/category/all" class="text-[11px] font-mono text-[#00234f] hover:text-[#48d1cc] uppercase tracking-widest font-bold">Full Library →</a>
 					</div>
-					<div id="trending-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4" data-skeleton="trending"
-						data-skeleton-count="2"></div>
+					<div id="trending-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+						<a href="/game/neon-blade-dash" class="flex bg-white border border-[#e2e8f0] rounded-[12px] overflow-hidden card-glow group transition-all">
+							<img src="/assets/images/neon-blade-ci.png" alt="Neon Blade Dash" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+							<div class="w-2/3 p-4 md:p-5 flex flex-col justify-center">
+								<span class="text-[#48d1cc] text-[10px] font-mono uppercase mb-1 tracking-wider">Action</span>
+								<h3 class="font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors truncate mb-1.5">Neon Blade Dash</h3>
+								<p class="text-xs text-[#00234f] line-clamp-2 mb-2 leading-relaxed">Swipe to slice incoming glowing geometric shapes while dodging red glitch blocks. Fast-paced reflex action with shifting cyber-palettes.</p>
+								<span class="text-[10px] font-mono text-[#94a3b8]">🔥 1.2M Plays · 4.9 ★</span>
+							</div>
+						</a>
+
+						<a href="/game/chroma-sort" class="flex bg-white border border-[#e2e8f0] rounded-[12px] overflow-hidden card-glow group transition-all">
+							<img src="/assets/images/chroma-sort-ci.png" alt="Chroma Sort" class="w-1/3 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+							<div class="w-2/3 p-4 md:p-5 flex flex-col justify-center">
+								<span class="text-[#48d1cc] text-[10px] font-mono uppercase mb-1 tracking-wider">Puzzle</span>
+								<h3 class="font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors truncate mb-1.5">Chroma Sort</h3>
+								<p class="text-xs text-[#00234f] line-clamp-2 mb-2 leading-relaxed">Pour mixed neon liquids between test tubes until each tube contains only one solid color.</p>
+								<span class="text-[10px] font-mono text-[#94a3b8]">🔥 1.5M Plays · 4.9 ★</span>
+							</div>
+						</a>
+					</div>
 				</section>
-				<!-- Ad Banners between Trending and All Games -->
-				<div class="flex justify-center w-full">
-					<div class="ad-slot ad-leaderboard w-full max-w-4xl" aria-label="Advertisement">
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
-							data-ad-slot="3136452347" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
-						<script>
-							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
-					</div>
-				</div>
+
 				<!-- All Games Section -->
 				<section>
 					<div class="flex items-center justify-between mb-4 border-b border-[#e2e8f0] pb-2">
-						<h2
-							class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
-							All Games
+						<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
+							All Original Games
 						</h2>
-						<span id="game-count" class="text-[10px] font-mono text-[#64748b] uppercase tracking-widest"></span>
+						<span id="game-count" class="text-[10px] font-mono text-[#64748b] uppercase tracking-widest">18 Games</span>
 					</div>
-					<div id="all-games-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4"
-						data-skeleton="card" data-skeleton-count="12"></div>
+					<div id="all-games-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
+
+						<a href="/game/orbit-striker" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/orbit-striker-ci.png" alt="Orbit Striker" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Orbit Striker</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Action</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/hyper-hexagon" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/hyper-hexagon-ci.png" alt="Hyper Hexagon" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Hyper Hexagon</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Action</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/glitch-jumper" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/glitch-jumper-ci.png" alt="Glitch Jumper" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Glitch Jumper</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Action</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/hexa-merge" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/hexa-merge-ci.png" alt="Hexa Merge" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Hexa Merge</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Puzzle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/light-linker" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/light-linker-ci.png" alt="Light Linker" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Light Linker</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Puzzle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/block-unblock" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/block-unblock-ci.png" alt="Block Unblock" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Block Unblock</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Puzzle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/neon-rider" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/neon-rider-ci.png" alt="Neon Rider" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Neon Rider</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Endless Runner</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/space-scavenger" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/space-ci.png" alt="Space Scavenger" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Space Scavenger</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Survival</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/rooftop-cyber-punk" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/rooftop-ci.png" alt="Rooftop Cyber Punk" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Rooftop Cyber Punk</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Endless Runner</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/deep-dive" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/deep-dive-ci.png" alt="Deep Dive" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Deep Dive</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Survival</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/neon-pinball" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/neon-pinball-ci.png" alt="Neon Pinball" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Neon Pinball</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Physics &amp; Skill</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/sling-drift" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/sling-drift-ci.png" alt="Sling Drift" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Sling Drift</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Physics &amp; Skill</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/stack-builder" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/stack-builder-ci.png" alt="Stack Builder" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Stack Builder</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Physics &amp; Skill</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/cannon-basketball" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/cannon-ball-ci.png" alt="Cannon Basketball" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Cannon Basketball</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Physics &amp; Skill</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/idle-arcade-tycoon" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/idle-arcade-ci.png" alt="Idle Arcade Tycoon" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Idle Arcade Tycoon</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Strategy &amp; Idle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/merge-weapons" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/merge-wepons-ci.png" alt="Merge Weapons" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Merge Weapons</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Strategy &amp; Idle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/tower-defense-minimal" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/tower-defense-ci.png" alt="Tower Defense Minimal" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Tower Defense Minimal</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Strategy &amp; Idle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+
+						<a href="/game/clicker-miner" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
+							<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
+								<img src="/assets/images/clicker-miner-ci.png" alt="Clicker Miner" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+									<span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
+								</div>
+							</div>
+							<div class="p-2 pl-3 flex items-center">
+								<div class="flex-1 min-w-0 pr-2">
+									<h3 class="font-bold text-sm text-[#00234f] truncate">Clicker Miner</h3>
+									<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase tracking-wider">Strategy &amp; Idle</p>
+								</div>
+								<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+							</div>
+						</a>
+					</div>
 				</section>
+
+				<!-- Single Non-Intrusive Ad Slot Below Substantial Game Content -->
 				<div class="flex justify-center w-full my-2">
-					<div class="ad-slot ad-leaderboard w-full max-w-3xl border-[#e2e8f0] text-[#94a3b8]"
-						aria-label="Advertisement">
+					<div class="ad-slot ad-leaderboard w-full max-w-3xl" aria-label="Advertisement">
 						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
 							data-ad-slot="3136452347" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
 						<script>
@@ -176,39 +492,206 @@
 					</div>
 				</div>
 			</div>
+
 			<aside class="w-full lg:w-1/4">
 				<div class="flex flex-col gap-6 lg:sticky lg:top-20">
 					<div class="bg-white border border-[#e2e8f0] rounded p-5">
-						<h3
-							class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-l-2 border-[#48d1cc] pl-3 font-liberation">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-l-2 border-[#48d1cc] pl-3 font-liberation">
 							Hot Categories</h3>
-						<ul class="space-y-1 text-xs font-mono" data-skeleton="category-link" data-skeleton-count="5"></ul>
-					</div>
-					<div class="ad-slot ad-square w-full border-[#e2e8f0] rounded p-2 text-center" aria-label="Advertisement">
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7922397649195717"
-							data-ad-slot="2864989601" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
-						<script>
-							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
+						<ul class="space-y-1 text-xs font-mono">
+
+							<li>
+								<a href="/category/action" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
+									<span class="uppercase">Action</span>
+									<span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">4</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="/category/puzzle" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
+									<span class="uppercase">Puzzle</span>
+									<span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">4</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="/category/endless-runner" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
+									<span class="uppercase">Endless Runner</span>
+									<span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">2</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="/category/survival" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
+									<span class="uppercase">Survival</span>
+									<span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">2</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="/category/physics-skill" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
+									<span class="uppercase">Physics &amp; Skill</span>
+									<span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">4</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="/category/strategy-idle" class="flex justify-between items-center py-2 px-1 rounded hover:bg-[#e0f0fc] text-[#00234f] hover:text-[#00234f] transition-colors">
+									<span class="uppercase">Strategy &amp; Idle</span>
+									<span class="bg-[#00234f] text-[#f0f4f8] px-1.5 py-0.5 rounded text-[10px]">4</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 					<div class="bg-white border border-[#e2e8f0] rounded p-5">
-						<h3
-							class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-l-2 border-[#48d1cc] pl-3 font-liberation">
+						<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 border-l-2 border-[#48d1cc] pl-3 font-liberation">
 							Top Played</h3>
-						<div class="space-y-4" data-skeleton="list-item" data-skeleton-count="5"></div>
+						<div class="space-y-4">
+
+							<a href="/game/idle-arcade-tycoon" class="flex items-center gap-4 group transition-colors hover:bg-[#c4e2f5]/50 p-1.5 rounded">
+								<span class="text-3xl font-extrabold text-[#48d1cc] font-mono italic w-8 text-right drop-shadow-[0_0_8px_rgba(72,209,204,0.5)]">1</span>
+								<img src="/assets/images/idle-arcade-ci.png" alt="Idle Arcade Tycoon" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#48d1cc]" loading="lazy">
+								<div>
+									<h4 class="text-xs font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors line-clamp-1">Idle Arcade Tycoon</h4>
+									<p class="text-[9px] text-[#94a3b8] font-mono uppercase tracking-wider mt-0.5">Strategy &amp; Idle</p>
+								</div>
+							</a>
+
+							<a href="/game/rooftop-cyber-punk" class="flex items-center gap-4 group transition-colors hover:bg-[#c4e2f5]/50 p-1.5 rounded">
+								<span class="text-3xl font-extrabold text-[#48d1cc] font-mono italic w-8 text-right opacity-80 drop-shadow-[0_0_8px_rgba(72,209,204,0.3)]">2</span>
+								<img src="/assets/images/rooftop-ci.png" alt="Rooftop Cyber Punk" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#48d1cc]" loading="lazy">
+								<div>
+									<h4 class="text-xs font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors line-clamp-1">Rooftop Cyber Punk</h4>
+									<p class="text-[9px] text-[#94a3b8] font-mono uppercase tracking-wider mt-0.5">Endless Runner</p>
+								</div>
+							</a>
+
+							<a href="/game/sling-drift" class="flex items-center gap-4 group transition-colors hover:bg-[#c4e2f5]/50 p-1.5 rounded">
+								<span class="text-3xl font-extrabold text-[#48d1cc] font-mono italic w-8 text-right opacity-60">3</span>
+								<img src="/assets/images/sling-drift-ci.png" alt="Sling Drift" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#48d1cc]" loading="lazy">
+								<div>
+									<h4 class="text-xs font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors line-clamp-1">Sling Drift</h4>
+									<p class="text-[9px] text-[#94a3b8] font-mono uppercase tracking-wider mt-0.5">Physics &amp; Skill</p>
+								</div>
+							</a>
+
+							<a href="/game/hyper-hexagon" class="flex items-center gap-4 group transition-colors hover:bg-[#c4e2f5]/50 p-1.5 rounded">
+								<span class="text-3xl font-extrabold text-[#48d1cc] font-mono italic w-8 text-right opacity-40">4</span>
+								<img src="/assets/images/hyper-hexagon-ci.png" alt="Hyper Hexagon" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#48d1cc]" loading="lazy">
+								<div>
+									<h4 class="text-xs font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors line-clamp-1">Hyper Hexagon</h4>
+									<p class="text-[9px] text-[#94a3b8] font-mono uppercase tracking-wider mt-0.5">Action</p>
+								</div>
+							</a>
+
+							<a href="/game/merge-weapons" class="flex items-center gap-4 group transition-colors hover:bg-[#c4e2f5]/50 p-1.5 rounded">
+								<span class="text-3xl font-extrabold text-[#48d1cc] font-mono italic w-8 text-right opacity-20">5</span>
+								<img src="/assets/images/merge-wepons-ci.png" alt="Merge Weapons" class="w-16 h-12 rounded object-cover border border-[#e2e8f0] group-hover:border-[#48d1cc]" loading="lazy">
+								<div>
+									<h4 class="text-xs font-bold text-[#00234f] uppercase group-hover:text-[#48d1cc] transition-colors line-clamp-1">Merge Weapons</h4>
+									<p class="text-[9px] text-[#94a3b8] font-mono uppercase tracking-wider mt-0.5">Strategy &amp; Idle</p>
+								</div>
+							</a>
+						</div>
 					</div>
 				</div>
 			</aside>
 		</div>
+
+		<!-- Latest Gaming Guides & Editorial Articles Section -->
+		<section class="mt-14 pt-10 border-t border-[#e2e8f0]">
+			<div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+				<div>
+					<h2 class="text-xl font-bold text-[#00234f] uppercase tracking-widest font-liberation border-l-4 border-[#48d1cc] pl-3">
+						Latest Gaming Guides, Reviews &amp; Strategy Articles
+					</h2>
+					<p class="text-xs text-[#64748b] mt-1 pl-4">Original deep-dive guides, high-score strategies, and HTML5 technology insights written by the FreshPlay Editorial team.</p>
+				</div>
+				<a href="/blog" class="text-xs font-bold text-[#00234f] hover:text-[#48d1cc] uppercase tracking-widest font-mono shrink-0">View All 10 Guides →</a>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+					<a href="/blog/top-10-free-browser-games" class="group bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col">
+						<div class="aspect-video bg-[#c4e2f5] overflow-hidden">
+							<img src="/assets/images/neon-blade-ci.png" alt="Top 10 Free Browser Games You Can Play Right Now" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						</div>
+						<div class="p-5 flex-1 flex flex-col">
+							<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">Roundup · 2026-07-15</span>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-2 mb-2 group-hover:text-[#48d1cc] transition-colors">Top 10 Free Browser Games You Can Play Right Now</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed line-clamp-3 flex-1">Discover the best free HTML5 browser games available today. From fast-paced action to brain-teasing puzzles, these games deliver premium experiences without downloads.</p>
+							<span class="inline-block mt-4 text-[10px] font-bold text-[#00234f] uppercase tracking-widest font-mono group-hover:text-[#48d1cc] transition-colors">Read Full Guide →</span>
+						</div>
+					</a>
+
+					<a href="/blog/puzzle-games-that-challenge-your-brain" class="group bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col">
+						<div class="aspect-video bg-[#c4e2f5] overflow-hidden">
+							<img src="/assets/images/chroma-sort-ci.png" alt="Puzzle Games That Actually Challenge Your Brain" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						</div>
+						<div class="p-5 flex-1 flex flex-col">
+							<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">Guide · 2026-07-10</span>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-2 mb-2 group-hover:text-[#48d1cc] transition-colors">Puzzle Games That Actually Challenge Your Brain</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed line-clamp-3 flex-1">Move beyond simple match-three puzzles. These browser-based puzzle games require genuine problem-solving, spatial reasoning, and strategic thinking.</p>
+							<span class="inline-block mt-4 text-[10px] font-bold text-[#00234f] uppercase tracking-widest font-mono group-hover:text-[#48d1cc] transition-colors">Read Full Guide →</span>
+						</div>
+					</a>
+
+					<a href="/blog/rise-of-html5-gaming" class="group bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col">
+						<div class="aspect-video bg-[#c4e2f5] overflow-hidden">
+							<img src="/assets/images/glitch-jumper-ci.png" alt="The Rise of HTML5 Gaming: Why Browser Games Are Back" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						</div>
+						<div class="p-5 flex-1 flex flex-col">
+							<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">Industry · 2026-07-05</span>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-2 mb-2 group-hover:text-[#48d1cc] transition-colors">The Rise of HTML5 Gaming: Why Browser Games Are Back</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed line-clamp-3 flex-1">Flash is dead, but browser gaming is thriving. Learn how HTML5, WebGL, and modern JavaScript have created a new golden age of instant, accessible gaming.</p>
+							<span class="inline-block mt-4 text-[10px] font-bold text-[#00234f] uppercase tracking-widest font-mono group-hover:text-[#48d1cc] transition-colors">Read Full Guide →</span>
+						</div>
+					</a>
+
+					<a href="/blog/tips-to-master-neon-blade-dash" class="group bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col">
+						<div class="aspect-video bg-[#c4e2f5] overflow-hidden">
+							<img src="/assets/images/neon-blade-ci.png" alt="5 Tips to Master Neon Blade Dash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						</div>
+						<div class="p-5 flex-1 flex flex-col">
+							<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">Tips · 2026-06-28</span>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-2 mb-2 group-hover:text-[#48d1cc] transition-colors">5 Tips to Master Neon Blade Dash</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed line-clamp-3 flex-1">Struggling to get a high score in Neon Blade Dash? These five expert tips will help you slice through geometric shapes and dodge glitch blocks like a pro.</p>
+							<span class="inline-block mt-4 text-[10px] font-bold text-[#00234f] uppercase tracking-widest font-mono group-hover:text-[#48d1cc] transition-colors">Read Full Guide →</span>
+						</div>
+					</a>
+
+					<a href="/blog/best-action-games-for-quick-sessions" class="group bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col">
+						<div class="aspect-video bg-[#c4e2f5] overflow-hidden">
+							<img src="/assets/images/orbit-striker-ci.png" alt="Best Action Games for Quick Gaming Sessions" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						</div>
+						<div class="p-5 flex-1 flex flex-col">
+							<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">Roundup · 2026-06-20</span>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-2 mb-2 group-hover:text-[#48d1cc] transition-colors">Best Action Games for Quick Gaming Sessions</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed line-clamp-3 flex-1">Only have five minutes? These action games deliver maximum excitement in minimum time, perfect for breaks, commutes, and waiting rooms.</p>
+							<span class="inline-block mt-4 text-[10px] font-bold text-[#00234f] uppercase tracking-widest font-mono group-hover:text-[#48d1cc] transition-colors">Read Full Guide →</span>
+						</div>
+					</a>
+
+					<a href="/blog/how-html5-games-work" class="group bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col">
+						<div class="aspect-video bg-[#c4e2f5] overflow-hidden">
+							<img src="/assets/images/light-linker-ci.png" alt="How HTML5 Games Work: The Technology Behind Browser Gaming" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+						</div>
+						<div class="p-5 flex-1 flex flex-col">
+							<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">Technology · 2026-06-15</span>
+							<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-2 mb-2 group-hover:text-[#48d1cc] transition-colors">How HTML5 Games Work: The Technology Behind Browser Gaming</h3>
+							<p class="text-[#64748b] text-xs leading-relaxed line-clamp-3 flex-1">Ever wondered how games run directly in your browser? Here's a deep dive into the technology that makes modern browser gaming possible.</p>
+							<span class="inline-block mt-4 text-[10px] font-bold text-[#00234f] uppercase tracking-widest font-mono group-hover:text-[#48d1cc] transition-colors">Read Full Guide →</span>
+						</div>
+					</a>
+			</div>
+		</section>
 	</main>
+
 	<!-- SEO Content Section -->
-	<section class="bg-[#f0f4f8] border-t border-[#e2e8f0] py-16">
+	<section class="bg-[#f0f4f8] border-t border-[#e2e8f0] py-16 mt-12">
 		<div class="container mx-auto px-4 max-w-5xl">
 			<div class="text-center mb-12">
-				<h2 class="text-2xl md:text-3xl font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Welcome
-					to FreshPlay Arcade</h2>
-				<p class="text-[#64748b] text-sm md:text-base max-w-2xl mx-auto leading-relaxed">Your destination for premium
-					HTML5 browser games. No downloads, no sign-ups, no friction — just instant play.</p>
+				<h2 class="text-2xl md:text-3xl font-bold text-[#00234f] uppercase tracking-widest font-liberation mb-4">Welcome to FreshPlay Arcade</h2>
+				<p class="text-[#64748b] text-sm md:text-base max-w-2xl mx-auto leading-relaxed">Your destination for original HTML5 browser games. No downloads, no sign-ups, no friction — just instant play across desktop and mobile devices.</p>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6">
@@ -217,87 +700,46 @@
 							<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 						</svg>
 					</div>
-					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-3 font-liberation">Instant Play
-						Technology</h3>
-					<p class="text-[#64748b] text-xs leading-relaxed">Every game on FreshPlay Arcade is built with modern HTML5
-						and JavaScript technology. This means you can play directly in your browser on any device — desktop, tablet,
-						or mobile phone — without installing plugins, downloading apps, or creating accounts. Our games load in
-						seconds and run smoothly on Chrome, Firefox, Safari, and Edge.</p>
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-3 font-liberation">Instant Play Technology</h3>
+					<p class="text-[#64748b] text-xs leading-relaxed">Every game on FreshPlay Arcade is built with modern HTML5 Canvas, WebGL, and JavaScript technology. Play directly in your browser on desktop, tablet, or mobile phone without installing plugins, downloading apps, or creating accounts.</p>
 				</div>
 				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6">
 					<div class="w-10 h-10 bg-[#00234f] rounded flex items-center justify-center mb-4">
 						<svg width="20" height="20" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round"
-								d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
-							</path>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
 						</svg>
 					</div>
-					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-3 font-liberation">Original Game
-						Library</h3>
-					<p class="text-[#64748b] text-xs leading-relaxed">Our curated library features over 20 original games
-						developed by FreshPlay Studios. From brain-teasing puzzle games like Chroma Sort and Block Unblock, to
-						high-octane action titles like Neon Blade Dash and Glitch Jumper, to relaxing idle experiences like Clicker
-						Miner and Idle Arcade Tycoon — there is something for every type of gamer. Each game is handcrafted with
-						unique mechanics and polished visuals.</p>
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-3 font-liberation">Original Game Library</h3>
+					<p class="text-[#64748b] text-xs leading-relaxed">Our curated library features 20 original games developed by FreshPlay Studios. From logic puzzles like Chroma Sort and Block Unblock to high-speed action titles like Neon Blade Dash and Glitch Jumper, every game includes comprehensive controls and pro strategy guides.</p>
 				</div>
 				<div class="bg-white rounded-lg border border-[#e2e8f0] p-6">
 					<div class="w-10 h-10 bg-[#00234f] rounded flex items-center justify-center mb-4">
 						<svg width="20" height="20" fill="none" stroke="#48d1cc" stroke-width="2" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round"
-								d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
-							</path>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
 						</svg>
 					</div>
-					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-3 font-liberation">Safe & Private
-						Gaming</h3>
-					<p class="text-[#64748b] text-xs leading-relaxed">FreshPlay Arcade is committed to a safe, ad-supported gaming
-						experience. We do not require user registration or collect personal data beyond standard analytics. All
-						games run in sandboxed environments within your browser. Our platform is family-friendly and suitable for
-						all ages. We maintain strict content standards to ensure every game on our portal meets quality and safety
-						guidelines.</p>
+					<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-3 font-liberation">Safe &amp; Private Gaming</h3>
+					<p class="text-[#64748b] text-xs leading-relaxed">FreshPlay Arcade is committed to a safe, family-friendly browser gaming experience. We do not require user registration or collect personal data to play. All games run inside sandboxed browser environments and save progress locally on your device.</p>
 				</div>
 			</div>
 			<div class="bg-white rounded-lg border border-[#e2e8f0] p-8">
-				<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 font-liberation">About FreshPlay
-					Arcade</h3>
+				<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-widest mb-4 font-liberation">About FreshPlay Arcade</h3>
 				<div class="text-[#64748b] text-xs leading-relaxed space-y-4">
-					<p>FreshPlay Arcade is a premium online gaming portal dedicated to delivering the best HTML5 browser gaming
-						experience on the web. Founded by a team of passionate game developers and web engineers, our mission is
-						simple: provide instant access to high-quality, original games that anyone can enjoy — anywhere, anytime, on
-						any device.</p>
-					<p>Unlike traditional gaming platforms that require large downloads or expensive hardware, FreshPlay Arcade
-						leverages the power of modern web technologies including HTML5 Canvas, WebGL, and the Phaser game engine to
-						deliver console-quality experiences directly in your browser. Whether you are commuting on your phone,
-						taking a break at your desk, or relaxing on the couch with a tablet, our games are designed to adapt
-						perfectly to your screen size and input method.</p>
-					<p>Our game library spans six major categories: <strong>Puzzle</strong> games that challenge your logic and
-						spatial reasoning, <strong>Action</strong> titles that test your reflexes and reaction time,
-						<strong>Survival</strong> adventures that push your resource management skills, <strong>Endless
-							Runner</strong> games for quick pick-up-and-play sessions, <strong>Physics &amp; Skill</strong> challenges
-						that reward precision and timing, and <strong>Strategy &amp; Idle</strong> games for players who enjoy
-						building and optimizing systems over time.</p>
-					<p>Every game in our collection is an original creation by FreshPlay Studios. We do not host third-party or
-						re-skinned games. Each title goes through extensive playtesting and quality assurance to ensure smooth
-						gameplay, responsive controls on both desktop and mobile, and engaging progression systems that keep players
-						coming back. Our games feature original soundtracks, hand-designed levels, and carefully tuned difficulty
-						curves.</p>
-					<p>FreshPlay Arcade is free to play and supported by advertising. We believe that great games should be
-						accessible to everyone, regardless of budget. Our platform is optimized for performance and loads quickly
-						even on slower connections. We regularly add new games and update existing ones based on player feedback.
-						Join millions of players worldwide who have discovered the joy of instant, friction-free browser gaming at
-						FreshPlay Arcade.</p>
+					<p>FreshPlay Arcade (MyTopScore.com) is an online gaming portal dedicated to delivering original HTML5 browser games and in-depth player guides. Founded by a team of game designers and web engineers at FreshPlay Studios, our mission is to provide instant access to polished, original games that anyone can enjoy on any modern device.</p>
+					<p>Unlike traditional gaming platforms that require large downloads or dedicated hardware, FreshPlay Arcade leverages HTML5 Canvas, WebGL, and the Phaser game engine to deliver 60 FPS gameplay directly in your browser. Whether you are taking a quick break at your desk or playing on a smartphone or tablet, our games adapt automatically to your screen size and input method.</p>
+					<p>Our library spans six major genres: <a href="/category/puzzle" class="text-[#00234f] font-bold hover:text-[#48d1cc] underline">Puzzle</a> games that challenge spatial reasoning and logic, <a href="/category/action" class="text-[#00234f] font-bold hover:text-[#48d1cc] underline">Action</a> titles that test reflexes and timing, <a href="/category/survival" class="text-[#00234f] font-bold hover:text-[#48d1cc] underline">Survival</a> adventures focused on hazard avoidance and resource management, <a href="/category/endless-runner" class="text-[#00234f] font-bold hover:text-[#48d1cc] underline">Endless Runner</a> courses for fast-paced sessions, <a href="/category/physics-skill" class="text-[#00234f] font-bold hover:text-[#48d1cc] underline">Physics &amp; Skill</a> challenges that reward precision trajectories, and <a href="/category/strategy-idle" class="text-[#00234f] font-bold hover:text-[#48d1cc] underline">Strategy &amp; Idle</a> games for players who love building and optimizing systems.</p>
 				</div>
 			</div>
 		</div>
 	</section>
-		<footer class="bg-[#00234f] border-t border-[#003d7a] pt-12 pb-6 mt-auto">
+	<footer class="bg-[#00234f] border-t border-[#003d7a] pt-12 pb-6 mt-auto">
 		<div class="container mx-auto px-4">
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-[#c4e2f5] text-sm">
 				<div class="md:col-span-1 flex flex-col items-start gap-4">
 					<a href="/" class="flex items-center group" aria-label="mytopscore Home">
-						<img src="/assets/images/logo.png" alt="mytopscore logo" class="h-16 md:h-20 w-auto object-contain py-2">
+						<img src="/assets/images/logo.png" alt="FreshPlay Arcade - MyTopScore logo" class="h-16 md:h-20 w-auto object-contain py-2">
 					</a>
-					<p class="text-xs max-w-sm leading-relaxed text-[#94a3b8]">MyTopScore / FreshPlay Arcade — Premium HTML5 browser gaming portal. Free instant play across puzzle, action, and survival genres with zero downloads.</p>
+					<p class="text-xs max-w-sm leading-relaxed text-[#94a3b8]">MyTopScore / FreshPlay Arcade — Original HTML5 browser gaming portal by FreshPlay Studios. Free instant play across puzzle, action, survival, physics, and strategy genres with zero downloads.</p>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Popular Games</h4>
@@ -313,44 +755,37 @@
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Categories &amp; Guides</h4>
 					<ul class="space-y-1.5 text-xs text-[#94a3b8]">
-						<li><a href="/category/all" class="hover:text-[#48d1cc] transition-colors">All Games Library</a></li>
+						<li><a href="/category/all" class="hover:text-[#48d1cc] transition-colors">All Games Library (20)</a></li>
 						<li><a href="/category/puzzle" class="hover:text-[#48d1cc] transition-colors">Brain &amp; Puzzle Games</a></li>
 						<li><a href="/category/action" class="hover:text-[#48d1cc] transition-colors">Action &amp; Reflex Games</a></li>
-						<li><a href="/category/survival" class="hover:text-[#48d1cc] transition-colors">Survival &amp; Strategy Games</a></li>
+						<li><a href="/category/survival" class="hover:text-[#48d1cc] transition-colors">Survival Adventures</a></li>
+						<li><a href="/category/physics-skill" class="hover:text-[#48d1cc] transition-colors">Physics &amp; Skill Games</a></li>
+						<li><a href="/category/strategy-idle" class="hover:text-[#48d1cc] transition-colors">Strategy &amp; Idle Games</a></li>
 						<li><a href="/blog" class="hover:text-[#48d1cc] transition-colors">Gaming Blog &amp; Guides</a></li>
 					</ul>
 				</div>
 				<div>
 					<h4 class="text-[#c4e2f5] font-bold text-xs tracking-widest uppercase mb-4 border-l border-[#48d1cc] pl-2 font-liberation">Company &amp; Trust</h4>
 					<ul class="space-y-1.5 text-xs text-[#94a3b8]">
-						<li><a href="/about" class="hover:text-[#48d1cc] transition-colors">About Our Studio</a></li>
+						<li><a href="/about" class="hover:text-[#48d1cc] transition-colors">About FreshPlay Studios</a></li>
 						<li><a href="/contact" class="hover:text-[#48d1cc] transition-colors">Contact &amp; Support</a></li>
 						<li><a href="/terms" class="hover:text-[#48d1cc] transition-colors">Terms of Service</a></li>
 						<li><a href="/privacy-policy" class="hover:text-[#48d1cc] transition-colors">Privacy Policy</a></li>
+						<li><a href="mailto:support@mytopscore.com" class="hover:text-[#48d1cc] transition-colors">support@mytopscore.com</a></li>
 					</ul>
 				</div>
 			</div>
 			<div class="border-t border-[#003d7a] pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-[#c4e2f5] font-mono tracking-wider">
-				<p>&copy; 2026 MyTopScore / FreshPlay Arcade. All rights reserved. Platform optimized for modern web browsers.</p>
-				<div class="flex gap-4 mt-4 md:mt-0 items-center">
-					<a href="#" class="hover:text-[#48d1cc]" aria-label="FreshPlay Arcade on Twitter">
-						<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-						</svg>
-					</a>
-					<a href="#" class="hover:text-[#48d1cc]" aria-label="FreshPlay Arcade on Facebook">
-						<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
-						</svg>
-					</a>
+				<p>&copy; 2026 MyTopScore / FreshPlay Arcade (FreshPlay Studios). All rights reserved.</p>
+				<div class="flex gap-6 mt-4 md:mt-0 items-center text-[11px] text-[#94a3b8]">
+					<a href="/about" class="hover:text-[#48d1cc] transition-colors">Studio Info</a>
+					<a href="/blog" class="hover:text-[#48d1cc] transition-colors">Editorial Guides</a>
+					<a href="/contact" class="hover:text-[#48d1cc] transition-colors">Report a Bug</a>
 				</div>
 			</div>
 		</div>
 	</footer>
-	<script src="/assets/js/skeleton.js" defer></script>
 	<script src="/assets/js/main.js" defer></script>
-	<script>document.addEventListener('DOMContentLoaded', () => document.body.classList.add('fp-ready'));</script>
-	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 
 </html>

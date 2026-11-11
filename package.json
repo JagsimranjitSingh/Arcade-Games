@@ -1,0 +1,13 @@
+{
+  "name": "freshplay-arcade",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js",
+    "build": "node scripts/prerender-portal.js && node --check index.js",
+    "lint": "node --check index.js && node --check scripts/prerender-portal.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

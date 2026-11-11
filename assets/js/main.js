@@ -3,7 +3,7 @@ function getGameUrl(gameId) {
 }
 
 function getCategoryUrl(categoryName) {
-	if (categoryName.toLowerCase() === 'all') return '/explore.html';
+	if (!categoryName || categoryName.toLowerCase() === 'all') return '/category/all';
 	// Normalize to clean slug: "Physics & Skill" → "physics-skill"
 	const slug = categoryName.toLowerCase()
 		.replace(/&/g, '')
@@ -13,6 +13,7 @@ function getCategoryUrl(categoryName) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+	document.body.classList.add('fp-ready');
 	// ==========================================
 	// 1. MOBILE MENU LOGIC
 	// ==========================================
@@ -306,99 +307,114 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 		const categoryNames = Object.keys(categories);
-		let visibleCount = 2;
+		let visibleCount = categoryNames.length;
 
 		function slugify(str) {
 			return str.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 		}
 
-		function renderCategories(filter = 'all') {
+		function renderCategories(filter = 'all', searchQuery = '') {
 			container.innerHTML = '';
+
+			if (searchQuery) {
+				const term = searchQuery.toLowerCase().trim();
+				const matchedGames = games.filter(g =>
+					g.title.toLowerCase().includes(term) ||
+					g.category.toLowerCase().includes(term) ||
+					g.description.toLowerCase().includes(term) ||
+					(g.seo_keywords && g.seo_keywords.some(k => k.toLowerCase().includes(term)))
+				);
+				const sectionHtml = `
+					<section class="mb-12 explore-category-section">
+						<div class="flex justify-between items-center mb-6 pb-2 border-b border-[#cbd5e1]">
+							<h2 class="text-xl font-bold text-[#00234f] uppercase tracking-widest font-liberation border-l-4 border-[#48d1cc] pl-3">
+								Search Results for "${term.replace(/"/g, '&quot;')}" (${matchedGames.length})
+							</h2>
+							<a href="/category/all" class="text-xs font-bold text-[#00234f] hover:text-[#48d1cc] uppercase tracking-widest font-mono">Clear Search →</a>
+						</div>
+						${matchedGames.length === 0 ? `<p class="text-sm text-[#64748b] font-mono">No games matched your search. Browse all categories below.</p>` : `
+						<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+							${matchedGames.map(g => `
+								<div class="bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 group">
+									<div class="aspect-[4/3] bg-[#c4e2f5] overflow-hidden relative">
+										<img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+										<span class="absolute top-2 right-2 bg-[#00234f]/90 text-[#c4e2f5] text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase">${g.rating} ★</span>
+									</div>
+									<div class="p-4">
+										<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">${g.category}</span>
+										<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-1 group-hover:text-[#48d1cc] transition-colors">${g.title}</h3>
+										<p class="text-xs text-[#64748b] mt-1.5 line-clamp-2 leading-relaxed">${g.description}</p>
+										<div class="flex items-center justify-between mt-4 pt-3 border-t border-[#e2e8f0]">
+											<span class="text-[10px] text-[#94a3b8] font-mono">${g.play_count} Plays</span>
+											<a href="${getGameUrl(g.id)}" class="bg-[#00234f] text-[#c4e2f5] hover:bg-[#48d1cc] hover:text-[#00234f] font-bold text-xs px-3 py-1.5 rounded uppercase tracking-wider font-mono transition-colors">Play Now</a>
+										</div>
+									</div>
+								</div>
+							`).join('')}
+						</div>`}
+					</section>
+				`;
+				container.insertAdjacentHTML('beforeend', sectionHtml);
+				return;
+			}
 
 			let toShow = [];
 			if (filter === 'all') {
 				toShow = categoryNames.slice(0, visibleCount);
 			} else {
-				// Match by slug so URL like /category/physics-skill finds "PHYSICS & SKILL"
 				const filterSlug = slugify(filter);
 				toShow = categoryNames.filter(c => slugify(c) === filterSlug);
 			}
 
-			toShow.forEach((cat, index) => {
+			toShow.forEach((cat) => {
 				const catGames = categories[cat];
-
-				let emoji = '🎮';
-				if (cat.includes('ACTION')) emoji = '⚔️';
-				if (cat.includes('PUZZLE')) emoji = '🧩';
-				if (cat.includes('RUNNER')) emoji = '🏃';
-				if (cat.includes('SURVIVAL')) emoji = '🛡️';
+				const catSlug = slugify(cat);
 
 				const sectionHtml = `
-					<section class="mb-16 explore-category-section" data-category="${cat.toLowerCase()}">
-						<div class="flex items-center justify-between mb-6 border-b border-[#e2e8f0] pb-2">
-							<h2 class="text-lg font-bold flex items-center gap-2 uppercase tracking-widest text-[#00234f] font-liberation">
-								<span class="text-[#48d1cc]">${emoji}</span> ${cat} Games
+					<section class="mb-12 explore-category-section" id="category-${catSlug}" data-category="${cat.toLowerCase()}">
+						<div class="flex justify-between items-center mb-6 pb-2 border-b border-[#cbd5e1]">
+							<h2 class="text-xl font-bold text-[#00234f] uppercase tracking-widest font-liberation border-l-4 border-[#48d1cc] pl-3">
+								${cat} Games (${catGames.length})
 							</h2>
-							<div class="flex gap-2">
-								<div class="swiper-button-prev-${index} cursor-pointer p-1 text-[#64748b] hover:text-[#48d1cc] transition-colors" data-slider-index="${index}" aria-label="Scroll left">
-									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
-								</div>
-								<div class="swiper-button-next-${index} cursor-pointer p-1 text-[#64748b] hover:text-[#48d1cc] transition-colors" data-slider-index="${index}" aria-label="Scroll right">
-									<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
-								</div>
-							</div>
+							<a href="/category/${catSlug}" class="text-xs font-bold text-[#00234f] hover:text-[#48d1cc] uppercase tracking-widest font-mono">View Category →</a>
 						</div>
-						<div class="swiper swiper-${index}">
-							<div class="swiper-wrapper">
+						<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 							${catGames.map(g => `
-								<div class="swiper-slide">
-									<a href="${getGameUrl(g.id)}" class="game-card card-glow bg-white rounded-[12px] overflow-hidden flex flex-col border border-[#e2e8f0] transition-all">
-										<div class="aspect-video w-full bg-[#111] relative overflow-hidden group">
-                                                <img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity" loading="lazy">
-                                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-20">
-                                                    <span class="text-[#48d1cc] font-mono text-xs uppercase tracking-widest border border-[#48d1cc] px-2 py-1 bg-black/50 backdrop-blur-sm shadow-[0_0_10px_rgba(72,209,204,0.2)]">Play Now</span>
-                                                </div>
-                                            </div>
-										<div class="p-2 pl-3 flex items-center">
-											<div class="flex-1 min-w-0 pr-2">
-												<h3 class="font-bold text-sm text-[#00234f] truncate uppercase">${g.title}</h3>
-												<p class="text-[10px] text-[#64748b] font-mono mt-0.5 uppercase">${g.category}</p>
-											</div>
-											<div class="w-10 h-10 bg-[#00234f] rounded-lg flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-[#c4e2f5]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+								<div class="bg-white rounded-lg border border-[#e2e8f0] overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 group">
+									<div class="aspect-[4/3] bg-[#c4e2f5] overflow-hidden relative">
+										<img src="${g.thumbnail_url}" alt="${g.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+										<span class="absolute top-2 right-2 bg-[#00234f]/90 text-[#c4e2f5] text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase">${g.rating} ★</span>
+									</div>
+									<div class="p-4">
+										<span class="text-[10px] font-bold text-[#48d1cc] uppercase tracking-widest font-mono">${g.category}</span>
+										<h3 class="text-sm font-bold text-[#00234f] uppercase tracking-wider font-liberation mt-1 group-hover:text-[#48d1cc] transition-colors">${g.title}</h3>
+										<p class="text-xs text-[#64748b] mt-1.5 line-clamp-2 leading-relaxed">${g.description}</p>
+										<div class="flex items-center justify-between mt-4 pt-3 border-t border-[#e2e8f0]">
+											<span class="text-[10px] text-[#94a3b8] font-mono">${g.play_count} Plays</span>
+											<a href="${getGameUrl(g.id)}" class="bg-[#00234f] text-[#c4e2f5] hover:bg-[#48d1cc] hover:text-[#00234f] font-bold text-xs px-3 py-1.5 rounded uppercase tracking-wider font-mono transition-colors">Play Now</a>
 										</div>
-									</a>
+									</div>
 								</div>
 							`).join('')}
-							</div>
 						</div>
 					</section>
 				`;
 				container.insertAdjacentHTML('beforeend', sectionHtml);
 			});
 
-			document.dispatchEvent(new CustomEvent('initDynamicSwipers', { detail: { count: toShow.length } }));
-
 			const loadMoreBtn = document.getElementById('load-more-btn');
 			if (loadMoreBtn) {
-				if (filter !== 'all' || visibleCount >= categoryNames.length) {
-					loadMoreBtn.style.display = 'none';
-				} else {
-					loadMoreBtn.style.display = 'block';
-					loadMoreBtn.textContent = 'LOAD MORE CATEGORIES';
-					loadMoreBtn.disabled = false;
-					loadMoreBtn.style.opacity = '1';
-					loadMoreBtn.style.cursor = 'pointer';
-				}
+				loadMoreBtn.style.display = 'none';
 			}
 		}
 
 		const pathParts = window.location.pathname.split('/').filter(p => p);
+		const urlParams = new URLSearchParams(window.location.search);
+		const searchQuery = urlParams.get('q') || '';
 		let initialCategory = 'all';
 		if (pathParts.includes('category')) {
-			// Decode the slug from the URL to match against category names
-			initialCategory = decodeURIComponent(pathParts[pathParts.indexOf('category') + 1] || 'all');
+			initialCategory = decodeURIComponent(pathParts[pathParts.indexOf('category') + 1] || 'all').replace(/\.html$/, '');
 		} else {
-			const urlParams = new URLSearchParams(window.location.search);
 			initialCategory = urlParams.get('category') || 'all';
 		}
 
@@ -429,28 +445,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			newSelect.addEventListener('change', (e) => {
 				const val = e.target.value;
-				renderCategories(val);
-				window.history.pushState({}, '', getCategoryUrl(val));
+				window.location.href = getCategoryUrl(val);
 			});
 		}
 
-		renderCategories(initialCategory);
-
-		const loadMoreBtn = document.getElementById('load-more-btn');
-		if (loadMoreBtn) {
-			const newBtn = loadMoreBtn.cloneNode(true);
-			loadMoreBtn.parentNode.replaceChild(newBtn, loadMoreBtn);
-			newBtn.addEventListener('click', function () {
-				this.textContent = 'LOADING...';
-				this.disabled = true;
-				this.style.opacity = '0.5';
-				this.style.cursor = 'not-allowed';
-
-				setTimeout(() => {
-					visibleCount += 2;
-					renderCategories('all');
-				}, 400);
-			});
+		if (searchQuery || !container.dataset.staticRendered) {
+			renderCategories(initialCategory, searchQuery);
 		}
 	}
 

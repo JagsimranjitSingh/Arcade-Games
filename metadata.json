@@ -1,0 +1,8 @@
+{
+  "name": "FreshPlay Arcade",
+  "description": "Play premium, high-energy HTML5 games instantly on FreshPlay Arcade. Zero friction, no accounts needed.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

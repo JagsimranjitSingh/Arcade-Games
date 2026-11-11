@@ -26,7 +26,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^game/([a-zA-Z0-9_-]+)/?$ play.html?id=$1 [L,QSA]
 
-    # Route /category/{category_name} to /explore.html?category={category_name}
+    # Route /category/{category_name} to static pre-rendered page or fallback explore.html?category={category_name}
+    RewriteCond %{DOCUMENT_ROOT}/category/$1.html -f
+    RewriteRule ^category/([a-zA-Z0-9_-]+)/?$ category/$1.html [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^category/([a-zA-Z0-9_-]+)/?$ explore.html?category=$1 [L,QSA]

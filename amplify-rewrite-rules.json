@@ -17,7 +17,7 @@
     {
         "source": "/category/<*>",
         "status": "200",
-        "target": "/explore.html"
+        "target": "/category/<*>.html"
     },
     {
         "source": "/contact",

@@ -1,13 +1,16 @@
-User-agent: *
+User-agent: Mediapartners-Google
 Allow: /
 
-# Block internal template files (content served via clean URLs)
+User-agent: Googlebot
+Allow: /
+Disallow: /404.html
 Disallow: /play.html
-Disallow: /explore.html
 Disallow: /article.html
-Disallow: /blog.html
 
-# Block raw game assets (not for indexing)
-Disallow: /games/
+User-agent: *
+Allow: /
+Disallow: /404.html
+Disallow: /play.html
+Disallow: /article.html
 
 Sitemap: https://mytopscore.com/sitemap.xml

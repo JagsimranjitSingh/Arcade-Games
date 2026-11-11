@@ -17,7 +17,7 @@ body {
 	color: var(--text-main);
 	font-family: 'Inter', sans-serif;
 	overflow-x: hidden;
-	opacity: 0;
+	opacity: 1;
 	transition: opacity 0.15s ease-in;
 }
 
@@ -180,14 +180,14 @@ body.fp-ready {
 	border-radius: 2px;
 }
 
-/* Ad Slot Placeholders */
+/* Ad Slot Containers */
 .ad-slot {
-	background-color: var(--bg-card);
-	border: 1px dashed #3f3f46;
+	background-color: transparent;
+	border: none;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #52525b;
+	color: #64748b;
 	font-size: 0.7rem;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
@@ -201,27 +201,11 @@ body.fp-ready {
 }
 
 .ad-leaderboard {
-	height: 90px;
+	min-height: 90px;
 }
 
 .ad-square {
-	height: 250px;
-}
-
-@media (min-width: 768px) {
-	.ad-leaderboard {
-		min-width: 728px;
-	}
-
-	.ad-square {
-		min-width: 300px;
-	}
-}
-
-@media (max-width: 767px) {
-	.ad-leaderboard {
-		min-width: 320px;
-	}
+	min-height: 250px;
 }
 
 .hide-element {
