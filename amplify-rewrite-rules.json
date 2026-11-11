@@ -1,92 +1,147 @@
 [
-    {
-        "source": "/play",
-        "status": "301",
-        "target": "/category/all"
-    },
-    {
-        "source": "/play/",
-        "status": "301",
-        "target": "/category/all"
-    },
-    {
-        "source": "/game/<*>",
-        "status": "200",
-        "target": "/game/<*>.html"
-    },
-    {
-        "source": "/category/<*>",
-        "status": "200",
-        "target": "/category/<*>.html"
-    },
-    {
-        "source": "/contact",
-        "status": "200",
-        "target": "/contact.html"
-    },
-    {
-        "source": "/contact/",
-        "status": "200",
-        "target": "/contact.html"
-    },
-    {
-        "source": "/about",
-        "status": "200",
-        "target": "/about.html"
-    },
-    {
-        "source": "/about/",
-        "status": "200",
-        "target": "/about.html"
-    },
-    {
-        "source": "/terms",
-        "status": "200",
-        "target": "/terms.html"
-    },
-    {
-        "source": "/terms/",
-        "status": "200",
-        "target": "/terms.html"
-    },
-    {
-        "source": "/privacy-policy",
-        "status": "200",
-        "target": "/privacy.html"
-    },
-    {
-        "source": "/privacy-policy/",
-        "status": "200",
-        "target": "/privacy.html"
-    },
-    {
-        "source": "/404",
-        "status": "404",
-        "target": "/404.html"
-    },
-    {
-        "source": "/404/",
-        "status": "404",
-        "target": "/404.html"
-    },
-    {
-        "source": "/blog",
-        "status": "200",
-        "target": "/blog.html"
-    },
-    {
-        "source": "/blog/",
-        "status": "200",
-        "target": "/blog.html"
-    },
-    {
-        "source": "/blog/<*>",
-        "status": "200",
-        "target": "/blog/<*>.html"
-    },
-    {
-        "source": "/<*>",
-        "status": "404",
-        "target": "/404.html"
-    }
+  {
+    "source": "/play",
+    "status": "301",
+    "target": "/category/all"
+  },
+  {
+    "source": "/play/",
+    "status": "301",
+    "target": "/category/all"
+  },
+  {
+    "source": "/game/rooftop-cyber-runner",
+    "status": "301",
+    "target": "/game/rooftop-cyber-punk"
+  },
+  {
+    "source": "/game/gravity-flip",
+    "status": "301",
+    "target": "/game/glitch-jumper"
+  },
+  {
+    "source": "/game/shadow-dash",
+    "status": "301",
+    "target": "/game/neon-blade-dash"
+  },
+  {
+    "source": "/game/super-drift",
+    "status": "301",
+    "target": "/game/sling-drift"
+  },
+  {
+    "source": "/game/laser-bounce",
+    "status": "301",
+    "target": "/game/neon-pinball"
+  },
+  {
+    "source": "/game/cyber-dodge",
+    "status": "301",
+    "target": "/game/orbit-striker"
+  },
+  {
+    "source": "/game/neon-snake-evolved",
+    "status": "301",
+    "target": "/game/neon-rider"
+  },
+  {
+    "source": "/game/<*>",
+    "status": "200",
+    "target": "/game/<*>.html"
+  },
+  {
+    "source": "/category/<*>",
+    "status": "200",
+    "target": "/category/<*>.html"
+  },
+  {
+    "source": "/explore",
+    "status": "200",
+    "target": "/explore.html"
+  },
+  {
+    "source": "/explore/",
+    "status": "200",
+    "target": "/explore.html"
+  },
+  {
+    "source": "/contact",
+    "status": "200",
+    "target": "/contact.html"
+  },
+  {
+    "source": "/contact/",
+    "status": "200",
+    "target": "/contact.html"
+  },
+  {
+    "source": "/about",
+    "status": "200",
+    "target": "/about.html"
+  },
+  {
+    "source": "/about/",
+    "status": "200",
+    "target": "/about.html"
+  },
+  {
+    "source": "/terms",
+    "status": "200",
+    "target": "/terms.html"
+  },
+  {
+    "source": "/terms/",
+    "status": "200",
+    "target": "/terms.html"
+  },
+  {
+    "source": "/privacy-policy",
+    "status": "200",
+    "target": "/privacy.html"
+  },
+  {
+    "source": "/privacy-policy/",
+    "status": "200",
+    "target": "/privacy.html"
+  },
+  {
+    "source": "/privacy",
+    "status": "200",
+    "target": "/privacy.html"
+  },
+  {
+    "source": "/privacy/",
+    "status": "200",
+    "target": "/privacy.html"
+  },
+  {
+    "source": "/404",
+    "status": "404",
+    "target": "/404.html"
+  },
+  {
+    "source": "/404/",
+    "status": "404",
+    "target": "/404.html"
+  },
+  {
+    "source": "/blog",
+    "status": "200",
+    "target": "/blog.html"
+  },
+  {
+    "source": "/blog/",
+    "status": "200",
+    "target": "/blog.html"
+  },
+  {
+    "source": "/blog/<*>",
+    "status": "200",
+    "target": "/blog/<*>.html"
+  },
+  {
+    "source": "/<*>",
+    "status": "404",
+    "target": "/404.html"
+  }
 ]
